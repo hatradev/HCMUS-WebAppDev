@@ -1,0 +1,50 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: $font-family-primary;
+  @include font($font-size-primary, 400, $color-text-dark, 1.5);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: $color-text-dark;
+}
+
+button {
+  border: none;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+  border: none;
+}
