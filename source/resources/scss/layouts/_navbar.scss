@@ -1,0 +1,24 @@
+a {
+    font-size: 14px;
+    font-weight: 700
+}
+
+.superNav {
+    font-size: 13px;
+}
+
+.form-control {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.bg-color-1{
+    background-color: 86A789;
+}
+
+
+@media screen and (max-width:540px) {
+    .centerOnMobile {
+        text-align: center
+    }
+}

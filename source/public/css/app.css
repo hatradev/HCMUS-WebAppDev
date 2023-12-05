@@ -1,0 +1,39 @@
+.bg-color-1 {
+  background-color: 86A789; }
+
+.bg-color-2 {
+  background-color: B2C8BA; }
+
+.bg-color-3 {
+  background-color: D2E3C8; }
+
+.bg-color-4 {
+  background-color: EBF3E8; }
+
+a {
+  font-size: 14px;
+  font-weight: 700; }
+
+.superNav {
+  font-size: 13px; }
+
+.form-control {
+  outline: none !important;
+  box-shadow: none !important; }
+
+.bg-color-1 {
+  background-color: 86A789; }
+
+@media screen and (max-width: 540px) {
+  .centerOnMobile {
+    text-align: center; } }
+
+@media (min-width: 1025px) {
+  .h-custom {
+    height: 100vh !important; } }
+
+.btn-checkout {
+  width: 100%; }
+
+.checkout-hover:hover {
+  background-color: B2C8BA; }
