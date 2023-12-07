@@ -15,32 +15,32 @@
             </div>
         </div>
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-            <div class="ms-auto d-none d-lg-block">
-                <div class="input-group">
-                    <span class="border-warning input-group-text bg-warning text-white"><i
-                            class="fa-solid fa-magnifying-glass"></i></span>
-                    <input type="text" class="form-control border-warning" style="color:#7a7a7a">
-                    <button class="btn btn-warning text-white">Search</button>
-                </div>
+            
+            <div class="input-group search-bar">
+                
+                <input class="form-control me-2 search-input border border-0" type="search" placeholder="Search" aria-label="Search">
+                <i class="fa-solid fa-magnifying-glass icon-search"></i>
+                    {{!-- <button class="btn btn-outline-success" type="submit">Search</button> --}}
+                
             </div>
+
+                
+            
             <ul class="navbar-nav ms-auto ">
                 <li class="nav-item">
-                    <a class="nav-link mx-2 text-uppercase active" aria-current="page" href="#">Offers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2 text-uppercase" href="#">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2 text-uppercase" href="#">Catalog</a>
+                    <a class="nav-link mx-2 text-uppercase" href="#">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2 text-uppercase" href="#">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2 text-uppercase" href="#">About</a>
+                    <a class="nav-link mx-2 text-uppercase" href="#">Contact</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto ">
+                <li class="nav-item d-flex justify-content-center align-items-center">
+                    <a class="nav-link mx-2 text-uppercase" href="/my-cart"><i class="fa-solid fa-bell"></i></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2 text-uppercase" href="/my-cart"><i class="fa-solid fa-cart-shopping me-1"></i>
                         Cart</a>
