@@ -1,0 +1,82 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; }
+
+html {
+  font-size: 62.5%; }
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 1.5rem;
+  color: #31383e;
+  font-weight: 400;
+  line-height: 1.5; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul {
+  padding: 0;
+  margin: 0; }
+
+ul {
+  list-style: none; }
+
+img {
+  width: 100%; }
+
+a {
+  text-decoration: none;
+  color: #31383e; }
+
+button {
+  border: none; }
+
+input,
+textarea,
+select {
+  outline: none;
+  border: none; }
+
+.carousel-item {
+  max-height: 100%; }
+  .carousel-item .carousel-item img {
+    object-fit: cover;
+    object-position: center; }
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 50px;
+  /* Increase the width */
+  height: 50px;
+  /* Increase the height */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Add background color for visibility */
+  border-radius: 50%;
+  /* Optional: makes it circular */
+  position: absolute;
+  /* Position the buttons absolutely */
+  top: 50%;
+  /* Align top edge to the middle */
+  transform: translateY(-50%);
+  /* Shift upwards by half of its own height */ }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 30px;
+  /* Increase icon size */
+  height: 30px;
+  /* Increase icon size */ }
+
+.carousel-control-prev {
+  left: 10px;
+  /* Adjust for left side */ }
+
+.carousel-control-next {
+  right: 10px;
+  /* Adjust for right side */ }
