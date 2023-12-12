@@ -1,0 +1,42 @@
+a {
+    font-size: 14px;
+    font-weight: 700
+}
+
+.superNav {
+    font-size: 13px;
+}
+
+.form-control {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.bg-color-1{
+    background-color: 86A789;
+}
+
+.search-bar{
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-style: none;
+    border-radius: 0.5rem;
+    padding-right: 0.8rem;
+}
+
+.search-bar-container{
+    margin-left: -2rem;
+}
+
+.icon-search{
+    border-style: none;
+}
+
+@media screen and (max-width:540px) {
+    .centerOnMobile {
+        text-align: center
+    }
+}
