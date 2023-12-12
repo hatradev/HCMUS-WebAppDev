@@ -1,8 +1,10 @@
 const siteRouter = require("./site.route");
+const accRouter = require("./acc.route");
 
 function route(app) {
   // Định nghĩa các route theo tài nguyên
   app.use("/", siteRouter);
+  app.use("/acc", accRouter);
 
   // Hai middlewares này phải để cuối để check lỗi
   app.use((req, res, next) => {
