@@ -2,20 +2,20 @@ const express = require("express");
 const hbs = require("express-handlebars");
 const path = require("path");
 const methodOverride = require("method-override");
-const livereload = require("livereload");
+// const livereload = require("livereload");
 const connectLiveReload = require("connect-livereload");
 const bodyParser = require("body-parser");
 const route = require("../routes/index.route");
 // const passport = require("../middleware/passport");
 
-const liveReloadServer = livereload.createServer();
+// const liveReloadServer = livereload.createServer();
 const app = express();
 // Livereload for automatically refresh browser
-liveReloadServer.server.once("connection", () => {
-  setTimeout(() => {
-    liveReloadServer.refresh("/");
-  }, 100);
-});
+// liveReloadServer.server.once("connection", () => {
+//   setTimeout(() => {
+//     liveReloadServer.refresh("/");
+//   }, 100);
+// });
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(connectLiveReload());
