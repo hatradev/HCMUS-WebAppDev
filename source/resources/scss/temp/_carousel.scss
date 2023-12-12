@@ -1,0 +1,9 @@
+.carousel-item {
+    // height: 50vh;
+    max-height: 100%;
+
+    .carousel-item img {
+        object-fit: cover;
+        object-position: center;
+    }
+}
