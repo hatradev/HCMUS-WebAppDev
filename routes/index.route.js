@@ -1,10 +1,14 @@
 const siteRouter = require("./site.route");
-const accRouter = require("./acc.route");
+const userRouter = require("./user.route");
+const profileRouter = require("./profile.route");
+const orderRouter = require("./order.route");
 
 function route(app) {
   // Định nghĩa các route theo tài nguyên
   app.use("/", siteRouter);
-  app.use("/acc", accRouter);
+  app.use("/user", userRouter);
+  app.use("/profile", profileRouter);
+  app.use("/order", orderRouter);
 
   // Hai middlewares này phải để cuối để check lỗi
   app.use((req, res, next) => {

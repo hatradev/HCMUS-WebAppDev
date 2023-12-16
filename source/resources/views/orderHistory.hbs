@@ -1,38 +1,45 @@
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row">
-      <div class="card profileCard p-3 me-3" style="width: 27rem; height: 33rem;">
-        <div class="row d-flex justify-content-center">
-          <img
-            src="https://media.discordapp.net/attachments/1176168664987345008/1176953088456798208/loginanimi.png?ex=6570bdfb&is=655e48fb&hm=e4693ff912e14c7a1d637ed4e329351b67a4f04b6073ab6570bed2e593c74a19&=&format=webp&width=583&height=395"
-            alt="" style="width: 25rem;">
-        </div>
-        <div class="row text-center mb-3">
-          <h3 style="color: #000">Full Name</h3>
-        </div>
-        <div class="row">
-          <p><a href="/acc/profile">Account information</a></p>
-          <p><a href="#">Change password</a></p>
-          <p><a href="#" style="color: #627e64">Order history</a></p>
-          <p><a href="#">Favorite products</a></p>
-          <p><a href="#">Logout</a></p>
+      <div class="col-4 pe-5">
+        <div class="card profileCard p-3 " style="height: 33rem;">
+          <div class="row d-flex justify-content-center">
+            <img
+              src="https://media.discordapp.net/attachments/1176168664987345008/1176953088456798208/loginanimi.png?ex=6570bdfb&is=655e48fb&hm=e4693ff912e14c7a1d637ed4e329351b67a4f04b6073ab6570bed2e593c74a19&=&format=webp&width=583&height=395"
+              alt="" style="width: 25rem;">
+          </div>
+          <div class="row text-center mb-3">
+            <h3 style="color: #000">Full Name</h3>
+          </div>
+          <div class="row">
+            <p><a href="/profile">Thông tin tài khoản</a></p>
+            <p><a href="/profile/changepassword">Đổi mật khẩu</a></p>
+            <p><a href="#" style="color: #627e64">Lịch sử đơn hàng</a></p>
+            <p><a href="#">Đăng xuất</a></p>
+          </div>
         </div>
       </div>
-      <div class="card profileForm ms-5 ps-5" style="width: 77rem;">
+      <div class="card ps-5 col-8">
         <div class="card-body">
-          <h1 style="color: #86A789;">Order History</h1>
+          <h1 style="color: #86A789;">Lịch sử đơn hàng</h1>
           <hr>
             <table class="table table-striped table-hover">
                 <tr>                
-                    <th style="width: 20rem">Code order</th>
-                    <th style="width: 17rem">Date</th>
-                    <th style="width: 17rem">Total price</th>
-                    <th>Status</th>                    
+                    <th style="width: 20rem">Mã đơn hàng</th>
+                    <th style="width: 17rem">Ngày</th>
+                    <th style="width: 17rem">Tổng đơn</th>
+                    <th>Trạng thái</th>                    
                 </tr>
-                <tr>
+                <tr onclick="window.location.href = '/order/detail' ">
                     <td>123456</td>
                     <td>01/01/2022</td>
                     <td>250000</td>
-                    <td class="text-primary">Delivered</td>
+                    <td class="text-primary">Đã giao</td>                    
+                </tr>
+                <tr onclick="window.location.href = '/order/detail' ">
+                    <td>123457</td>
+                    <td>01/02/2023</td>
+                    <td>150000</td>
+                    <td class="text-primary">Đã giao</td>                    
                 </tr>
             </table>
         </div>

@@ -10,10 +10,7 @@
 .card-title{
     color: #86A789;
 }
-form label{
-    font-size: 15px;
-    color: #747272
-}
+
 .left-card button{
     background-color: #86A789;
     color: #fff;
@@ -30,17 +27,12 @@ form label{
 
 /* profile */
 .profileCard p{
-    margin: 0 0 0 1rem;
-}
-.profileCard a{
-    text-decoration: none;
-    color: black;
-    font-weight: 500;
+    margin: 0 0 0 7rem;
 }
 .profileCard a:hover{
     color: #86A789;
 }
-input, select{
+form input, form select{
   height: 4rem;
   margin-bottom: 1.5rem;
 }
