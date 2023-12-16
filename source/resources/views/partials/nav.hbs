@@ -1,55 +1,351 @@
-<nav class="navbar navbar-expand-lg sticky-top navbar-light p-3 shadow-sm bg-color-1">
-    <div class="container">
-        <a class="navbar-brand" href="#"><i class="fa-solid fa-shop me-2"></i> <strong>GEAR SHOP</strong></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<div class="navagation">
+    <div class="js-menu-close d-flex align-items-center justify-content-between d-lg-none">
+        <span><img src="https://web.nvnstatic.net/tp/T0299/img/svg/menu.svg?v=3" alt="Close navagation">Menu</span>
+        <img src="https://web.nvnstatic.net/tp/T0299/img/svg/close.svg?v=3" alt="Close navagation">
+    </div>
 
-        <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
-            <div class="input-group">
-                <span class="border-warning input-group-text bg-warning text-white"><i
-                        class="fa-solid fa-magnifying-glass"></i></span>
-                <input type="text" class="form-control border-warning" style="color:#7a7a7a">
-                <button class="btn btn-warning text-white">Search</button>
-            </div>
-        </div>
-        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-            
-            <div class="input-group search-bar">
-                
-                <input class="form-control me-2 search-input border border-0" type="search" placeholder="Search" aria-label="Search">
-                <i class="fa-solid fa-magnifying-glass icon-search"></i>
-                    {{!-- <button class="btn btn-outline-success" type="submit">Search</button> --}}
-                
-            </div>
-
-                
-            
-            <ul class="navbar-nav ms-auto ">
-                <li class="nav-item">
-                    <a class="nav-link mx-2 text-uppercase" href="#">About</a>
+    <div class="container js-container">
+        <div class="row">
+            <ul class="col d-flex justify-content-between">
+                <li class="all">
+                    <a href="/product">TẤT CẢ</a>
+                    {{!-- <span class="fa fa-angle-down"></span> --}}
+                    <div class="menu_all">
+                        <div class="container">
+                            <ul class="menu_all_list">
+                                <li><a href="/giang-sinh-pc250722.html"><strong>Giáng sinh</strong></a></li>
+                                <li><a href="/cay-thong-va-phu-kien-treo-pc565459.html">Cây thông và phụ kiện treo </a>
+                                </li>
+                                <li><a href="/trang-tri-cac-loai-pc565460.html">Trang trí các loại </a></li>
+                                <li><a href="/hop-qua-phu-kien-goi-qua-pc565461.html">Hộp quà &amp; Phụ kiện gói quà</a>
+                                </li>
+                                <li><a href="/gau-bong-amp-do-choi-pc565462.html">Gấu bông &amp; Đồ chơi </a></li>
+                                <li><a href="/binh-nuoc-amp-ly-coc-amp-do-bep-pc565463.html">Bình nước &amp; Ly cốc
+                                        &amp; Đồ bếp </a></li>
+                                <li><a href="/phu-kien-amp-trang-suc-pc565464.html">Phụ kiện &amp; Trang sức </a></li>
+                                <li><a href="/van-phong-pham-xmas-pc565465.html">Văn phòng phẩm xmas </a></li>
+                                <li class="more"><a href="javascript:void(0)">Xem thêm <i
+                                            class="fa fa-angle-double-down"></i></a></li>
+                            </ul>
+                            <ul class="menu_all_list">
+                                <li><a href="/set-qua-pc539973.html"><strong>Set quà</strong></a></li>
+                                <li><a href="/set-qua-yeu-thuong-pc563643.html">Set quà yêu thương</a></li>
+                                <li><a href="/set-qua-giang-sinh-pc565081.html">Set quà Giáng sinh</a></li>
+                            </ul>
+                            <ul class="menu_all_list">
+                                <li><a href="/gau-bong-goi-pc158220.html"><strong>Gấu bông, gối</strong></a></li>
+                                <li><a href="/gau-bong-cute-pc362839.html">Gấu bông cute </a></li>
+                                <li><a href="/goi-chu-u-pc362835.html">Gối chữ U </a></li>
+                                <li><a href="/gau-bong-idol-pc362836.html">Gấu bông idol </a></li>
+                                <li><a href="/chan-men-pc362837.html">Chăn mền</a></li>
+                                <li><a href="/gau-bong-khac-pc362838.html">Gấu bông khác </a></li>
+                                <li class="more"><a href="javascript:void(0)">Xem thêm <i
+                                            class="fa fa-angle-double-down"></i></a></li>
+                            </ul>
+                            <ul class="menu_all_list">
+                                <li><a href="/balo-tui-vi-pc158230.html"><strong>Balo Túi ví</strong></a></li>
+                                <li><a href="/tui-deo-pc158231.html">Túi đeo</a></li>
+                                <li><a href="/balo-pc158232.html">Balo</a></li>
+                                <li><a href="/vi-pc158233.html">Ví</a></li>
+                                <li><a href="/tui-da-nang-pc158234.html">Túi đa năng</a></li>
+                                <li class="more"><a href="javascript:void(0)">Xem thêm <i
+                                            class="fa fa-angle-double-down"></i></a></li>
+                            </ul>
+                            <ul class="menu_all_list">
+                                <li><a href="/van-phong-pham-pc158151.html"><strong>Văn phòng phẩm</strong></a></li>
+                                <li><a href="/dung-cu-hoc-tap-pc158152.html">Dụng cụ học tập</a></li>
+                                <li><a href="/so-vo-pc158153.html">Sổ vở</a></li>
+                                <li><a href="/do-dung-van-phong-pc158156.html">Đồ dùng văn phòng</a></li>
+                                <li><a href="/qua-tang-pc158155.html">Quà tặng</a></li>
+                                <li><a href="/sticker-bookmark-giay-note-washi-tape-pc158158.html">Sticker/ Bookmark/
+                                        Giấy note/ Washi tape</a></li>
+                                <li><a href="/moc-khoa-pc158157.html">Móc khoá</a></li>
+                                <li><a href="/strap-pc210865.html">Strap </a></li>
+                                <li><a href="/quat-pc158159.html">Quạt</a></li>
+                                <li><a href="/lich-pc158154.html">Lịch</a></li>
+                                <li class="more"><a href="javascript:void(0)">Xem thêm <i
+                                            class="fa fa-angle-double-down"></i></a></li>
+                            </ul>
+                            <ul class="menu_all_list">
+                                <li><a href="/dien-tu-dien-thoai-pc158066.html"><strong>Điện tử Điện thoại</strong></a>
+                                </li>
+                                <li><a href="/phu-kien-dien-thoai-pc158069.html">Phụ kiện điện thoại</a></li>
+                                <li><a href="/may-lam-toc-pc158067.html">Máy làm tóc</a></li>
+                                <li><a href="/do-dung-tien-ich-pc158068.html">Đồ dùng tiện ích</a></li>
+                            </ul>
+                            <ul class="menu_all_list">
+                                <li><a href="/phu-kien-pc158241.html"><strong>Phụ kiện</strong></a></li>
+                                <li><a href="/quan-ao-pc362859.html">Quần áo </a></li>
+                                <li><a href="/phu-kien-pc362860.html">Phụ kiện </a></li>
+                            </ul>
+                            <ul class="menu_all_list">
+                                <li><a href="/gia-dung-pc158103.html"><strong>Gia dụng</strong></a></li>
+                                <li><a href="/do-gia-dung-pc158104.html">Đồ gia dụng</a></li>
+                                <li><a href="/dung-cu-nha-bep-pc158105.html">Dụng cụ nhà bếp</a></li>
+                                <li><a href="/dung-cu-nha-tam-pc158106.html">Dụng cụ nhà tắm</a></li>
+                            </ul>
+                            <ul class="menu_all_list">
+                                <li><a href="/trang-diem-pc158283.html"><strong>Trang điểm</strong></a></li>
+                                <li><a href="/guong-luoc-pc362898.html">Gương lược </a></li>
+                                <li><a href="/dung-my-pham-pc362901.html">Đựng mỹ phẩm </a></li>
+                                <li><a href="/dung-cu-trang-diem-pc362899.html">Dụng cụ trang điểm </a></li>
+                            </ul>
+                            <ul class="menu_all_list">
+                                <li><a href="/du-lich-pc158300.html"><strong>Du lịch</strong></a></li>
+                                <li><a href="/chiet-my-phambinh-xit-pc158302.html">Chiết mỹ phẩm/Bình xịt</a></li>
+                                <li><a href="/boc-ho-chieu-pc158303.html">Bọc hộ chiếu</a></li>
+                                <li><a href="/tag-valy-pc158301.html">Tag valy</a></li>
+                                <li><a href="/tui-du-lich-pc158304.html">Túi du lịch</a></li>
+                                <li><a href="/do-du-lich-khac-pc362917.html">Đồ du lịch khác </a></li>
+                                <li class="more"><a href="javascript:void(0)">Xem thêm <i
+                                            class="fa fa-angle-double-down"></i></a></li>
+                            </ul>
+                            <ul class="menu_all_list">
+                                <li><a href="/do-choi-pc158205.html"><strong>Đồ chơi</strong></a></li>
+                                <li><a href="/do-choi-xep-hinh-pc220085.html">Đồ chơi xếp hình</a></li>
+                                <li><a href="/tranh-to-mau-pc565347.html">Tranh tô màu </a></li>
+                                <li><a href="/mo-hinh-nha-pc565458.html">Mô hình nhà</a></li>
+                                <li><a href="/do-choi-khac-pc158206.html">Đồ chơi khác</a></li>
+                                <li class="more"><a href="javascript:void(0)">Xem thêm <i
+                                            class="fa fa-angle-double-down"></i></a></li>
+                            </ul>
+                            <ul class="menu_all_list">
+                                <li><a href="/trang-tri-pc158287.html"><strong>Trang trí</strong></a></li>
+                                <li><a href="/tuong-trang-tri-pc526592.html">Tượng trang trí </a></li>
+                                <li><a href="/chuong-giodream-catcher-pc526593.html">Chuông gió/Dream catcher</a></li>
+                                <li><a href="/trang-tri-party-pc526594.html">Trang trí party </a></li>
+                                <li><a href="/kep-anhkep-go-pc526595.html">Kẹp ảnh/Kẹp gỗ</a></li>
+                                <li><a href="/den-led-den-ngu-pc158288.html">Đèn Led/ Đèn ngủ</a></li>
+                                <li><a href="/bannerpostercard-pc179227.html">Banner/Poster/Card</a></li>
+                                <li><a href="/trang-tri-khac-pc158289.html">Trang trí khác</a></li>
+                                <li class="more"><a href="javascript:void(0)">Xem thêm <i
+                                            class="fa fa-angle-double-down"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2 text-uppercase" href="#">Services</a>
+                <li class="has-dropdown"><a href="/giang-sinh-pc250722.html">Giáng sinh</a>
+                {{!-- <span        class="fa fa-angle-down"></span> --}}
+                    <ul class="level-2">
+                        <li><a href="/cay-thong-va-phu-kien-treo-pc565459.html">Cây thông và phụ kiện treo </a></li>
+                        <li><a href="/trang-tri-cac-loai-pc565460.html">Trang trí các loại </a></li>
+                        <li><a href="/hop-qua-phu-kien-goi-qua-pc565461.html">Hộp quà &amp; Phụ kiện gói quà</a></li>
+                        <li><a href="/gau-bong-amp-do-choi-pc565462.html">Gấu bông &amp; Đồ chơi </a></li>
+                        <li><a href="/binh-nuoc-amp-ly-coc-amp-do-bep-pc565463.html">Bình nước &amp; Ly cốc &amp; Đồ bếp
+                            </a></li>
+                        <li><a href="/phu-kien-amp-trang-suc-pc565464.html">Phụ kiện &amp; Trang sức </a></li>
+                        <li><a href="/van-phong-pham-xmas-pc565465.html">Văn phòng phẩm xmas </a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2 text-uppercase" href="#">Contact</a>
+                <li class="has-dropdown"><a href="/set-qua-pc539973.html">Set quà</a>
+                {{!-- <span        class="fa fa-angle-down"></span> --}}
+                    <ul class="level-2">
+                        <li><a href="/set-qua-yeu-thuong-pc563643.html">Set quà yêu thương</a></li>
+                        <li><a href="/set-qua-giang-sinh-pc565081.html">Set quà Giáng sinh</a></li>
+                    </ul>
                 </li>
-            </ul>
-            <ul class="navbar-nav ms-auto ">
-                <li class="nav-item d-flex justify-content-center align-items-center">
-                    <a class="nav-link mx-2 text-uppercase" href="/my-cart"><i class="fa-solid fa-bell"></i></a>
+                <li class="has-dropdown"><a href="/gau-bong-goi-pc158220.html">Gấu bông, gối</a>
+                {{!-- <span        class="fa fa-angle-down"></span> --}}
+                    <ul class="level-2">
+                        <li><a href="/gau-bong-cute-pc362839.html">Gấu bông cute </a></li>
+                        <li><a href="/goi-chu-u-pc362835.html">Gối chữ U </a></li>
+                        <li><a href="/gau-bong-idol-pc362836.html">Gấu bông idol </a></li>
+                        <li><a href="/chan-men-pc362837.html">Chăn mền</a></li>
+                        <li><a href="/gau-bong-khac-pc362838.html">Gấu bông khác </a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2 text-uppercase" href="/my-cart"><i class="fa-solid fa-cart-shopping me-1"></i>
-                        Cart</a>
+                <li class="has-dropdown"><a href="/balo-tui-vi-pc158230.html">Balo Túi ví</a>
+                {{!-- <span        class="fa fa-angle-down"></span> --}}
+                    <ul class="level-2">
+                        <li><a href="/tui-deo-pc158231.html">Túi đeo</a></li>
+                        <li><a href="/balo-pc158232.html">Balo</a></li>
+                        <li><a href="/vi-pc158233.html">Ví</a></li>
+                        <li><a href="/tui-da-nang-pc158234.html">Túi đa năng</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2 text-uppercase" href="#"><i class="fa-solid fa-circle-user me-1"></i>
-                        Account</a>
+                <li class="has-dropdown"><a href="/van-phong-pham-pc158151.html">Văn phòng phẩm</a>
+                {{!-- <span        class="fa fa-angle-down"></span> --}}
+                    <ul class="level-2">
+                        <li class="has-dropdown"><a href="/dung-cu-hoc-tap-pc158152.html">Dụng cụ học tập</a>
+                        {{!-- <span        class="fa fa-angle-down"></span> --}}
+                            <ul class="level-3">
+                                <li><a href="/dung-but-da-nang-pc158165.html">Đựng bút đa năng</a></li>
+                                <li><a href="/but-cac-loai-pc158161.html">Bút các loại</a></li>
+                                <li><a href="/hop-but-pc158162.html">Hộp bút</a></li>
+                                <li><a href="/kepdung-tai-lieu-pc158163.html">Kẹp/Đựng tài liệu</a></li>
+                                <li><a href="/thuoc-ke-pc158166.html">Thước kẻ</a></li>
+                                <li><a href="/dung-cu-hoc-tap-khac-pc158337.html">Dụng cụ học tập khác </a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/so-vo-pc158153.html">Sổ vở</a></li>
+                        <li class="has-dropdown"><a href="/do-dung-van-phong-pc158156.html">Đồ dùng văn phòng</a>
+                        {{!-- <span        class="fa fa-angle-down"></span> --}}
+                            <ul class="level-3">
+                                <li><a href="/day-deo-the-pc158184.html">Dây đeo thẻ</a></li>
+                                <li><a href="/lot-chuot-pc158188.html">Lót chuột</a></li>
+                                <li><a href="/dung-lensdung-kinh-pc158190.html">Đựng lens/Đựng kính</a></li>
+                                <li><a href="/ong-tiet-kiem-pc158193.html">Ống tiết kiệm</a></li>
+                                <li><a href="/do-dung-van-phong-khac-pc158330.html">Đồ dùng văn phòng khác </a></li>
+                                <li><a href="/hopgio-da-nang-pc526591.html">Hộp/Giỏ đa năng </a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown"><a href="/qua-tang-pc158155.html">Quà tặng</a>
+                        {{!-- <span        class="fa fa-angle-down"></span> --}}
+                            <ul class="level-3">
+                                <li><a href="/hoa-pc158175.html">Hoa</a></li>
+                                <li><a href="/thiep-pc158178.html">Thiệp</a></li>
+                                <li><a href="/bao-tui-qua-hop-qua-pc158176.html">Bao túi quà, hộp quà</a></li>
+                                <li><a href="/phong-bi-bao-li-xi-pc158180.html">Phong bì, Bao lì xì</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/sticker-bookmark-giay-note-washi-tape-pc158158.html">Sticker/ Bookmark/ Giấy note/
+                                Washi tape</a></li>
+                        <li><a href="/moc-khoa-pc158157.html">Móc khoá</a></li>
+                        <li><a href="/strap-pc210865.html">Strap </a></li>
+                        <li><a href="/quat-pc158159.html">Quạt</a></li>
+                        <li><a href="/lich-pc158154.html">Lịch</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown"><a href="/dien-tu-dien-thoai-pc158066.html">Điện tử Điện thoại</a>
+                {{!-- <span        class="fa fa-angle-down"></span> --}}
+                    <ul class="level-2">
+                        <li class="has-dropdown"><a href="/phu-kien-dien-thoai-pc158069.html">Phụ kiện điện
+                                thoại</a>
+                                {{!-- <span class="fa fa-angle-down"></span> --}}
+                            <ul class="level-3">
+                                <li><a href="/op-dien-thoai-pc158094.html">Ốp điện thoại</a></li>
+                                <li><a href="/tai-nghephu-kien-tai-nghe-pc158095.html">Tai nghe/Phụ kiện tai nghe</a>
+                                </li>
+                                <li><a href="/day-deo-dien-thoai-pc158090.html">Dây đeo điện thoại</a></li>
+                                <li><a href="/mojipop-moc-cam-dien-thoai-pc158084.html">Mojipop/ Móc cầm điện thoại</a>
+                                </li>
+                                <li><a href="/tui-chong-nuoc-dien-thoai-pc158087.html">Túi chống nước điện thoại</a>
+                                </li>
+                                <li><a href="/phu-kien-dien-thoai-khac-pc158101.html">Phụ kiện điện thoại khác</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown"><a href="/may-lam-toc-pc158067.html">Máy làm tóc</a>
+                        {{!-- <span        class="fa fa-angle-down"></span> --}}
+                            <ul class="level-3">
+                                <li><a href="/may-la-pc362998.html">Máy là </a></li>
+                                <li><a href="/may-xoan-pc362999.html">Máy xoăn </a></li>
+                                <li><a href="/luoc-giup-say-toc-pc363000.html">Lược giúp sấy tóc</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown"><a href="/do-dung-tien-ich-pc158068.html">Đồ dùng tiện ích</a>
+                        {{!-- <span        class="fa fa-angle-down"></span> --}}
+                            <ul class="level-3">
+                                <li><a href="/luoc-dem-mat-xa-pc158076.html">Lược đệm mát xa</a></li>
+                                <li><a href="/gay-mat-xa-pc526589.html">Gậy mát xa </a></li>
+                                <li><a href="/do-dung-tien-ich-khac-pc158335.html">Đồ dùng tiện ích khác </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-dropdown"><a href="/phu-kien-pc158241.html">Phụ kiện</a>
+                {{!-- <span        class="fa fa-angle-down"></span> --}}
+                    <ul class="level-2">
+                        <li class="has-dropdown"><a href="/quan-ao-pc362859.html">Quần áo </a>
+                        {{!-- <span        class="fa fa-angle-down"></span> --}}
+                            <ul class="level-3">
+                                <li><a href="/pyjama-pc362861.html">Pyjama </a></li>
+                                <li><a href="/ao-phongao-thun-pc362862.html">Áo phông/Áo thun </a></li>
+                                <li><a href="/bo-quan-ao-thu-pc362863.html">Bộ quần áo thú </a></li>
+                                <li><a href="/ao-so-mi-pc362864.html">Áo sơ mi </a></li>
+                                <li><a href="/ao-khoac-pc362865.html">Áo khoác </a></li>
+                                <li><a href="/hoodie-pc362866.html">Hoodie </a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown"><a href="/phu-kien-pc362860.html">Phụ kiện </a>
+                        {{!-- <span        class="fa fa-angle-down"></span> --}}
+                            <ul class="level-3">
+                                <li><a href="/trang-suc-pc362868.html">Trang sức </a></li>
+                                <li><a href="/kinh-mat-gong-kinh-pc362869.html">Kính mát, gọng kính </a></li>
+                                <li><a href="/mu-nonmu-len-pc362870.html">Mũ nón/mũ len </a></li>
+                                <li><a href="/phu-kien-toc-bang-do-pc362871.html">Phụ kiện tóc, băng đô </a></li>
+                                <li><a href="/giaythat-lung-pc362872.html">Giày/thắt lưng </a></li>
+                                <li><a href="/dep-pc362873.html">Dép </a></li>
+                                <li><a href="/tat-vo-pc362874.html">Tất vớ </a></li>
+                                <li><a href="/khau-trang-pc362875.html">Khẩu trang </a></li>
+                                <li><a href="/quan-chip-pc362876.html">Quần chip </a></li>
+                                <li><a href="/khan-pc362879.html">Khăn </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-dropdown"><a href="/gia-dung-pc158103.html">Gia dụng</a>
+                {{!-- <span        class="fa fa-angle-down"></span> --}}
+                    <ul class="level-2">
+                        <li class="has-dropdown"><a href="/do-gia-dung-pc158104.html">Đồ gia dụng</a>
+                        {{!-- <span        class="fa fa-angle-down"></span> --}}
+                            <ul class="level-3">
+                                <li><a href="/binh-nuoc-pc158111.html">Bình nước</a></li>
+                                <li><a href="/ly-coc-pc158112.html">Ly cốc</a></li>
+                                <li><a href="/kinh-ngu-pc362853.html">Kính ngủ </a></li>
+                                <li><a href="/tui-dung-binh-nuoccup-holder-pc362854.html">Túi đựng bình nước/Cup
+                                        holder</a></li>
+                                <li><a href="/giam-nhiet-giu-nhiet-tang-nhiet-pc158124.html">Giảm nhiệt/ Giữ nhiệt/ Tăng
+                                        nhiệt</a></li>
+                                <li><a href="/o-du-pc158110.html">Ô dù</a></li>
+                                <li><a href="/ao-mua-boc-giay-dep-chai-lam-sach-giay-pc158117.html">Áo mưa/ Bọc giày
+                                        dép/ Chai làm sạch giày</a></li>
+                                <li><a href="/do-gia-dung-khac-pc158338.html">Đồ gia dụng khác </a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown"><a href="/dung-cu-nha-bep-pc158105.html">Dụng cụ nhà bếp</a>
+                        {{!-- <span        class="fa fa-angle-down"></span> --}}
+                            <ul class="level-3">
+                                <li><a href="/bat-dia-pc158125.html">Bát/ Đĩa</a></li>
+                                <li><a href="/hop-com-pc158126.html">Hộp cơm</a></li>
+                                <li><a href="/bo-thia-dua-dia-pc158128.html">Bộ thìa đũa dĩa</a></li>
+                                <li><a href="/tui-dung-com-pc158129.html">Túi đựng cơm</a></li>
+                                <li><a href="/dung-cu-nha-bep-khac-pc158336.html">Dụng cụ nhà bếp khác </a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/dung-cu-nha-tam-pc158106.html">Dụng cụ nhà tắm</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown"><a href="/trang-diem-pc158283.html">Trang điểm</a>
+                {{!-- <span        class="fa fa-angle-down"></span> --}}
+                    <ul class="level-2">
+                        <li><a href="/guong-luoc-pc362898.html">Gương lược </a></li>
+                        <li><a href="/dung-my-pham-pc362901.html">Đựng mỹ phẩm </a></li>
+                        <li><a href="/dung-cu-trang-diem-pc362899.html">Dụng cụ trang điểm </a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown"><a href="/du-lich-pc158300.html">Du lịch</a>
+                {{!-- <span        class="fa fa-angle-down"></span> --}}
+                    <ul class="level-2">
+                        <li><a href="/chiet-my-phambinh-xit-pc158302.html">Chiết mỹ phẩm/Bình xịt</a></li>
+                        <li><a href="/boc-ho-chieu-pc158303.html">Bọc hộ chiếu</a></li>
+                        <li><a href="/tag-valy-pc158301.html">Tag valy</a></li>
+                        <li><a href="/tui-du-lich-pc158304.html">Túi du lịch</a></li>
+                        <li><a href="/do-du-lich-khac-pc362917.html">Đồ du lịch khác </a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown"><a href="/do-choi-pc158205.html">Đồ chơi</a>
+                {{!-- <span        class="fa fa-angle-down"></span> --}}
+                    <ul class="level-2">
+                        <li><a href="/do-choi-xep-hinh-pc220085.html">Đồ chơi xếp hình</a></li>
+                        <li><a href="/tranh-to-mau-pc565347.html">Tranh tô màu </a></li>
+                        <li><a href="/mo-hinh-nha-pc565458.html">Mô hình nhà</a></li>
+                        <li><a href="/do-choi-khac-pc158206.html">Đồ chơi khác</a></li>
+                    </ul>
+                </li>
+                <li class="has-dropdown"><a href="/trang-tri-pc158287.html">Trang trí</a>
+                {{!-- <span        class="fa fa-angle-down"></span> --}}
+                    <ul class="level-2">
+                        <li><a href="/tuong-trang-tri-pc526592.html">Tượng trang trí </a></li>
+                        <li><a href="/chuong-giodream-catcher-pc526593.html">Chuông gió/Dream catcher</a></li>
+                        <li><a href="/trang-tri-party-pc526594.html">Trang trí party </a></li>
+                        <li><a href="/kep-anhkep-go-pc526595.html">Kẹp ảnh/Kẹp gỗ</a></li>
+                        <li><a href="/den-led-den-ngu-pc158288.html">Đèn Led/ Đèn ngủ</a></li>
+                        <li><a href="/bannerpostercard-pc179227.html">Banner/Poster/Card</a></li>
+                        <li><a href="/trang-tri-khac-pc158289.html">Trang trí khác</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
     </div>
-</nav>
+    <div class="nava-mask d-lg-none"></div>
+</div>

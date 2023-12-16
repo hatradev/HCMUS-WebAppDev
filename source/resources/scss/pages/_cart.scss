@@ -1,15 +1,123 @@
-@media (min-width: 1025px) {
-    .h-custom {
-    height: 100vh !important;
-    }
+.cart-page {
+    margin: 25px 0 35px 0;
 }
 
-.btn-checkout{
+.note p {
+    margin: 0;
+}
+
+.cart-total .total {
+    font-family: 'Nunito-Black';
+    color: #FFB0BD;
+    font-size: 24px;
+    margin: 15px 0;
+}
+
+.table-cart {
+    position: relative;
+}
+
+.table-cart thead,
+.table-cart tbody {
+    /*border: 1px solid #ddd;*/
+    border-radius: 5px;
+}
+
+.table-cart thead tr {
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+}
+
+.table-cart thead th {
+    font-family: 'Nunito-Bold';
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.table-cart tbody:before {
+    line-height: 1em;
+    content: ".";
+    color: white;
+    display: block;
     width: 100%;
+    position: relative;
+    left: -1px;
+    z-index: 1;
+    background: #fff;
+}
+
+.table-cart tr td {
+    border-top: 1px solid #ccc;
+}
+
+.table-cart tr:last-child td {
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-item {
+    overflow: hidden;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    position: relative;
+}
+
+.cart-item:first-child {
+    border-radius: 10px 10px 0 0;
+}
+
+.cart-item:last-child {
+    border-radius: 0 0 10px 10px
+}
+
+.cart-item a {
+    color: #2F2F2F;
+}
+
+.cart-item a:hover {
+    color: #FFB0BD;
+}
+
+.cart-item .cart-img img {
+    width: 100px;
+    height: 100px;
+    object-fit: scale-down;
+    margin-left: 5px;
+}
+
+.cart-item .blk-qty {
+    border: none;
+}
+
+.cart-item .blk-qty .blk-qty-btn {
+    border-radius: 3px;
+    border: 1px solid #d0d0d0;
+}
+
+.cart-item .blk-qty .blk-qty-input {
+    border: none;
 }
 
 
+.blk-product-viewed {
+    margin-bottom: 70px;
+}
 
-.checkout-hover:hover{
-    background-color: B2C8BA;
+.blk-product-viewed .title {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.blk-product-viewed .row {
+    margin-left: -5px;
+    margin-right: -5px;
+}
+
+.blk-product-viewed .product-item {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.blk-product-viewed .owl-carousel .owl-nav button.owl-next,
+.blk-product-viewed .owl-carousel .owl-nav button.owl-prev {
+    top: 30%;
 }
