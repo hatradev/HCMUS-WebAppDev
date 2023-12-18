@@ -1,222 +1,489 @@
-<section class="h-100 h-custom" style="background-color: #eee;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col">
-        <div class="card">
-          <div class="card-body p-4">
-
-            <div class="row">
-
-              <div class="col-lg-7">
-                <h5 class="mb-3"><a href="/" class="text-body"><i
-                      class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
-                <hr>
-
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                  <div>
-                    <p class="mb-1">Shopping cart</p>
-                    <p class="mb-0">You have 4 items in your cart</p>
-                  </div>
-                  <div>
-                    <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
-                        class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
-                  </div>
-                </div>
-
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
-                        <div>
-                          <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
-                            class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                        </div>
-                        <div class="ms-3">
-                          <h5>Iphone 11 pro</h5>
-                          <p class="small mb-0">256GB, Navy Blue</p>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div style="width: 50px;">
-                          <h5 class="fw-normal mb-0">2</h5>
-                        </div>
-                        <div style="width: 80px;">
-                          <h5 class="mb-0">$900</h5>
-                        </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
-                        <div>
-                          <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img2.webp"
-                            class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                        </div>
-                        <div class="ms-3">
-                          <h5>Samsung galaxy Note 10 </h5>
-                          <p class="small mb-0">256GB, Navy Blue</p>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div style="width: 50px;">
-                          <h5 class="fw-normal mb-0">2</h5>
-                        </div>
-                        <div style="width: 80px;">
-                          <h5 class="mb-0">$900</h5>
-                        </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card mb-3">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
-                        <div>
-                          <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img3.webp"
-                            class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                        </div>
-                        <div class="ms-3">
-                          <h5>Canon EOS M50</h5>
-                          <p class="small mb-0">Onyx Black</p>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div style="width: 50px;">
-                          <h5 class="fw-normal mb-0">1</h5>
-                        </div>
-                        <div style="width: 80px;">
-                          <h5 class="mb-0">$1199</h5>
-                        </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card mb-3 mb-lg-0">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
-                        <div>
-                          <img
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img4.webp"
-                            class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
-                        </div>
-                        <div class="ms-3">
-                          <h5>MacBook Pro</h5>
-                          <p class="small mb-0">1TB, Graphite</p>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div style="width: 50px;">
-                          <h5 class="fw-normal mb-0">1</h5>
-                        </div>
-                        <div style="width: 80px;">
-                          <h5 class="mb-0">$1799</h5>
-                        </div>
-                        <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
+<div class="container">
+  <div class="row">
+    <div class="cart-page col-12">
+      <table class="table table-cart">
+        <thead>
+          <tr>
+            <th width="20%"><i class="d-none fa fa-pink fa-1x5 fa-check-square"></i> Sản phẩm</th>
+            <th width="25%" class="text-center">Mô tả</th>
+            <th width="15%" class="text-center d-none d-md-table-cell">Đơn giá</th>
+            <th width="15%" class="text-center d-none d-md-table-cell">Số lượng</th>
+            <th width="15%" class="text-center d-none d-md-table-cell">Tổng</th>
+            <th width="10%" class="text-center d-none d-md-table-cell">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cart-item" data-psid="37901040">
+            <td class="cart-img">
+              <div class="d-flex align-items-center">
+                <i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
+                <a href="/mu-len-red-and-white-big-knitting-cuc-bong-xmas-do-p37901040.html"
+                  title="Mũ len Red and white big knitting cục bông Xmas - Đỏ">
+                  <img data-sizes="auto" class="lazyautosizes ls-is-cached lazyloaded"
+                    src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_XgJjLAqGgu.jpeg"
+                    data-src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_XgJjLAqGgu.jpeg"
+                    alt="Mũ len Red and white big knitting cục bông Xmas - Đỏ" sizes="105px">
+                </a>
               </div>
-              <div class="col-lg-5">
-
-                <div class="card bg-primary text-white rounded-3">
-                  <div class="card-body bg-color-1">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                      <h5 class="mb-0">Card details</h5>
-                      <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
-                        class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
-                    </div>
-
-                    <p class="small mb-2">Card type</p>
-                    <a href="#!" type="submit" class="text-white"><i
-                        class="fab fa-cc-mastercard fa-2x me-2"></i></a>
-                    <a href="#!" type="submit" class="text-white"><i
-                        class="fab fa-cc-visa fa-2x me-2"></i></a>
-                    <a href="#!" type="submit" class="text-white"><i
-                        class="fab fa-cc-amex fa-2x me-2"></i></a>
-                    <a href="#!" type="submit" class="text-white"><i class="fab fa-cc-paypal fa-2x"></i></a>
-
-                    <form class="mt-4">
-                      <div class="form-outline form-white mb-4">
-                        <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
-                          placeholder="Cardholder's Name" />
-                        <label class="form-label" for="typeName">Cardholder's Name</label>
-                      </div>
-
-                      <div class="form-outline form-white mb-4">
-                        <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
-                          placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
-                        <label class="form-label" for="typeText">Card Number</label>
-                      </div>
-
-                      <div class="row mb-4">
-                        <div class="col-md-6">
-                          <div class="form-outline form-white">
-                            <input type="text" id="typeExp" class="form-control form-control-lg"
-                              placeholder="MM/YYYY" size="7" id="exp" minlength="7" maxlength="7" />
-                            <label class="form-label" for="typeExp">Expiration</label>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-outline form-white">
-                            <input type="password" id="typeText" class="form-control form-control-lg"
-                              placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
-                            <label class="form-label" for="typeText">Cvv</label>
-                          </div>
-                        </div>
-                      </div>
-
-                    </form>
-
-                    <hr class="my-4">
-
-                    <div class="d-flex justify-content-between">
-                      <p class="mb-2">Subtotal</p>
-                      <p class="mb-2">$4798.00</p>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                      <p class="mb-2">Shipping</p>
-                      <p class="mb-2">$20.00</p>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-4">
-                      <p class="mb-2">Total(Incl. taxes)</p>
-                      <p class="mb-2">$4818.00</p>
-                    </div>
-
-                    <div class="d-flex">
-                        <button type="button" class="btn btn-block btn-lg btn-checkout d-flex justify-content-around bg-color-4 checkout-hover">
-                            <span>$4818.00</span>
-                            <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
-                        </button>
-                    </div>
-
+            </td>
+            <td class="text-center">
+              <a href="/mu-len-red-and-white-big-knitting-cuc-bong-xmas-do-p37901040.html"
+                title="Mũ len Red and white big knitting cục bông Xmas - Đỏ">
+                Mũ len Red and white big knitting cục bông Xmas - Đỏ </a>
+              <div class="d-block d-md-none">
+                <p>
+                  <strong class="d-block">140.000đ</strong>
+                </p>
+                <p>
+                </p>
+                <div class="blk-qty d-flex justify-content-center align-items-center">
+                  <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                  </div>
+                  <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                    data-psid="37901040" max="22" min="1" value="1" style="margin-bottom: 0;">
+                  <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+
                   </div>
                 </div>
-
+                <p></p>
+                <p>
+                  <strong>140.000đ</strong>
+                </p>
+                <a class="remove-cart" href="javascript:void(0)" data-psid="37901040">Xóa</a>
               </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong class="d-block">140.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <div class="blk-qty d-flex justify-content-center align-items-center">
+                <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                </div>
+                <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                  data-psid="37901040" max="22" min="1" value="1">
+                <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+</div>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong>140.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <a class="remove-cart" href="javascript:void(0)" data-psid="37901040">Xóa</a>
+            </td>
+          </tr>
+          <tr class="cart-item" data-psid="37899630">
+            <td class="cart-img">
+              <div class="d-flex align-items-center">
+                <i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
+                <a href="/ao-thun-ao-phong-mj-black-cat-little-fish-trang-p37899630.html"
+                  title="Áo thun áo phông MJ Black cat little fish - Trắng">
+                  <img data-sizes="auto" class="lazyautosizes ls-is-cached lazyloaded"
+                    src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_x1Ez7dfCzk.jpeg"
+                    data-src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_x1Ez7dfCzk.jpeg"
+                    alt="Áo thun áo phông MJ Black cat little fish - Trắng" sizes="105px">
+                </a>
+              </div>
+            </td>
+            <td class="text-center">
+              <a href="/ao-thun-ao-phong-mj-black-cat-little-fish-trang-p37899630.html"
+                title="Áo thun áo phông MJ Black cat little fish - Trắng">
+                Áo thun áo phông MJ Black cat little fish - Trắng </a>
+              <div class="d-block d-md-none">
+                <p>
+                  <strong class="d-block">190.000đ</strong>
+                </p>
+                <p>
+                </p>
+                <div class="blk-qty d-flex justify-content-center align-items-center">
+                  <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                  </div>
+                  <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                    data-psid="37899630" max="4" min="1" value="1">
+                  <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+
+                  </div>
+                </div>
+                <p></p>
+                <p>
+                  <strong>190.000đ</strong>
+                </p>
+                <a class="remove-cart" href="javascript:void(0)" data-psid="37899630">Xóa</a>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong class="d-block">190.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <div class="blk-qty d-flex justify-content-center align-items-center">
+                <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                </div>
+                <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                  data-psid="37899630" max="4" min="1" value="1">
+                <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+</div>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong>190.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <a class="remove-cart" href="javascript:void(0)" data-psid="37899630">Xóa</a>
+            </td>
+          </tr>
+          <tr class="cart-item" data-psid="37900034">
+            <td class="cart-img">
+              <div class="d-flex align-items-center">
+                <i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
+                <a href="/tai-nghe-bluetooth-ms-minor-3-khong-day-mix-p37900034.html"
+                  title="Tai nghe bluetooth MS Minor 3 không dây - Mix">
+                  <img data-sizes="auto" class="lazyautosizes ls-is-cached lazyloaded"
+                    src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_AORDuetLEj.jpeg"
+                    data-src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_AORDuetLEj.jpeg"
+                    alt="Tai nghe bluetooth MS Minor 3 không dây - Mix" sizes="107px">
+                </a>
+              </div>
+            </td>
+            <td class="text-center">
+              <a href="/tai-nghe-bluetooth-ms-minor-3-khong-day-mix-p37900034.html"
+                title="Tai nghe bluetooth MS Minor 3 không dây - Mix">
+                Tai nghe bluetooth MS Minor 3 không dây - Mix </a>
+              <div class="d-block d-md-none">
+                <p>
+                  <strong class="d-block">340.000đ</strong>
+                </p>
+                <p>
+                </p>
+                <div class="blk-qty d-flex justify-content-center align-items-center">
+                  <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                  </div>
+                  <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                    data-psid="37900034" max="15" min="1" value="1">
+                  <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+
+                  </div>
+                </div>
+                <p></p>
+                <p>
+                  <strong>340.000đ</strong>
+                </p>
+                <a class="remove-cart" href="javascript:void(0)" data-psid="37900034">Xóa</a>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong class="d-block">340.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <div class="blk-qty d-flex justify-content-center align-items-center">
+                <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                </div>
+                <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                  data-psid="37900034" max="15" min="1" value="1">
+                <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+</div>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong>340.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <a class="remove-cart" href="javascript:void(0)" data-psid="37900034">Xóa</a>
+            </td>
+          </tr>
+          <tr class="cart-item" data-psid="37900184">
+            <td class="cart-img">
+              <div class="d-flex align-items-center">
+                <i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
+                <a href="/khan-len-colorful-square-tua-rua-38x240-mix-p37900184.html"
+                  title="Khăn len Colorful square tua rua 38x240 - Mix">
+                  <img data-sizes="auto" class="lazyautosizes ls-is-cached lazyloaded"
+                    src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_jQO9tGqhvr.jpeg"
+                    data-src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_jQO9tGqhvr.jpeg"
+                    alt="Khăn len Colorful square tua rua 38x240 - Mix" sizes="105px">
+                </a>
+              </div>
+            </td>
+            <td class="text-center">
+              <a href="/khan-len-colorful-square-tua-rua-38x240-mix-p37900184.html"
+                title="Khăn len Colorful square tua rua 38x240 - Mix">
+                Khăn len Colorful square tua rua 38x240 - Mix </a>
+              <div class="d-block d-md-none">
+                <p>
+                  <strong class="d-block">150.000đ</strong>
+                </p>
+                <p>
+                </p>
+                <div class="blk-qty d-flex justify-content-center align-items-center">
+                  <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                  </div>
+                  <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                    data-psid="37900184" max="11" min="1" value="1">
+                  <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+
+                  </div>
+                </div>
+                <p></p>
+                <p>
+                  <strong>150.000đ</strong>
+                </p>
+                <a class="remove-cart" href="javascript:void(0)" data-psid="37900184">Xóa</a>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong class="d-block">150.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <div class="blk-qty d-flex justify-content-center align-items-center">
+                <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                </div>
+                <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                  data-psid="37900184" max="11" min="1" value="1">
+                <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+</div>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong>150.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <a class="remove-cart" href="javascript:void(0)" data-psid="37900184">Xóa</a>
+            </td>
+          </tr>
+          <tr class="cart-item" data-psid="37890285">
+            <td class="cart-img">
+              <div class="d-flex align-items-center">
+                <i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
+                <a href="/sticker-bang-mj-palette-for-boy-and-girl-set8-mix-p37890285.html"
+                  title="Sticker bảng MJ Palette for boy and girl set8 - Mix">
+                  <img data-sizes="auto" class="lazyautosizes ls-is-cached lazyloaded"
+                    src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_fzG6dRpEls.jpeg"
+                    data-src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_fzG6dRpEls.jpeg"
+                    alt="Sticker bảng MJ Palette for boy and girl set8 - Mix" sizes="105px">
+                </a>
+              </div>
+            </td>
+            <td class="text-center">
+              <a href="/sticker-bang-mj-palette-for-boy-and-girl-set8-mix-p37890285.html"
+                title="Sticker bảng MJ Palette for boy and girl set8 - Mix">
+                Sticker bảng MJ Palette for boy and girl set8 - Mix </a>
+              <div class="d-block d-md-none">
+                <p>
+                  <strong class="d-block">20.000đ</strong>
+                </p>
+                <p>
+                </p>
+                <div class="blk-qty d-flex justify-content-center align-items-center">
+                  <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                  </div>
+                  <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                    data-psid="37890285" max="55" min="1" value="1">
+                  <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+
+                  </div>
+                </div>
+                <p></p>
+                <p>
+                  <strong>20.000đ</strong>
+                </p>
+                <a class="remove-cart" href="javascript:void(0)" data-psid="37890285">Xóa</a>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong class="d-block">20.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <div class="blk-qty d-flex justify-content-center align-items-center">
+                <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                </div>
+                <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                  data-psid="37890285" max="55" min="1" value="1">
+                <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+</div>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong>20.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <a class="remove-cart" href="javascript:void(0)" data-psid="37890285">Xóa</a>
+            </td>
+          </tr>
+          <tr class="cart-item" data-psid="37901038">
+            <td class="cart-img">
+              <div class="d-flex align-items-center">
+                <i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
+                <a href="/mu-len-long-xu-cai-cuc-tai-tho-1-mau-hong-nhat-p37901038.html"
+                  title="Mũ len lông xù cài cúc tai thỏ 1 màu - Hồng nhạt">
+                  <img data-sizes="auto" class="lazyautosizes ls-is-cached lazyloaded"
+                    src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_k5UQGT2HKG.jpeg"
+                    data-src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_k5UQGT2HKG.jpeg"
+                    alt="Mũ len lông xù cài cúc tai thỏ 1 màu - Hồng nhạt" sizes="105px">
+                </a>
+              </div>
+            </td>
+            <td class="text-center">
+              <a href="/mu-len-long-xu-cai-cuc-tai-tho-1-mau-hong-nhat-p37901038.html"
+                title="Mũ len lông xù cài cúc tai thỏ 1 màu - Hồng nhạt">
+                Mũ len lông xù cài cúc tai thỏ 1 màu - Hồng nhạt </a>
+              <div class="d-block d-md-none">
+                <p>
+                  <strong class="d-block">180.000đ</strong>
+                </p>
+                <p>
+                </p>
+                <div class="blk-qty d-flex justify-content-center align-items-center">
+                  <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                  </div>
+                  <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                    data-psid="37901038" max="29" min="1" value="1">
+                  <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+
+                  </div>
+                </div>
+                <p></p>
+                <p>
+                  <strong>180.000đ</strong>
+                </p>
+                <a class="remove-cart" href="javascript:void(0)" data-psid="37901038">Xóa</a>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong class="d-block">180.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <div class="blk-qty d-flex justify-content-center align-items-center">
+                <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                </div>
+                <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                  data-psid="37901038" max="29" min="1" value="1">
+                <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+</div>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong>180.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <a class="remove-cart" href="javascript:void(0)" data-psid="37901038">Xóa</a>
+            </td>
+          </tr>
+          <tr class="cart-item" data-psid="37897888">
+            <td class="cart-img">
+              <div class="d-flex align-items-center">
+                <i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
+                <a href="/do-choi-xmas-santa-claus-du-day-mix-p37897888.html"
+                  title="Đồ chơi Xmas Santa Claus đu dây - Mix">
+                  <img data-sizes="auto" class="lazyautosizes ls-is-cached lazyloaded"
+                    src="https://pos.nvncdn.com/cba2a3-7534/ps/20231122_vdNNeJCPHV.jpeg"
+                    data-src="https://pos.nvncdn.com/cba2a3-7534/ps/20231122_vdNNeJCPHV.jpeg"
+                    alt="Đồ chơi Xmas Santa Claus đu dây - Mix" sizes="105px">
+                </a>
+              </div>
+            </td>
+            <td class="text-center">
+              <a href="/do-choi-xmas-santa-claus-du-day-mix-p37897888.html"
+                title="Đồ chơi Xmas Santa Claus đu dây - Mix">
+                Đồ chơi Xmas Santa Claus đu dây - Mix </a>
+              <div class="d-block d-md-none">
+                <p>
+                  <strong class="d-block">210.000đ</strong>
+                </p>
+                <p>
+                </p>
+                <div class="blk-qty d-flex justify-content-center align-items-center">
+                  <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                  </div>
+                  <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                    data-psid="37897888" max="26" min="1" value="1">
+                  <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+
+                  </div>
+                </div>
+                <p></p>
+                <p>
+                  <strong>210.000đ</strong>
+                </p>
+                <a class="remove-cart" href="javascript:void(0)" data-psid="37897888">Xóa</a>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong class="d-block">210.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <div class="blk-qty d-flex justify-content-center align-items-center">
+                <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                </div>
+                <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                  data-psid="37897888" max="26" min="1" value="1">
+                <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+</div>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong>210.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <a class="remove-cart" href="javascript:void(0)" data-psid="37897888">Xóa</a>
+            </td>
+          </tr>
+          <tr class="cart-item" data-psid="37897768">
+            <td class="cart-img">
+              <div class="d-flex align-items-center">
+                <i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
+                <a href="/thiep-mz-xmas-lookii-kat-christmas-characters-stamp-10x14-mix-p37897768.html"
+                  title="Thiệp MZ Xmas Lookii Kat Christmas characters stamp 10x14 - Mix">
+                  <img data-sizes="auto" class="lazyautosizes ls-is-cached lazyloaded"
+                    src="https://pos.nvncdn.com/cba2a3-7534/ps/20231112_MrBW4HSZ7h.jpeg"
+                    data-src="https://pos.nvncdn.com/cba2a3-7534/ps/20231112_MrBW4HSZ7h.jpeg"
+                    alt="Thiệp MZ Xmas Lookii Kat Christmas characters stamp 10x14 - Mix" sizes="105px">
+                </a>
+              </div>
+            </td>
+            <td class="text-center">
+              <a href="/thiep-mz-xmas-lookii-kat-christmas-characters-stamp-10x14-mix-p37897768.html"
+                title="Thiệp MZ Xmas Lookii Kat Christmas characters stamp 10x14 - Mix">
+                Thiệp MZ Xmas Lookii Kat Christmas characters stamp 10x14 - Mix </a>
+              <div class="d-block d-md-none">
+                <p>
+                  <strong class="d-block">15.000đ</strong>
+                </p>
+                <p>
+                </p>
+                <div class="blk-qty d-flex justify-content-center align-items-center">
+                  <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                  </div>
+                  <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                    data-psid="37897768" max="470" min="1" value="1">
+                  <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+
+                  </div>
+                </div>
+                <p></p>
+                <p>
+                  <strong>15.000đ</strong>
+                </p>
+                <a class="remove-cart" href="javascript:void(0)" data-psid="37897768">Xóa</a>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong class="d-block">15.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <div class="blk-qty d-flex justify-content-center align-items-center">
+                <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                </div>
+                <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center" type="text"
+                  data-psid="37897768" max="470" min="1" value="1">
+                <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+</div>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong>15.000đ</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <a class="remove-cart" href="javascript:void(0)" data-psid="37897768">Xóa</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <p>Hỗ trợ ship 20k cho đơn hàng từ 300k khu vực nội thành HN, HCM</p>
+        <p>Hỗ trợ ship 30k cho đơn hàng từ 500k các khu vực khác</p>
+        <p>Lưu ý:</p>
+        <p>Đơn hàng trên website được xử lý trong giờ hành chính</p>
+      </div>
+      <div class="cart-total text-end">
+        <div class="total d-block">Tổng: 1.245.000<sub>đ</sub></div>
+        <div class="clearfix"></div>
 
-            </div>
-
-          </div>
-        </div>
+        <a class="btn btn-lg btn-pink btn-radius" href="/product" style="height: 4.5rem; width: 18rem; font-size: 2rem; text-align:center">Tiếp tục mua sắm</a>
+        <a class="btn btn-lg btn-outline-pink btn-radius" href="/cart/checkout" style="height: 4.5rem; width: 13.5rem; font-size: 2rem; text-align:center">Thanh toán</a>
       </div>
     </div>
   </div>
-</section>
+</div>

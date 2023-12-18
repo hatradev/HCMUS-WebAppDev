@@ -14,6 +14,13 @@ class siteController {
       next(err);
     }
   };
+  getPayment = async (req, res, next) => {
+    try {
+      res.render("payment", {});
+    } catch (err) {
+      next(err);
+    }
+  };
 }
 
 module.exports = new siteController();
