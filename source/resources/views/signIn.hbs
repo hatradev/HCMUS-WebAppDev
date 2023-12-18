@@ -2,32 +2,36 @@
   <div class="card-group mt-5 mb-5">
     <div class="card left-card border-0">
       <div class="card-body m-3 d-flex flex-column justify-content-center">
-        <h1 class="card-title fw-bold fs-1">Sign In</h1>
-        <p class="card-text mb-5"><small class="text-body-secondary">Please Sign in to continue</small></p>
+        <h1 class="card-title fw-bold fs-1">Đăng Nhập</h1>
+        <p class="card-text mb-5"><small class="text-body-secondary">Vui lòng đăng nhập để tiếp tục</small></p>
         <form id="signinForm">
           <div class="mb-2">
-            <label for="inputUsername" class="form-label mb-1">Username</label>
-            <input type="text" class="form-control" name="inputUsername" id="inputUsername" required>
+            <label for="inputUsername" class="form-label">Tên đăng nhập</label>
+            <input type="text" class="form-control mt-0" name="inputUsername" id="inputUsername" required>
             <small id="usernameErr" class="form-text text-danger"></small>
           </div>
           <div class="mb-2">
-            <label for="inputPassword" class="form-label mb-1">Password</label>
-            <input type="password" class="form-control" name="inputPassword" id="inputPassword" required>
+            <label for="inputPassword" class="form-label mt-3">Mật khẩu</label>
+            <input type="password" class="form-control mt-0" name="inputPassword" id="inputPassword" required>
           </div>
           <div class="d-grid gap-2 col-12 mt-4">
-            <button class="btn btn-outline-dark signUp-button fs-4 mt-3" style="height: 4rem;" type="submit">Sign In</button>
+            <button class="btn btn-outline-dark signUp-button fs-4 mt-3" style="height: 4rem;" type="submit">Sign
+              In</button>
           </div>
         </form>
       </div>
     </div>
     <div class="right-card card border-0">
       <div class="card-body text-center">
-        <img
-          src="https://media.discordapp.net/attachments/1176168664987345008/1176953088456798208/loginanimi.png?ex=6570bdfb&is=655e48fb&hm=e4693ff912e14c7a1d637ed4e329351b67a4f04b6073ab6570bed2e593c74a19&=&format=webp&width=583&height=395"
-          alt="">
-        <h5 class="mt-2 mb-5 fs-2">Shop Name</h5>
-        <div>Don't have an account? </div>
-        <a class="btn btn-outline-light mt-2 fs-4" href="/user/signup" role="button">Sign Up</a>
+        <div class="row">
+          <div class="col-8 offset-2">
+            <img class="w-100"
+              src="https://media.discordapp.net/attachments/1176168664987345008/1176953088456798208/loginanimi.png?ex=6570bdfb&is=655e48fb&hm=e4693ff912e14c7a1d637ed4e329351b67a4f04b6073ab6570bed2e593c74a19&=&format=webp&width=583&height=395"
+              alt="">
+          </div>
+        </div>
+        <div class="mt-3">Chưa có tài khoản? </div>
+        <a class="btn btn-outline-light mt-2 fs-4" href="/user/signup" role="button">Đăng Ký </a>
       </div>
     </div>
   </div>
@@ -38,7 +42,7 @@
       e.preventDefault();
       // check use
       regex = /[\/\\\[\];|=,+\*\?<>]/;
-      $('#usernameErr').html(regex.test($('#inputUsername').val()) ? 'Username does not contain the following characters / \ [ ] ; | = , + * ? < >' : '');
+      $('#usernameErr').html(regex.test($('#inputUsername').val()) ? 'Tên đăng nhập không được chứa các kí tự: / \ [ ] ; | = , + * ? < >' : '');
 
       if ($('#usernameErr').html() == '') {
         //gui submit
