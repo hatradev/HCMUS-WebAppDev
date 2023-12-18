@@ -1,101 +1,197 @@
-<div class="header-content top" style="height: 10rem;">
-    <div class="container">
-        <div class="row align-center">
-            <div class="head-col-left col-lg-3 col-12">
-                <div class="js-menu-svg d-inline-flex align-items-center  justify-content-center d-lg-none">
-                    <img src="https://web.nvnstatic.net/tp/T0299/img/svg/menu-trans.svg?v=3" alt="Open navagation">
-                </div>
-
-                <a href="/" class="logo">
-                    <img src="https://pos.nvncdn.com/cba2a3-7534/store/20231109_cNzidTyd.png" alt="Logo">
-                </a>
-            </div>
-            <div class="head-col-center col-lg-6 d-none d-lg-block">
-                <form class="form-search" action="/search" method="get" style="height: 4rem;">
-                    <div class="input-group" style="height: 100%;">
-                        <input type="text" class="form-control" name="q" placeholder="Tìm kiếm sản phẩm" style="height: 100%; margin: 0; font-size: 2rem;"
-                            fdprocessedid="ckfuf9">
-                        <span class="input-group-btn">
-                            <button class="btn btn-pink" type="submit" fdprocessedid="vf5mg7">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-                <div class="research d-lg-block">
-                    <p><a href="/search?q=Xmas" target="_blank" rel="noreferrer noopener"><span>Xmas</span></a><a
-                            target="_blank" rel="noreferrer noopener"><span> </span></a><a
-                            href="/search?q=L%E1%BB%8Bch+2024" target="_blank" rel="noreferrer noopener"><span>Lịch
-                                2024</span></a><a href="/search?q=Trang+tr%C3%AD+Xmas" target="_blank"
-                            rel="noreferrer noopener"><span> </span></a><a href="/search?q=M%C5%A9+len" target="_blank"
-                            rel="noreferrer noopener"><span>Mũ len</span></a><a href="/search?q=Trang+tr%C3%AD+Xmas"
-                            target="_blank" rel="noreferrer noopener"><span> </span></a><a href="/dep-pc362873.html"
-                            target="_blank" rel="noreferrer noopener"><span>Dép</span></a><a
-                            href="/search?q=Trang+tr%C3%AD+Xmas" target="_blank" rel="noreferrer noopener"><span>
-                            </span></a><a href="/op-dien-thoai-pc158094.html" target="_blank"
-                            rel="noreferrer noopener"><span>Ốp điện thoại</span></a><a
-                            href="/search?q=Trang+tr%C3%AD+Xmas" target="_blank" rel="noreferrer noopener"><span>
-                            </span></a><a href="/search?q=Mojipop" target="_blank"
-                            rel="noreferrer noopener"><span>Mojipop</span></a><span> </span><a
-                            href="/search?q=iDOL"><span>Idol</span></a></p>
-                </div>
-            </div>
-            <div class="head-col-right col-lg-3 col-12">
-                <div class="header-right d-flex align-items-start">
-                    {{!-- <ul class="header-user d-none d-md-block">
-                        <li><a href="/user/signin">Đăng nhập |</a></li>
-                        <li><a href="/user/signup">Đăng ký</a></li>
-                    </ul> --}}
-                    <ul class="header-user d-flex justify-content-around" style="width: 100%;">
-                        <li><a href="/user/signin" style="font-size: 2rem;">Đăng nhập</a></li>
-                        <li><span style="font-size: 2rem;">|</span></li>
-                        <li><a href="/user/signup" style="font-size: 2rem;">Đăng ký</a></li>
-                        <li class="d-flex align-items-center" style="font-size: 2rem;"><i class="fa-regular fa-bag-shopping"></i></li>
-                    </ul>
-
-                    <a href="/user/signin" class="js-open-user d-md-none">
-                        <img src="https://web.nvnstatic.net/tp/T0299/img/svg/user.svg?v=3" alt="Đăng nhập">
-                    </a>
-
-                    <div class="count-cart" title="Giỏ hàng">
-                        {{!-- <div class="count-cart-icon">
-                            <span class="count d-flex align-items-center justify-content-center">0</span>
-                        </div> --}}
-                        {{!-- <i class="fa-solid fa-bag-shopping"></i> --}}
-                        <div id="js-rs-mini-cart" class="mini-shopping-cart">
-                            <p class="mini-shopping-cart__empty-message">Bạn chưa có sản phẩm trong giỏ hàng</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="header-content top">
+  <div class="container">
+    <div class="row align-center">
+      <div class="head-col-left col-lg-3 col-12">
+        <div
+          class="js-menu-svg d-inline-flex align-items-center justify-content-center d-lg-none"
+        >
+          <img
+            src="https://web.nvnstatic.net/tp/T0299/img/svg/menu-trans.svg?v=3"
+            alt="Open navagation"
+          />
         </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="fr-mobile container d-block d-lg-none">
-        <form class="form-search xs" action="/search" method="get">
-            <div class="input-group">
-                <input type="text" class="form-control" name="q" placeholder="Tìm kiếm sản phẩm">
-                <span class="input-group-btn">
-                    <button class="btn btn-pink" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </div>
+
+        <a href="/" class="logo">
+          <img
+            src="https://pos.nvncdn.com/cba2a3-7534/store/20231109_cNzidTyd.png"
+            alt="Logo"
+          />
+        </a>
+      </div>
+      <div class="head-col-center col-lg-6 d-none d-lg-block">
+        <form
+          class="form-search"
+          action="/search"
+          method="get"
+          style="height: 4rem;"
+        >
+          <div class="input-group" style="height: 100%;">
+            <input
+              type="text"
+              class="form-control"
+              name="q"
+              placeholder="Tìm kiếm sản phẩm"
+              style="height: 100%; margin: 0; font-size: 2rem;"
+              fdprocessedid="ckfuf9"
+            />
+            <span class="input-group-btn">
+              <button class="btn btn-pink" type="submit" fdprocessedid="vf5mg7">
+                <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
         </form>
         <div class="research d-lg-block">
-            <p><a href="/search?q=Xmas" target="_blank" rel="noreferrer noopener"><span>Xmas</span></a><a
-                    target="_blank" rel="noreferrer noopener"><span> </span></a><a href="/search?q=L%E1%BB%8Bch+2024"
-                    target="_blank" rel="noreferrer noopener"><span>Lịch 2024</span></a><a
-                    href="/search?q=Trang+tr%C3%AD+Xmas" target="_blank" rel="noreferrer noopener"><span> </span></a><a
-                    href="/search?q=M%C5%A9+len" target="_blank" rel="noreferrer noopener"><span>Mũ len</span></a><a
-                    href="/search?q=Trang+tr%C3%AD+Xmas" target="_blank" rel="noreferrer noopener"><span> </span></a><a
-                    href="/dep-pc362873.html" target="_blank" rel="noreferrer noopener"><span>Dép</span></a><a
-                    href="/search?q=Trang+tr%C3%AD+Xmas" target="_blank" rel="noreferrer noopener"><span> </span></a><a
-                    href="/op-dien-thoai-pc158094.html" target="_blank" rel="noreferrer noopener"><span>Ốp điện
-                        thoại</span></a><a href="/search?q=Trang+tr%C3%AD+Xmas" target="_blank"
-                    rel="noreferrer noopener"><span> </span></a><a href="/search?q=Mojipop" target="_blank"
-                    rel="noreferrer noopener"><span>Mojipop</span></a><span> </span><a
-                    href="/search?q=iDOL"><span>Idol</span></a></p>
+          <p><a
+              href="/search?q=Xmas"
+              target="_blank"
+              rel="noreferrer noopener"
+            ><span>Xmas</span></a><a
+              target="_blank"
+              rel="noreferrer noopener"
+            ><span> </span></a><a
+              href="/search?q=L%E1%BB%8Bch+2024"
+              target="_blank"
+              rel="noreferrer noopener"
+            ><span>Lịch 2024</span></a><a
+              href="/search?q=Trang+tr%C3%AD+Xmas"
+              target="_blank"
+              rel="noreferrer noopener"
+            ><span> </span></a><a
+              href="/search?q=M%C5%A9+len"
+              target="_blank"
+              rel="noreferrer noopener"
+            ><span>Mũ len</span></a><a
+              href="/search?q=Trang+tr%C3%AD+Xmas"
+              target="_blank"
+              rel="noreferrer noopener"
+            ><span> </span></a><a
+              href="/dep-pc362873.html"
+              target="_blank"
+              rel="noreferrer noopener"
+            ><span>Dép</span></a><a
+              href="/search?q=Trang+tr%C3%AD+Xmas"
+              target="_blank"
+              rel="noreferrer noopener"
+            ><span>
+              </span></a><a
+              href="/op-dien-thoai-pc158094.html"
+              target="_blank"
+              rel="noreferrer noopener"
+            ><span>Ốp điện thoại</span></a><a
+              href="/search?q=Trang+tr%C3%AD+Xmas"
+              target="_blank"
+              rel="noreferrer noopener"
+            ><span>
+              </span></a><a
+              href="/search?q=Mojipop"
+              target="_blank"
+              rel="noreferrer noopener"
+            ><span>Mojipop</span></a><span> </span><a
+              href="/search?q=iDOL"
+            ><span>Idol</span></a></p>
         </div>
+      </div>
+      <div class="head-col-right col-lg-3 col-12">
+        <div class="header-right d-flex align-items-start">
+          {{! <ul class="header-user d-none d-md-block">
+                        <li><a href="/user/signin">Đăng nhập |</a></li>
+                        <li><a href="/user/signup">Đăng ký</a></li>
+                    </ul> }}
+          <ul
+            class="header-user d-flex justify-content-around"
+            style="width: 100%;"
+          >
+            <li><a href="/user/signin" style="font-size: 2rem;">Đăng nhập</a></li>
+            <li><span style="font-size: 2rem;">|</span></li>
+            <li><a href="/user/signup" style="font-size: 2rem;">Đăng ký</a></li>
+            <li class="d-flex align-items-center" style="font-size: 2rem;"><i
+                class="fa-regular fa-bag-shopping"
+              ></i></li>
+          </ul>
+
+          <a href="/user/signin" class="js-open-user d-md-none">
+            <img
+              src="https://web.nvnstatic.net/tp/T0299/img/svg/user.svg?v=3"
+              alt="Đăng nhập"
+            />
+          </a>
+
+          <div class="count-cart" title="Giỏ hàng">
+            {{! <div class="count-cart-icon">
+                            <span class="count d-flex align-items-center justify-content-center">0</span>
+                        </div> }}
+            {{! <i class="fa-solid fa-bag-shopping"></i> }}
+            <div id="js-rs-mini-cart" class="mini-shopping-cart">
+              <p class="mini-shopping-cart__empty-message">Bạn chưa có sản phẩm
+                trong giỏ hàng</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="fr-mobile container d-block d-lg-none">
+    <form class="form-search xs" action="/search" method="get">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          name="q"
+          placeholder="Tìm kiếm sản phẩm"
+        />
+        <span class="input-group-btn">
+          <button class="btn btn-pink" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </span>
+      </div>
+    </form>
+    <div class="research d-lg-block">
+      <p><a
+          href="/search?q=Xmas"
+          target="_blank"
+          rel="noreferrer noopener"
+        ><span>Xmas</span></a><a target="_blank" rel="noreferrer noopener"><span
+          > </span></a><a
+          href="/search?q=L%E1%BB%8Bch+2024"
+          target="_blank"
+          rel="noreferrer noopener"
+        ><span>Lịch 2024</span></a><a
+          href="/search?q=Trang+tr%C3%AD+Xmas"
+          target="_blank"
+          rel="noreferrer noopener"
+        ><span> </span></a><a
+          href="/search?q=M%C5%A9+len"
+          target="_blank"
+          rel="noreferrer noopener"
+        ><span>Mũ len</span></a><a
+          href="/search?q=Trang+tr%C3%AD+Xmas"
+          target="_blank"
+          rel="noreferrer noopener"
+        ><span> </span></a><a
+          href="/dep-pc362873.html"
+          target="_blank"
+          rel="noreferrer noopener"
+        ><span>Dép</span></a><a
+          href="/search?q=Trang+tr%C3%AD+Xmas"
+          target="_blank"
+          rel="noreferrer noopener"
+        ><span> </span></a><a
+          href="/op-dien-thoai-pc158094.html"
+          target="_blank"
+          rel="noreferrer noopener"
+        ><span>Ốp điện thoại</span></a><a
+          href="/search?q=Trang+tr%C3%AD+Xmas"
+          target="_blank"
+          rel="noreferrer noopener"
+        ><span> </span></a><a
+          href="/search?q=Mojipop"
+          target="_blank"
+          rel="noreferrer noopener"
+        ><span>Mojipop</span></a><span> </span><a href="/search?q=iDOL"><span
+          >Idol</span></a></p>
+    </div>
+  </div>
 </div>
