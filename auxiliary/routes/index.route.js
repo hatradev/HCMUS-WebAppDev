@@ -1,7 +1,16 @@
+const account = require("../models/account.model");
+const mongoose = require('../helpers/mongoose');
+
 function route(app) {
   // Định nghĩa các route theo tài nguyên
-  app.get('/', (req, res) => {
-    res.send('hello world')
+  app.get('/', async (req, res) => {
+    let user = await account.find({});
+    if (user) {
+      console.log(user);
+    } else {
+      console.log("fail");
+    }
+    res.json(user);
   })
 
   // Hai middlewares này phải để cuối để check lỗi
