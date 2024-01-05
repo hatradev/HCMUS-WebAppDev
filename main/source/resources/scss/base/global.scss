@@ -1,0 +1,62 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5% !important;
+}
+
+body {
+  font-family: $font-family-primary !important;
+  @include font($font-size-primary !important, 400 !important, $color-dark !important, 1.5 !important);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-title !important;
+  @include font($font-size-primary !important, 900 !important, $color-dark !important, 1.5 !important);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: $color-dark;
+}
+
+button {
+  border: none;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+  border: none;
+}
+
+
