@@ -17,11 +17,10 @@ module.exports = (oauth2Client) => {
   });
 
   router.get('/google/callback', async (req, res) => {
-    console.log(1);
     try {
       const {tokens} = await oauth2Client.getToken(req.query.code);
       oauth2Client.setCredentials(tokens);
-      res.render('success');  // Assuming you have a success.ejs view
+      res.render('success');
     } catch (error) {
       res.send('Authentication failed!');
     }

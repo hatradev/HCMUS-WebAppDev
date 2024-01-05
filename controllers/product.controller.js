@@ -1,5 +1,6 @@
 class productController {
     displayAll = async (req, res, next) => {
+      // console.log("displayAll");
       try {
         res.render("all-product", {});
       } catch (err) {
