@@ -8,6 +8,6 @@ const historySchema = new mongoose.Schema({
   description: String
 });
 
-const History = mongoose.model('as.history', historySchema);
+const History = mongoose.model('history', historySchema);
 
 module.exports = History;

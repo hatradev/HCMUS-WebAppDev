@@ -16,6 +16,6 @@ const orderSchema = new mongoose.Schema({
   isOnline: Boolean
 });
 
-const Order = mongoose.model('ms.order', orderSchema);
+const Order = mongoose.model('order', orderSchema);
 
 module.exports = Order;
