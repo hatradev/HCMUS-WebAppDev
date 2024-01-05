@@ -20,10 +20,11 @@
           </div>
         </form>
         <hr class="my-4">
-        <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #dd4b39;" type="submit"><i
+        <button class="btn btn-lg btn-block btn-primary mb-2 g-signin2" 
+        id="g-signin2" data-onsuccess="onSignIn" type="button" style="background-color: #dd4b39;" type="submit"><i
             class="fab fa-google "></i> Sign in with google</button>
-        <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;" type="submit"><i
-            class="fab fa-facebook-f me-2"></i>Sign in with facebook</button>
+        {{!-- <button class="btn btn-lg btn-block btn-primary mb-2" style="background-color: #3b5998;" type="submit"><i
+            class="fab fa-facebook-f me-2"></i>Sign in with facebook</button> --}}
       </div>
     </div>
     <div class="right-card card border-0">
@@ -41,18 +42,56 @@
     </div>
   </div>
 </div>
-<script>
-  $(() => {
-    $('#signinForm').submit(function (e) {
-      e.preventDefault();
-      // check use
-      regex = /[\/\\\[\];|=,+\*\?<>]/;
-      $('#usernameErr').html(regex.test($('#inputUsername').val()) ? 'Tên đăng nhập không được chứa các kí tự: / \ [ ] ; | = , + * ? < >' : '');
 
-      if ($('#usernameErr').html() == '') {
-        //gui submit
-        //$('#signinForm').submit();
-      }
-    });
-  })
+<script>
+  // Wait for the DOM to be ready
+  $(document).ready(function() {
+    
+    // Validate and handle the sign-in form submission
+    function handleSignInFormSubmission() {
+      $('#signinForm').on('submit', function(event) {
+        event.preventDefault();
+
+        // Validate username
+        const username = $('#inputUsername').val();
+        const invalidCharsRegex = /[\/\\\[\];|=,+\*\?<>]/;
+        const errorMessage = 'Tên đăng nhập không được chứa các kí tự: / \\ [ ] ; | = , + * ? < >';
+        
+        $('#usernameErr').text(invalidCharsRegex.test(username) ? errorMessage : '');
+
+        // If the username is valid, proceed with form submission (uncomment to enable)
+        // if ($('#usernameErr').text() == '') {
+        //   $('#signinForm').submit();
+        // }
+      });
+    }
+
+    // Function called when the user clicks on the Google sign-in button
+    function onSignIn(googleUser) {
+      console.log(1);
+      const profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+
+    // Function to initialize the Google Auth client
+    function initGoogleAuthClient() {
+      gapi.load('auth2', function() {
+        gapi.auth2.init({
+          client_id: '420554225529-v2gdq8nue9cq0up7jtsovdecin77cqim.apps.googleusercontent.com',
+          scope: 'profile email'
+        }).then(function() {
+          const GoogleAuth = gapi.auth2.getAuthInstance();
+          GoogleAuth.attachClickHandler('g-signin2', {}, onSignIn);
+        });
+      });
+    }
+
+    // Initialize functions
+    handleSignInFormSubmission();
+    window.onload = initGoogleAuthClient;
+
+  });
 </script>
