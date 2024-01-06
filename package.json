@@ -2,10 +2,13 @@
   "name": "1",
   "version": "1.0.0",
   "description": "1",
-  "main": "source/app.js",
   "scripts": {
-    "start": "nodemon source/server.js",
-    "watch": "node-sass --watch source/resources/scss/app.scss source/public/css/app.css"
+    "main": "nodemon main/source/server.js main/source/app.js",
+    "auxiliary": "nodemon auxiliary/source/server.js auxiliary/source/app.js",
+    "m-watch": "node-sass --watch main/source/resources/scss/app.scss main/source/public/css/app.css",
+    "a-watch": "node-sass --watch auxiliary/source/resources/scss/app.scss auxiliary/source/public/css/app.css",
+    "start": "concurrently \"npm run main\" \"npm run auxiliary\" ",
+    "watch": "concurrently \"npm run m-watch\" \"npm run a-watch\""
   },
   "repository": {
     "type": "git",
@@ -23,6 +26,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
+    "concurrently": "^8.2.2",
     "connect-flash": "^0.1.1",
     "connect-redis": "^7.1.0",
     "cors": "^2.8.5",
