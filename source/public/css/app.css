@@ -115,6 +115,13 @@ a {
   background-color: B2C8BA; }
 
 /* login */
+#signinForm input,
+#signupForm input,
+#updaterForm input,
+.profileForm input,
+select option {
+  font-size: 14px; }
+
 .card-group {
   width: 55vw;
   min-height: 560px;
@@ -127,7 +134,7 @@ a {
 
 .left-card button {
   background-color: #FFB0BD;
-  color: #fff;
+  color: #000;
   border: none; }
 
 .left-card button:hover {
@@ -141,6 +148,12 @@ a {
 
 .right-card {
   background-color: #FFB0BD;
+  color: #000; }
+
+.social-media button {
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
   color: #fff; }
 
 /* profile */
@@ -153,11 +166,11 @@ form input, form select {
 
 .updateButton {
   background-color: #FFB0BD;
-  color: #fff; }
+  color: #000; }
 
 .updateButton:hover {
   background-color: #f77f95;
-  color: #fff; }
+  color: #000; }
 
 .carousel-item {
   max-height: 100%; }
