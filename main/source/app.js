@@ -18,7 +18,7 @@ const oauth2Client = new google.auth.OAuth2(
   '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',
   'http://localhost:3000/auth/google/callback'
 );
-const authRoutes = require('../controllers/auth.controller')(oauth2Client);
+// const authRoutes = require('../controllers/auth.controller')(oauth2Client);
 
 // const liveReloadServer = livereload.createServer();
 const app = express();
@@ -43,14 +43,19 @@ app.use(methodOverride("_method"));
 // // Passport middleware
 // app.use(passport.initialize());
 // app.use(passport.session());
-app.use('/auth', authRoutes);
+
+// app.use('/auth', authRoutes);
 
 // Template engines handlebars
 app.engine(
   "hbs",
   hbs.engine({
     extname: ".hbs",
-    // helpers: require("../helpers/handlebars"),
+    helpers: {
+      formatCurrency: function(value) {
+        return new Intl.NumberFormat().format(value);
+      }
+    }
   })
 );
 
