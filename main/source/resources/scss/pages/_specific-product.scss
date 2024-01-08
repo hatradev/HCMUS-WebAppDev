@@ -104,16 +104,13 @@
   top: 26%;
 }
 
-.blk-pview-info {
-}
-
 .blk-code {
   display: block;
   margin-bottom: 10px;
 }
 
 .blk-code .title {
-  font-size: 25px;
+  font-size: 4rem;
   letter-spacing: 0;
   margin-bottom: 5px;
   line-height: 1.4;
@@ -539,9 +536,6 @@
   cursor: pointer;
 }
 
-.filter-nav li ul {
-}
-
 .filter-nav li ul li {
   border-top: 1px solid #eee;
   border-bottom: none;
@@ -591,3 +585,16 @@
 }
 
 /*----- End Page product category ---------------------------------*/
+.carousel-img {
+  max-width: 100%;        /* Maximum width to 50% of the container */
+  max-height: 70vh;      /* Maximum height to 75% of the viewport height */
+  width: auto;           /* Default width to auto */
+  height: auto;          /* Default height to auto */
+  object-fit: contain;   /* Resize the image to maintain its aspect ratio while fitting within the element’s content box */
+  margin: auto;          /* Centers the image if it's smaller than the container */
+  display: block;        /* Ensures the image is a block-level element so margin: auto works */
+}
+
+// #productImageCarousel {
+//   max-width: 45%;
+// }

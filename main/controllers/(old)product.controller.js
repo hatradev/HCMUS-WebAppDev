@@ -306,46 +306,46 @@ class productController {
   };
 
   // [GET] product/all-product
-  showAllProduct = async (req, res, next) => {
-    try {
-      let page = isNaN(req.query.page)
-        ? 1
-        : Math.max(1, parseInt(req.query.page));
-      const limit = 8;
-      const products = await Product.find({
-        $or: [{ status: "Available" }, { status: "Reported" }],
-      })
-        .skip((page - 1) * limit)
-        .limit(limit);
-      const categories = await Product.aggregate([
-        {
-          $match: {
-            status: { $in: ["Available", "Reported"] },
-          },
-        },
-        {
-          $group: {
-            _id: "$category",
-            count: { $sum: 1 },
-          },
-        },
-        {
-          $sort: { _id: 1 },
-        },
-      ]);
-      res.locals._numberOfItems = await Product.find({
-        $or: [{ status: "Available" }, { status: "Reported" }],
-      }).countDocuments();
-      res.locals._limit = limit;
-      res.locals._currentPage = page;
+  // showAllProduct = async (req, res, next) => {
+  //   try {
+  //     let page = isNaN(req.query.page)
+  //       ? 1
+  //       : Math.max(1, parseInt(req.query.page));
+  //     const limit = 8;
+  //     const products = await Product.find({
+  //       $or: [{ status: "Available" }, { status: "Reported" }],
+  //     })
+  //       .skip((page - 1) * limit)
+  //       .limit(limit);
+  //     const categories = await Product.aggregate([
+  //       {
+  //         $match: {
+  //           status: { $in: ["Available", "Reported"] },
+  //         },
+  //       },
+  //       {
+  //         $group: {
+  //           _id: "$category",
+  //           count: { $sum: 1 },
+  //         },
+  //       },
+  //       {
+  //         $sort: { _id: 1 },
+  //       },
+  //     ]);
+  //     res.locals._numberOfItems = await Product.find({
+  //       $or: [{ status: "Available" }, { status: "Reported" }],
+  //     }).countDocuments();
+  //     res.locals._limit = limit;
+  //     res.locals._currentPage = page;
 
-      res.locals.categories = categories;
-      res.locals.products = mutipleMongooseToObject(products);
-      res.render("all-product");
-    } catch (error) {
-      next(error);
-    }
-  };
+  //     res.locals.categories = categories;
+  //     res.locals.products = mutipleMongooseToObject(products);
+  //     res.render("all-product");
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // };
 
   // [GET] product/all-product/category
   filterProduct = async (req, res, next) => {
@@ -500,60 +500,60 @@ class productController {
   };
 
   // [GET] product/specific-product
-  showSpecificProduct = async (req, res, next) => {
-    try {
-      const productId = req.params.id;
+  // showSpecificProduct = async (req, res, next) => {
+  //   try {
+  //     const productId = req.params.id;
 
-      const product = await Product.findOne({ _id: productId });
-      const details = product.description.split("\n");
-      const evaluates = await Evaluate.find({ idProduct: productId })
-        .populate({
-          path: "idAccount",
-          select: "firstName lastName avatar",
-        })
-        .sort({ date: -1 });
+  //     const product = await Product.findOne({ _id: productId });
+  //     const details = product.description.split("\n");
+  //     const evaluates = await Evaluate.find({ idProduct: productId })
+  //       .populate({
+  //         path: "idAccount",
+  //         select: "firstName lastName avatar",
+  //       })
+  //       .sort({ date: -1 });
 
-      const evaNumber = await Evaluate.find({ idProduct: productId })
-        .populate({
-          path: "idAccount",
-          select: "firstName lastName avatar",
-        })
-        .sort({ date: -1 })
-        .countDocuments();
-      const ratings = await Evaluate.find({
-        idProduct: productId,
-        rating: { $ne: 0 },
-      }).select("rating");
-      const totalRatings = ratings.length;
-      const sumRatings = ratings.reduce(
-        (sum, rating) => sum + rating.rating,
-        0
-      );
-      const avgRating = sumRatings / totalRatings;
+  //     const evaNumber = await Evaluate.find({ idProduct: productId })
+  //       .populate({
+  //         path: "idAccount",
+  //         select: "firstName lastName avatar",
+  //       })
+  //       .sort({ date: -1 })
+  //       .countDocuments();
+  //     const ratings = await Evaluate.find({
+  //       idProduct: productId,
+  //       rating: { $ne: 0 },
+  //     }).select("rating");
+  //     const totalRatings = ratings.length;
+  //     const sumRatings = ratings.reduce(
+  //       (sum, rating) => sum + rating.rating,
+  //       0
+  //     );
+  //     const avgRating = sumRatings / totalRatings;
 
-      const related = await Product.aggregate([
-        {
-          $match: {
-            keyword: product.keyword,
-          },
-        },
-        { $limit: 6 },
-      ]);
+  //     const related = await Product.aggregate([
+  //       {
+  //         $match: {
+  //           keyword: product.keyword,
+  //         },
+  //       },
+  //       { $limit: 6 },
+  //     ]);
 
-      res.locals.evaNumber = evaNumber;
-      res.locals.details = details;
-      res.locals.product = mongooseToObject(product);
-      res.locals.stars = avgRating;
-      res.locals.related = related;
-      res.locals.evaluates = mutipleMongooseToObject(evaluates);
+  //     res.locals.evaNumber = evaNumber;
+  //     res.locals.details = details;
+  //     res.locals.product = mongooseToObject(product);
+  //     res.locals.stars = avgRating;
+  //     res.locals.related = related;
+  //     res.locals.evaluates = mutipleMongooseToObject(evaluates);
 
-      res.render("specific-product", {
-        formatCurrency: formatCurrency,
-      });
-    } catch (error) {
-      next(error);
-    }
-  };
+  //     res.render("specific-product", {
+  //       formatCurrency: formatCurrency,
+  //     });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // };
 
   // [PUT] product/specific-product/:id/report
   reportProduct = async (req, res, next) => {

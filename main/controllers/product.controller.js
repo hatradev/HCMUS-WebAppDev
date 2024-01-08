@@ -42,12 +42,27 @@ class productController {
     }
   };  
 
-  // Method to display a specific product (remains unchanged)
-  displaySpecific = async (req, res, next) => {
+  showSpecificProduct = async (req, res, next) => {
     try {
-      // Your existing logic for a specific product will go here
-      res.render("specific-product", {});
+      // Extract productId from request parameters
+      const { productId } = req.params;
+  
+      // Find the specific product by its _id
+      const product = await Product.findById(productId).lean();
+  
+      // If no product is found, handle the 404 case
+      if (!product) {
+        res.status(404).send('Product not found');
+        return;
+      }
+
+      // console.log('product: ', product);
+  
+      // If a product is found, send it to the front-end or handle it as needed
+      res.render("specific-product", { product }); // Adjust the view as per your setup
     } catch (err) {
+      // If an error occurs, log it and pass it to the error handling middleware
+      console.error(err);
       next(err);
     }
   };

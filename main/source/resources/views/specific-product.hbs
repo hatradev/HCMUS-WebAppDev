@@ -1,70 +1,44 @@
 <main class="mains">
   <div class="container">
     <div class="row">
-      <div class="col-breadcrumb col-sm-12">
-        <ul class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="/">Trang chủ</a>
-          </li>
-          <li class="breadcrumb-item">
-            <a class="158220" href="/gau-bong-goi-pc158220.html">Gấu bông, gối</a>
-          </li>
-          <li class="breadcrumb-item">
-            <a class="362839" href="/gau-bong-cute-pc362839.html">Gấu bông cute
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="blk-pview-img col-lg-6 col-md-12 col-sm-12">
-        <a
-          id="js-gall"
-          href="https://pos.nvncdn.com/cba2a3-7534/ps/20231218_x7MWNOeY2Q.jpeg"
-          data-toggle="lightbox"
-          data-gallery="gallery"
-        >
-          <img
-            id="js-pview-uri"
-            src="https://pos.nvncdn.com/cba2a3-7534/ps/20231218_x7MWNOeY2Q.jpeg"
-            alt="Gấu bông MS Funny vibes fruit avocado trái bơ môi dày 25cm"
-          />
-        </a>
-        <div id="js-list-lightbox" class="d-none">
+      <div id="productImageCarousel" class="carousel slide w-50" data-bs-ride="carousel">
+        <!-- Dynamically create carousel indicators based on the number of images -->
+        <div class="carousel-indicators">
+          {{#each product.image}}
+          <button type="button" data-bs-target="#productImageCarousel" data-bs-slide-to="{{@index}}" class="{{#if @first}}active{{/if}}" aria-current="{{#if @first}}true{{/if}}" aria-label="Slide {{@index}}"></button>
+          {{/each}}
         </div>
-        <div class="row">
-          <div
-            class="owl-carousel owl-theme owl-pink d-flex justify-content-center owl-loaded owl-drag"
-          >
-            <div class="owl-stage-outer"><div
-                class="owl-stage"
-                style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 115px;"
-              ><div class="owl-item active" style="width: 115px;"><div
-                    class="item thumbnailUri"
-                    data-src="https://pos.nvncdn.com/cba2a3-7534/ps/20231218_x7MWNOeY2Q.jpeg"
-                  ><img
-                      src="https://pos.nvncdn.com/cba2a3-7534/ps/20231218_x7MWNOeY2Q.jpeg"
-                      alt="ThumbnailUri"
-                    /></div></div></div></div><div
-              class="owl-nav disabled"
-            ><button
-                type="button"
-                role="presentation"
-                class="owl-prev disabled"
-              ><i class="fa fa-angle-left"></i></button><button
-                type="button"
-                role="presentation"
-                class="owl-next disabled"
-              ><i class="fa fa-angle-right"></i></button></div><div
-              class="owl-dots disabled"
-            ></div></div>
+        
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+          {{#each product.image}}
+          <div class="carousel-item {{#if @first}}active{{/if}}">
+            <img src="{{this}}" class="carousel-img d-block" alt="{{../product.name}}">
+          </div>
+          {{/each}}
         </div>
+        
+        <!-- Carousel controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#productImageCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productImageCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
 
       <div class="blk-pview-info col-lg-6 col-md-12 col-sm-12">
         <div class="blk-code">
-          <h1 class="title">Gấu bông MS Funny vibes fruit avocado trái bơ môi
-            dày 25cm - Xanh lá cây</h1>
-          <div class="code">Mã sản phẩm: M.E101.NO.23124158-GN</div>
+          <div class="title">{{product.name}}</div>
+          <div class="code">Mã sản phẩm: {{product._id}}</div>
+        </div>
+        <div class="blk-price">
+          <div class="product-price">
+            <!-- Assuming price is in a number format -->
+            <span class="price">{{formatCurrency product.price}} VND</span>
+          </div>
         </div>
         <div class="blk-action d-inline-flex pull-right">
           <div class="b-ac shares"><i class="fa fa-share-alt"></i></div>
@@ -105,32 +79,7 @@
           </div>
         </div>
 
-        <div class="blk-price">
-          <div class="product-price">
-            <span class="price">90,000đ</span>
-          </div>
-        </div>
-
         <div class="blk-att" data-label="Màu sắc, size sản phẩm">
-          <div
-            class="r-at-r req color d-flex align-items-center"
-            data-column="i4"
-          >
-            <label class="pull-left">Màu sắc</label>
-            <div class="pull-left">
-              <a
-                data-psids="37901385"
-                data-image="https://pos.nvncdn.com/cba2a3-7534/ps/20231218_x7MWNOeY2Q.jpeg"
-                href="javascript:void(0)"
-                class="d-inline-flex align-items-center justify-content-center active"
-                data-value="294505"
-                title=""
-                rel="nofollow"
-                data-original-title="Xanh lá cây"
-              ><span style="background: #00af33"></span></a>
-            </div>
-          </div>
-
           <div class="r-at-r d-flex align-items-center">
             <label class="pull-left">Số lượng</label>
             <div class="pull-left">
@@ -177,50 +126,6 @@
           </div>
           <div id="mss-alret"></div>
         </div>
-
-        <div class="blk-policy full clearfix">
-          <div class="row">
-            <div
-              data-label="shipping"
-              class="item col-lg-4 col-md-4 col-sm-12 col-xs-12 d-flex align-items-center"
-            >
-              <p>Giao hàng toàn quốc đơn hàng từ 99k</p>
-            </div>
-            <div
-              data-label="cod"
-              class="item col-lg-4 col-md-4 col-sm-12 col-xs-12 d-flex align-items-center"
-            >
-              COD nội thành HN, HCM
-            </div>
-            <div
-              data-label="24h"
-              class="item col-lg-4 col-md-4 col-sm-12 col-xs-12 d-flex align-items-center"
-            >
-              Đổi trả trong 24h
-            </div>
-          </div>
-        </div>
-        <div
-          class="blk-policy policy-shipping-support full clearfix br-t-0 mt-0"
-        >
-          <div class="row">
-            <div
-              data-label="ship_policy"
-              class="item col-12 d-flex align-items-center pt-0 mt-0"
-            >
-              <p><a
-                  href="https://shorturl.at/JOY35"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                ><span style="color:hsl(0,75%,60%);">Từ 18-25/12, tham gia ngay
-                    chương trình 𝐗𝐌𝐀𝐒 𝐗𝐓𝐑𝐀 𝐒𝐀𝐋𝐄 của Moji với mức ưu đãi lên đến
-                    50% bạt ngàn các items Giáng sinh xinh xắn</span></a></p><p
-              >Hỗ trợ ship 20k cho đơn hàng từ 300k khu vực nội thành HN, HCM</p><p
-              >Hỗ trợ ship 30k cho đơn hàng từ 500k các khu vực khác</p><p
-              >&nbsp;</p>
-            </div>
-          </div>
-        </div>
       </div>
       <!-- end blk-pview-info -->
 
@@ -228,7 +133,8 @@
         <div class="blk-pview-content full clearfix">
           <div class="blk-pview-title">Mô tả sản phẩm</div>
           <div class="content full clearfix">
-            <figure class="image"></figure><p>&nbsp;</p>
+            <!-- Product description -->
+            <p>{{product.description}}</p>
           </div>
         </div>
       </div>
