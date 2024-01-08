@@ -8,24 +8,24 @@
                 <div class="form-group">
                     <input id="customerName" name="customerName" type="text"
                         class="form-control input-sm validate[required]" value="Đinh Quý Triều" placeholder="Họ tên *"
-                        fdprocessedid="tnff65">
+                        fdprocessedid="tnff65" style="font-size: 1.5rem;">
                 </div>
                 <div class="form-group">
                     <input id="customerMobile" name="customerMobile" type="text"
                         class="form-control input-sm validate[required,custom[phone]]" value="0365511518"
-                        placeholder="Điện thoại *" fdprocessedid="a8l56b">
+                        placeholder="Điện thoại *" fdprocessedid="a8l56b" style="font-size: 1.5rem;">
                 </div>
                 <div class="form-group">
                     <input id="customerEmail" name="customerEmail" type="text" class="form-control input-sm"
-                        value="dinhquytrieu1010@gmail.com" placeholder="Email *" fdprocessedid="037no">
+                        value="dinhquytrieu1010@gmail.com" placeholder="Email *" fdprocessedid="037no" style="font-size: 1.5rem;">
                 </div>
                 <div class="form-group">
                     <input type="text" id="customerAddress" name="customerAddress" value=""
                         class="validate[required] form-control input-sm" placeholder="Địa chỉ chi tiết *"
-                        fdprocessedid="t3t0gv">
+                        fdprocessedid="t3t0gv" style="font-size: 1.5rem;">
                 </div>
                 <div class="form-group">
-                    <select id="customerCityId" name="customerCityId" class="form-control input validate[required]"
+                    <select id="customerCityId" name="customerCityId" class="form-control input validate[required]" style="font-size: 1.5rem;"
                         fdprocessedid="eo8itm">
                         <option value="">Tỉnh/Thành phố *</option>
                         <option value="254">Hà Nội</option>
@@ -95,13 +95,13 @@
                 </div>
                 <div class="form-group">
                     <select id="customerDistrictId" name="customerDistrictId"
-                        class="form-control input validate[required]" fdprocessedid="2jypm8">
+                        class="form-control input validate[required]" fdprocessedid="2jypm8" style="font-size: 1.5rem;">
                         <option value="">Quận/ Huyện *</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-top: 1.5rem;">
                     <textarea type="text" id="description" name="description" class="form-control input-sm" rows="3 "
-                        placeholder="Ghi chú"></textarea>
+                        placeholder="Ghi chú" style="font-size: 1.5rem;"></textarea>
 
                 </div>
                 <div>Đơn hàng trên website được xử lý trong giờ hành chính</div>
@@ -125,56 +125,23 @@
                         <div class="d-block" data-toggle="collapse" data-target="#p-online" aria-expanded="true">
                             Chuyển khoản trước toàn bộ tiền hàng </div>
                     </label> --}}
-                    <div class="form-check">
+                    {{!-- <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" style="border: 0.05rem solid black;">
                         <label class="form-check-label" for="flexRadioDefault1">
+                            Chuyển khoản trước toàn bộ tiền hàng
+                        </label>
+                    </div> --}}
+                    <div class="form-check" style="padding-left: 0;">
+                        {{!-- <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> --}}
+                        <label class="form-check-label" for="flexCheckDefault">
                             Chuyển khoản trước toàn bộ tiền hàng
                         </label>
                     </div>
                     <div id="p-online" class="col-pay alert alert-warning collapse in show">
                         <p><span style="font-size:14px;"><span style="font-family:arial, helvetica, sans-serif;"><span
-                                        style="text-indent:10px;">Với phương&nbsp;thức Chuyển khoản trước toàn bộ tiền
+                                        style="text-indent:10px; font-family: Signika, sans-serif;">Với phương&nbsp;thức Chuyển khoản trước toàn bộ tiền
                                         hàng,&nbsp;bộ phận CSKH sẽ gọi điện đến bạn để xác nhận đơn hàng và
                                         hướng&nbsp;dẫn cách thức thanh toán chuyển khoản</span></span></span></p>
-                    </div>
-                </div>
-                <div class="d-block item">
-                    {{!-- <label class="form-check-label" style="display: flex;">
-                        <input type="radio" value="1" name="paymentMethod" checked="" class="form-check-input" style="border: 0.05rem solid black;">
-                        <div class="d-block" data-toggle="collapse" data-target="#p-cod" aria-expanded="true">
-                            Thanh toán khi nhận hàng </div>
-                    </label> --}}
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" style="border: 0.05rem solid black;">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Thanh toán khi nhận hàng
-                        </label>
-                    </div>
-                    <div id="p-cod" class="col-pay alert alert-warning collapse in show">
-                        <p><span style="font-family:arial, helvetica, sans-serif;"><span style="font-size:14px;">Thanh
-                                    toán khi nhận hàng (COD) chỉ áp dụng cho các đơn hàng ở các quận/huyện dưới đây
-                                    thuộc&nbsp;Hà Nội/TP.HCM:</span></span></p>
-
-                        <p
-                            style="font-family:'Roboto Condensed', Arial, sans-serif;font-size:15px;margin:0px;padding:5px 0px;">
-                            <span style="font-family:arial, helvetica, sans-serif;"><span style="font-size:14px;">&nbsp;
-                                    &nbsp; &nbsp; &nbsp;+ Hà Nội: Quận Hoàn Kiếm, Ba Đình, Đống Đa, Hoàng Mai, Hai Bà
-                                    Trưng, Cầu Giấy, Thanh Xuân,&nbsp;</span><span style="font-size:14px;">Tây Hồ, Từ
-                                    Liêm, Hà Đông, Long Biên,&nbsp;Gia Lâm, Sơn Tây, Ba Vì, Mê Linh, Đông Anh, Thường
-                                    Tín, Thanh Trì</span></span></p>
-
-                        <p
-                            style="font-family:'Roboto Condensed', Arial, sans-serif;font-size:15px;margin:0px;padding:5px 0px;">
-                            <span style="font-family:arial, helvetica, sans-serif;"><span style="font-size:14px;">&nbsp;
-                                    &nbsp; &nbsp; &nbsp;+ HCM: Quận 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, Tân Bình, Tân
-                                    Phú, Phú Nhuận, Bình Thạnh, Gò Vấp,&nbsp;</span><span style="font-size:14px;">Bình
-                                    Tân, Thủ Đức,&nbsp;Bình Chánh, Nhà Bè, Hooc M</span><span
-                                    style="font-size:14px;">ôn</span></span></p>
-
-                        <p
-                            style="font-family:'Roboto Condensed', Arial, sans-serif;font-size:15px;margin:0px;padding:5px 0px;">
-                            <span style="font-family:arial, helvetica, sans-serif;"><span style="font-size:14px;">&nbsp;
-                                    &nbsp;&nbsp;</span></span></p>
                     </div>
                 </div>
                 <input type="hidden" id="baokimBankPaymentMethodId" name="baokimBankPaymentMethodId">
@@ -346,25 +313,17 @@
                     <strong class="d-block">Nhập mã ưu đãi</strong>
                     <div class="input-group">
                         <input type="text" id="coupon" name="couponCode" class="form-control" placeholder="Mã giảm giá"
-                            fdprocessedid="nnirxl">
-                        <div class="input-group-btn">
-                            <button class="btn btn-pink" id="getCoupon" type="button" fdprocessedid="ayh69" style="height: 4rem;">
+                            fdprocessedid="nnirxl" style="font-size: 1.5rem;">
+                        <div class="input-group-btn" style="padding-top: 1.4rem;">
+                            <button class="btn btn-pink" id="getCoupon" type="button" fdprocessedid="ayh69" style="height: 4rem; font-family: Signika, sans-serif; font-size:1.5rem;">
                                 Áp dụng </button>
                         </div>
                     </div>
                 </div>
-
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input name="checkoutConfirm" class="form-check-input" type="checkbox" style="border: 0.05rem solid black;">
-                        <p>Tôi đồng ý với các điều khoản <a href="/chinhsachbanhang-n53878.html">chính sách giao
-                                hàng</a></p>
-                    </label>
-                </div>
                 <div id="mss-confirm"></div>
 
-                <div class="d-block d-flex justify-content-end">
-                    <div id="js-btn-submit" class="btn btn-pink d-flex justify-content-center align-items-center" style="height:5rem; width:15rem; font-size: 2rem">Thanh toán</div>
+                <div class="d-block d-flex justify-content-end" style="margin-top: 1.5rem;">
+                    <div id="js-btn-submit" class="btn btn-pink d-flex justify-content-center align-items-center" style="height:5rem; width:15rem; font-size: 2rem; font-family: Signika, sans-serif;">Thanh toán</div>
                 </div>
             </div>
         </div>
