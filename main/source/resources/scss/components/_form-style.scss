@@ -1,0 +1,48 @@
+/* login */
+.card-group{
+    width: 55vw;
+    min-height: 560px;
+    background-color: #FFB0BD;
+    border-radius: 0px;
+    box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-title{
+    color: $color-dark;
+}
+
+.left-card button{
+    background-color: #FFB0BD;
+    color: #fff;
+    border: none;
+}
+.left-card button:hover{
+    background-color: #f77f95;
+    color: #fff;
+    border: none;
+}
+.right-card img{
+    max-width: 25rem;
+    margin-top: 10rem
+}
+.right-card{
+    background-color: #FFB0BD;
+    color: #fff;
+}
+
+/* profile */
+.profileCard a:hover{
+    color: #FFB0BD;
+}
+form input, form select{
+  height: 4rem;
+  margin-top: 1.5rem;
+}
+.updateButton{
+    background-color: #FFB0BD;
+    color: #fff;
+}
+.updateButton:hover{
+    background-color: #f77f95;
+    color: #fff;
+}
