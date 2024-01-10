@@ -21,13 +21,13 @@ class siteController {
       next(err);
     }
   };
-  // getCart = async (req, res, next) => {
-  //   try {
-  //     res.render("cart-tmp", {});
-  //   } catch (err) {
-  //     next(err);
-  //   }
-  // };
+  getPayment = async (req, res, next) => {
+    try {
+      res.render("payment", {});
+    } catch (err) {
+      next(err);
+    }
+  };
   
   getPayForCart = async (req, res, next) => {
     try {

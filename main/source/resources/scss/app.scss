@@ -9,13 +9,14 @@
 @import "layouts/header";
 @import "layouts/header_content";
 @import "layouts/responsive";
-@import "layouts/styles_whole";
+//@import "layouts/styles_whole";
 @import "layouts/responsive_whole";
-@import "layouts/plugin_whole";
+// @import "layouts/plugin_whole";
 @import "layouts/define_whole";
 @import "layouts/animate_whole";
 // @import "layouts/bootstrap4.3.1";
 @import "pages/cart";
+@import "pages/payment";
 @import "pages/all-product";
 @import "pages/specific-product";
 
