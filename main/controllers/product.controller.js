@@ -71,7 +71,7 @@ class productController {
   deleteFromCart = async (req, res, next) => {
     try {
       // const accountId = req.user._id; // hoặc lấy từ session hoặc JWT
-      const accountId = "659e6764cf02b39d2cdb32bc"; // hoặc lấy từ session hoặc JWT
+      const accountId = "659edd75cf02b39d2cdb32c6"; // hoặc lấy từ session hoặc JWT
       const productId = req.params.id; // ID của sản phẩm cần xóa
   
       // Tìm tài khoản người dùng
@@ -92,6 +92,56 @@ class productController {
       res.status(500).json({ message: "An error occurred", error: err.message });
     }
   };
+
+  updateQuantityInCart = async (req, res, next) => {
+    try {
+      const accountId = "659edd75cf02b39d2cdb32c6"; // Hoặc lấy từ session hoặc JWT
+      const { productId, newQuantity } = req.body;
+      console.log("da vo update");
+      console.log(productId);
+      console.log("ket thuc update");
+      
+  
+      if (newQuantity < 1) {
+        return res.status(400).json({ message: "Invalid quantity" });
+      }
+  
+      // Tìm tài khoản người dùng và cập nhật số lượng sản phẩm trong giỏ hàng
+      // const account = await Account.findOneAndUpdate(
+      //   { _id: accountId, "cart.id_product".toString() == productId },
+      //   { $set: { "cart.$.quantity": newQuantity } },
+      //   { new: true }
+      // );
+
+      const account = await Account.findById(accountId);
+
+      if (!account) {
+        return res.status(404).json({ message: "Account not found" });
+      }
+
+      // Find the product in the cart and update its quantity
+      let productFound = false;
+      account.cart.forEach(item => {
+        if (item.id_product.toString() === productId) {
+          item.quantity = newQuantity;
+          productFound = true;
+        }
+      });
+
+      // If product not found in cart, handle appropriately
+      if (!productFound) {
+        return res.status(404).json({ message: "Product not found in cart" });
+      }
+
+      // Save the updated account
+      await account.save();
+
+      res.json(account.cart); // Send back the updated cart
+    } catch (err) {
+      res.status(500).json({ message: "An error occurred", error: err.message });
+    }
+  };
+
 }
 
 // Export an instance of the controller

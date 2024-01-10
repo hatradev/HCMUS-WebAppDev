@@ -14,11 +14,11 @@
         </thead>
         <tbody>
           {{#each accBuyer.cart}}
-          <tr class="cart-item" data-psid="37901040">
+          <tr class="cart-item" data-psid="{{this.id_product}}">
             <td class="cart-img">
               <div class="d-flex align-items-center">
                 <i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
-                <a href="/mu-len-red-and-white-big-knitting-cuc-bong-xmas-do-p37901040.html"
+                <a href="/mu-len-red-and-white-big-knitting-cuc-bong-xmas-do-p{{this.id_product}}.html"
                   title="{{this.id_product.name}}">
                   <img data-sizes="auto" class="lazyautosizes ls-is-cached lazyloaded"
                     src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_XgJjLAqGgu.jpeg"
@@ -28,7 +28,7 @@
               </div>
             </td>
             <td class="text-center">
-              <a href="/mu-len-red-and-white-big-knitting-cuc-bong-xmas-do-p37901040.html"
+              <a href="/mu-len-red-and-white-big-knitting-cuc-bong-xmas-do-p{{this.id_product}}.html"
                 title="Mũ len Red and white big knitting cục bông Xmas - Đỏ">
                 {{this.id_product.name}} </a>
               <div class="d-block d-md-none">
@@ -38,18 +38,18 @@
                 <p>
                 </p>
                 <div class="blk-qty d-flex justify-content-center align-items-center">
-                  <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                  <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center" data-id="{{this.id_product._id}}">-
                   </div>
                   <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center product-quantity" type="text"
-                    data-psid="37901040" max="22" min="1" value="1" style="margin-bottom: 0;">
-                  <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+
+                    data-psid="{{this.id_product}}" max="22" min="1" value="1" style="margin-bottom: 0;">
+                  <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center" data-id="{{this.id_product._id}}">+
                   </div>
                 </div>
                 <p></p>
                 <p>
                   <strong class="products-price">{{calculateTotalPrice this.id_product.price this.quantity}}</strong>
                 </p>
-                <a class="remove-cart" href="javascript:void(0)" data-psid="37901040">Xóa</a>
+                <a class="remove-cart" href="javascript:void(0)" data-psid="{{this.id_product}}">Xóa</a>
               </div>
             </td>
             <td class="text-center d-none d-md-table-cell">
@@ -57,18 +57,18 @@
             </td>
             <td class="text-center d-none d-md-table-cell">
               <div class="blk-qty d-flex justify-content-center align-items-center">
-                <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center">-
+                <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center" data-id="{{this.id_product._id}}">-
                 </div>
                 <input class="updateCart blk-qty-input d-flex justify-content-center align-items-center product-quantity" type="text"
-                  data-psid="37901040" max="22" min="1" value="{{this.quantity}}">
-                <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center">+</div>
+                  data-psid="{{this.id_product}}" max="22" min="1" value="{{this.quantity}}">
+                <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center" data-id="{{this.id_product._id}}">+</div>
               </div>
             </td>
             <td class="text-center d-none d-md-table-cell">
               <strong class="products-price">{{calculateTotalPrice this.id_product.price this.quantity}}</strong>
             </td>
             <td class="text-center d-none d-md-table-cell">
-              <a class="remove-cart" href="javascript:void(0)" data-psid="37901040" data-id="{{this.id_product._id}}">Xóa</a>
+              <a class="remove-cart" href="javascript:void(0)" data-psid="{{this.id_product}}" data-id="{{this.id_product._id}}">Xóa</a>
             </td>
           </tr>
           {{/each}}
@@ -91,93 +91,4 @@
   </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  calculateTotal();
-  const removeCartButtons = document.querySelectorAll('.remove-cart');
-  const quantityIncreaseButtons = document.querySelectorAll('.blk-qty-btn.plus');
-  const quantityDecreaseButtons = document.querySelectorAll('.blk-qty-btn.minus');
-
-   quantityIncreaseButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const input = this.closest('.blk-qty').querySelector('.product-quantity');
-      input.value = parseInt(input.value, 10) + 1;
-      calculateTotal();
-    });
-  });
-
-  quantityDecreaseButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const input = this.closest('.blk-qty').querySelector('.product-quantity');
-      if (parseInt(input.value, 10) > 1) {
-        input.value = parseInt(input.value, 10) - 1;
-        calculateTotal();
-      }
-    });
-  });
-
-  removeCartButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      const productId = this.getAttribute('data-id');
-      deleteProductFromCart(productId, this);
-    });
-  });
-});
-
-async function deleteProductFromCart(productId, buttonElement) {
-  try {
-    const response = await fetch(`/product/cart/${productId}`, { method: 'DELETE' });
-
-    if (response.ok) {
-      const data = await response.json();
-      // Xử lý dữ liệu JSON trả về từ server
-      buttonElement.closest('.cart-item').remove();
-      calculateTotal();
-      // Cập nhật thông tin giỏ hàng nếu cần
-    } else {
-      // Kiểm tra nếu phản hồi không phải là JSON
-      if (response.headers.get("content-type").includes("application/json")) {
-        const errorData = await response.json();
-        console.error('Error when deleting product from cart', errorData.message);
-        alert('Lỗi khi xóa sản phẩm khỏi giỏ hàng: ' + errorData.message);
-      } else {
-        console.error('Unexpected response from server');
-        alert('Lỗi không mong đợi từ server.');
-      }
-    }
-  } catch (error) {
-    console.error('There was an error deleting the product from the cart', error);
-    alert('Có lỗi xảy ra khi xóa sản phẩm: ' + error.message);
-  }
-}
-
-
-function calculateTotal() {
-  let total = 0;
-
-  const cartItems = document.querySelectorAll('.cart-item');
-  
-  cartItems.forEach(item => {
-    const priceText = item.querySelector('.products-price').innerText.replace(/[^0-9.,]/g, '').replace(',', '.');
-    const quantityText = item.querySelector('.product-quantity').value; // hoặc innerText, tuỳ thuộc vào cấu trúc
-
-    const price = parseFloat(priceText) || 0;
-    const quantity = parseInt(quantityText, 10) || 0;
-    console.log(quantity);
-
-    total += price;
-    console.log(total);
-  });
-
-  document.querySelector('.total').innerHTML = `Tổng: ${formatPrice(total)}<sub>đ</sub>`;
-}
-
-
-// Hàm formatPrice để định dạng số theo dạng tiền tệ
-function formatPrice(price) {
-  return price.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-}
-
-
-</script>
+<script src="/js/cart.js"></script>
