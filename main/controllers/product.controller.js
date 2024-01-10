@@ -1,5 +1,6 @@
 const Product = require('../models/product.model');
 const Category = require('../models/category.model');
+const Account = require('../models/account.model');
 
 class productController {
   // Method to display all products
@@ -64,6 +65,31 @@ class productController {
       // If an error occurs, log it and pass it to the error handling middleware
       console.error(err);
       next(err);
+    }
+  };
+
+  deleteFromCart = async (req, res, next) => {
+    try {
+      // const accountId = req.user._id; // hoặc lấy từ session hoặc JWT
+      const accountId = "659e6764cf02b39d2cdb32bc"; // hoặc lấy từ session hoặc JWT
+      const productId = req.params.id; // ID của sản phẩm cần xóa
+  
+      // Tìm tài khoản người dùng
+      const account = await Account.findById(accountId);
+  
+      if (!account) {
+        return res.status(404).json({ message: "Account not found" });
+      }
+  
+      // Xóa sản phẩm khỏi giỏ hàng
+      account.cart = account.cart.filter(item => item.id_product.toString() !== productId);
+  
+      // Lưu lại thay đổi
+      await account.save();
+  
+      res.json(account.cart); // Gửi lại giỏ hàng đã cập nhật
+    } catch (err) {
+      res.status(500).json({ message: "An error occurred", error: err.message });
     }
   };
 }

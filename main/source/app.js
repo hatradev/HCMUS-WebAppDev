@@ -51,11 +51,12 @@ app.engine(
   "hbs",
   hbs.engine({
     extname: ".hbs",
-    helpers: {
-      formatCurrency: function(value) {
-        return new Intl.NumberFormat().format(value);
-      }
-    }
+    helpers: require("../helpers/handlebars"),
+    // helpers: {
+    //   formatCurrency: function(value) {
+    //     return new Intl.NumberFormat().format(value);
+    //   }
+    // }
   })
 );
 

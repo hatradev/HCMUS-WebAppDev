@@ -9,7 +9,7 @@ const accountSchema = new mongoose.Schema({
   avatar: String,
   payid: String,
   cart: [{
-    id_product: { type: mongoose.Schema.Types.ObjectId, ref: 'ms.product' },
+    id_product: { type: mongoose.Schema.Types.ObjectId, ref: 'product' },
     quantity: Number
   }]
 });
