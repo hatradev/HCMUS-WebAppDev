@@ -1,0 +1,50 @@
+.trend-card {
+    margin: 0;
+    border-radius: 0;
+    border: 1px solid #31383e;
+    margin-bottom: 1rem;
+
+    .trend-card-img {
+        background-color: #fff;
+        height: 24.3rem;
+
+        .trend-prod-img {
+            float: left;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    .trend-card-title {
+        color: #000;
+        font-family: Inter;
+        font-size: 1.5rem;
+        font-weight: 500;
+        padding: 0 0.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 4.5rem;
+    }
+
+    .trend-card-price {
+        text-align: center;
+        color: #000;
+        font-weight: 700;
+    }
+
+    .trend-card-btn {
+        text-transform: uppercase;
+        border-radius: 0;
+        background: #31383e;
+        font-weight: 700;
+        color: #fff;
+    }
+}
+
+figure {
+    a.btn:link,
+    a.btn:visited {
+        border-radius: 0;
+        background: #31383e;
+    }
+}

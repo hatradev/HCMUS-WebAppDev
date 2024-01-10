@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Product = require('../models/product.model');
 const Category = require('../models/category.model');
 
@@ -46,22 +47,43 @@ class productController {
     try {
       // Extract productId from request parameters
       const { productId } = req.params;
-  
+
+      // Convert string to ObjectId
+      const objectId = new mongoose.Types.ObjectId(productId);
+
       // Find the specific product by its _id
-      const product = await Product.findById(productId).lean();
-  
-      // If no product is found, handle the 404 case
+      const product = await Product.findById(objectId).lean();
+
       if (!product) {
         res.status(404).send('Product not found');
         return;
       }
 
-      // console.log('product: ', product);
-  
-      // If a product is found, send it to the front-end or handle it as needed
-      res.render("specific-product", { product }); // Adjust the view as per your setup
+      let related = [];
+
+      if (product.subcategory) {
+        related = await Product.find({ 
+          subcategory: product.subcategory, 
+          _id: { $ne: objectId } 
+        })
+        .limit(6)
+        .lean();
+      }
+
+      if (related.length < 6) {
+        const additionalRelated = await Product.find({ 
+          mainCategory: new mongoose.Types.ObjectId(product.mainCategory),
+          _id: { $ne: objectId },
+          ...(product.subcategory && { subcategory: { $ne: product.subcategory } })
+        })
+        .limit(6 - related.length)
+        .lean();
+
+        related = related.concat(additionalRelated);
+      }
+
+      res.render("specific-product", { product, related });
     } catch (err) {
-      // If an error occurs, log it and pass it to the error handling middleware
       console.error(err);
       next(err);
     }

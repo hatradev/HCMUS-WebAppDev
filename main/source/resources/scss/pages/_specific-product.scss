@@ -595,6 +595,37 @@
   display: block;        /* Ensures the image is a block-level element so margin: auto works */
 }
 
-// #productImageCarousel {
-//   max-width: 45%;
-// }
+// OLD
+.trend {
+  margin-top: 2rem;
+  margin-bottom: 6rem;
+
+  .main-heading {
+    text-align: center;
+    font-weight: bold;
+    font-size: 3rem;
+  }
+
+  .trend-row {
+    margin-top: 3rem;
+
+    // .trend-card {
+    //   margin-right: 0;
+    //   margin-left: 0;
+
+    //   .trend-card-title {
+    //     height: 4.5rem;
+    //     overflow: hidden;
+    //     text-overflow: ellipsis;
+    //   }
+
+    //   .trend-prod-img {
+    //     height: 22rem !important;
+    //   }
+
+    //   .trend-card-price {
+    //     margin-bottom: 0.5rem;
+    //   }
+    // }
+  }
+}
