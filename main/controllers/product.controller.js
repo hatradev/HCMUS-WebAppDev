@@ -6,52 +6,37 @@ class productController {
   // Method to display all products
   showAllProduct = async (req, res, next) => {
     try {
-      // Retrieve all products from the database
       const products = await Product.find().lean();
-  
-      // Retrieve all categories from the database
-      const categoriesWithCounts = await Category.find().lean();
-  
-      // Count the number of products in each main category and subcategory
-      for (const category of categoriesWithCounts) {
-        // Initialize total count for the category
-        let totalCategoryCount = 0;
-  
+      const categories = await Category.find({ parentCategory: null }).lean(); // Get only main categories
+
+      for (const category of categories) {
         // Count products in the main category
-        const mainCategoryCount = await Product.countDocuments({ mainCategory: category._id });
-        category.count = mainCategoryCount;
-  
-        // If subcategories exist, count products in each subcategory
-        if (category.subcategories && category.subcategories.length > 0) {
-          for (const subcategory of category.subcategories) {
-            const subcategoryCount = await Product.countDocuments({
-              subcategory: subcategory.name // Assuming the subcategory field is a string that matches subcategory name
-            });
-            subcategory.count = subcategoryCount; // Set the count for the subcategory
-            // totalCategoryCount += subcategoryCount; // Add to the total count for the main category
-          }
+        category.count = await Product.countDocuments({ category: category._id });
+
+        // Get subcategories of the main category
+        const subcategories = await Category.find({ parentCategory: category._id }).lean();
+
+        // Count products in each subcategory and add to total count
+        for (const subcategory of subcategories) {
+          const subcategoryCount = await Product.countDocuments({ category: subcategory._id });
+          subcategory.count = subcategoryCount;
+          category.count += subcategoryCount;
         }
+
+        category.subcategories = subcategories; // Attach subcategories to the main category
       }
-  
-      // console.log('categoriesWithCounts: ', categoriesWithCounts);
-  
-      // Now pass products and categories with counts to your template
-      res.render("all-product", { products, categories: categoriesWithCounts });
+
+      res.render("all-product", { products, categories });
     } catch (err) {
-      // Pass the error to the error handling middleware
+      console.error(err);
       next(err);
     }
-  };  
+  };
 
   showSpecificProduct = async (req, res, next) => {
     try {
-      // Extract productId from request parameters
       const { productId } = req.params;
-
-      // Convert string to ObjectId
       const objectId = new mongoose.Types.ObjectId(productId);
-
-      // Find the specific product by its _id
       const product = await Product.findById(objectId).lean();
 
       if (!product) {
@@ -60,27 +45,67 @@ class productController {
       }
 
       let related = [];
+      const limit = 6;
 
-      if (product.subcategory) {
-        related = await Product.find({ 
-          subcategory: product.subcategory, 
-          _id: { $ne: objectId } 
-        })
-        .limit(6)
-        .lean();
+      // Find related products in the same category
+      related = await Product.find({ 
+        category: product.category, 
+        _id: { $ne: objectId } 
+      })
+      .limit(limit)
+      .lean();
+
+      // Fetch immediate child categories if necessary
+      if (related.length < limit) {
+        const childCategories = await Category.find({ parentCategory: product.category }).lean();
+
+        for (const childCategory of childCategories) {
+          const childProducts = await Product.find({
+            category: childCategory._id,
+            _id: { $ne: objectId }
+          })
+          .limit(limit - related.length)
+          .lean();
+
+          related = related.concat(childProducts);
+          if (related.length >= limit) break;
+        }
       }
 
-      if (related.length < 6) {
-        const additionalRelated = await Product.find({ 
-          mainCategory: new mongoose.Types.ObjectId(product.mainCategory),
-          _id: { $ne: objectId },
-          ...(product.subcategory && { subcategory: { $ne: product.subcategory } })
+      // Fetch sibling categories if necessary
+      if (related.length < limit) {
+        const currentCategory = await Category.findById(product.category).lean();
+        if (currentCategory.parentCategory) {
+          const siblingCategories = await Category.find({ parentCategory: currentCategory.parentCategory, _id: { $ne: currentCategory._id } }).lean();
+          
+          for (const siblingCategory of siblingCategories) {
+            const siblingProducts = await Product.find({
+              category: siblingCategory._id,
+              _id: { $ne: objectId }
+            })
+            .limit(limit - related.length)
+            .lean();
+
+            related = related.concat(siblingProducts);
+            if (related.length >= limit) break;
+          }
+        }
+      }
+
+    // Fetch products from the immediate ancestor category if necessary
+    if (related.length < limit) {
+      const currentCategory = await Category.findById(product.category).lean();
+      if (currentCategory && currentCategory.parentCategory) {
+        const ancestorProducts = await Product.find({
+          category: currentCategory.parentCategory,
+          _id: { $ne: objectId }
         })
-        .limit(6 - related.length)
+        .limit(limit - related.length)
         .lean();
 
-        related = related.concat(additionalRelated);
+        related = related.concat(ancestorProducts);
       }
+    }
 
       res.render("specific-product", { product, related });
     } catch (err) {
