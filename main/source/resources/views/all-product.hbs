@@ -44,10 +44,9 @@
         <!-- Loop through parent categories -->
         {{#each categories}}
         <div class='parent-category d-flex justify-content-between align-items-center'>
-          <!-- Parent category name -->
           <a href='/product/all-product/category?category={{this._id}}' class='category-name'>
             {{this.name}}
-            </a>
+          </a>
           <span class='number'>({{this.count}})</span>
         </div>
         <!-- Loop through subcategories of the current category -->
