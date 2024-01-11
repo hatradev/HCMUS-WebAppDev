@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-center mb-5">
+    <div class="card-group mt-5 mb-5">
+        <div class="card left-card border-0">
+            <div class="confirm card-body m-3">
+                <h1 class="card-title fw-bold fs-3 text-center">Hệ thống sẽ tự động tạo tài khoản để thanh toán đơn hàng trong tối đa 10p</h1>
+                <p class="card-text mb-5 text-center"><span class="text-body-secondary">Những thông tin sau sẽ được gửi đi: </span></p>
+
+                     <div class="mb-2">
+                        <label for="inputLastName" class="form-label">Họ</label>
+                        <input type="text" class="form-control mt-0" name="inputLastName" id="inputLastName" value="{{lastname}}" disabled>
+                    </div>
+                    <div class="mb-2">
+                        <label for="inputFirstName" class="form-label mb-1">Tên</label>
+                        <input type="text" class="form-control mt-0" name="inputFirstName" id="inputFirstName" value="{{firstname}}" disabled>
+                    </div>
+                    <div class="mb-2">
+                        <label for="inputEmail" class="form-label mb-1">Email</label>
+                        <input type="email" class="form-control mt-0" name="inputEmail" id="inputEmail" value="{{email}}" disabled>
+                    </div>
+                    <div class="mb-2">
+                        <label for="inputPhoneNumber" class="form-label mb-1">Điện thoại</label>
+                        <input type="text" class="form-control mt-0" name="inputPhoneNumber" id="inputPhoneNumber" value="{{phone}}" disabled>
+                    </div>
+                    <div class="mb-2">
+                        <label for="inputAddress" class="form-label mb-1">Điạ chỉ</label>
+                        <input type="text" class="form-control mt-0" name="inputAddress" id="inputAddress" value="{{address}}" disabled>
+                    </div>
+                    <div class="d-grid gap-2 col-12 mt-4">
+                        <button class="btn btn-outline-dark fs-4" style="height: 4rem" onclick="sendToken('{{email}}')">Xác nhận</button>
+                    </div>
+            </div>
+        </div>
+        <div class="right-card card border-0">
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-8 offset-2">
+                        <img class="w-100"
+                            src="https://media.discordapp.net/attachments/1176168664987345008/1176953088456798208/loginanimi.png?ex=6570bdfb&is=655e48fb&hm=e4693ff912e14c7a1d637ed4e329351b67a4f04b6073ab6570bed2e593c74a19&=&format=webp&width=583&height=395"
+                            alt="">
+                    </div>
+                </div>                
+                <div>Không đồng ý? </div>
+                <a class="btn btn-outline-dark mt-2 fs-4" href="/user/signup" role="button"> Quay lại trang đăng ký</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  
+       function sendToken(email){
+        $.post("http://localhost:3000/user/sendtoken", {email: email})
+        .done(response => {
+            // Xử lý thành công
+            console.log(response);
+        })
+        .fail(err => {
+            console.log(err);
+        })
+       }
+
+</script>

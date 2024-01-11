@@ -64,6 +64,29 @@ class profileController {
       next(err);
     }
   };
+
+  // changePassword = async (req, res, next) => {
+  //   try {
+  //     const { inputOldPw, inputNewPw } = req.body;
+  //     const checkOldPw = await bcrypt.compare(
+  //       req.cookies.obj.user.password,
+  //       user.password
+  //     );   
+  //     const salt = await bcrypt.genSalt(10);
+  //     const hashedPw = await bcrypt.hash(inputNewPw, salt);
+  //     await User.updateOne(
+  //       { _id: req.cookies.obj.user._id },
+  //       {
+  //         password: hashedPw
+  //       }
+  //     );
+  //     res.redirect("/profile");
+  //     console.log("change password successfully");
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // };
+  
 }
 
 module.exports = new profileController();
