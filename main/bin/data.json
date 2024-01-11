@@ -1,0 +1,23 @@
+{
+    "role": "user",
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "johndoe@example.com",
+    "password": "password123",
+    "avatar": "avatar_url",
+    "payid": "payid123",
+    "cart": [
+        {
+            "id_product": "659bbe36425904f20fb0b627",
+            "quantity": 2
+        },
+        {
+            "id_product": "659bc458425904f20fb20436",
+            "quantity": 3
+        },
+        {
+            "id_product": "659e1617425904f20f240105",
+            "quantity": 2
+        }
+    ]
+}

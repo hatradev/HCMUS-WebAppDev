@@ -1,4 +1,4 @@
-const User = require('../models/account.model');
+const User = require("../models/account.model");
 
 class profileController {
   // [GET] /
@@ -7,13 +7,21 @@ class profileController {
       // console.log(req.cookies);
       const user = req.cookies.obj.user;
       const lastname = user.lastname,
-      firstname = user.firstname,
-      phone = user.phone,
-      email = user.email,
-      provinces = user.provinces,
-      district = user.district,
-      detailAddress = user.detailAddress;
-      res.render("profile", {lastname, firstname, phone, email, provinces, district, detailAddress});
+        firstname = user.firstname,
+        phone = user.phone,
+        email = user.email,
+        provinces = user.provinces,
+        district = user.district,
+        detailAddress = user.detailAddress;
+      res.render("profile", {
+        lastname,
+        firstname,
+        phone,
+        email,
+        provinces,
+        district,
+        detailAddress,
+      });
     } catch (err) {
       next(err);
     }
@@ -24,13 +32,22 @@ class profileController {
     } catch (err) {
       next(err);
     }
-  }
+  };
 
   //[POST]
   updateProfile = async (req, res, next) => {
     try {
-      const {inputFName, inputLName, inputEmail, calc_shipping_provinces, calc_shipping_district, inputAddress, inputPhoneNumber } = req.body;
-      await User.updateOne({email: inputEmail}, 
+      const {
+        inputFName,
+        inputLName,
+        inputEmail,
+        calc_shipping_provinces,
+        calc_shipping_district,
+        inputAddress,
+        inputPhoneNumber,
+      } = req.body;
+      await User.updateOne(
+        { email: inputEmail },
         {
           firstname: inputFName,
           lastname: inputLName,
@@ -38,14 +55,15 @@ class profileController {
           provinces: calc_shipping_provinces,
           district: calc_shipping_district,
           detailAddress: inputAddress,
-          phone: inputPhoneNumber
-      });
-      res.redirect('/profile');
-      console.log('update information successfully')
+          phone: inputPhoneNumber,
+        }
+      );
+      res.redirect("/profile");
+      console.log("update information successfully");
     } catch (err) {
       next(err);
     }
-  }
+  };
 }
 
 module.exports = new profileController();

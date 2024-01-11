@@ -1,6 +1,7 @@
-<main class="mains">
+<main class="mains d-flex justify-content-center">
   <div class="container">
-    <div class="row">
+    <div class="row w-100">
+      
       <div id="productImageCarousel" class="carousel slide w-50" data-bs-ride="carousel">
         <!-- Dynamically create carousel indicators based on the number of images -->
         <div class="carousel-indicators">
@@ -138,6 +139,25 @@
           </div>
         </div>
       </div>
+
+      <div class="trend w-100 d-flex flex-column justify-content-center">
+
+        <div class="row justify-content-center">
+          <div class="rectangle col"></div>
+          <div class="main-heading col-md-auto">RELATED PRODUCT</div>
+          <div class="rectangle col"></div>
+        </div>
+
+        <div class="row trend-row">
+          {{#each related}}
+        
+              {{> productitem id=this._id image=this.image.[0] title=this.name price=this.price}}
+
+          {{/each}}
+        </div>
+        
+      </div>
+
     </div>
   </div>
 </main>

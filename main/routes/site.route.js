@@ -10,26 +10,35 @@ const router = express.Router();
 //      res.redirect('/user/signin');
 //  })
 
-router.get("/",
+router.get(
+  "/",
+  // (req, res, next) => {
+  //   if (req.cookies && req.cookies.obj) {
+  //     return next();
+  //   }
+  //   res.redirect("/user/signin");
+  // },
+  siteController.getHome
+);
+router.get(
+  "/my-cart",
   (req, res, next) => {
     if (req.cookies && req.cookies.obj) {
       return next();
     }
     res.redirect("/user/signin");
   },
-  siteController.getHome
+  siteController.getPayForCart
 );
-router.get("/my-cart", (req, res, next) => {
+router.get(
+  "/payment",
+  (req, res, next) => {
     if (req.cookies && req.cookies.obj) {
       return next();
     }
     res.redirect("/user/signin");
-  }, siteController.getCart);
-router.get("/payment", (req, res, next) => {
-    if (req.cookies && req.cookies.obj) {
-      return next();
-    }
-    res.redirect("/user/signin");
-  }, siteController.getPayment);
+  },
+  siteController.getPayment
+);
 
 module.exports = router;

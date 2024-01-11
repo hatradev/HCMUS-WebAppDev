@@ -12,5 +12,11 @@ router.use((req, res, next) => {
  
 router.get("/all", productController.showAllProduct);
 router.get("/:productId", productController.showSpecificProduct);
+router.delete("/cart/:id", productController.deleteFromCart);
+// router.post('/cart/updateQuantity', productController.updateCartQuantity);
+// router.post('/update-cart-quantity/:id', productController.updateCartQuantity);
+router.post("/cart/update", productController.updateQuantityInCart);
+
+router.get("/api/filter-products", productController.filterProducts);
 
 module.exports = router;

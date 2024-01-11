@@ -7,22 +7,17 @@
                 </h2>
                 <div class="form-group">
                     <input id="customerName" name="customerName" type="text"
-                        class="form-control input-sm validate[required]" value="Đinh Quý Triều" placeholder="Họ tên *"
+                        class="form-control input-sm validate[required]" value="{{accBuyer.lastname}}" placeholder="Họ tên *"
                         fdprocessedid="tnff65" style="font-size: 1.5rem;">
                 </div>
                 <div class="form-group">
                     <input id="customerMobile" name="customerMobile" type="text"
-                        class="form-control input-sm validate[required,custom[phone]]" value="0365511518"
+                        class="form-control input-sm validate[required,custom[phone]]" value="{{accBuyer.phone}}"
                         placeholder="Điện thoại *" fdprocessedid="a8l56b" style="font-size: 1.5rem;">
                 </div>
                 <div class="form-group">
                     <input id="customerEmail" name="customerEmail" type="text" class="form-control input-sm"
-                        value="dinhquytrieu1010@gmail.com" placeholder="Email *" fdprocessedid="037no" style="font-size: 1.5rem;">
-                </div>
-                <div class="form-group">
-                    <input type="text" id="customerAddress" name="customerAddress" value=""
-                        class="validate[required] form-control input-sm" placeholder="Địa chỉ chi tiết *"
-                        fdprocessedid="t3t0gv" style="font-size: 1.5rem;">
+                        value="{{accBuyer.email}}" placeholder="Email *" fdprocessedid="037no" style="font-size: 1.5rem;">
                 </div>
                 <div class="form-group">
                     <select id="customerCityId" name="customerCityId" class="form-control input validate[required]" style="font-size: 1.5rem;"
@@ -138,8 +133,8 @@
                         </label>
                     </div>
                     <div id="p-online" class="col-pay alert alert-warning collapse in show">
-                        <p><span style="font-size:14px;"><span style="font-family:arial, helvetica, sans-serif;"><span
-                                        style="text-indent:10px; font-family: Signika, sans-serif;">Với phương&nbsp;thức Chuyển khoản trước toàn bộ tiền
+                        <p><span style="font-size:14px;"><span><span
+                                        style="text-indent:10px;">Với phương&nbsp;thức Chuyển khoản trước toàn bộ tiền
                                         hàng,&nbsp;bộ phận CSKH sẽ gọi điện đến bạn để xác nhận đơn hàng và
                                         hướng&nbsp;dẫn cách thức thanh toán chuyển khoản</span></span></span></p>
                     </div>
@@ -160,127 +155,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="cartItem" data-psid="37901040">
+                            {{#each accBuyer.cart}}
+                            <tr class="cartItem" data-psid="{{this.id_product._id}}">
                                 <td>
                                     <a href="/mu-len-red-and-white-big-knitting-cuc-bong-xmas-do-p37901040.html">
-                                        Mũ len Red and white big knitting cục bông Xmas - Đỏ </a>
+                                        {{this.id_product.name}} </a>
                                     <div class="clearfix">
                                         Đơn giá:
-                                        <strong>140.000đ</strong>
+                                        <strong>{{this.id_product.price}}</strong>
                                         <div class="d-block"></div>
                                     </div>
                                 </td>
-                                <td class="text-center">1</td>
+                                <td class="text-center">{{this.quantity}}</td>
                                 <td class="text-center">
-                                    <strong>140.000đ</strong>
+                                    <strong class="products-price">{{calculateTotalPrice this.id_product.price this.quantity}}</strong>
                                 </td>
                             </tr>
-                            <tr class="cartItem" data-psid="37899630">
-                                <td>
-                                    <a href="/ao-thun-ao-phong-mj-black-cat-little-fish-trang-p37899630.html">
-                                        Áo thun áo phông MJ Black cat little fish - Trắng </a>
-                                    <div class="clearfix">
-                                        Đơn giá:
-                                        <strong>190.000đ</strong>
-                                        <div class="d-block"></div>
-                                    </div>
-                                </td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">
-                                    <strong>190.000đ</strong>
-                                </td>
-                            </tr>
-                            <tr class="cartItem" data-psid="37900034">
-                                <td>
-                                    <a href="/tai-nghe-bluetooth-ms-minor-3-khong-day-mix-p37900034.html">
-                                        Tai nghe bluetooth MS Minor 3 không dây - Mix </a>
-                                    <div class="clearfix">
-                                        Đơn giá:
-                                        <strong>340.000đ</strong>
-                                        <div class="d-block"></div>
-                                    </div>
-                                </td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">
-                                    <strong>340.000đ</strong>
-                                </td>
-                            </tr>
-                            <tr class="cartItem" data-psid="37900184">
-                                <td>
-                                    <a href="/khan-len-colorful-square-tua-rua-38x240-mix-p37900184.html">
-                                        Khăn len Colorful square tua rua 38x240 - Mix </a>
-                                    <div class="clearfix">
-                                        Đơn giá:
-                                        <strong>150.000đ</strong>
-                                        <div class="d-block"></div>
-                                    </div>
-                                </td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">
-                                    <strong>150.000đ</strong>
-                                </td>
-                            </tr>
-                            <tr class="cartItem" data-psid="37890285">
-                                <td>
-                                    <a href="/sticker-bang-mj-palette-for-boy-and-girl-set8-mix-p37890285.html">
-                                        Sticker bảng MJ Palette for boy and girl set8 - Mix </a>
-                                    <div class="clearfix">
-                                        Đơn giá:
-                                        <strong>20.000đ</strong>
-                                        <div class="d-block"></div>
-                                    </div>
-                                </td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">
-                                    <strong>20.000đ</strong>
-                                </td>
-                            </tr>
-                            <tr class="cartItem" data-psid="37901038">
-                                <td>
-                                    <a href="/mu-len-long-xu-cai-cuc-tai-tho-1-mau-hong-nhat-p37901038.html">
-                                        Mũ len lông xù cài cúc tai thỏ 1 màu - Hồng nhạt </a>
-                                    <div class="clearfix">
-                                        Đơn giá:
-                                        <strong>180.000đ</strong>
-                                        <div class="d-block"></div>
-                                    </div>
-                                </td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">
-                                    <strong>180.000đ</strong>
-                                </td>
-                            </tr>
-                            <tr class="cartItem" data-psid="37897888">
-                                <td>
-                                    <a href="/do-choi-xmas-santa-claus-du-day-mix-p37897888.html">
-                                        Đồ chơi Xmas Santa Claus đu dây - Mix </a>
-                                    <div class="clearfix">
-                                        Đơn giá:
-                                        <strong>210.000đ</strong>
-                                        <div class="d-block"></div>
-                                    </div>
-                                </td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">
-                                    <strong>210.000đ</strong>
-                                </td>
-                            </tr>
-                            <tr class="cartItem" data-psid="37897768">
-                                <td>
-                                    <a
-                                        href="/thiep-mz-xmas-lookii-kat-christmas-characters-stamp-10x14-mix-p37897768.html">
-                                        Thiệp MZ Xmas Lookii Kat Christmas characters stamp 10x14 - Mix </a>
-                                    <div class="clearfix">
-                                        Đơn giá:
-                                        <strong>15.000đ</strong>
-                                        <div class="d-block"></div>
-                                    </div>
-                                </td>
-                                <td class="text-center">1</td>
-                                <td class="text-center">
-                                    <strong>15.000đ</strong>
-                                </td>
-                            </tr>
+                            {{/each}}
                         </tbody>
                     </table>
 
@@ -315,7 +206,7 @@
                         <input type="text" id="coupon" name="couponCode" class="form-control" placeholder="Mã giảm giá"
                             fdprocessedid="nnirxl" style="font-size: 1.5rem;">
                         <div class="input-group-btn" style="padding-top: 1.4rem;">
-                            <button class="btn btn-pink" id="getCoupon" type="button" fdprocessedid="ayh69" style="height: 4rem; font-family: Signika, sans-serif; font-size:1.5rem;">
+                            <button class="btn btn-pink" id="getCoupon" type="button" fdprocessedid="ayh69" style="height: 4rem;">
                                 Áp dụng </button>
                         </div>
                     </div>
@@ -323,7 +214,7 @@
                 <div id="mss-confirm"></div>
 
                 <div class="d-block d-flex justify-content-end" style="margin-top: 1.5rem;">
-                    <div id="js-btn-submit" class="btn btn-pink d-flex justify-content-center align-items-center" style="height:5rem; width:15rem; font-size: 2rem; font-family: Signika, sans-serif;">Thanh toán</div>
+                    <div id="js-btn-submit" class="btn btn-pink d-flex justify-content-center align-items-center" style="height:5rem; width:15rem; font-size: 2rem;">Thanh toán</div>
                 </div>
             </div>
         </div>
@@ -332,3 +223,36 @@
     <div class="row">
     </div>
 </div>
+
+<script>
+    // Function to calculate and update the subtotal
+    function updateSubtotal() {
+        let subtotal = 0;
+
+        // Select all cart item rows
+        const cartItems = document.querySelectorAll('.cartItem');
+
+        // Calculate subtotal
+        cartItems.forEach(item => {
+            const priceElement = item.querySelector('.products-price');
+            const price = parseFloat(priceElement.innerText.replace(/[^0-9.,]/g, '').replace(',', '.')) || 0;
+            subtotal += price;
+        });
+
+        // Update the subtotal display
+        const subtotalElement = document.querySelector('.table-checkout tfoot tr:first-child td:last-child');
+        subtotalElement.innerText = formatPrice(subtotal) + ' đ';
+    }
+
+    // Function to format the price as a string
+    function formatPrice(price) {
+        return price.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    // Call this function to update the subtotal when the page loads
+    document.addEventListener('DOMContentLoaded', updateSubtotal);
+
+    // Optional: If your cart items can be updated dynamically (e.g., changing quantities),
+    // you should also call updateSubtotal() in those event handlers.
+</script>
+

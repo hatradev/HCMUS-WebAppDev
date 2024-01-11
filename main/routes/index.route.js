@@ -3,6 +3,7 @@ const userRouter = require("./user.route");
 const profileRouter = require("./profile.route");
 const orderRouter = require("./order.route");
 const productRouter = require("./product.route");
+const adminRouter = require("./admin.route");
 
 function route(app) {
   // Định nghĩa các route theo tài nguyên

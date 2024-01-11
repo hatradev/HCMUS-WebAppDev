@@ -1,0 +1,21 @@
+.dual-range-slider {
+    position: relative;
+}
+
+.form-range {
+    pointer-events: none;
+    /* Disable pointer events to avoid overlapping issues */
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+#lower {
+    z-index: 1;
+    /* Ensure the lower slider is always on top */
+}
+
+#upper {
+    pointer-events: auto;
+    /* Enable pointer events for the upper slider */
+}

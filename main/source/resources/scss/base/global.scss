@@ -5,12 +5,12 @@
 }
 
 html {
-  font-size: 62.5% !important;
+  font-size: 62.5%;
 }
 
 body {
-  font-family: $font-family-primary !important;
-  @include font($font-size-primary !important, 400 !important, $color-dark !important, 1.5 !important);
+  font-family: $font-family-primary;
+  @include font($font-size-primary, 400, $color-dark, 1.5);
 }
 
 h1,
@@ -19,8 +19,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-family-title !important;
-  @include font($font-size-primary !important, 900 !important, $color-dark !important, 1.5 !important);
+  font-family: $font-family-title;
+  @include font($font-size-primary, 900, $color-dark, 1.5);
 }
 
 h1,

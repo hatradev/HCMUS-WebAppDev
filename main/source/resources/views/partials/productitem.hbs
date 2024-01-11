@@ -1,0 +1,24 @@
+<div class="product-item item{{id}} col-lg-3 col-xl-3" data-psid="{{id}}">
+  <div class="image">
+    {{#if isnew}}
+      <span class="flag">New</span>
+    {{/if}}
+    <a href="/product/{{id}}" title="{{title}}">
+      <img
+        data-sizes="auto"
+        class="lazyautosizes ls-is-cached lazyloaded"
+        src="{{image}}"
+        data-src="{{image}}"
+        alt="{{title}}"
+      />
+    </a>
+  </div>
+  <h3 class="name">
+    <a href="/product/{{id}}" title="{{title}}">
+      {{title}}
+    </a>
+  </h3>
+  <div class="product-price">
+    <span class="price">{{formatCurrency price}}</span>
+  </div>
+</div>

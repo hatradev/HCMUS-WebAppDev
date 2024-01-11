@@ -6,13 +6,9 @@ const productSchema = new mongoose.Schema({
   description: String,
   stock: Number,
   category: {
-    type: mongoose.Schema.Types.ObjectId, // Reference to the main category
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
-    required: function() { return !this.subcategory; } // Required if subcategory is not present
-  },
-  subcategory: {
-    type: String, // Could be the name or an identifier of the subcategory
-    required: function() { return !this.category; } // Required if category is not present
+    required: true
   },
   image: [String]
 });
