@@ -1,0 +1,37 @@
+.filter-groups {
+    .filter-title {
+        h3 {
+            // Styles for your title
+        }
+    }
+
+    .widget_price_filter {
+        // Styles for your price filter widget
+
+        .ui-slider {
+            position: relative;
+            height: 10px; // Adjust as needed
+            background-color: $color-white;
+            border-radius: 5px;
+
+            .ui-slider-range {
+                position: absolute;
+                height: 100%;
+                background-color: $color-pink-secondary; // Color of the range between handles
+                margin-left: 10px; // Adjust this value to shift the range to the right
+                margin-right: 10px; // Adjust this value to reduce the range width from the right
+            }
+
+            .ui-slider-handle {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 15px; // Size of handles
+                height: 15px;
+                background-color: $color-pink-primary; // Color of handles
+                border-radius: 50%;
+                cursor: pointer;
+            }
+        }
+    }
+}
