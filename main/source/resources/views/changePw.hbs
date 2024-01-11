@@ -68,9 +68,12 @@
             //check confirmPassword
             $('#confirmNewPwErr').html(($('#inputNewPw').val() != $('#inputConfirmNewPw').val()) ? 'Xác nhận mật khẩu không đúng' : '');
 
-            if ($('#confirmNewPwErr').html() == '')
-            //console.log('gui submit');
-            //$('form').submit();
+            if ($('#confirmNewPwErr').html() == ''){
+                $('form').submit();
+            }
+            else{
+                e.preventDefault();
+            }
         })
     })
 </script>

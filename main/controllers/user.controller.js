@@ -1,6 +1,7 @@
 const User = require("../models/account.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const axios = require('axios');
 
 class userController {
   // [GET] /
@@ -22,7 +23,7 @@ class userController {
   //[POST]
   SignUp = async (req, res, next) => {
     try {
-      const { inputFirstName, inputLastName, inputEmail, inputPassword } = req.body;
+      const { inputFirstName, inputLastName, inputEmail, inputPassword, inputPhoneNumber, inputAddress } = req.body;
       const existingUser = await User.findOne({ email: inputEmail });
 
       if (existingUser) {
@@ -35,14 +36,33 @@ class userController {
         firstname: inputFirstName,
         lastname: inputLastName,
         email: inputEmail,
+        phone: inputPhoneNumber,
+        detailAddress: inputAddress,
         password: hashedPw,
       });
       await newUser.save();
-      res.redirect('/user/signin');
+      res.render('confirm', {lastname: newUser.lastname, firstname: newUser.firstname, email: newUser.email, phone: newUser.phone, address: newUser.detailAddress });
     } catch (err) {
       next(err);
     }
   };
+  sendToken = async(req, res, next) => {
+    try {
+      console.log(req.body.email);
+      const user = await User.findOne({ email: req.body.email });
+      const accessToken = jwt.sign(
+        {
+         user: user
+        },
+        process.env.JWT_ACCESS_KEY,
+        { expiresIn: "10m" }
+      );
+      const response = await axios.post(`https://localhost:${process.env.AUX_PORT}/`, {accessToken});
+      res.redirect('/user/signin');
+    } catch (err) {
+      next(err);
+    }
+  }
   SignIn = async (req, res, next) => {
     try {
       const { inputEmail, inputPassword} = req.body;

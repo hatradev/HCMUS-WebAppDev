@@ -19,7 +19,7 @@ class siteController {
       if (req.cookies && req.cookies.obj) {
         user = req.cookies.obj.user;
       }
-      console.log(user);
+      // console.log(user);
       res.render("home", {});
     } catch (err) {
       next(err);
@@ -46,7 +46,7 @@ class siteController {
       // console.log(req.session.passport);
       // const productId = req.params.id;
       let user = req.cookies.obj.user;
-      console.log(user);
+      // console.log(user);
       const idUser = "659f66740be458c494290c39";
       const accBuyer = await Account.findOne({ _id: idUser }).populate({
         path: "cart.id_product",

@@ -21,8 +21,18 @@
                         <small id="emailErr" class="form-text text-danger">{{emailMsg}}</small>
                     </div>
                     <div class="mb-2">
+                        <label for="inputPhoneNumber" class="form-label mb-1">Điện thoại</label>
+                        <input type="text" class="form-control mt-0" name="inputPhoneNumber" id="inputPhoneNumber" required>
+                        <small id="phoneNumErr" class="form-text text-danger">{{phoneMsg}}</small>
+                    </div>
+                    <div class="mb-2">
+                        <label for="inputAddress" class="form-label mb-1">Điạ chỉ</label>
+                        <input type="text" class="form-control mt-0" name="inputAddress" id="inputAddress" required>
+                    </div>
+                    <div class="mb-2">
                         <label for="inputPassword" class="form-label mb-1">Mật khẩu</label>
-                        <input type="password" class="form-control mt-0" name="inputPassword" id="inputPassword" required>
+                        <input type="password" class="form-control mt-0" name="inputPassword" id="inputPassword"
+                            required>
                     </div>
                     <div class="mb-2">
                         <label for="inputConfirmPassword" class="form-label mb-1">Nhập lại mật khẩu</label>
@@ -44,7 +54,7 @@
                             src="https://media.discordapp.net/attachments/1176168664987345008/1176953088456798208/loginanimi.png?ex=6570bdfb&is=655e48fb&hm=e4693ff912e14c7a1d637ed4e329351b67a4f04b6073ab6570bed2e593c74a19&=&format=webp&width=583&height=395"
                             alt="">
                     </div>
-                </div>                
+                </div>
                 <div>Đã có tài khoản? </div>
                 <a class="btn btn-outline-dark mt-2 fs-4" href="/user/signin" role="button">Đăng nhập</a>
             </div>
@@ -61,11 +71,13 @@
             //check username
             //regex = /[\/\\\[\];|=,+\*\?<>]/;
             //$('#usernameErr').html(regex.test($('#inputUsername').val()) ? 'Tên đăng nhập không chứa các kí tự: / \ [ ] ; | = , + * ? < >' : '');
-            
+
+             regex = /\D/
+             $('#phoneNumErr').html(regex.test($('#inputPhoneNumber').val()) ? 'Số điện thoại không hợp lệ!' : '');
             //check confirmPassword
             $('#confirmPwErr').html(($('#inputPassword').val() != $('#inputConfirmPassword').val()) ? 'Nhập lại mật khẩu không chính xác' : '');
 
-            if ($('#fNameErr').html() == '' && $('#lNameErr').html() == '' && $('#confirmPwErr').html() == '') {
+            if ($('#fNameErr').html() == '' && $('#lNameErr').html() == '' && $('#confirmPwErr').html() == '' && $('#phoneNumErr').html() == '') {
                 $('#signupForm').submit();
             }
             else {
