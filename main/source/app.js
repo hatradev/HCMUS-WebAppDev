@@ -8,7 +8,7 @@ const connectLiveReload = require("connect-livereload");
 const bodyParser = require("body-parser");
 const route = require("../routes/index.route");
 
-const passport = require("../middleware/passport");
+// const passport = require("../middleware/passport");
 require("dotenv").config();
 
 // GOOGLE OAUTH

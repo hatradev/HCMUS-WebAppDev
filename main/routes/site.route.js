@@ -12,12 +12,12 @@ const router = express.Router();
 
 router.get(
   "/",
-  (req, res, next) => {
-    if (req.cookies && req.cookies.obj) {
-      return next();
-    }
-    res.redirect("/user/signin");
-  },
+  // (req, res, next) => {
+  //   if (req.cookies && req.cookies.obj) {
+  //     return next();
+  //   }
+  //   res.redirect("/user/signin");
+  // },
   siteController.getHome
 );
 router.get(
@@ -28,7 +28,7 @@ router.get(
     }
     res.redirect("/user/signin");
   },
-  siteController.getCart
+  siteController.getPayForCart
 );
 router.get(
   "/payment",
