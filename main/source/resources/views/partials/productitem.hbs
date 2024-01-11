@@ -1,4 +1,4 @@
-<div class="product-item item{{id}} col-xl-3" data-psid="{{id}}">
+<div class="product-item item{{id}} col-lg-3 col-xl-3" data-psid="{{id}}">
   <div class="image">
     {{#if isnew}}
       <span class="flag">New</span>
@@ -10,7 +10,6 @@
         src="{{image}}"
         data-src="{{image}}"
         alt="{{title}}"
-        sizes="255px"
       />
     </a>
   </div>
@@ -20,6 +19,6 @@
     </a>
   </h3>
   <div class="product-price">
-    <span class="price">{{formatCurrency price}}đ</span>
+    <span class="price">{{formatCurrency price}}</span>
   </div>
 </div>

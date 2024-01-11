@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const accountSchema = new mongoose.Schema({
-  role: { type: String, enum: ['admin', 'user'], required: true },
+  role: { type: String, enum: ["admin", "user"], required: true },
   firstname: String,
   lastname: String,
   email: String,
@@ -13,12 +13,14 @@ const accountSchema = new mongoose.Schema({
   district: String,
   phone: String,
   payid: String,
-  cart: [{
-    id_product: { type: mongoose.Schema.Types.ObjectId, ref: 'product' },
-    quantity: Number
-  }]
+  cart: [
+    {
+      id_product: { type: mongoose.Schema.Types.ObjectId, ref: "product" },
+      quantity: Number,
+    },
+  ],
 });
 
-const Account = mongoose.model('account', accountSchema);
+const Account = mongoose.model("account", accountSchema);
 
 module.exports = Account;

@@ -67,15 +67,13 @@
     </div>
 
     <!-- Column for displaying products -->
-    <div class='col product-section'>
+    <div class='col product-section blk-pro-cat'>
       <!-- Container for trending products -->
       <section class='trend container'>
         <div class='trend-row row'>
           <!-- Loop through products and display each one -->
           {{#each products}}
-          <div class="col-3">
-            {{> productCard id=this._id image=this.image.[0] name=this.name price=this.price}}
-          </div>
+            {{> productitem id=this._id image=this.image.[0] title=this.name price=this.price}}
           {{else}}
           <!-- Display a message if no products are available -->
           <div class="col-12">
