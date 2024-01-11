@@ -6,6 +6,7 @@ const methodOverride = require("method-override");
 const connectLiveReload = require("connect-livereload");
 const bodyParser = require("body-parser");
 const route = require("../routes/index.route");
+
 // const passport = require("../middleware/passport");
 require('dotenv').config();
 
@@ -51,11 +52,12 @@ app.engine(
   "hbs",
   hbs.engine({
     extname: ".hbs",
-    helpers: {
-      formatCurrency: function(value) {
-        return new Intl.NumberFormat().format(value);
-      }
-    }
+    helpers: require("../helpers/handlebars"),
+    // helpers: {
+    //   formatCurrency: function(value) {
+    //     return new Intl.NumberFormat().format(value);
+    //   }
+    // }
   })
 );
 
