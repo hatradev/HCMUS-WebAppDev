@@ -15,12 +15,14 @@
 @import "layouts/define_whole";
 @import "layouts/animate_whole";
 // @import "layouts/bootstrap4.3.1";
+
 @import "pages/cart";
 @import "pages/payment";
 @import "pages/all-product";
 @import "pages/specific-product";
 
 @import "components/form-style";
-@import "temp/carousel";
-@import "temp/collection";
-@import "temp/footer";
+@import "components/product-card";
+@import "components/carousel";
+@import "components/footer";
+@import "components/filter-price";

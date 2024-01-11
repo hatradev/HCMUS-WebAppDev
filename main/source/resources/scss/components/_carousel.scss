@@ -1,0 +1,45 @@
+.carousel-item {
+    // height: 50vh;
+    max-height: 100%;
+
+    .carousel-item img {
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    /* Increase the width */
+    height: 50px;
+    /* Increase the height */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Add background color for visibility */
+    border-radius: 50%;
+    /* Optional: makes it circular */
+    position: absolute;
+    /* Position the buttons absolutely */
+    top: 50%;
+    /* Align top edge to the middle */
+    transform: translateY(-50%);
+    /* Shift upwards by half of its own height */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 30px;
+    /* Increase icon size */
+    height: 30px;
+    /* Increase icon size */
+}
+
+.carousel-control-prev {
+    left: 10px;
+    /* Adjust for left side */
+}
+
+.carousel-control-next {
+    right: 10px;
+    /* Adjust for right side */
+}

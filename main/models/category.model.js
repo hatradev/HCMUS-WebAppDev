@@ -1,22 +1,16 @@
 const mongoose = require('mongoose');
 
-// Subcategory schema
-const subcategorySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  description: String
-});
-
-// Main category schema
 const categorySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
   },
   description: String,
-  subcategories: [subcategorySchema] // An array of subcategory schema
+  parentCategory: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+    default: null // Optional: Indicates top-level category if null
+  }
 });
 
 const Category = mongoose.model('Category', categorySchema);

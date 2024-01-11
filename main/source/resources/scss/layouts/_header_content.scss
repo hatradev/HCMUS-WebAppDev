@@ -213,7 +213,7 @@
             }
         .mini-shopping-cart .mini-shopping-cart__bottom{
             background-color: #f8f8fa;
-            padding: 12px 16px 16px;
+            padding: 12px 16px 16px; // not the problem
             border-top: 1px solid rgba(46,48,56,.1);
         }
         .mini-shopping-cart .shopping-cart__bottom-total{
@@ -228,7 +228,7 @@
             font-weight: 700;
             color: #464850;
             margin: 0;
-            padding: 15px;
+            padding: 15px; // not the problem
         }
 
 

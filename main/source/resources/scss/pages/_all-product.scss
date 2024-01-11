@@ -120,53 +120,44 @@
             }
           }
       
-          .category-link {
-            // display: flex;
-            // justify-content: space-between;
-            // align-items: center;
-            font-weight: bold;
-            color: #555;
-            text-decoration: none;
-            margin-bottom: 0.5rem;
+          // .category-link {
+          //   // display: flex;
+          //   // justify-content: space-between;
+          //   // align-items: center;
+          //   font-weight: bold;
+          //   color: #555;
+          //   text-decoration: none;
+          //   margin-bottom: 0.5rem;
       
+          //   &:hover {
+          //     text-decoration: underline;
+          //   }
+          // }
+        }  
+        
+        .type-item {
+          // padding: 0.5rem 0;
+    
+          .subcategory-name {
+            flex-grow: 1;
+            text-decoration: none;
+            color: $color-pink-primary-light;
+            font-size: 1.5rem;
+            font-weight: bold;
+    
             &:hover {
               text-decoration: underline;
             }
           }
-      
-          .type-item {
-            padding: 0.5rem 0;
-            // padding-left: 2rem;
-            // display: flex;
-            // justify-content: space-between;
-            // align-items: center;
-      
-            .type-name {
-              flex-grow: 1;
-              text-decoration: none;
-              color: $color-pink-primary; // Replace with actual color value if not using SCSS variables
-              font-size: 1.5rem;
-              font-weight: bold;
-      
-              &:hover {
-                text-decoration: underline;
-              }
-            }
-      
-            .number {
-              font-size: 1.5rem;
-              color: #666;
-              background-color: #f2f2f2;
-              padding: 0.25rem 0.5rem;
-              border-radius: 0.25rem;
-            }
-          }
-      
-          hr {
-            margin-top: 0.5rem;
-            margin-bottom: 0.5rem;
-          }
-        }        
+        }
+        
+        .number {
+          font-size: 1.5rem;
+          // color: #666;
+          // background-color: #f2f2f2;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+        }
 
         // .type-item {
         //   font-size: 1.6rem;
@@ -228,57 +219,6 @@
             display: flex;
             margin-top: 3rem;
             font-size: 1.6rem;
-          }
-        }
-
-        .trend-card {
-          margin: 0;
-          border-radius: 0;
-          border: 1px solid #31383e;
-          margin-bottom: 1rem;
-        }
-
-        .trend-card-img {
-          background-color: #fff;
-          height: 24.3rem;
-
-          .trend-prod-img {
-            float: left;
-            height: 100%;
-            object-fit: contain;
-          }
-        }
-
-        .trend-card-title {
-          color: #000;
-          font-family: Inter;
-          font-size: 1.5rem;
-          font-weight: 500;
-          padding: 0 0.5rem;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          height: 4.5rem;
-        }
-
-        .trend-card-price {
-          text-align: center;
-          color: #000;
-          font-weight: 700;
-        }
-
-        .trend-card-btn {
-          text-transform: uppercase;
-          border-radius: 0;
-          background: #31383e;
-          font-weight: 700;
-          color: #fff;
-        }
-
-        figure {
-          a.btn:link,
-          a.btn:visited {
-            border-radius: 0;
-            background: #31383e;
           }
         }
 

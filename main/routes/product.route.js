@@ -9,8 +9,6 @@ router.delete("/cart/:id", productController.deleteFromCart);
 // router.post('/update-cart-quantity/:id', productController.updateCartQuantity);
 router.post("/cart/update", productController.updateQuantityInCart);
 
-
-
-
+router.get("/api/filter-products", productController.filterProducts);
 
 module.exports = router;

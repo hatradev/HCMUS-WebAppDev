@@ -37,6 +37,8 @@
         </form>
       </div>
 
+      {{> filter-price}}
+
       <!-- CATEGORIES -->
       <div class='filter-type-list mt-5'>
         <span class='list-title'>Category</span>
@@ -44,16 +46,15 @@
         <!-- Loop through parent categories -->
         {{#each categories}}
         <div class='parent-category d-flex justify-content-between align-items-center'>
-          <!-- Parent category name -->
-          <a href='/product/all-product/category?category={{this._id}}' class='category-name'>
+          <a href='/product/category/{{this._id}}' class='category-name'>
             {{this.name}}
-            </a>
+          </a>
           <span class='number'>({{this.count}})</span>
         </div>
         <!-- Loop through subcategories of the current category -->
         {{#each this.subcategories}}
         <div class='type-item d-flex justify-content-between align-items-center ps-4'>
-          <a href='/product/all-product/category?category={{this._id}}' class="subcategory-name">
+          <a href='/product/category/{{this._id}}' class="subcategory-name">
             {{this.name}}
           </a>
           <span class='number'>({{this.count}})</span>
@@ -73,15 +74,7 @@
           <!-- Loop through products and display each one -->
           {{#each products}}
           <div class="col-3">
-            <div class='trend-card card' data-id="{{this._id}}">
-              <a href='/product/{{this._id}}' class='trend-card-img'>
-                <!-- Access the first image from the array of images -->
-                <img src='{{this.image.[0]}}' class='trend-prod-img' alt='Product Image' />
-              </a>
-              <p class='trend-card-title'>{{this.name}}</p>
-              <p class='trend-card-price'>{{formatCurrency this.price}} VND</p>
-              <a href='/product/{{this._id}}' class='btn trend-card-btn'>Buy now</a>
-            </div>
+            {{> productCard id=this._id image=this.image.[0] name=this.name price=this.price}}
           </div>
           {{else}}
           <!-- Display a message if no products are available -->
@@ -110,3 +103,5 @@
 <!-- External JavaScript files for additional functionality -->
 <script src="/js/all-product.js"></script>
 <script src="/js/global-link.js"></script>
+<script src="/js/filterProducts.js"></script>
+```
