@@ -21,13 +21,6 @@ class siteController {
       next(err);
     }
   };
-  getPayment = async (req, res, next) => {
-    try {
-      res.render("payment", {});
-    } catch (err) {
-      next(err);
-    }
-  };
   
   getPayForCart = async (req, res, next) => {
     try {
@@ -40,6 +33,21 @@ class siteController {
       res.locals.accBuyer = mongooseToObject(accBuyer);
 
       res.render("cart");
+    } catch (error) {
+      next(error);
+    }
+  };
+  getPayment = async (req, res, next) => {
+    try {
+      // const productId = req.params.id;
+      const idUser = "659f45990be458c494290c38";
+      const accBuyer = await Account.findOne({ _id: idUser }).populate({
+        path: "cart.id_product",
+      });
+
+      res.locals.accBuyer = mongooseToObject(accBuyer);
+
+      res.render("payment");
     } catch (error) {
       next(error);
     }
