@@ -113,6 +113,30 @@ class productController {
       next(err);
     }
   };
+
+  filterProducts = async (req, res, next) => {
+    try {
+      const { category, minPrice, maxPrice } = req.query;
+
+      let query = Product.find();
+
+      if (category) {
+        query = query.where('category').equals(category);
+      }
+      if (minPrice) {
+        query = query.where('price').gte(minPrice);
+      }
+      if (maxPrice) {
+        query = query.where('price').lte(maxPrice);
+      }
+
+      const filteredProducts = await query.lean();
+      res.json(filteredProducts);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error filtering products');
+    }
+  };
 }
 
 // Export an instance of the controller
