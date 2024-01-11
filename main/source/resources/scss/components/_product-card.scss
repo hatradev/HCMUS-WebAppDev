@@ -1,0 +1,64 @@
+.title {
+  font-weight: 900;
+  font-size: 3rem;
+  padding: 2rem 0rem;
+}
+
+.btn.btn-pink {
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: $color-white;
+  background-color: $color-pink-secondary;
+  border-color: $color-pink-secondary;
+  border-radius: 0.35rem;
+  &:hover {
+    background-color: $color-pink-primary;
+    border-color: $color-pink-primary;
+  }
+}
+
+.product-list .row .col-xl-3 {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.product-item {
+  position: relative;
+  margin-bottom: 2rem;
+  .image {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    img {
+      width: 100%;
+      object-fit: scale-down;
+      min-height: 190px;
+      &:hover {
+        transform: scale(1.2);
+        transition: all 300ms;
+      }
+    }
+  }
+  .flag {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    padding: 5px 10px;
+    background: $color-pink-secondary;
+    color: $color-white;
+  }
+  .name {
+    line-height: 1.5;
+    margin: 1.2rem 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    min-height: 4.4rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .product-price {
+    font-weight: 700;
+    font-size: 2rem;
+  }
+}
