@@ -28,18 +28,18 @@
     <div class='col-3 filter-section'>
       <!-- Search form -->
       <div class="form-search">
-        <form class='search-bar pt-3 align-items-center' action="/product/all-product/search">
-          <input type='text' class='search-input col p-4' placeholder='Search...' name="keyword" />
+        <form class='search-bar' action="/product/all-product/search">
+          <input type='text' class='search-input p-4' placeholder='Search...' name="keyword" />
           <!-- Search button with icon -->
-          <button class='search-icon-link'>
+          {{!-- <button class='search-icon-link'>
             <i class='fa-solid fa-magnifying-glass search-icon'></i>
-          </button>
+          </button> --}}
         </form>
       </div>
 
       {{!-- {{> filter-price}} --}}
 
-      <!-- CATEGORIES -->
+      <!-- FILTERS -->
       <div class='filter-type-list mt-5'>
         <div class="filter-price-container mb-5">
           <span class='list-title'>Giá</span>
@@ -47,7 +47,25 @@
           {{> moji-filter-price}}
         </div>
 
-        <div class="filter-category-container">
+        <!-- Category Selection -->
+        <div class="category-tree-section">
+            <span class='list-title'>Danh mục</span>
+            <hr />
+            <ul class="category-tree">
+                {{#each categories}}
+                    {{> categoryNode this}}
+                {{/each}}
+            </ul>
+            <!-- Element to display the selected category name -->
+            <div id="selectedCategoryName" class="selected-category-name"></div>
+        </div>
+        <input type="hidden" id="selectedCategory" value="">
+
+        <div class="filter-btn-container d-flex justify-content-center">
+          <button id="filter-btn" class="btn-js-add-cart btn btn-pink mt-3" onclick="applyFilters(event)">Filter</button>
+        </div>
+
+        {{!-- <div class="filter-category-container">
           <span class='list-title'>Danh mục</span>
           <hr />
           <!-- Loop through parent categories -->
@@ -68,7 +86,7 @@
           </div>
           {{/each}}
           {{/each}}
-        </div>
+        </div> --}}
       </div>
     </div>
 
@@ -97,7 +115,7 @@
             let currentPage = {{ _currentPage }};
             let leftMost = currentPage - ((currentPage - 1) % 3);
           </script>
-          {{>pagination}}
+          {{!-- {{>pagination}} --}}
         </div>
       </section>
     </div>
@@ -105,7 +123,7 @@
 </div>
 
 <!-- External JavaScript files for additional functionality -->
-<script src="/js/all-product.js"></script>
-<script src="/js/global-link.js"></script>
-<script src="/js/filterProducts.js"></script>
-```
+{{!-- <script src="/js/all-product.js"></script>
+<script src="/js/global-link.js"></script> --}}
+{{!-- <script src="/js/filterProducts.js"></script> --}}
+<script src="/js/applyFilters.js"></script>

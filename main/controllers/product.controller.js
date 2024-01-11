@@ -4,39 +4,33 @@ const Category = require("../models/category.model");
 const Account = require("../models/account.model");
 
 class productController {
+  getCategoryTree = async () => {
+    // Fetch categories from the database
+    const categories = await Category.find().lean();
+
+    // Function to construct a hierarchical tree from categories
+    const buildTree = (categories, parentId = null) => {
+        return categories
+            .filter(cat => String(cat.parentCategory) === String(parentId))
+            .map(cat => ({ ...cat, children: buildTree(categories, cat._id) }));
+    };
+
+    // Construct the hierarchical tree from categories
+    return buildTree(categories);
+  };
+
   // Method to display all products
   showAllProduct = async (req, res, next) => {
     try {
-      const products = await Product.find().lean();
-      const categories = await Category.find({ parentCategory: null }).lean(); // Get only main categories
+        const products = await Product.find().lean();
 
-      for (const category of categories) {
-        // Count products in the main category
-        category.count = await Product.countDocuments({
-          category: category._id,
-        });
+        // Use this.getCategoryTree to build the categories tree
+        const categories = await this.getCategoryTree();
 
-        // Get subcategories of the main category
-        const subcategories = await Category.find({
-          parentCategory: category._id,
-        }).lean();
-
-        // Count products in each subcategory and add to total count
-        for (const subcategory of subcategories) {
-          const subcategoryCount = await Product.countDocuments({
-            category: subcategory._id,
-          });
-          subcategory.count = subcategoryCount;
-          category.count += subcategoryCount;
-        }
-
-        category.subcategories = subcategories; // Attach subcategories to the main category
-      }
-
-      res.render("all-product", { products, categories });
+        res.render("all-product", { products, categories });
     } catch (err) {
-      console.error(err);
-      next(err);
+        console.error(err);
+        next(err);
     }
   };
 
@@ -130,6 +124,72 @@ class productController {
     }
   };
 
+  // filterProducts = async (req, res, next) => {
+  //   try {
+  //     const { category, minPrice, maxPrice } = req.query;
+
+  //     let query = Product.find();
+
+  //     if (category) {
+  //       query = query.where("category").equals(category);
+  //     }
+  //     if (minPrice) {
+  //       query = query.where("price").gte(minPrice);
+  //     }
+  //     if (maxPrice) {
+  //       query = query.where("price").lte(maxPrice);
+  //     }
+
+  //     const filteredProducts = await query.lean();
+  //     res.json(filteredProducts);
+  //   } catch (err) {
+  //     console.error(err);
+  //     res.status(500).send("Error filtering products");
+  //   }
+  // };
+
+  getAllDescendantCategoryIds = async (parentCategoryId) => {
+    const categoriesToProcess = [parentCategoryId];
+    const allCategoryIds = new Set();
+
+    while (categoriesToProcess.length > 0) {
+        const currentCategoryId = categoriesToProcess.pop();
+        allCategoryIds.add(currentCategoryId);
+
+        const childCategories = await Category.find({ parentCategory: currentCategoryId }).lean();
+        childCategories.forEach(cat => categoriesToProcess.push(cat._id.toString()));
+    }
+
+    return Array.from(allCategoryIds);
+  }
+
+
+  filterProducts = async (req, res) => {
+    try {
+        const { category, minPrice, maxPrice } = req.query;
+        let query = {};
+
+        if (category) {
+            const allCategoryIds = await this.getAllDescendantCategoryIds(category);
+            query.category = { $in: allCategoryIds };
+        }
+
+        if (minPrice) {
+            query.price = { ...query.price, $gte: parseFloat(minPrice) };
+        }
+
+        if (maxPrice) {
+            query.price = { ...query.price, $lte: parseFloat(maxPrice) };
+        }
+
+        const filteredProducts = await Product.find(query).lean();
+        res.json(filteredProducts);
+    } catch (error) {
+        console.error('Error in filterProducts:', error);
+        res.status(500).send('Server error');
+    }
+  };
+
   deleteFromCart = async (req, res, next) => {
     try {
       // const accountId = req.user._id; // hoặc lấy từ session hoặc JWT
@@ -203,30 +263,6 @@ class productController {
       res
         .status(500)
         .json({ message: "An error occurred", error: err.message });
-    }
-  };
-
-  filterProducts = async (req, res, next) => {
-    try {
-      const { category, minPrice, maxPrice } = req.query;
-
-      let query = Product.find();
-
-      if (category) {
-        query = query.where("category").equals(category);
-      }
-      if (minPrice) {
-        query = query.where("price").gte(minPrice);
-      }
-      if (maxPrice) {
-        query = query.where("price").lte(maxPrice);
-      }
-
-      const filteredProducts = await query.lean();
-      res.json(filteredProducts);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Error filtering products");
     }
   };
 }
