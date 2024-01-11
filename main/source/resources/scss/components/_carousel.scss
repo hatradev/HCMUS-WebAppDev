@@ -1,8 +1,19 @@
+// #productImageCarousel .carousel-item {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+// .carousel-img {
+//     max-width: 100%; /* Ensures image does not exceed the carousel width */
+//     object-fit: contain; /* Keeps the aspect ratio of the image */
+// }
+
 .carousel-item {
     // height: 50vh;
     max-height: 100%;
 
-    .carousel-item img {
+    img {
         object-fit: cover;
         object-position: center;
     }
@@ -10,11 +21,11 @@
 
 .carousel-control-prev,
 .carousel-control-next {
-    width: 50px;
+    width: $font-size-primary*3;
     /* Increase the width */
-    height: 50px;
+    height: $font-size-primary*3;
     /* Increase the height */
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
     /* Add background color for visibility */
     border-radius: 50%;
     /* Optional: makes it circular */

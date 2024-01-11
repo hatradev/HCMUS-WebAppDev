@@ -10,7 +10,7 @@ router.use((req, res, next) => {
      res.redirect('/user/signin');
  })
  
-router.get("/all", productController.showAllProduct);
+router.get("/", productController.showAllProduct);
 router.get("/:productId", productController.showSpecificProduct);
 router.delete("/cart/:id", productController.deleteFromCart);
 // router.post('/cart/updateQuantity', productController.updateCartQuantity);
