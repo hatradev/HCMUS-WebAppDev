@@ -2,8 +2,43 @@ const express = require("express");
 const siteController = require("../controllers/site.controller");
 
 const router = express.Router();
-router.get("/", siteController.getHome);
-router.get("/payment", siteController.getPayment);
-router.get("/my-cart", siteController.getPayForCart);
+
+// router.use((req, res, next) => {
+//     if (req.cookies && req.cookies.obj){
+//      return next();
+//     }
+//      res.redirect('/user/signin');
+//  })
+
+router.get(
+  "/",
+  (req, res, next) => {
+    if (req.cookies && req.cookies.obj) {
+      return next();
+    }
+    res.redirect("/user/signin");
+  },
+  siteController.getHome
+);
+router.get(
+  "/my-cart",
+  (req, res, next) => {
+    if (req.cookies && req.cookies.obj) {
+      return next();
+    }
+    res.redirect("/user/signin");
+  },
+  siteController.getCart
+);
+router.get(
+  "/payment",
+  (req, res, next) => {
+    if (req.cookies && req.cookies.obj) {
+      return next();
+    }
+    res.redirect("/user/signin");
+  },
+  siteController.getPayment
+);
 
 module.exports = router;

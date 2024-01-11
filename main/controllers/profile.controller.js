@@ -4,10 +4,8 @@ class profileController {
   // [GET] /
   getProfile = async (req, res, next) => {
     try {
-      const userId = req.session.passport.user;
-      console.log(req.session.passport);
-      const user = await User.findOne({ _id: userId });
-      console.log(user);
+      // console.log(req.cookies);
+      const user = req.cookies.obj.user;
       const lastname = user.lastname,
         firstname = user.firstname,
         phone = user.phone,
