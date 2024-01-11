@@ -6,7 +6,6 @@ class profileController {
     try {
       const userId = req.session.passport.user;
       const user = await User.findOne({_id: userId});
-      console.log(user);
       const lastname = user.lastname,
       firstname = user.firstname,
       phone = user.phone,
