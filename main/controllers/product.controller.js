@@ -232,4 +232,5 @@ class productController {
 }
 
 // Export an instance of the controller
+// Export an instance of the controller
 module.exports = new productController();

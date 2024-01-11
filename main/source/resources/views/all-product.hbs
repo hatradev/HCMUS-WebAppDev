@@ -37,33 +37,39 @@
         </form>
       </div>
 
-      {{> filter-price}}
+      {{!-- {{> filter-price}} --}}
 
       <!-- CATEGORIES -->
       <div class='filter-type-list mt-5'>
-        <span class='list-title'>Category</span>
-        <hr />
-        <!-- Loop through parent categories -->
-        {{#each categories}}
-        <div class='parent-category d-flex justify-content-between align-items-center'>
-          <a href='/product/category/{{this._id}}' class='category-name'>
-            {{this.name}}
-          </a>
-          <span class='number'>({{this.count}})</span>
+        <div class="filter-price-container mb-5">
+          <span class='list-title'>Giá</span>
+          <hr />
+          {{> moji-filter-price}}
         </div>
-        <!-- Loop through subcategories of the current category -->
-        {{#each this.subcategories}}
-        <div class='type-item d-flex justify-content-between align-items-center ps-4'>
-          <a href='/product/category/{{this._id}}' class="subcategory-name">
-            {{this.name}}
-          </a>
-          <span class='number'>({{this.count}})</span>
+
+        <div class="filter-category-container">
+          <span class='list-title'>Danh mục</span>
+          <hr />
+          <!-- Loop through parent categories -->
+          {{#each categories}}
+          <div class='parent-category d-flex justify-content-between align-items-center'>
+            <a href='/product/category/{{this._id}}' class='category-name'>
+              {{this.name}}
+            </a>
+            <span class='number'>({{this.count}})</span>
+          </div>
+          <!-- Loop through subcategories of the current category -->
+          {{#each this.subcategories}}
+          <div class='type-item d-flex justify-content-between align-items-center ps-4'>
+            <a href='/product/category/{{this._id}}' class="subcategory-name">
+              {{this.name}}
+            </a>
+            <span class='number'>({{this.count}})</span>
+          </div>
+          {{/each}}
+          {{/each}}
         </div>
-        {{/each}}
-        {{/each}}
       </div>
-
-
     </div>
 
     <!-- Column for displaying products -->
