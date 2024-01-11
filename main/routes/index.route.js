@@ -4,6 +4,7 @@ const profileRouter = require("./profile.route");
 const orderRouter = require("./order.route");
 const productRouter = require("./product.route");
 const adminRouter = require("./admin.route");
+const CustomErr = require("../helpers/custom-error");
 
 function route(app) {
   // Định nghĩa các route theo tài nguyên
@@ -16,13 +17,19 @@ function route(app) {
   // Hai middlewares này phải để cuối để check lỗi
   app.use((req, res, next) => {
     res.status(404).render("error", {
-      message: "File not Found",
+      code: 404,
+      msg: "Page not found",
+      description: "The page you're looking for doesn't exist",
+      nshowHF: true,
     });
   });
   app.use((error, req, res, next) => {
-    console.error(error);
-    res.status(500).render("error", {
-      message: "Internal Server Error!",
+    const statusCode = error instanceof CustomErr ? error.statusCode : 500;
+    res.status(statusCode).render("error", {
+      code: statusCode,
+      msg: "Server error",
+      description: error.message,
+      nshowHF: true,
     });
   });
 }

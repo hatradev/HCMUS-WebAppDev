@@ -5,6 +5,7 @@ const methodOverride = require("method-override");
 const connectLiveReload = require("connect-livereload");
 const bodyParser = require("body-parser");
 const route = require("../routes/index.route");
+
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));

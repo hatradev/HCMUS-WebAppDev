@@ -1,28 +1,34 @@
 const account = require("../models/account.model");
-const mongoose = require('../helpers/mongoose');
+const CustomErr = require("../helpers/custom-error");
 
 function route(app) {
   // Định nghĩa các route theo tài nguyên
-  app.get('/', async (req, res) => {
+  app.get("/", async (req, res) => {
     let user = await account.find({});
     if (user) {
       console.log(user);
     } else {
       console.log("fail");
     }
-    res.json(user);
-  })
+    res.render("home");
+  });
 
   // Hai middlewares này phải để cuối để check lỗi
   app.use((req, res, next) => {
     res.status(404).render("error", {
-      message: "File not Found",
+      code: 404,
+      msg: "Page not found",
+      description: "The page you're looking for doesn't exist",
+      nshowHF: true,
     });
   });
   app.use((error, req, res, next) => {
-    console.error(error);
-    res.status(500).render("error", {
-      message: "Internal Server Error!",
+    const statusCode = error instanceof CustomErr ? error.statusCode : 500;
+    res.status(statusCode).render("error", {
+      code: statusCode,
+      msg: "Server error",
+      description: error.message,
+      nshowHF: true,
     });
   });
 }

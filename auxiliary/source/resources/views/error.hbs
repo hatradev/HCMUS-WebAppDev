@@ -1,8 +1,22 @@
-<section class="container" style="height: calc(100vh - 17.5rem);">
-  <section class="sign-in">
-    <h2 class="si-header">MESSAGE</h2>
-    <p class="alert alert-danger">
-      {{{message}}}
-    </p>
-  </section>
-</section>
+<div class="main-wrapper">
+  <div class="preloader">
+    <div class="lds-ripple">
+      <div class="lds-pos"></div>
+      <div class="lds-pos"></div>
+    </div>
+  </div>
+  <div class="error-box">
+    <div class="error-body text-center">
+      <h1 class="error-title text-danger">{{code}}</h1>
+      <h3 class="text-uppercase error-subtitle fs-3">{{msg}}</h3>
+      <p class="text-muted mt-4 mb-4 fs-3">{{description}}</p>
+      <a
+        href="/"
+        class="btn btn-danger btn-rounded waves-effect waves-light mb-5 text-white fs-2"
+      >Back to home</a>
+    </div>
+  </div>
+</div>
+<script>
+  $(".preloader").fadeOut();
+</script>
