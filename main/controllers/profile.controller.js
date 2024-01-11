@@ -5,6 +5,7 @@ class profileController {
   getProfile = async (req, res, next) => {
     try {
       const userId = req.session.passport.user;
+      console.log(req.session.passport);
       const user = await User.findOne({ _id: userId });
       console.log(user);
       const lastname = user.lastname,

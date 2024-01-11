@@ -11,7 +11,6 @@ const {
   mongooseToObject,
 } = require("../utils/mongoose");
 
-
 class siteController {
   // [GET] /
   getHome = async (req, res, next) => {
@@ -21,7 +20,7 @@ class siteController {
       next(err);
     }
   };
-  
+
   getPayForCart = async (req, res, next) => {
     try {
       // const productId = req.params.id;
@@ -39,6 +38,7 @@ class siteController {
   };
   getPayment = async (req, res, next) => {
     try {
+      console.log(req.session.passport);
       // const productId = req.params.id;
       const idUser = "659f66740be458c494290c39";
       const accBuyer = await Account.findOne({ _id: idUser }).populate({
