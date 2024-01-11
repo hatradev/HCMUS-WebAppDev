@@ -15,7 +15,7 @@
             <p><a href="/profile" style="color: #FFB0BD">Thông tin tài khoản</a></p>
             <p><a href="/profile/changepassword">Đổi mật khẩu</a></p>
             <p><a href="/order/index">Lịch sử đơn hàng</a></p>
-            <p><a href="#">Đăng xuất</a></p>
+            <p><a href="/user/logout">Đăng xuất</a></p>
           </div>
         </div>
       </div>
@@ -25,37 +25,38 @@
         <div class="card-body ps-5 pt-5">
           <h1>Hồ sơ của tôi</h1>
           <hr>
-          <form id="updateForm" action="#" method="post" class="text-end">
+          <form id="updateForm" action="/profile/update" method="post" method="post" class="text-end">
             <div class="row align-items-center">
-              <label for="inputName" class="col-form-label col-md-3 pe-5 mt-4">Họ tên (*)</label>
+              <label for="inputLName" class="col-form-label col-md-3 pe-5 mt-4">Họ (*)</label>
               <div class="col-md-9 col-lg-6">
-                <input type="text" id="inputName" name="inputName" class="form-control" required>
-                <small id="nameErr" class="form-text text-danger"></small>
+                <input type="text" id="inputLName" name="inputLName" class="form-control" value="{{lastname}}" required>
+                <small id="lNameErr" class="form-text text-danger"></small>
               </div>
             </div>
             <div class="row align-items-center">
-              <label for="inputDoB" class="col-form-label col-md-3 pe-5 mt-4">Ngày sinh (*)</label>
+              <label for="inputFName" class="col-form-label col-md-3 pe-5 mt-4">Tên (*)</label>
               <div class="col-md-9 col-lg-6">
-                <input type="date" id="inputDoB" name="inputDoB" class="form-control" required>
+                <input type="text" id="inputFName" name="inputFName" class="form-control" value="{{firstname}}" required>
+                <small id="fNameErr" class="form-text text-danger"></small>
               </div>
             </div>
             <div class="row align-items-center">
               <label for="inputPhoneNumber" class="col-form-label col-md-3 pe-5 mt-4">Điện thoại (*)</label>
               <div class="col-md-9 col-lg-6">
-                <input type="text" id="inputPhoneNumber" name="inputPhoneNumber" class="form-control" required>
+                <input type="text" id="inputPhoneNumber" name="inputPhoneNumber" class="form-control" value="{{phone}}" required>
                 <small id="phoneNumErr" class="form-text text-danger"></small>
               </div>
             </div>
             <div class="row align-items-center">
               <label for="inputEmail" class="col-form-label col-md-3 pe-5 mt-4">Email (*)</label>
               <div class="col-md-9 col-lg-6">
-                <input type="email" id="inputEmail" name="inputEmail" class="form-control" required>
+                <input type="email" id="inputEmail" name="inputEmail" class="form-control" value="{{email}}" required>
               </div>
             </div>
             <div class="row align-items-center">
               <label for="calc_shipping_provinces" class="form-label col-md-3 pe-5 mt-4">Tỉnh/ Thành phố (*)</label>
               <div class="col-md-9 col-lg-6">
-                <select name="calc_shipping_provinces" class="form-select" style="font-size: 14px;" required>
+                <select name="calc_shipping_provinces" class="form-select" style="font-size: 14px;" value="{{provinces}}" required>
                   <option value="">Tỉnh / Thành phố</option>
                 </select>
               </div>
@@ -63,7 +64,7 @@
             <div class="row align-items-center">
               <label for="calc_shipping_district" class="form-label col-md-3 pe-5 mt-4">Quận/ Huyện (*)</label>
               <div class="col-md-9 col-lg-6">
-                <select name="calc_shipping_district" class="form-select" style="font-size: 14px;" required>
+                <select name="calc_shipping_district" class="form-select" style="font-size: 14px;" value="{{district}}" required>
                   <option value="">Quận/ Huyện</option>
                 </select>
               </div>
@@ -71,7 +72,7 @@
             <div class="row align-items-center">
               <label for="inputAddress" class="col-form-label col-md-3 pe-5 mt-4">Địa chỉ chi tiết (*)</label>
               <div class="col-md-9 col-lg-6">
-                <input type="text" id="inputAddress" name="inputAddress" class="form-control" required>
+                <input type="text" id="inputAddress" name="inputAddress" class="form-control" value="{{detailAddress}}" required>
               </div>
             </div>
             <div class="row align-items-center mt-3">
@@ -159,17 +160,20 @@
       })
     })
     $('form').submit(function (e) {
-      e.preventDefault();
       // check use
       let regex = /[^a-zA-ZÀ-ỹ\s]/;
-      $('#nameErr').html(regex.test($('#inputName').val()) ? 'Không hợp lệ! Tên chỉ bao gồm các chữ cái' : '');
+      $('#lNameErr').html(regex.test($('#inputLName').val()) ? 'Không hợp lệ! Họ chỉ bao gồm các chữ cái' : '');
+      $('#fNameErr').html(regex.test($('#inputFName').val()) ? 'Không hợp lệ! Tên chỉ bao gồm các chữ cái' : '');
 
       regex = /\D/
       $('#phoneNumErr').html(regex.test($('#inputPhoneNumber').val()) ? 'Số điện thoại không hợp lệ!' : '');
 
-      if ($('#nameErr').html() == '' && $('#phoneNumErr').html() == '') {
+      if ($('#fNameErr').html() == '' && $('#lNameErr').html() == '' && $('#phoneNumErr').html() == '') {
         //console.log('gui submit');
-        //$('form').submit();
+        $('form').submit();
+      }
+      else {
+          e.preventDefault();
       }
     });
   });
