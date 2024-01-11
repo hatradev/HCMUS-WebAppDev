@@ -4,11 +4,11 @@
       <div class="card-body m-3 d-flex flex-column justify-content-center">
         <h1 class="card-title fw-bold fs-1">Đăng Nhập</h1>
         <p class="card-text mb-5"><small class="text-body-secondary">Vui lòng đăng nhập để tiếp tục</small></p>
-        <form id="signinForm">
+        <form id="signinForm" action="/user/signin" method="post">
           <div class="mb-2">
-            <label for="inputUsername" class="form-label">Tên đăng nhập</label>
-            <input type="text" class="form-control mt-0" name="inputUsername" id="inputUsername" required>
-            <small id="usernameErr" class="form-text text-danger"></small>
+            <label for="inputEmail" class="form-label">Email</label>
+            <input type="email" class="form-control mt-0" name="inputEmail" id="inputEmail" required>
+            <small id="emailErr" class="form-text text-danger">{{emailMsg}}</small>
           </div>
           <div class="mb-2">
             <label for="inputPassword" class="form-label mt-3">Mật khẩu</label>
@@ -50,21 +50,21 @@
   $(document).ready(function() {
     
     // Validate and handle the sign-in form submission
-    function handleSignInFormSubmission() {
-      $('#signinForm').on('submit', function(event) {
-        event.preventDefault();
+   // function handleSignInFormSubmission() {
+    //  $('#signinForm').on('submit', function(event) {
+     //   event.preventDefault();
         // Validate username
-        const username = $('#inputUsername').val();
-        const invalidCharsRegex = /[\/\\\[\];|=,+\*\?<>]/;
-        const errorMessage = 'Tên đăng nhập không được chứa các kí tự: / \\ [ ] ; | = , + * ? < >';
+       // const username = $('#inputUsername').val();
+        //const invalidCharsRegex = /[\/\\\[\];|=,+\*\?<>]/;
+        //const errorMessage = 'Tên đăng nhập không được chứa các kí tự: / \\ [ ] ; | = , + * ? < >';
         
-        $('#usernameErr').text(invalidCharsRegex.test(username) ? errorMessage : '');
+       // $('#usernameErr').text(invalidCharsRegex.test(username) ? errorMessage : '');
         // If the username is valid, proceed with form submission (uncomment to enable)
         // if ($('#usernameErr').text() == '') {
         //   $('#signinForm').submit();
         // }
-      });
-    }
+   //   });
+    //}
     // Function called when the user clicks on the Google sign-in button
     function onSignIn(googleUser) {
       console.log(1);

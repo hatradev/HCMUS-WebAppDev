@@ -1,5 +1,7 @@
 const express = require("express");
 const hbs = require("express-handlebars");
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const path = require("path");
 const methodOverride = require("method-override");
 // const livereload = require("livereload");
@@ -8,6 +10,7 @@ const bodyParser = require("body-parser");
 const route = require("../routes/index.route");
 // const passport = require("../middleware/passport");
 require('dotenv').config();
+const secret = 'mysecretkey';
 
 // GOOGLE OAUTH
 // const session = require('express-session');
@@ -28,6 +31,15 @@ const app = express();
 //     liveReloadServer.refresh("/");
 //   }, 100);
 // });
+
+app.use(session({
+  secret: secret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+})); 
+app.use(cookieParser(secret));
+require('../passport/passport')(app);
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(connectLiveReload());

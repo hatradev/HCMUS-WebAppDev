@@ -7,6 +7,10 @@ const accountSchema = new mongoose.Schema({
   email: String,
   password: String,
   avatar: String,
+  detailAddress: String,
+  provinces: String,
+  district: String,
+  phone: String,
   payid: String,
   cart: [{
     id_product: { type: mongoose.Schema.Types.ObjectId, ref: 'ms.product' },
