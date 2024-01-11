@@ -4,9 +4,9 @@ const profileController = require("../controllers/profile.controller");
 const router = express.Router();
 
 router.use((req, res, next) => {
-    if (req.isAuthenticated()){
-        return next();
-    }
+   if (req.cookies && req.cookies.obj){
+    return next();
+   }
     res.redirect('/user/signin');
 })
 
