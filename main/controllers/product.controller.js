@@ -133,7 +133,7 @@ class productController {
   deleteFromCart = async (req, res, next) => {
     try {
       // const accountId = req.user._id; // hoặc lấy từ session hoặc JWT
-      const accountId = "659f66740be458c494290c39"; // hoặc lấy từ session hoặc JWT
+      const accountId = "659f8a8c0be458c494290c40"; // hoặc lấy từ session hoặc JWT
       const productId = req.params.id; // ID của sản phẩm cần xóa
 
       // Tìm tài khoản người dùng
@@ -161,7 +161,7 @@ class productController {
 
   updateQuantityInCart = async (req, res, next) => {
     try {
-      const accountId = "659f66740be458c494290c39"; // Hoặc lấy từ session hoặc JWT
+      const accountId = "659f8a8c0be458c494290c40"; // Hoặc lấy từ session hoặc JWT
       const { productId, newQuantity } = req.body;
 
       if (newQuantity < 1) {

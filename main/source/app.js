@@ -67,6 +67,21 @@ app.engine(
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resources/views"));
 
+// Middleware to check if user is logged in
+app.use((req, res, next) => {
+  // Check if the user is authenticated. This is just a placeholder.
+  // You need to implement your logic based on your authentication method.
+  // For example, checking a JWT token or a session.
+  if (req.cookies && req.cookies.obj && req.cookies.obj.user) {
+    res.locals.isLoggedIn = true;
+    res.locals._firstName = req.cookies.obj.user.firstname;
+  } else {
+    res.locals.isLoggedIn = false;
+  }
+
+  next();
+});
+
 // Cấu hình sử dụng passport cho việc authentication
 // app.use(passport.initialize());
 // app.use(passport.session());
