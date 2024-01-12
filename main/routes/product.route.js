@@ -18,5 +18,6 @@ router.delete("/cart/:id", productController.deleteFromCart);
 router.post("/cart/update", productController.updateQuantityInCart);
 
 router.get("/api/filter-products", productController.filterProducts);
+router.get('/api/search-products', productController.searchProducts);
 
 module.exports = router;

@@ -163,7 +163,6 @@ class productController {
     return Array.from(allCategoryIds);
   }
 
-
   filterProducts = async (req, res) => {
     try {
         const { category, minPrice, maxPrice } = req.query;
@@ -186,6 +185,20 @@ class productController {
         res.json(filteredProducts);
     } catch (error) {
         console.error('Error in filterProducts:', error);
+        res.status(500).send('Server error');
+    }
+  };
+
+  searchProducts = async (req, res) => {
+    try {
+        const { keyword } = req.query;
+        const products = await Product.find({ 
+            name: { $regex: keyword, $options: 'i' } // Case-insensitive search
+        }).lean();
+
+        res.json(products);
+    } catch (error) {
+        console.error('Error:', error);
         res.status(500).send('Server error');
     }
   };

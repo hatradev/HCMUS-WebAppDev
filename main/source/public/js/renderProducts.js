@@ -41,4 +41,4 @@ function renderProducts(products) {
     }
 }
 
-export default  renderProducts;
+export default renderProducts;
