@@ -40,5 +40,15 @@ router.get(
   },
   siteController.getPayment
 );
+router.get(
+  "/paymentBuyNow",
+  (req, res, next) => {
+    if (req.cookies && req.cookies.obj) {
+      return next();
+    }
+    res.redirect("/user/signin");
+  },
+  siteController.getPaymentBuyNow
+);
 
 module.exports = router;

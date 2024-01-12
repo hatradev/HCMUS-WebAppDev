@@ -3,6 +3,7 @@ const Product = require("../models/product.model");
 const Category = require("../models/category.model");
 const Account = require("../models/account.model");
 
+
 class productController {
   // Method to display all products
   showAllProduct = async (req, res, next) => {
@@ -133,7 +134,8 @@ class productController {
   deleteFromCart = async (req, res, next) => {
     try {
       // const accountId = req.user._id; // hoặc lấy từ session hoặc JWT
-      const accountId = "659f8a8c0be458c494290c40"; // hoặc lấy từ session hoặc JWT
+      // const accountId = "659f8a8c0be458c494290c40"; // hoặc lấy từ session hoặc JWT
+      const accountId = req.cookies.obj.user._id.toString();
       const productId = req.params.id; // ID của sản phẩm cần xóa
 
       // Tìm tài khoản người dùng
@@ -161,7 +163,8 @@ class productController {
 
   updateQuantityInCart = async (req, res, next) => {
     try {
-      const accountId = "659f8a8c0be458c494290c40"; // Hoặc lấy từ session hoặc JWT
+      // const accountId = "659f8a8c0be458c494290c40"; // Hoặc lấy từ session hoặc JWT
+      const accountId = req.cookies.obj.user._id.toString();
       const { productId, newQuantity } = req.body;
 
       if (newQuantity < 1) {
@@ -229,6 +232,55 @@ class productController {
       res.status(500).send("Error filtering products");
     }
   };
+
+  addToCart = async (req, res, next) => {
+    try {
+      // Assuming the user's ID is obtained from the session or a JWT token
+      // const accountId = req.user._id; // Replace with your session or JWT token logic
+      // const accountId = "659f8a8c0be458c494290c40";
+      const accountId = req.cookies.obj.user._id.toString();
+      const { productId, quantity } = req.body;
+      console.log("check accID id");
+      console.log(accountId);
+      console.log("end check accID id");
+      if (!productId.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(400).json({ message: "Invalid product ID format" });
+      }
+
+      if (!productId || quantity <= 0) {
+        return res.status(400).json({ message: "Invalid product ID or quantity" });
+      }
+
+      const account = await Account.findById(accountId);
+
+      if (!account) {
+        return res.status(404).json({ message: "Account not found" });
+      }
+
+      // Check if the product already exists in the cart
+      const productIndex = account.cart.findIndex(item => item.id_product.toString() === productId);
+
+      if (productIndex > -1) {
+        // Update quantity if product already in cart
+        account.cart[productIndex].quantity += quantity;
+      } else {
+        // Add new product to cart
+        const ObjectId = mongoose.Types.ObjectId;
+        // account.cart.push({ id_product: productId, quantity });
+        account.cart.push({ id_product: new ObjectId(productId), quantity });
+      }
+
+      // Save the updated account
+      await account.save();
+
+      res.json({ message: "Product added to cart successfully", cart: account.cart });
+    } catch (err) {
+      console.error("Error adding product to cart:", err);
+      res.status(500).json({ message: "An error occurred", error: err.message });
+  }
+  };
+
+
 }
 
 // Export an instance of the controller

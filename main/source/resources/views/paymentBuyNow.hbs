@@ -1,0 +1,307 @@
+<div class="checkout-page container sty-none">
+  <form
+    id="formCheckOut"
+    class="formCheckOut formAcount validate"
+    method="post"
+  >
+    <div class="row">
+      <div class="col-checkout col-left col-xl-4 col-lg-6 col-12">
+        <h2 class="col-title"><span
+            class="d-inline-flex align-items-center justify-content-center"
+          >1</span>Thông tin người nhận
+        </h2>
+        <div class="form-group">
+          <input
+            id="customerName"
+            name="customerName"
+            type="text"
+            class="form-control input-sm validate[required]"
+            value="{{accBuyer.lastname}}"
+            placeholder="Họ tên *"
+            fdprocessedid="tnff65"
+            style="font-size: 1.5rem;"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            id="customerMobile"
+            name="customerMobile"
+            type="text"
+            class="form-control input-sm validate[required,custom[phone]]"
+            value="{{accBuyer.phone}}"
+            placeholder="Điện thoại *"
+            fdprocessedid="a8l56b"
+            style="font-size: 1.5rem;"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            id="customerEmail"
+            name="customerEmail"
+            type="text"
+            class="form-control input-sm"
+            value="{{accBuyer.email}}"
+            placeholder="Email *"
+            fdprocessedid="037no"
+            style="font-size: 1.5rem;"
+          />
+        </div>
+        <div class="form-group">
+          <select
+            id="customerCityId"
+            name="customerCityId"
+            class="form-control input validate[required]"
+            style="font-size: 1.5rem;"
+            fdprocessedid="eo8itm"
+          >
+            <option value="">Tỉnh/Thành phố *</option>
+            <option value="254">Hà Nội</option>
+            <option value="255">Hồ Chí Minh</option>
+            <option value="256">An Giang</option>
+            <option value="257">Bà Rịa - Vũng Tàu</option>
+            <option value="258">Bắc Ninh</option>
+            <option value="259">Bắc Giang</option>
+            <option value="260">Bình Dương</option>
+            <option value="261">Bình Định</option>
+            <option value="262">Bình Phước</option>
+            <option value="263">Bình Thuận</option>
+            <option value="264">Bến Tre</option>
+            <option value="265">Bắc Cạn</option>
+            <option value="266">Cần Thơ</option>
+            <option value="267">Khánh Hòa</option>
+            <option value="268">Thừa Thiên Huế</option>
+            <option value="269">Lào Cai</option>
+            <option value="270">Quảng Ninh</option>
+            <option value="271">Đồng Nai</option>
+            <option value="272">Nam Định</option>
+            <option value="273">Cà Mau</option>
+            <option value="274">Cao Bằng</option>
+            <option value="275">Gia Lai</option>
+            <option value="276">Hà Giang</option>
+            <option value="277">Hà Nam</option>
+            <option value="278">Hà Tĩnh</option>
+            <option value="279">Hải Dương</option>
+            <option value="280">Hải Phòng</option>
+            <option value="281">Hòa Bình</option>
+            <option value="282">Hưng Yên</option>
+            <option value="283">Kiên Giang</option>
+            <option value="284">Kon Tum</option>
+            <option value="285">Lai Châu</option>
+            <option value="286">Lâm Đồng</option>
+            <option value="287">Lạng Sơn</option>
+            <option value="288">Long An</option>
+            <option value="289">Nghệ An</option>
+            <option value="290">Ninh Bình</option>
+            <option value="291">Ninh Thuận</option>
+            <option value="292">Phú Thọ</option>
+            <option value="293">Phú Yên</option>
+            <option value="294">Quảng Bình</option>
+            <option value="295">Quảng Nam</option>
+            <option value="296">Quảng Ngãi</option>
+            <option value="297">Quảng Trị</option>
+            <option value="298">Sóc Trăng</option>
+            <option value="299">Sơn La</option>
+            <option value="300">Tây Ninh</option>
+            <option value="301">Thái Bình</option>
+            <option value="302">Thái Nguyên</option>
+            <option value="303">Thanh Hóa</option>
+            <option value="304">Tiền Giang</option>
+            <option value="305">Trà Vinh</option>
+            <option value="306">Tuyên Quang</option>
+            <option value="307">Vĩnh Long</option>
+            <option value="308">Vĩnh Phúc</option>
+            <option value="309">Yên Bái</option>
+            <option value="310">Đắk Lắk</option>
+            <option value="311">Đồng Tháp</option>
+            <option value="312">Đà Nẵng</option>
+            <option value="313">Đắc Nông</option>
+            <option value="314">Hậu Giang</option>
+            <option value="315">Bạc Liêu</option>
+            <option value="316">Điện Biên</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select
+            id="customerDistrictId"
+            name="customerDistrictId"
+            class="form-control input validate[required]"
+            fdprocessedid="2jypm8"
+            style="font-size: 1.5rem;"
+          >
+            <option value="">Quận/ Huyện *</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-top: 1.5rem;">
+          <textarea
+            type="text"
+            id="description"
+            name="description"
+            class="form-control input-sm"
+            rows="3 "
+            placeholder="Ghi chú"
+            style="font-size: 1.5rem;"
+          ></textarea>
+
+        </div>
+        <div>Đơn hàng trên website được xử lý trong giờ hành chính</div>
+
+        <div>Vui lòng liên hệ fanpage ngoài khung giờ trên để được hỗ trợ</div>
+        <div class="d-none form-check">
+          <label class="form-check-label">
+            <input name="inforBill" class="form-check-input" type="checkbox" />
+            Thông tin hóa đơn trùng với thông tin người nhận
+          </label>
+        </div>
+      </div>
+
+      <div class="col-checkout col-center col-xl-3 col-lg-6 col-12">
+        <h2 class="col-title"><span
+            class="d-inline-flex align-items-center justify-content-center"
+          >2</span>Phương thức thanh toán
+        </h2>
+        <div class="d-block item">
+          {{! <label class="form-check-label" style="display: flex;">
+                        <input type="radio" value="4" name="paymentMethod" class="form-check-input" style="border: 0.05rem solid black;">
+                        <div class="d-block" data-toggle="collapse" data-target="#p-online" aria-expanded="true">
+                            Chuyển khoản trước toàn bộ tiền hàng </div>
+                    </label> }}
+          {{! <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" style="border: 0.05rem solid black;">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Chuyển khoản trước toàn bộ tiền hàng
+                        </label>
+                    </div> }}
+          <div class="form-check" style="padding-left: 0;">
+            {{! <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> }}
+            <label class="form-check-label" for="flexCheckDefault">
+              Chuyển khoản trước toàn bộ tiền hàng
+            </label>
+          </div>
+          <div
+            id="p-online"
+            class="col-pay alert alert-warning collapse in show"
+          >
+            <p><span style="font-size:14px;"><span><span
+                    style="text-indent:10px;"
+                  >Với phương&nbsp;thức Chuyển khoản trước toàn bộ tiền
+                    hàng,&nbsp;bộ phận CSKH sẽ gọi điện đến bạn để xác nhận đơn
+                    hàng và hướng&nbsp;dẫn cách thức thanh toán chuyển khoản</span></span></span></p>
+          </div>
+        </div>
+        <input
+          type="hidden"
+          id="baokimBankPaymentMethodId"
+          name="baokimBankPaymentMethodId"
+        />
+      </div>
+
+      <div class="col-checkout col-right col-xl-5 col-lg-12 col-12">
+        <h2 class="col-title"><span
+            class="d-inline-flex align-items-center justify-content-center"
+          >3</span>Thông tin giỏ hàng</h2>
+        <div class="table-responsive scrollModal">
+          <table class="table table-checkout" border="0" cellspacing="10">
+            <thead>
+              <tr>
+                <th class="text-left" width="55%">Tên sản phẩm</th>
+                <th class="text-center" width="20%">Số lượng</th>
+                <th class="text-right" width="25%">Thành tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr class="cartItem" data-psid="{{product._id}}">
+                  <td>
+                    <a
+                      href="/mu-len-red-and-white-big-knitting-cuc-bong-xmas-do-p37901040.html"
+                    >
+                      {{product.name}}
+                    </a>
+                    <div class="clearfix">
+                      Đơn giá:
+                      <strong>{{product.price}}</strong>
+                      <div class="d-block"></div>
+                    </div>
+                  </td>
+                  <td class="text-center">{{quantity}}</td>
+                  <td class="text-center">
+                    <strong class="products-price">{{calculateTotalPrice
+                        product.price
+                        quantity
+                      }}</strong>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+
+          <table class="table table-checkout" border="0" cellspacing="10">
+            <tfoot>
+              <tr>
+                <td colspan="2"><strong>Tạm tính</strong></td>
+                <td>1.245.000 đ</td>
+              </tr>
+              <tr>
+                <td colspan="2">Phí vận chuyển</td>
+                <td id="shipFee" value="0">0 đ</td>
+              </tr>
+              <tr>
+                <td colspan="2"><strong>Mã giảm giá</strong></td>
+                <td id="txtCode" value="0">0 đ</td>
+              </tr>
+              <tr>
+                <td colspan="2"><strong>Tổng cộng</strong></td>
+                <td id="showTotalMoney" class="totalPrice" value="1245000">
+                  1.245.000 đ
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <!-- Sử dụng mã giảm giá -->
+        <div class="formCode form-group">
+          <strong class="d-block">Nhập mã ưu đãi</strong>
+          <div class="input-group">
+            <input
+              type="text"
+              id="coupon"
+              name="couponCode"
+              class="form-control"
+              placeholder="Mã giảm giá"
+              fdprocessedid="nnirxl"
+              style="font-size: 1.5rem;"
+            />
+            <div class="input-group-btn" style="padding-top: 1.4rem;">
+              <button
+                class="btn btn-pink"
+                id="getCoupon"
+                type="button"
+                fdprocessedid="ayh69"
+                style="height: 4rem;"
+              >
+                Áp dụng
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="mss-confirm"></div>
+
+        <div
+          class="d-block d-flex justify-content-end"
+          style="margin-top: 1.5rem;"
+        >
+          <div
+            id="js-btn-submit"
+            class="btn btn-pink d-flex justify-content-center align-items-center"
+            style="height:5rem; width:15rem; font-size: 2rem;"
+          >Thanh toán</div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="row">
+  </div>
+</div>
+
+<script src="/js/payment.js"></script>
