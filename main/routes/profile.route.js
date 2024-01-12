@@ -15,4 +15,5 @@ router.get("/changepassword", profileController.getChangePasswordP);
 
 router.post("/update", profileController.updateProfile);
 
+
 module.exports = router;

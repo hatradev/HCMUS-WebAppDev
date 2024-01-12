@@ -44,6 +44,8 @@ class userController {
         firstname: inputFirstName,
         lastname: inputLastName,
         email: inputEmail,
+        phone: inputPhoneNumber,
+        detailAddress: inputAddress,
         password: hashedPw,
       });
       await newUser.save();
@@ -62,7 +64,6 @@ class userController {
     try {
       console.log(req.body.email);
       const user = await User.findOne({ email: req.body.email });
-      // console.log(user);
       const accessToken = jwt.sign(
         {
           user: user,
@@ -70,20 +71,10 @@ class userController {
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }
       );
-      const apiUrl = `https://localhost:1234/signup?accessToken=${accessToken}`;
-      const response = await axios
-        .get(apiUrl)
-        .then(function (response) {
-          // handle success
-          console.log(response);
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-        .finally(function () {
-          // always executed
-        });
+      const response = await axios.post(
+        `https://localhost:${process.env.AUX_PORT}/`,
+        { accessToken }
+      );
       res.redirect("/user/signin");
     } catch (err) {
       next(err);
