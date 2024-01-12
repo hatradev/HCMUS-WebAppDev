@@ -5,7 +5,7 @@ const methodOverride = require("method-override");
 const connectLiveReload = require("connect-livereload");
 const bodyParser = require("body-parser");
 const route = require("../routes/index.route");
-
+const cors = require("cors");
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride("_method"));
+app.use(cors());
 
 // Template engines handlebars
 app.engine(

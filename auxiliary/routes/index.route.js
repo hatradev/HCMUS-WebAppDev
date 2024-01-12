@@ -13,10 +13,11 @@ function route(app) {
     res.render("home");
   });
 
-  app.get("/signup", async (req, res, next) => {
+  app.post("/signup", async (req, res, next) => {
     try {
-      res.json(req.body);
-      // res.render("home");
+      const responseData = { success: true };
+      // Gửi phản hồi
+      res.json(responseData);
     } catch (error) {
       next(error);
     }

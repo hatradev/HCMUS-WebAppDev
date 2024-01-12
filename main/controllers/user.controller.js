@@ -3,6 +3,11 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const axios = require("axios");
 require("dotenv").config();
+const https = require("https");
+
+const agent = new https.Agent({
+  rejectUnauthorized: false,
+});
 
 class userController {
   // [GET] /
@@ -71,11 +76,20 @@ class userController {
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }
       );
-      const response = await axios.post(
-        `https://localhost:${process.env.AUX_PORT}/`,
-        { accessToken }
+      const rs = await fetch(
+        `https://localhost:${process.env.AUX_PORT}/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: accessToken }),
+        }
       );
-      res.redirect("/user/signin");
+      const response = await rs.json();
+
+      console.log("RESPONSE: ", response);
+      res.redirect("/");
     } catch (err) {
       next(err);
     }
