@@ -7,12 +7,13 @@
         <form id="signinForm" action="/user/signin" method="post">
           <div class="mb-2">
             <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control mt-0" name="inputEmail" id="inputEmail" required>
+            <input type="email" class="form-control mt-0" name="inputEmail" id="inputEmail" value="{{inputEmail}}" required>
             <small id="emailErr" class="form-text text-danger">{{emailMsg}}</small>
           </div>
           <div class="mb-2">
             <label for="inputPassword" class="form-label mt-3">Mật khẩu</label>
-            <input type="password" class="form-control mt-0" name="inputPassword" id="inputPassword" required>
+            <input type="password" class="form-control mt-0" name="inputPassword" id="inputPassword" value="{{inputPassword}}" required>
+            <small id="pwErr" class="form-text text-danger">{{pwMsg}}</small>
           </div>
           <div class="d-grid gap-2 col-12 mt-4">
             <button class="btn btn-outline-dark signUp-button fs-4 mt-3" style="height: 4rem;" type="submit"> Đăng

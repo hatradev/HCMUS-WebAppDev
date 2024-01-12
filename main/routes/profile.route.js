@@ -1,14 +1,10 @@
 const express = require("express");
 const profileController = require("../controllers/profile.controller");
+const userController = require('../controllers/user.controller');
 
 const router = express.Router();
 
-router.use((req, res, next) => {
-   if (req.cookies && req.cookies.obj){
-    return next();
-   }
-    res.redirect('/user/signin');
-})
+router.use(userController.checkRole('user'));
 
 router.get("/", profileController.getProfile);
 router.get("/changepassword", profileController.getChangePasswordP);

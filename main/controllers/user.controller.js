@@ -2,8 +2,27 @@ const User = require("../models/account.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const axios = require("axios");
+const https = require("https");
+
+const agent = new https.Agent({
+  rejectUnauthorized: false,
+});
 
 class userController {
+  checkRole = (role) => (req, res, next) => {
+    if (req.cookies && req.cookies.user && req.cookies.user.role == role) {
+      return next();
+    }
+    res.redirect("/user/signin");
+  };
+
+  isLogin = (req, res, next) => {
+    if (req.cookies && req.cookies.user) {
+      return next();
+    }
+    res.redirect("/user/signin");
+  };
+
   // [GET] /
   getSignInP = async (req, res, next) => {
     try {
@@ -12,6 +31,7 @@ class userController {
       next(err);
     }
   };
+
   getSignUpP = async (req, res, next) => {
     try {
       const { lastname, firstname, email, phone, address } = req.query;
@@ -60,6 +80,7 @@ class userController {
       next(err);
     }
   };
+
   sendTokenAndSaveUser = async (req, res, next) => {
     try {
       const { lastname, firstname, email, phone, address, password } = req.body;
@@ -80,40 +101,31 @@ class userController {
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }
       );
+      // const response = await axios.post(`https://localhost:${process.env.AUX_PORT}/`, {accessToken});
 
       //save the user to the database
       newUser.password = password;
       newUser.role = "user";
       await newUser.save();
 
-      // const response = await axios.post(`https://localhost:${process.env.AUX_PORT}/`, {accessToken});
       res.redirect("/user/signin");
     } catch (err) {
       next(err);
     }
   };
+
   SignIn = async (req, res, next) => {
     try {
       const { inputEmail, inputPassword } = req.body;
       const user = await User.findOne({ email: inputEmail });
       if (!user) {
-        return res.render("signIn", { msg: "Email is invalid!" });
+        return res.render("signIn", { emailMsg: "Email is invalid!", inputEmail, inputPassword });
       }
       const validPassword = await bcrypt.compare(inputPassword, user.password);
       if (!validPassword) {
-        return res.render("signIn", { msg: "Password is invalid!" });
+        return res.render("signIn", { pwMsg: "Password is wrong!", inputEmail, inputPassword });
       }
-      const obj = {
-        accessToken: jwt.sign(
-          {
-            user: user,
-          },
-          process.env.JWT_ACCESS_KEY,
-          { expiresIn: "10m" }
-        ),
-        user: user,
-      };
-      res.cookie("obj", obj, {
+      res.cookie("user", user, {
         httpOnly: true,
         secure: false,
         path: "/",
@@ -125,7 +137,7 @@ class userController {
     }
   };
   Logout = (req, res) => {
-    res.clearCookie("obj");
+    res.clearCookie("user");
     res.redirect("/user/signin");
   };
 }
