@@ -1,11 +1,8 @@
 const User = require("../models/account.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-<<<<<<< Updated upstream
-=======
 const axios = require("axios");
 require("dotenv").config();
->>>>>>> Stashed changes
 
 class userController {
   // [GET] /
@@ -27,9 +24,6 @@ class userController {
   //[POST]
   SignUp = async (req, res, next) => {
     try {
-<<<<<<< Updated upstream
-      const { inputFirstName, inputLastName, inputEmail, inputPassword } = req.body;
-=======
       const {
         inputFirstName,
         inputLastName,
@@ -38,7 +32,6 @@ class userController {
         inputPhoneNumber,
         inputAddress,
       } = req.body;
->>>>>>> Stashed changes
       const existingUser = await User.findOne({ email: inputEmail });
 
       if (existingUser) {
@@ -54,9 +47,6 @@ class userController {
         password: hashedPw,
       });
       await newUser.save();
-<<<<<<< Updated upstream
-      res.redirect('/user/signin');
-=======
       res.render("confirm", {
         lastname: newUser.lastname,
         firstname: newUser.firstname,
@@ -95,7 +85,6 @@ class userController {
           // always executed
         });
       res.redirect("/user/signin");
->>>>>>> Stashed changes
     } catch (err) {
       next(err);
     }
