@@ -13,6 +13,15 @@ function route(app) {
     res.render("home");
   });
 
+  app.get("/signup", async (req, res, next) => {
+    try {
+      res.json(req.body);
+      // res.render("home");
+    } catch (error) {
+      next(error);
+    }
+  });
+
   // Hai middlewares này phải để cuối để check lỗi
   app.use((req, res, next) => {
     res.status(404).render("error", {

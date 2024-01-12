@@ -1,6 +1,11 @@
 const User = require("../models/account.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+<<<<<<< Updated upstream
+=======
+const axios = require("axios");
+require("dotenv").config();
+>>>>>>> Stashed changes
 
 class userController {
   // [GET] /
@@ -22,7 +27,18 @@ class userController {
   //[POST]
   SignUp = async (req, res, next) => {
     try {
+<<<<<<< Updated upstream
       const { inputFirstName, inputLastName, inputEmail, inputPassword } = req.body;
+=======
+      const {
+        inputFirstName,
+        inputLastName,
+        inputEmail,
+        inputPassword,
+        inputPhoneNumber,
+        inputAddress,
+      } = req.body;
+>>>>>>> Stashed changes
       const existingUser = await User.findOne({ email: inputEmail });
 
       if (existingUser) {
@@ -38,38 +54,76 @@ class userController {
         password: hashedPw,
       });
       await newUser.save();
+<<<<<<< Updated upstream
       res.redirect('/user/signin');
+=======
+      res.render("confirm", {
+        lastname: newUser.lastname,
+        firstname: newUser.firstname,
+        email: newUser.email,
+        phone: newUser.phone,
+        address: newUser.detailAddress,
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
+  sendToken = async (req, res, next) => {
+    try {
+      console.log(req.body.email);
+      const user = await User.findOne({ email: req.body.email });
+      // console.log(user);
+      const accessToken = jwt.sign(
+        {
+          user: user,
+        },
+        process.env.JWT_ACCESS_KEY,
+        { expiresIn: "10m" }
+      );
+      const apiUrl = `https://localhost:1234/signup?accessToken=${accessToken}`;
+      const response = await axios
+        .get(apiUrl)
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .finally(function () {
+          // always executed
+        });
+      res.redirect("/user/signin");
+>>>>>>> Stashed changes
     } catch (err) {
       next(err);
     }
   };
   SignIn = async (req, res, next) => {
     try {
-      const { inputEmail, inputPassword} = req.body;
+      const { inputEmail, inputPassword } = req.body;
       const user = await User.findOne({ email: inputEmail });
       if (!user) {
-        return res.render('signIn', {msg: 'Email is invalid!'})
-      } 
-      const validPassword = await bcrypt.compare(
-        inputPassword,
-        user.password
-      );   
-      if (!validPassword){
-        return res.render('signIn', {msg: 'Password is invalid!'});
+        return res.render("signIn", { msg: "Email is invalid!" });
+      }
+      const validPassword = await bcrypt.compare(inputPassword, user.password);
+      if (!validPassword) {
+        return res.render("signIn", { msg: "Password is invalid!" });
       }
       const obj = {
         accessToken: jwt.sign(
           {
-           user: user
+            user: user,
           },
           process.env.JWT_ACCESS_KEY,
           { expiresIn: "10m" }
         ),
-          user: user
-      }
+        user: user,
+      };
       res.cookie("obj", obj, {
         httpOnly: true,
-        secure:false,
+        secure: false,
         path: "/",
         sameSite: "strict",
       });
