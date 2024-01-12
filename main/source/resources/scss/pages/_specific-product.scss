@@ -350,10 +350,13 @@
 .btn-js-add-cart {
   cursor: pointer;
   width: 49%;
-  padding: 0.6rem 1rem;
+  // padding: 0.6rem 1rem;
   text-transform: uppercase;
   background-color: $color-pink-secondary;
   font-size: $font-size-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-js-add-cart#addToCart {

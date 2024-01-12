@@ -8,7 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const priceTo = document.getElementById("price_to");
 
     const minPrice = 0;
-    const maxPrice = 500000;
+    const maxPrice = 600000;
+    priceFrom.setAttribute('data-size', minPrice.toString());
+    priceTo.setAttribute('data-size', maxPrice.toString());
 
     // Initialize the handles and range positions
     initializeSlider();
