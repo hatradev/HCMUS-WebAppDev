@@ -1,4 +1,5 @@
 import renderProducts from './renderProducts.js';
+import updatePagination from './updatePagination.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.querySelector('.search-bar');
@@ -19,8 +20,10 @@ function performSearch(keyword) {
 
     fetch(`/product/api/search-products?keyword=${encodeURIComponent(keyword)}`)
         .then(response => response.json())
-        .then(products => {
-            renderProducts(products);
-        })
+        .then(data => {
+            renderProducts(data.products);
+  
+            updatePagination(data.total, data.page, data.totalPages);
+          })
         .catch(error => console.error('Error:', error));
 }

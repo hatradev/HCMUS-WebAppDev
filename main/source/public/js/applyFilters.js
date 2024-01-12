@@ -1,4 +1,5 @@
 import renderProducts from './renderProducts.js';
+import updatePagination from './updatePagination.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // console.log('DOM loaded. 🥳');
@@ -21,8 +22,10 @@ function applyFilters(event) {
 
     fetch(url)
         .then(response => response.json())
-        .then(products => {
-          renderProducts(products);
+        .then(data => {
+          renderProducts(data.products);
+
+          updatePagination(data.total, data.page, data.totalPages);
         })
         .catch(error => {
             console.error('Error fetching filtered products:', error);
