@@ -46,7 +46,7 @@ class productController {
       }
 
       let related = [];
-      const limit = 6;
+      const limit = 8;
 
       // Find related products in the same category
       related = await Product.find({

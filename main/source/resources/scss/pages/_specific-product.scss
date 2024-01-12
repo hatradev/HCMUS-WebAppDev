@@ -31,8 +31,8 @@
 /*----- Product detail ---------------------------------*/
 .content {
   text-align: justify;
-  line-height: 1.7;
-  font-size: 15px;
+  // line-height: 1.7;
+  font-size: 2rem;
 }
 
 .content div,
@@ -411,13 +411,15 @@
 
 .blk-pview-content {
   padding: 20px;
-  margin: 70px 0 60px 0;
-  border: 1px solid rgba(112, 112, 112, 0.65);
+  // margin: 70px 0 60px 0;
+  margin-bottom: 40px;
+  border: 1px solid rgba(112, 112, 112, 0.2);
 }
 
 .blk-pview-title {
   color: #000000;
-  font-size: 24px;
+  font-size: 2rem;
+  font-weight: bold;
   margin-bottom: 15px;
 }
 
@@ -627,4 +629,8 @@
     //   }
     // }
   }
+}
+
+.blk-pview-info {
+  padding-left: 30px;
 }
