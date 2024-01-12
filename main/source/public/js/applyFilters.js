@@ -1,5 +1,4 @@
-import renderProducts from './renderProducts.js';
-import updatePagination from './updatePagination.js';
+import fetchProducts from './fetchProducts.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // console.log('DOM loaded. 🥳');
@@ -17,17 +16,28 @@ function applyFilters(event) {
     const minPrice = document.getElementById('price_form').getAttribute('data-size');
     const maxPrice = document.getElementById('price_to').getAttribute('data-size');
 
-    // Construct the URL for the API request
-    const url = `/product/api/filter-products?category=${selectedCategory}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
+    // Update currentState with the new filter parameters
+    currentState.filterParams = {
+      selectedCategory: selectedCategory,
+      minPrice: minPrice,
+      maxPrice: maxPrice
+    };
+    currentState.mode = 'filter'; // Set the mode to 'filter'
+    currentState.page = 1; // Reset the page number to 1
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          renderProducts(data.products);
+    fetchProducts();
 
-          updatePagination(data.total, data.page, data.totalPages);
-        })
-        .catch(error => {
-            console.error('Error fetching filtered products:', error);
-        });
+    // // Construct the URL for the API request
+    // const url = `/product/api/filter-products?category=${selectedCategory}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
+
+    // fetch(url)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       renderProducts(data.products);
+
+    //       updatePagination(data.total, data.page, data.totalPages);
+    //     })
+    //     .catch(error => {
+    //         console.error('Error fetching filtered products:', error);
+    //     });
 }

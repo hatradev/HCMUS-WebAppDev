@@ -95,7 +95,8 @@
       <!-- Container for trending products -->
       <section class='trend container'>
         <div class='trend-row row'>
-          <!-- Loop through products and display each one -->
+
+          {{!-- <!-- Loop through products and display each one -->
           {{#each products}}
             {{> productitem id=this._id image=this.image.[0] title=this.name price=this.price}}
           {{else}}
@@ -105,11 +106,12 @@
               Không có sản phẩm phù hợp
             </div>
           </div>
-          {{/each}}
+          {{/each}} --}}
+
         </div>
 
         <!-- Pagination -->
-        {{> pagination pagination}}
+        {{> pagination}}
       </section>
     </div>
   </div>
@@ -119,6 +121,7 @@
 {{!-- <script src="/js/all-product.js"></script>
 <script src="/js/global-link.js"></script> --}}
 {{!-- <script src="/js/filterProducts.js"></script> --}}
+<script type="module" src="/js/renderAllProduct.js"></script>
 <script src="/js/currentState.js"></script>
 <script type="module" src="/js/renderProducts.js"></script>
 <script type="module" src="/js/applyFilters.js"></script>

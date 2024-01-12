@@ -1,5 +1,4 @@
-import renderProducts from './renderProducts.js';
-import updatePagination from './updatePagination.js';
+import fetchProducts from './fetchProducts.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const searchForm = document.querySelector('.search-bar');
@@ -18,12 +17,9 @@ function performSearch(keyword) {
         return; // Avoid searching for empty strings
     }
 
-    fetch(`/product/api/search-products?keyword=${encodeURIComponent(keyword)}`)
-        .then(response => response.json())
-        .then(data => {
-            renderProducts(data.products);
-  
-            updatePagination(data.total, data.page, data.totalPages);
-          })
-        .catch(error => console.error('Error:', error));
+    currentState.mode = 'search';
+    currentState.searchQuery = keyword;
+    currentState.page = 1;
+
+    fetchProducts();
 }

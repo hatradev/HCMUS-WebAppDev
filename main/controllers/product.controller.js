@@ -21,7 +21,20 @@ class productController {
     return buildTree(categories);
   };
 
-  // Method to display all products
+  renderAllProduct = async (req, res, next) => {
+    try {
+      const categories = await this.getCategoryTree();
+
+      res.render("all-product", { 
+        categories,
+      });
+    }
+    catch (err) {
+      console.error(err);
+      next(err);
+    }
+  }
+
   showAllProduct = async (req, res, next) => {
     try {
       const page = parseInt(req.query.page) || 1;
@@ -35,9 +48,6 @@ class productController {
 
       // Calculate total pages
       const totalPages = Math.ceil(totalProducts / limit);
-
-      // Use this.getCategoryTree to build the categories tree
-      const categories = await this.getCategoryTree();
 
       const pageNumbers = [];
       for (let i = 1; i <= totalPages; i++) {
@@ -55,9 +65,8 @@ class productController {
           nextPage: page + 1
       };
   
-      res.render("all-product", { 
+      res.json({ 
           products, 
-          categories,
           pagination: paginationData
       });
     } catch (err) {
@@ -173,34 +182,50 @@ class productController {
 
   filterProducts = async (req, res) => {
     try {
-        const { category, minPrice, maxPrice, page = 1, limit = defaultLimit } = req.query;
-        let query = {};
+      const { category, minPrice, maxPrice, page = 1, limit = defaultLimit } = req.query;
+      
+      let query = {};
 
-        if (category) {
-            const allCategoryIds = await this.getAllDescendantCategoryIds(category);
-            query.category = { $in: allCategoryIds };
-        }
+      if (category) {
+          const allCategoryIds = await this.getAllDescendantCategoryIds(category);
+          query.category = { $in: allCategoryIds };
+      }
 
-        if (minPrice) {
-            query.price = { ...query.price, $gte: parseFloat(minPrice) };
-        }
+      if (minPrice) {
+          query.price = { ...query.price, $gte: parseFloat(minPrice) };
+      }
 
-        if (maxPrice) {
-            query.price = { ...query.price, $lte: parseFloat(maxPrice) };
-        }
+      if (maxPrice) {
+          query.price = { ...query.price, $lte: parseFloat(maxPrice) };
+      }
 
-        const skip = (page - 1) * limit;
-        const totalProducts = await Product.countDocuments(query);
-        const totalPages = Math.ceil(totalProducts / limit);
+      const skip = (page - 1) * limit;
+      const totalProducts = await Product.countDocuments(query);
+      const totalPages = Math.ceil(totalProducts / limit);
 
-        const filteredProducts = await Product.find(query).skip(skip).limit(limit).lean();
+      const filteredProducts = await Product.find(query).skip(skip).limit(limit).lean();
 
-        res.json({
-          products: filteredProducts,
-          total: totalProducts,
-          page,
-          totalPages,
-        });
+      // Create page numbers array
+      const pageNumbers = [];
+      for (let i = 1; i <= totalPages; i++) {
+          pageNumbers.push({
+              number: i,
+              isCurrent: i === parseInt(page)
+          });
+      }
+
+      const paginationData = {
+          pages: pageNumbers,
+          hasPreviousPage: page > 1,
+          previousPage: page - 1,
+          hasNextPage: page < totalPages,
+          nextPage: page + 1
+      };
+
+      res.json({
+        products: filteredProducts,
+        pagination: paginationData
+      });
     } catch (error) {
         console.error('Error in filterProducts:', error);
         res.status(500).send('Server error');
@@ -224,11 +249,26 @@ class productController {
                                     .limit(limit)
                                     .lean();
 
+      // Create page numbers array
+      const pageNumbers = [];
+      for (let i = 1; i <= totalPages; i++) {
+          pageNumbers.push({
+              number: i,
+              isCurrent: i === parseInt(page)
+          });
+      }
+
+      const paginationData = {
+          pages: pageNumbers,
+          hasPreviousPage: page > 1,
+          previousPage: page - 1,
+          hasNextPage: page < totalPages,
+          nextPage: page + 1
+      };
+
       res.json({
         products,
-        total: totalProducts,
-        page,
-        totalPages
+        pagination: paginationData
       });
     } catch (error) {
         console.error('Error:', error);
