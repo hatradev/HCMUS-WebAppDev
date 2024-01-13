@@ -1,6 +1,6 @@
 .all-product {
-  margin-top: 17rem;
-  max-width: 108rem;
+  // margin-top: 17rem;
+  max-width: 67vw;
 
   .sort-section {
     margin-top: 2.5rem;
@@ -19,19 +19,21 @@
   }
 
   .filter-vs-product {
-    position: relative;
-    padding-top: 2.5rem;
+    // position: relative;
+    // padding-top: 2.5rem;
     // height: 85rem;
 
     .filter-section {
       // height: 37rem;
       background-color: $color-pink-tertiary;
+      padding: 2.5rem;
 
       .search-bar {
         // position: relative;
 
         .search-input {
-          height: 3.4rem;
+          // height: 100%;
+          margin: 0;
           width: 100%;
           border-radius: 2rem;
           background-color: $color-white;
@@ -45,9 +47,9 @@
         .search-icon-link {
           width: 2rem;
           font-size: 1.6rem;
-          position: absolute;
-          right: 1rem;
-          top: 2rem;
+          position: relative;
+          right: 3rem;
+          top: 0.7rem;
           background-color: #fff;
 
           .search-icon::before {
@@ -213,7 +215,7 @@
 
         .trend-row {
           margin-top: 0;
-          height: 76rem;
+          // height: 76rem;
           .announcement {
             justify-content: center;
             display: flex;
@@ -247,4 +249,14 @@
       }
     }
   }
+}
+
+.selected-category {
+  color: $color-pink-primary; /* Bootstrap primary color for example */
+  font-weight: bold;
+  /* Other styles as needed */
+}
+
+#filter-btn {
+  background-color: $color-pink-primary;
 }

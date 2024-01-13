@@ -8,7 +8,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const priceTo = document.getElementById("price_to");
 
     const minPrice = 0;
-    const maxPrice = 500000;
+    const maxPrice = 600000;
+    priceFrom.setAttribute('data-size', minPrice.toString());
+    priceTo.setAttribute('data-size', maxPrice.toString());
 
     // Initialize the handles and range positions
     initializeSlider();
@@ -35,8 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     function updatePriceDisplay() {
         // Update the display for both prices
-        priceFrom.textContent = formatPrice(minPrice) + "đ";
-        priceTo.textContent = formatPrice(maxPrice) + "đ";
+        priceFrom.textContent = formatPrice(minPrice) + " ₫";
+        priceTo.textContent = formatPrice(maxPrice) + " ₫";
     }
 
     function startDragLeft(e) {
@@ -101,7 +103,8 @@ document.addEventListener("DOMContentLoaded", function () {
     function updatePriceFrom() {
         let percent = parseFloat(handleLeft.style.left) / 100;
         let price = minPrice + percent * (maxPrice - minPrice);
-        priceFrom.textContent = formatPrice(price) + "đ";
+        priceFrom.textContent = formatPrice(price) + " ₫";
+        priceFrom.setAttribute('data-size', price.toString()); // Store the price in the data-size attribute
     }
 
     function updatePriceTo() {
@@ -110,7 +113,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let effectiveMaxPosition = 100 - handleWidthPercent;
         let percent = rightPositionPercent / effectiveMaxPosition;
         let price = minPrice + percent * (maxPrice - minPrice);
-        priceTo.textContent = formatPrice(price) + "đ";
+        priceTo.textContent = formatPrice(price) + " ₫";
+        priceTo.setAttribute('data-size', price.toString()); // Store the price in the data-size attribute
     }
 
     function formatPrice(price) {

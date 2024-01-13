@@ -1,6 +1,47 @@
-<nav class="pagination-container col-3">
-  <ul class="pagination row gx-0">
+<nav aria-label="pagination-container">
+  <ul class="pagination pagination-lg justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link">Previous</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item active" aria-current="page">
+      <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
   </ul>
-  <p class="pagination-description text-center mt-3"></p>
 </nav>
-<script src="/js/pagination.js"></script>
+
+{{!-- {{#if pages.length}}
+<nav aria-label="pagination-container">
+  <ul class="pagination">
+    {{#if hasPreviousPage}}
+    <li class="page-item">
+      <a class="page-link" href="?page={{previousPage}}">Previous</a>
+    </li>
+    {{else}}
+    <li class="page-item disabled">
+      <a class="page-link">Previous</a>
+    </li>
+    {{/if}}
+
+    {{#each pages}}
+    <li class="page-item {{#if this.isCurrent}}active{{/if}}">
+      <a class="page-link" href="?page={{this.number}}">{{this.number}}</a>
+    </li>
+    {{/each}}
+
+    {{#if hasNextPage}}
+    <li class="page-item">
+      <a class="page-link" href="?page={{nextPage}}">Next</a>
+    </li>
+    {{else}}
+    <li class="page-item disabled">
+      <a class="page-link">Next</a>
+    </li>
+    {{/if}}
+  </ul>
+</nav>
+{{/if}} --}}

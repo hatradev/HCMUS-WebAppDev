@@ -3,37 +3,71 @@ const Product = require("../models/product.model");
 const Category = require("../models/category.model");
 const Account = require("../models/account.model");
 
+const defaultLimit = 8;
+
 class productController {
-  // Method to display all products
+  getCategoryTree = async () => {
+    // Fetch categories from the database
+    const categories = await Category.find().lean();
+
+    // Function to construct a hierarchical tree from categories
+    const buildTree = (categories, parentId = null) => {
+      return categories
+        .filter((cat) => String(cat.parentCategory) === String(parentId))
+        .map((cat) => ({ ...cat, children: buildTree(categories, cat._id) }));
+    };
+
+    // Construct the hierarchical tree from categories
+    return buildTree(categories);
+  };
+
+  renderAllProduct = async (req, res, next) => {
+    try {
+      const categories = await this.getCategoryTree();
+
+      res.render("all-product", {
+        categories,
+      });
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  };
+
   showAllProduct = async (req, res, next) => {
     try {
-      const products = await Product.find().lean();
-      const categories = await Category.find({ parentCategory: null }).lean(); // Get only main categories
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || defaultLimit;
+      const skip = (page - 1) * limit;
 
-      for (const category of categories) {
-        // Count products in the main category
-        category.count = await Product.countDocuments({
-          category: category._id,
+      // Fetch total number of products
+      const totalProducts = await Product.countDocuments();
+
+      const products = await Product.find().skip(skip).limit(limit).lean();
+
+      // Calculate total pages
+      const totalPages = Math.ceil(totalProducts / limit);
+
+      const pageNumbers = [];
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push({
+          number: i,
+          isCurrent: i === page,
         });
-
-        // Get subcategories of the main category
-        const subcategories = await Category.find({
-          parentCategory: category._id,
-        }).lean();
-
-        // Count products in each subcategory and add to total count
-        for (const subcategory of subcategories) {
-          const subcategoryCount = await Product.countDocuments({
-            category: subcategory._id,
-          });
-          subcategory.count = subcategoryCount;
-          category.count += subcategoryCount;
-        }
-
-        category.subcategories = subcategories; // Attach subcategories to the main category
       }
 
-      res.render("all-product", { products, categories });
+      const paginationData = {
+        pages: pageNumbers,
+        hasPreviousPage: page > 1,
+        previousPage: page - 1,
+        hasNextPage: page < totalPages,
+        nextPage: page + 1,
+      };
+
+      res.json({
+        products,
+        pagination: paginationData,
+      });
     } catch (err) {
       console.error(err);
       next(err);
@@ -52,7 +86,7 @@ class productController {
       }
 
       let related = [];
-      const limit = 6;
+      const limit = 8;
 
       // Find related products in the same category
       related = await Product.find({
@@ -127,6 +161,130 @@ class productController {
     } catch (err) {
       console.error(err);
       next(err);
+    }
+  };
+
+  getAllDescendantCategoryIds = async (parentCategoryId) => {
+    const categoriesToProcess = [parentCategoryId];
+    const allCategoryIds = new Set();
+
+    while (categoriesToProcess.length > 0) {
+      const currentCategoryId = categoriesToProcess.pop();
+      allCategoryIds.add(currentCategoryId);
+
+      const childCategories = await Category.find({
+        parentCategory: currentCategoryId,
+      }).lean();
+      childCategories.forEach((cat) =>
+        categoriesToProcess.push(cat._id.toString())
+      );
+    }
+
+    return Array.from(allCategoryIds);
+  };
+
+  filterProducts = async (req, res) => {
+    try {
+      const {
+        category,
+        minPrice,
+        maxPrice,
+        page = 1,
+        limit = defaultLimit,
+      } = req.query;
+
+      let query = {};
+
+      if (category) {
+        const allCategoryIds = await this.getAllDescendantCategoryIds(category);
+        query.category = { $in: allCategoryIds };
+      }
+
+      if (minPrice) {
+        query.price = { ...query.price, $gte: parseFloat(minPrice) };
+      }
+
+      if (maxPrice) {
+        query.price = { ...query.price, $lte: parseFloat(maxPrice) };
+      }
+
+      const skip = (page - 1) * limit;
+      const totalProducts = await Product.countDocuments(query);
+      const totalPages = Math.ceil(totalProducts / limit);
+
+      const filteredProducts = await Product.find(query)
+        .skip(skip)
+        .limit(limit)
+        .lean();
+
+      // Create page numbers array
+      const pageNumbers = [];
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push({
+          number: i,
+          isCurrent: i === parseInt(page),
+        });
+      }
+
+      const paginationData = {
+        pages: pageNumbers,
+        hasPreviousPage: page > 1,
+        previousPage: page - 1,
+        hasNextPage: page < totalPages,
+        nextPage: page + 1,
+      };
+
+      res.json({
+        products: filteredProducts,
+        pagination: paginationData,
+      });
+    } catch (error) {
+      console.error("Error in filterProducts:", error);
+      res.status(500).send("Server error");
+    }
+  };
+
+  searchProducts = async (req, res) => {
+    try {
+      const { keyword, page = 1, limit = defaultLimit } = req.query;
+      const skip = (page - 1) * limit;
+
+      const searchQuery = {
+        name: { $regex: keyword, $options: "i" }, // Case-insensitive search
+      };
+
+      const totalProducts = await Product.countDocuments(searchQuery);
+      const totalPages = Math.ceil(totalProducts / limit);
+
+      const products = await Product.find(searchQuery)
+        .skip(skip)
+        .limit(limit)
+        .lean();
+
+      // Create page numbers array
+      const pageNumbers = [];
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push({
+          number: i,
+          isCurrent: i === parseInt(page),
+        });
+      }
+
+      const paginationData = {
+        pages: pageNumbers,
+        hasPreviousPage: page > 1,
+        previousPage: page - 1,
+        hasNextPage: page < totalPages,
+        nextPage: page + 1,
+      };
+
+      res.json({
+        products,
+        pagination: paginationData,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      res.status(500).send("Server error");
     }
   };
 
@@ -205,30 +363,6 @@ class productController {
       res
         .status(500)
         .json({ message: "An error occurred", error: err.message });
-    }
-  };
-
-  filterProducts = async (req, res, next) => {
-    try {
-      const { category, minPrice, maxPrice } = req.query;
-
-      let query = Product.find();
-
-      if (category) {
-        query = query.where("category").equals(category);
-      }
-      if (minPrice) {
-        query = query.where("price").gte(minPrice);
-      }
-      if (maxPrice) {
-        query = query.where("price").lte(maxPrice);
-      }
-
-      const filteredProducts = await query.lean();
-      res.json(filteredProducts);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Error filtering products");
     }
   };
 

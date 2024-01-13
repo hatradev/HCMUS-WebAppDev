@@ -35,48 +35,21 @@
           <div class="title">{{product.name}}</div>
           <div class="code">Mã sản phẩm: {{product._id}}</div>
         </div>
+
         <div class="blk-price">
           <div class="product-price">
             <!-- Assuming price is in a number format -->
-            <span class="price">{{formatCurrency product.price}} VND</span>
+            <span class="price">{{formatCurrency product.price}}</span>
           </div>
         </div>
-        <div class="blk-action d-inline-flex pull-right">
-          <div class="b-ac shares"><i class="fa fa-share-alt"></i></div>
-          <div class="b-ac wish" data-psid="37901384"><i
-              class="fa fa-heart-o"
-            ></i></div>
 
-          <div class="share-icon d-block full clearfix">
-            <strong>Chia sẻ đến:</strong>
-            <a
-              href="https://www.facebook.com/sharer/sharer.php?u=https://moji.vn/gau-bong-ms-funny-vibes-fruit-avocado-trai-bo-moi-day-25cm-p37901384.html"
-              data-label="facebook"
-              class="d-inline-flex align-items-center justify-content-center"
-            >
-              <i class="fa fa-facebook"></i>
-            </a>
-            <a
-              href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://moji.vn/gau-bong-ms-funny-vibes-fruit-avocado-trai-bo-moi-day-25cm-p37901384.html&amp;title=Gấu bông MS Funny vibes fruit avocado trái bơ môi dày 25cm"
-              data-label="instagram"
-              class="d-none align-items-center justify-content-center"
-            >
-              <i class="fa fa-linkedin"></i>
-            </a>
-            <a
-              href="http://www.twitter.com/share?url=https://moji.vn/gau-bong-ms-funny-vibes-fruit-avocado-trai-bo-moi-day-25cm-p37901384.html"
-              data-label="twitter"
-              class="d-none align-items-center justify-content-center"
-            >
-              <i class="fa fa-twitter"></i>
-            </a>
-            <a
-              href="http://pinterest.com/pin/create/button/?url={https://moji.vn/gau-bong-ms-funny-vibes-fruit-avocado-trai-bo-moi-day-25cm-p37901384.html}&amp;media={https://pos.nvncdn.com/cba2a3-7534/ps/20231218_x7MWNOeY2Q.jpeg}&amp;description={Gấu bông MS Funny vibes fruit avocado trái bơ môi dày 25cm}"
-              data-label="pinterest"
-              class="d-none align-items-center justify-content-center"
-            >
-              <i class="fa fa-pinterest-p"></i>
-            </a>
+        <div class="col-lg-12 col-md-12 col-sm-12" data-label="Nội dung sản phẩm">
+          <div class="blk-pview-content full clearfix">
+            <div class="blk-pview-title">Mô tả sản phẩm</div>
+            <div class="content full clearfix">
+              <!-- Product description -->
+              <p>{{product.description}}</p>
+            </div>
           </div>
         </div>
 
@@ -130,21 +103,11 @@
       </div>
       <!-- end blk-pview-info -->
 
-      <div class="col-lg-12 col-md-12 col-sm-12" data-label="Nội dung sản phẩm">
-        <div class="blk-pview-content full clearfix">
-          <div class="blk-pview-title">Mô tả sản phẩm</div>
-          <div class="content full clearfix">
-            <!-- Product description -->
-            <p>{{product.description}}</p>
-          </div>
-        </div>
-      </div>
-
       <div class="trend w-100 d-flex flex-column justify-content-center">
 
         <div class="row justify-content-center">
           <div class="rectangle col"></div>
-          <div class="main-heading col-md-auto">RELATED PRODUCT</div>
+          <div class="main-heading col-md-auto">SẢN PHẨM LIÊN QUAN</div>
           <div class="rectangle col"></div>
         </div>
 
@@ -163,3 +126,4 @@
 </main>
 
 <script src="/js/handleCartSpecificProduct.js"></script>
+<script src="/js/highestImg.js"></script>
