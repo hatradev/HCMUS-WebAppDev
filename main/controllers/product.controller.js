@@ -240,9 +240,9 @@ class productController {
       // const accountId = "659f8a8c0be458c494290c40";
       const accountId = req.cookies.obj.user._id.toString();
       const { productId, quantity } = req.body;
-      console.log("check accID id");
-      console.log(accountId);
-      console.log("end check accID id");
+      // console.log("check accID id");
+      // console.log(accountId);
+      // console.log("end check accID id");
       if (!productId.match(/^[0-9a-fA-F]{24}$/)) {
         return res.status(400).json({ message: "Invalid product ID format" });
       }

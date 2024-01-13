@@ -193,6 +193,11 @@ function addToCart(productId, quantity) {
     .then(response => response.json())
     .then(data => {
         console.log('Product added to cart:', data);
+        const cartNumber = data.cart.reduce(
+        (accum, product) => accum + product.quantity,
+        0
+      );
+      document.getElementById("lblCartCount").innerText = `${cartNumber}`;
         // Optionally, update the UI to reflect the new cart status
     })
     .catch(error => {
