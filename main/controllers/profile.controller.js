@@ -13,7 +13,7 @@ class profileController {
         firstname: user.firstname,
         phone: user.phone,
         email: user.email,
-        detailAddress: user.detailAddress,
+        address: user.address,
       });
     } catch (err) {
       next(err);
@@ -21,7 +21,8 @@ class profileController {
   };
   getChangePasswordP = async (req, res, next) => {
     try {
-      res.render("changePw", {});
+      const user = req.cookies.user;
+      res.render("changePw", {firstname: user.firstname, lastname: user.lastname});
     } catch (err) {
       next(err);
     }
@@ -44,7 +45,7 @@ class profileController {
             firstname: inputFName,
             lastname: inputLName,
             email: inputEmail,
-            detailAddress: inputAddress,
+            address: inputAddress,
             phone: inputPhoneNumber,
           },
         },

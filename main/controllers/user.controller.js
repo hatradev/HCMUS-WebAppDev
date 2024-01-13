@@ -91,7 +91,7 @@ class userController {
         firstname,
         email,
         phone,
-        detailAddress: address,
+        address: address,
       });
       // console.log('newUser:', newUser);
       const accessToken = jwt.sign(
