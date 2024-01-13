@@ -8,7 +8,7 @@
             alt="">
         </div>
         <div class="row text-center mb-3">
-          <h2 style="color: #000">Full Name</h2>
+          <h2 style="color: #000">{{lastname}} {{firstname}}</h2>
         </div>
         <div class="row">
           <div class="offset-2 col-10">
@@ -35,18 +35,14 @@
                   <th>Trạng thái</th>
                 </tr>
               </thead>
-              <tr onclick="window.location.href = '/order/detail' ">
-                <td>123456</td>
-                <td>01/01/2022</td>
-                <td>250000</td>
-                <td class="text-primary">Đã giao</td>
+              {{#each orders}}
+                <tr onclick="window.location.href='/order/detail?id={{_id}}'">
+                <td>{{_id}}</td>
+                <td>{{dateOfOrder date}}</td>
+                <td>{{formatCurrency total}}</td>
+                <td class="text-primary">{{status}}</td>
               </tr>
-              <tr onclick="window.location.href = '/order/detail' ">
-                <td>123457</td>
-                <td>01/02/2023</td>
-                <td>150000</td>
-                <td class="text-primary">Đã giao</td>
-              </tr>
+              {{/each}}
             </table>
           </div>
         </div>
