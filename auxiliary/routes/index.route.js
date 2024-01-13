@@ -15,7 +15,7 @@ function route(app) {
 
   app.post("/signup", async (req, res, next) => {
     try {
-      const responseData = { success: true };
+      const responseData = { success: true, data: req.body };
       // Gửi phản hồi
       res.json(responseData);
     } catch (error) {
