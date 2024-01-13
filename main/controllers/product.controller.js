@@ -3,7 +3,6 @@ const Product = require("../models/product.model");
 const Category = require("../models/category.model");
 const Account = require("../models/account.model");
 
-
 class productController {
   // Method to display all products
   showAllProduct = async (req, res, next) => {
@@ -135,7 +134,7 @@ class productController {
     try {
       // const accountId = req.user._id; // hoặc lấy từ session hoặc JWT
       // const accountId = "659f8a8c0be458c494290c40"; // hoặc lấy từ session hoặc JWT
-      const accountId = req.cookies.obj.user._id.toString();
+      const accountId = req.cookies.user._id.toString();
       const productId = req.params.id; // ID của sản phẩm cần xóa
 
       // Tìm tài khoản người dùng
@@ -164,7 +163,7 @@ class productController {
   updateQuantityInCart = async (req, res, next) => {
     try {
       // const accountId = "659f8a8c0be458c494290c40"; // Hoặc lấy từ session hoặc JWT
-      const accountId = req.cookies.obj.user._id.toString();
+      const accountId = req.cookies.user._id.toString();
       const { productId, newQuantity } = req.body;
 
       if (newQuantity < 1) {
@@ -238,7 +237,7 @@ class productController {
       // Assuming the user's ID is obtained from the session or a JWT token
       // const accountId = req.user._id; // Replace with your session or JWT token logic
       // const accountId = "659f8a8c0be458c494290c40";
-      const accountId = req.cookies.obj.user._id.toString();
+      const accountId = req.cookies.user._id.toString();
       const { productId, quantity } = req.body;
       // console.log("check accID id");
       // console.log(accountId);
@@ -248,7 +247,9 @@ class productController {
       }
 
       if (!productId || quantity <= 0) {
-        return res.status(400).json({ message: "Invalid product ID or quantity" });
+        return res
+          .status(400)
+          .json({ message: "Invalid product ID or quantity" });
       }
 
       const account = await Account.findById(accountId);
@@ -258,7 +259,9 @@ class productController {
       }
 
       // Check if the product already exists in the cart
-      const productIndex = account.cart.findIndex(item => item.id_product.toString() === productId);
+      const productIndex = account.cart.findIndex(
+        (item) => item.id_product.toString() === productId
+      );
 
       if (productIndex > -1) {
         // Update quantity if product already in cart
@@ -273,14 +276,17 @@ class productController {
       // Save the updated account
       await account.save();
 
-      res.json({ message: "Product added to cart successfully", cart: account.cart });
+      res.json({
+        message: "Product added to cart successfully",
+        cart: account.cart,
+      });
     } catch (err) {
       console.error("Error adding product to cart:", err);
-      res.status(500).json({ message: "An error occurred", error: err.message });
-  }
+      res
+        .status(500)
+        .json({ message: "An error occurred", error: err.message });
+    }
   };
-
-
 }
 
 // Export an instance of the controller

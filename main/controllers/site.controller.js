@@ -16,8 +16,8 @@ class siteController {
   getHome = async (req, res, next) => {
     try {
       let user = undefined;
-      if (req.cookies && req.cookies.obj) {
-        user = req.cookies.obj.user;
+      if (req.cookies && req.cookies.user) {
+        user = req.cookies.user;
       }
       // console.log(user);
       res.render("home", {});
@@ -30,7 +30,7 @@ class siteController {
     try {
       // const productId = req.params.id;
       // const idUser = "659f8a8c0be458c494290c40";
-      const idUser = req.cookies.obj.user._id.toString();
+      const idUser = req.cookies.user._id.toString();
       const accBuyer = await Account.findOne({ _id: idUser }).populate({
         path: "cart.id_product",
       });
@@ -46,10 +46,10 @@ class siteController {
     try {
       // console.log(req.session.passport);
       // const productId = req.params.id;
-      let user = req.cookies.obj.user;
+      let user = req.cookies.user;
       console.log(user);
       // const idUser = "659f8a8c0be458c494290c40";
-      const idUser = req.cookies.obj.user._id.toString();
+      const idUser = user._id.toString();
       const accBuyer = await Account.findOne({ _id: idUser }).populate({
         path: "cart.id_product",
       });
@@ -82,11 +82,13 @@ class siteController {
   getPaymentBuyNow = async (req, res, next) => {
     try {
       // const idUser = "659f8a8c0be458c494290c40";
-      const idUser = req.cookies.obj.user._id.toString();
+      const idUser = req.cookies.user._id.toString();
       const productId = req.query.productId;
       const quantity = req.query.quantity;
       const accBuyer = await Account.findOne({ _id: idUser });
       const product = await Product.findOne({ _id: productId });
+
+      // console.log(idUser, productId, quantity, accBuyer, product);
 
       res.locals.accBuyer = mongooseToObject(accBuyer);
       res.locals.product = mongooseToObject(product);

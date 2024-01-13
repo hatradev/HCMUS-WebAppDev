@@ -24,5 +24,10 @@ router.get(
   userController.checkRole("user"),
   siteController.getPayment
 );
+router.get(
+  "/paymentBuyNow",
+  userController.checkRole("user"),
+  siteController.getPaymentBuyNow
+);
 
 module.exports = router;
