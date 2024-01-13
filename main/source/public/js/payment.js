@@ -20,6 +20,10 @@ function updateSubtotal() {
     ".table-checkout tfoot tr:first-child td:last-child"
   );
   subtotalElement.innerText = formatPrice(subtotal) + " đ";
+  const primarytotalElement = document.querySelector(
+    ".totalPrice"
+  );
+  primarytotalElement.innerText = formatPrice(subtotal) + " đ";
 }
 
 // Function to format the price as a string

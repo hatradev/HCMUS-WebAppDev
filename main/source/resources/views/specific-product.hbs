@@ -91,7 +91,7 @@
                   class="blk-qty-btn minus d-flex justify-content-center align-items-center"
                 >-</div>
                 <input
-                  class="blk-qty-input d-flex justify-content-center align-items-center"
+                  class="blk-qty-input d-flex justify-content-center align-items-center product-quantity"
                   type="text"
                   id="quantity"
                   max="50"
@@ -113,14 +113,14 @@
             <div
               id="addToCart"
               class="btn-js-add-cart btn btn-pink"
-              data-psid="37901384"
+              data-psid="{{product._id}}"
               data-selid="37901385"
               data-ck="1"
             >Thêm vào giỏ hàng</div>
             <div
               id="addPayNow"
               class="btn-js-add-cart btn btn-pink"
-              data-psid="37901384"
+              data-psid="{{product._id}}"
               data-selid="37901385"
               data-ck="1"
             >Mua ngay</div>
@@ -161,3 +161,5 @@
     </div>
   </div>
 </main>
+
+<script src="/js/handleCartSpecificProduct.js"></script>

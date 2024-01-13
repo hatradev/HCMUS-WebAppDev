@@ -93,6 +93,12 @@
             ><span>Idol</span></a></p>
         </div>
       </div>
+      {{!-- {{#if isLoggedIn}}
+      <ul class="header-user d-none d-md-block">
+        <li><a href="/profile">Hi, {{_firstName}}! |</a></li>
+        <li><a href="/user/logout">Đăng xuất</a></li>
+      </ul>
+      {{else}} --}}
       <div class="head-col-right col-lg-3 col-12">
         <div class="header-right d-flex align-items-start">
           {{! <ul class="header-user d-none d-md-block">
@@ -103,12 +109,34 @@
             class="header-user d-flex justify-content-around"
             style="width: 100%;"
           >
-            <li><a href="/user/signin" style="font-size: 2rem;">Đăng nhập</a></li>
+            <li>
+              {{#if isLoggedIn}}
+              <a href="/profile" style="font-size: 2rem;">Hi, {{_firstName}}!</a>
+              {{else}}
+              <a href="/user/signin" style="font-size: 2rem;">Đăng nhập</a>
+              {{/if}}
+            </li>
             <li><span style="font-size: 2rem;">|</span></li>
-            <li><a href="/user/signup" style="font-size: 2rem;">Đăng ký</a></li>
-            <li class="d-flex align-items-center" style="font-size: 2rem;"><i
-                class="fa-regular fa-bag-shopping"
-              ></i></li>
+            <li>
+              {{#if isLoggedIn}}
+              <a href="/user/logout" style="font-size: 2rem;">Đăng xuất</a>
+              {{else}}
+              <a href="/user/signup" style="font-size: 2rem;">Đăng ký</a>
+              {{/if}}
+            </li>
+            <li class="d-flex align-items-center" style="font-size: 2rem;">
+              <a href="/my-cart">
+                <i class="fa-regular fa-bag-shopping"></i>
+              </a>
+              {{!-- <span class='badge badge-warning' id='lblCartCount'>{{_cartNumber}}</span> --}}
+              {{!-- <span class='badge badge-warning' id='lblCartCount'>2</span> --}}
+              {{!-- <span class="count d-flex align-items-center justify-content-center">0</span> --}}
+              <div class="count-cart" title="Giỏ hàng">
+                <div class="count-cart-icon">
+                  <span class="count d-flex align-items-center justify-content-center" id='lblCartCount'>{{_cartNumber}}</span>
+                </div>
+              </div>
+              </li>
           </ul>
 
           <a href="/user/signin" class="js-open-user d-md-none">

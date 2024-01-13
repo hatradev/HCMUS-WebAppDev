@@ -22,13 +22,13 @@
                 <div class="d-flex align-items-center">
                   <i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
                   <a
-                    href="/mu-len-red-and-white-big-knitting-cuc-bong-xmas-do-p{{this.id_product}}.html"
+                    href="/product/{{this.id_product._id}}"
                     title="{{this.id_product.name}}"
                   >
                     <img
                       data-sizes="auto"
                       class="lazyautosizes ls-is-cached lazyloaded"
-                      src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_XgJjLAqGgu.jpeg"
+                      src="{{accessArr this.id_product.image 0}}"
                       data-src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_XgJjLAqGgu.jpeg"
                       alt="Mũ len Red and white big knitting cục bông Xmas - Đỏ"
                       sizes="105px"
@@ -150,12 +150,12 @@
 
         <a
           class="btn btn-lg btn-pink btn-radius"
-          href="/product"
-          style="height: 4.5rem; width: 18rem; font-size: 2rem; text-align:center"
+          href="/product/all"
+          style="height: 4.5rem; width: 18rem; font-size: 2rem; text-align:center; border-radius: 50px;"
         >Tiếp tục mua sắm</a>
         <a
           class="btn btn-lg btn-outline-pink btn-radius"
-          href="/cart/checkout"
+          href="/payment"
           style="height: 4.5rem; width: 13.5rem; font-size: 2rem; text-align:center"
         >Thanh toán</a>
       </div>

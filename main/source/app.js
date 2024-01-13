@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const connectLiveReload = require("connect-livereload");
 const bodyParser = require("body-parser");
 const route = require("../routes/index.route");
+const AccountModel = require('../models/account.model');
 
 // const passport = require("../middleware/passport");
 require("dotenv").config();
@@ -66,6 +67,43 @@ app.engine(
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resources/views"));
+
+// Middleware to check if user is logged in
+app.use((req, res, next) => {
+  // Check if the user is authenticated. This is just a placeholder.
+  // You need to implement your logic based on your authentication method.
+  // For example, checking a JWT token or a session.
+  if (req.cookies && req.cookies.obj && req.cookies.obj.user) {
+    res.locals.isLoggedIn = true;
+    res.locals._firstName = req.cookies.obj.user.firstname;
+    // res.locals._cartNumber = req.cookies.obj.user.cart.reduce(
+    //   (accum, product) => accum + product.quantity,
+    //   0
+    // );
+  } else {
+    res.locals.isLoggedIn = false;
+    res.locals._cartNumber = 0;
+  }
+
+  next();
+});
+app.use(async (req, res, next) => {
+  if (req.cookies && req.cookies.obj && req.cookies.obj.user) { // Giả sử sử dụng req.isAuthenticated() để kiểm tra đăng nhập
+    try {
+      const user = await AccountModel.findById(req.cookies.obj.user._id); // Lấy thông tin người dùng từ DB
+      const cartNumber = user.cart.reduce((sum, item) => sum + item.quantity, 0);
+      
+      res.locals._cartNumber = cartNumber;
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      res.locals._cartNumber = 0;
+    }
+  } else {
+    res.locals._cartNumber = 0;
+  }
+
+  next();
+});
 
 // Cấu hình sử dụng passport cho việc authentication
 // app.use(passport.initialize());
