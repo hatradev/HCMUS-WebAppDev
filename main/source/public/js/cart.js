@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
   calculateTotal();
   const removeCartButtons = document.querySelectorAll(".remove-cart");
@@ -52,6 +53,11 @@ function updateQuantityInCart(productId, newQuantity) {
     .then((data) => {
       console.log("before success");
       console.log("Success:", data);
+      const cartNumber = data.reduce(
+        (accum, product) => accum + product.quantity,
+        0
+      );
+      document.getElementById("lblCartCount").innerText = `${cartNumber}`;
       //updateCartUI(productId, newQuantity);
       calculateTotal(); // Tính toán lại tổng giá trị đơn hàng
     })
@@ -70,6 +76,14 @@ async function deleteProductFromCart(productId, buttonElement) {
       const data = await response.json();
       // Xử lý dữ liệu JSON trả về từ server
       buttonElement.closest(".cart-item").remove();
+
+      //let data = await res.json();
+      const cartNumber = data.reduce(
+        (accum, product) => accum + product.quantity,
+        0
+      );
+      document.getElementById("lblCartCount").innerText = `${cartNumber}`;
+
       calculateTotal();
       // Cập nhật thông tin giỏ hàng nếu cần
     } else {
