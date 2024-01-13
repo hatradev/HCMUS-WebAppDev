@@ -30,4 +30,6 @@ router.get(
   siteController.getPaymentBuyNow
 );
 
+router.get("/dashboard", siteController.getDashboard);
+
 module.exports = router;

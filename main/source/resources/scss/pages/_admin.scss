@@ -1,0 +1,33 @@
+.admin-page {
+  min-height: 100vh;
+}
+
+.admin-content {
+  padding: 0 0;
+}
+
+.admin-sidebar {
+  padding: 0 0;
+  background-color: $color-pink-tertiary;
+  .logo-img {
+    width: 80%;
+    margin-top: 5rem;
+  }
+  .navbar-nav {
+    .nav-link {
+      color: $color-dark;
+      font-size: 2rem;
+      &:hover {
+        background-color: $color-pink-primary-light;
+        color: $color-white;
+      }
+      .nav-link-icon {
+        vertical-align: middle;
+      }
+    }
+    .active {
+      background-color: $color-pink-primary;
+      color: $color-white;
+    }
+  }
+}

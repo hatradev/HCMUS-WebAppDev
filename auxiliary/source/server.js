@@ -15,6 +15,6 @@ const server = https.createServer(
   },
   app
 );
-server.listen(port, "127.0.0.1", () => {
+server.listen(port, () => {
   console.log(`Auxiliary server is running on port ${port} ...`);
 });

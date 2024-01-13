@@ -1,12 +1,7 @@
 const User = require("../models/account.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const axios = require("axios");
-const https = require("https");
-
-const agent = new https.Agent({
-  rejectUnauthorized: false,
-});
+require("dotenv").config();
 
 class userController {
   checkRole = (role) => (req, res, next) => {
@@ -101,13 +96,24 @@ class userController {
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }
       );
-      // const response = await axios.post(`https://localhost:${process.env.AUX_PORT}/`, {accessToken});
+      const rs = await fetch(
+        `https://localhost:${process.env.AUX_PORT}/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: accessToken }),
+        }
+      );
+      const response = await rs.json();
+
+      console.log("RESPONSE: ", response);
 
       //save the user to the database
       newUser.password = password;
       newUser.role = "user";
       await newUser.save();
-
       res.redirect("/user/signin");
     } catch (err) {
       next(err);
@@ -119,11 +125,19 @@ class userController {
       const { inputEmail, inputPassword } = req.body;
       const user = await User.findOne({ email: inputEmail });
       if (!user) {
-        return res.render("signIn", { emailMsg: "Email is invalid!", inputEmail, inputPassword });
+        return res.render("signIn", {
+          emailMsg: "Email is invalid!",
+          inputEmail,
+          inputPassword,
+        });
       }
       const validPassword = await bcrypt.compare(inputPassword, user.password);
       if (!validPassword) {
-        return res.render("signIn", { pwMsg: "Password is wrong!", inputEmail, inputPassword });
+        return res.render("signIn", {
+          pwMsg: "Password is wrong!",
+          inputEmail,
+          inputPassword,
+        });
       }
       res.cookie("user", user, {
         httpOnly: true,

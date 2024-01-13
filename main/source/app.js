@@ -3,7 +3,7 @@ const hbs = require("express-handlebars");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const methodOverride = require("method-override");
-// const livereload = require("livereload");
+const livereload = require("livereload");
 const connectLiveReload = require("connect-livereload");
 const bodyParser = require("body-parser");
 const route = require("../routes/index.route");
@@ -11,6 +11,7 @@ const AccountModel = require("../models/account.model");
 
 // const passport = require("../middleware/passport");
 require("dotenv").config();
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 // GOOGLE OAUTH
 // const session = require('express-session');
@@ -23,17 +24,23 @@ const oauth2Client = new google.auth.OAuth2(
 );
 // const authRoutes = require('../controllers/auth.controller')(oauth2Client);
 
-// const liveReloadServer = livereload.createServer();
+const liveReloadServer = livereload.createServer();
 const app = express();
 // Livereload for automatically refresh browser
-// liveReloadServer.server.once("connection", () => {
-//   setTimeout(() => {
-//     liveReloadServer.refresh("/");
-//   }, 100);
-// });
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+    liveReloadServer.refresh("/");
+  }, 100);
+});
+
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: "POST",
+  allowedHeaders: "Content-Type",
+};
 
 app.use(cookieParser());
-
+app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(connectLiveReload());
 app.use(express.json());

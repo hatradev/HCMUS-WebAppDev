@@ -13,6 +13,16 @@ function route(app) {
     res.render("home");
   });
 
+  app.post("/signup", async (req, res, next) => {
+    try {
+      const responseData = { success: true };
+      // Gửi phản hồi
+      res.json(responseData);
+    } catch (error) {
+      next(error);
+    }
+  });
+
   // Hai middlewares này phải để cuối để check lỗi
   app.use((req, res, next) => {
     res.status(404).render("error", {
