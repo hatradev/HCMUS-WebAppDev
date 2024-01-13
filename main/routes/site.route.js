@@ -41,4 +41,6 @@ router.get(
   siteController.getPayment
 );
 
+router.get("/dashboard", siteController.getDashboard);
+
 module.exports = router;

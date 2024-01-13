@@ -59,6 +59,13 @@ class siteController {
       next(error);
     }
   };
+  getDashboard = async (req, res, next) => {
+    try {
+      res.render("dashboard", { nshowHF: true });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 module.exports = new siteController();
