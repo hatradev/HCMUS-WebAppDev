@@ -30,15 +30,14 @@
                             <label for="inputOldPw" class="col-form-label col-md-3 pe-5 mt-4">Mật khẩu cũ</label>
                             <div class="col-md-9 col-lg-6">
                                 <input type="password" id="inputOldPw" name="inputOldPw" class="form-control"
-                                    required>
-                                <small id="pwErr" class="form-text text-danger"></small>
+                                    value="{{inputOldPw}}" required>
+                                <small id="pwErr" class="form-text text-danger">{{oldPwMsg}}</small>
                             </div>
                         </div>
                         <div class="row align-items-center">
                             <label for="inputNewPw" class="col-form-label col-md-3 pe-5 mt-4">Mật khẩu mới</label>
                             <div class="col-md-9 col-lg-6">
-                                <input type="password" id="inputNewPw" name="inputNewPw" class="form-control"
-                                    required>
+                                <input type="password" id="inputNewPw" name="inputNewPw" class="form-control" required>
                                 <small id="newPwErr" class="form-text text-danger"></small>
                             </div>
                         </div>
@@ -46,8 +45,8 @@
                             <label for="inputConfirmNewPw" class="col-form-label col-md-3 pe-5 mt-4">Xác nhận mật
                                 khẩu</label>
                             <div class="col-md-9 col-lg-6">
-                                <input type="password" id="inputConfirmNewPw" name="inputConfirmNewPw" class="form-control"
-                                    required>
+                                <input type="password" id="inputConfirmNewPw" name="inputConfirmNewPw"
+                                    class="form-control" required>
                                 <small id="confirmNewPwErr" class="form-text text-danger"></small>
                             </div>
                         </div>
@@ -68,10 +67,10 @@
             //check confirmPassword
             $('#confirmNewPwErr').html(($('#inputNewPw').val() != $('#inputConfirmNewPw').val()) ? 'Xác nhận mật khẩu không đúng' : '');
 
-            if ($('#confirmNewPwErr').html() == ''){
+            if ($('#confirmNewPwErr').html() == '') {
                 $('form').submit();
             }
-            else{
+            else {
                 e.preventDefault();
             }
         })

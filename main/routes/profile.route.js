@@ -10,6 +10,7 @@ router.get("/", profileController.getProfile);
 router.get("/changepassword", profileController.getChangePasswordP);
 
 router.post("/update", profileController.updateProfile);
+router.post("/changepassword", profileController.changePassword);
 
 
 module.exports = router;
