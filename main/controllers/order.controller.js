@@ -1,8 +1,48 @@
 const { request } = require("express");
 const Order = require("../models/order.model");
 const Product = require("../models/product.model");
+const Account = require("../models/account.model");
 
 class orderController {
+
+  CreateOrderForCartAndSendToken = async (req, res, next) => {
+    try {
+      const accBuyer = await Account.findOne({ _id: req.cookies.user._id })
+        .populate("cart.id_product");
+  
+      // console.log("check cart user");
+      // console.log(accBuyer.cart);
+      // console.log("end check cart user");
+  
+      // Tạo một mảng chi tiết đơn hàng từ giỏ hàng
+      const orderDetails = accBuyer.cart.map(cartItem => ({
+        idProduct: cartItem.id_product._id,
+        quantity: cartItem.quantity,
+      }));
+  
+      // Tạo một đơn đặt hàng mới với tất cả các mặt hàng trong giỏ
+      const newOrder = new Order({
+        idaccount: accBuyer._id,
+        detail: orderDetails,
+        status: "paying",
+        // message: req.body.message, // Lấy từ form đầu vào
+      });
+  
+      // Lưu đơn hàng mới
+      const savedOrder = await newOrder.save();
+  
+      // Xóa giỏ hàng sau khi tạo đơn hàng
+      accBuyer.cart = [];
+      await accBuyer.save();
+  
+      // Chuyển hướng người dùng đến trang đơn hàng đang chờ xử lý (hoặc xử lý khác)
+      // res.redirect(`/account/my-order-pending/${req.user.id}`);
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+
   totalPrice = async (arr) => {
     let total = 0;
     for (let i = 0; i < arr.length; i++) {
