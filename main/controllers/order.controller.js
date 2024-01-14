@@ -42,19 +42,13 @@ class orderController {
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }
       );
-      const rs = await fetch(
-        `https://localhost:${process.env.AUX_PORT}/payment`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ token: accessToken }),
-        }
-      );
-      const response = await rs.json();
+      const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
+      console.log("Response URL:", responseUrl);
+      const response = await fetch(responseUrl);
+      const responseData = await response.json();
+      // const response = await rs.json();
 
-      console.log("RESPONSE: ", response);
+      console.log("RESPONSE: ", responseData);
       // Lưu đơn hàng mới
       const savedOrder = await newOrder.save();
   
@@ -64,9 +58,7 @@ class orderController {
       console.log("check cart user");
       // console.log(accBuyer.cart);
       console.log("end check cart user");
-  
-      // Chuyển hướng người dùng đến trang đơn hàng đang chờ xử lý (hoặc xử lý khác)
-      res.redirect(`https://localhost:1234/getPayment`);
+      // return res.redirect(responseUrl)
     } catch (error) {
       next(error);
     }

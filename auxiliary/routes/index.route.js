@@ -14,6 +14,24 @@ function route(app) {
     res.render("home");
   });
 
+//   app.get('/getPayment', async (req, res) => {
+//     try {
+//         // Truy xuất dữ liệu từ session hoặc cookie
+//         // const order = req.cookies.orderData;
+//         const order = req.session.order;
+//         console.log("check cookie order");
+//         console.log(order);
+//         console.log("end check cookie order");
+
+//         // Render trang với dữ liệu
+//         res.render("payment", { order });  // Giả sử 'paymentPage' là tên template
+//     } catch (error) {
+//         res.status(500).send("Lỗi xử lý trang");
+//     }
+// });
+
+  
+
   
 
   app.post("/signup", async (req, res, next) => {
@@ -27,30 +45,49 @@ function route(app) {
   });
 
 
-  app.post("/payment", async (req, res, next) => {
+  // app.post("/payment", async (req, res, next) => {
+  //     try {
+  //       // Giải mã JWT
+  //       const token = req.body.token;
+  //       if (!token) {
+  //         return res.status(400).json({ error: "No token provided" });
+  //       }
+
+  //       const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
+  //       const responseData = { success: "successfully sending order", orderData: decoded };
+  //       // Gửi phản hồi
+  //       res.json(responseData);
+  //       res.redirect('https://localhost:1234/getPayment');
+  //     } catch (error) {
+  //       // Xử lý lỗi JWT hoặc lỗi khác
+  //       next(error);
+  //     }
+  // });
+ 
+  app.get("/getPayment", async (req, res, next) => {
       try {
         // Giải mã JWT
-        const token = req.body.token;
+        // const token = req.body.token;
+        const token = req.query.token;
         if (!token) {
           return res.status(400).json({ error: "No token provided" });
         }
 
         const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
-        console.log("check AUX side");
-        console.log(decoded);
-        console.log("end check AUX side");
         const responseData = { success: "successfully sending order", orderData: decoded };
         // Gửi phản hồi
-        res.json(responseData);
+        console.log("check AUX last");
+        console.log(decoded);
+        console.log("end check AUX last");
+        res.render("payment");
+        // res.json(responseData);
+        // res.redirect('https://localhost:1234/getPayment');
       } catch (error) {
         // Xử lý lỗi JWT hoặc lỗi khác
         next(error);
       }
   });
 
-  app.get("/getPayment", (req, res) => {
-    res.render("payment");
-});
 
 
   // Hai middlewares này phải để cuối để check lỗi

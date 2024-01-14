@@ -291,12 +291,14 @@
           class="d-block d-flex justify-content-end"
           style="margin-top: 1.5rem;"
         >
-          <div
-            {{!-- id="js-btn-submit" --}}
-            id="payButton"
-            class="btn btn-pink d-flex justify-content-center align-items-center"
-            style="height:5rem; width:15rem; font-size: 2rem;"
-          >Thanh toán</div>
+          <a href="https://localhost:1234/getPayment">
+            <div
+              {{!-- id="js-btn-submit" --}}
+              id="payButton"
+              class="btn btn-pink d-flex justify-content-center align-items-center"
+              style="height:5rem; width:15rem; font-size: 2rem;"
+            >Thanh toán</div>
+          </a>
         </div>
       </div>
     </div>
@@ -335,7 +337,7 @@
         .then(data => {
             console.log('Success:', data);
             // Handle success (e.g., show a success message or redirect)
-            res.redirect(`https://localhost:1234/getPayment`);
+            //res.redirect(`https://localhost:1234/getPayment`);
         })
         .catch((error) => {
             console.error('Error:', error);
