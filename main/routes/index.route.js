@@ -5,9 +5,11 @@ const orderRouter = require("./order.route");
 const productRouter = require("./product.route");
 const adminRouter = require("./admin.route");
 const CustomErr = require("../helpers/custom-error");
+const authRoutes = require("./auth.route");
 
 function route(app) {
   // Định nghĩa các route theo tài nguyên
+  app.use("/auth", authRoutes);
   app.use("/", siteRouter);
   app.use("/user", userRouter);
   app.use("/profile", profileRouter);

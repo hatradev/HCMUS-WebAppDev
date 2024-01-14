@@ -108,7 +108,13 @@ class userController {
       newUser.role = "user";
       await newUser.save();
 
-      res.redirect("/user/signin");
+      res.cookie("user", user, {
+        httpOnly: true,
+        secure: false,
+        path: "/",
+        sameSite: "strict",
+      });
+      res.redirect("/");
     } catch (err) {
       next(err);
     }
