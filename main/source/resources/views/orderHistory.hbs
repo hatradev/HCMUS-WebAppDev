@@ -36,11 +36,21 @@
                 </tr>
               </thead>
               {{#each orders}}
-                <tr onclick="window.location.href='/order/detail?id={{_id}}'">
+              <tr onclick="window.location.href='/order/detail?id={{_id}}'">
                 <td>{{_id}}</td>
                 <td>{{dateOfOrder date}}</td>
                 <td>{{formatCurrency total}}</td>
-                <td class="text-primary">{{status}}</td>
+                <td class="text-primary">
+                  {{#if (eq status "cancelled")}}
+                    <p class="text-danger">{{toStatus status}}</p>
+                  {{/if}}
+                   {{#if (or status "paying" "pending")}}
+                    <p class="text-primary">{{toStatus status}}</p>
+                  {{/if}} 
+                  {{#if (eq status "successful")}}
+                    <p class="text-success">{{toStatus status}}</p>
+                  {{/if}} 
+                </td>
               </tr>
               {{/each}}
             </table>

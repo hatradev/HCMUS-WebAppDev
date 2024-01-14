@@ -47,6 +47,9 @@ class orderController {
         date: order.date,
         status: order.status,
         message: order.message,
+        reason: order.reason,
+        cancelledDate: order.cancelledDate,
+        paymentDate: order.paymentDate,
       };
       const prds = [];
       for (let i = 0; i < order.detail.length; i++) {

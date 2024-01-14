@@ -62,4 +62,52 @@ module.exports = {
     return objectId;
   },
   increaseIndex: (page, limit, index) => (page - 1)*limit + index + 1,
+  eq: (v1, v2) => {
+    return v1 == v2
+  },
+  or: (a, v1, v2) => {
+    return a == v1 || a == v2;
+  },
+  toStatus: (status) => {
+    switch (status){
+      case "cancelled":
+        return "Đã hủy";
+      case "paying":
+        return "Chờ thanh toán";
+      case "pending":
+        return "Chờ xử lý";
+      case "successful":
+        return "Thành công";
+      default: 
+        return "";
+    }
+    return v1 === v2 ? v1 : '';
+  },
+  toReason: (reason) => {
+    switch (reason) {
+      case "payment":
+        return "Thanh toán không thành công";
+      case "shop":
+        return "Hủy bởi shop";
+      case "buyer":
+        return "Hủy bởi người mua"
+      default:
+        return "";
+    }
+  },
+  formatDate: (dateString) => {
+    if (!dateString) return "";
+    const dateObj = new Date(dateString);
+  
+    const ngay = dateObj.getDate();
+    const thang = dateObj.getMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0
+    const nam = dateObj.getFullYear();
+    const gio = dateObj.getHours();
+    const phut = dateObj.getMinutes();
+    const giay = dateObj.getSeconds();
+  
+    const chuoiNgayGio = `${ngay}/${thang}/${nam} ${gio}:${phut}:${giay}`;
+  
+    return chuoiNgayGio;
+  },
 };

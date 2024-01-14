@@ -46,8 +46,8 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-3">
-                                                <img src="{{image}}"
-                                                    class="img-fluid rounded-3 w-100" alt="Shopping item">
+                                                <img src="{{image}}" class="img-fluid rounded-3 w-100"
+                                                    alt="Shopping item">
                                             </div>
                                             <div class="col-9 d-flex align-items-center">
                                                 <h5>{{name}}</h5>
@@ -63,13 +63,23 @@
                             {{/each}}
                         </table>
                         <div class="row">
-                            <div class="col-md-5 offset-md-7 col-ms-10 offset-ms-2 mt-3 border-top">
+                            {{#if (eq obj.status "paying")}}
+                            <div
+                                class="col-md-7 col-ms-2 mt-3 border-top d-flex justify-content-center align-items-center">
+                                <a href="/payment" class="btn payment_btn">
+                                    <span class="button__text"> Tiếp tục thanh toán</span>
+                                </a>
+                            </div>
+                            <div class="col-md-5 col-ms-10 mt-3 border-top">
+                                {{else}}
+                                <div class="col-md-5 offset-md-7 col-ms-10 offset-ms-2 mt-3 border-top">
+                                {{/if}}
                                 <div class="row">
                                     <div class="col-6">
                                         <p class="fw-bold">Tổng đơn: </p>
                                     </div>
                                     <div class="col-6">
-                                        <span>{{formatCurrency obj.total}}</span>
+                                        <span class="fw-bold">{{formatCurrency obj.total}}</span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -85,9 +95,45 @@
                                         <p>Trạng thái: </p>
                                     </div>
                                     <div class="col-6">
-                                        <span>{{obj.status}}</span>
+                                        {{#if (eq obj.status "cancelled")}}
+                                        <span class="text-danger">{{toStatus obj.status}}</span>
+                                        {{/if}}
+                                        {{#if (or obj.status "paying" "pending")}}
+                                        <span class="text-primary">{{toStatus obj.status}}</span>
+                                        {{/if}}
+                                        {{#if (eq obj.status "successful")}}
+                                        <span class="text-success">{{toStatus obj.status}}</span>
+                                        {{/if}}
                                     </div>
                                 </div>
+                                {{#if (eq obj.status "cancelled")}}
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>Lý do hủy: </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <span>{{toReason obj.reason}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>Thời gian hủy: </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <span>{{formatDate obj.cancelledDate}}</span>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                {{#if (eq obj.status "successful")}}
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>Thời gian thanh toán: </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <span>{{formatDate obj.paymentDate}}</span>
+                                    </div>
+                                </div>
+                                {{/if}}
                                 <div class="row">
                                     <div class="col-6">
                                         <p>Ghi chú đơn hàng: </p>
@@ -98,9 +144,9 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
