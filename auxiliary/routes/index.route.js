@@ -14,6 +14,8 @@ function route(app) {
     res.render("home");
   });
 
+  
+
   app.post("/signup", async (req, res, next) => {
     try {
       const responseData = { success: true, data: req.body };
@@ -34,12 +36,10 @@ function route(app) {
         }
 
         const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
-        // Xử lý dữ liệu đơn hàng từ JWT
-        // Ví dụ: Lưu đơn hàng vào cơ sở dữ liệu
-        console.log("check order AUX side");
+        console.log("check AUX side");
         console.log(decoded);
-        console.log("end check order AUX side");
-        const responseData = { success: "successfully sending order", orderData: decoded.order };
+        console.log("end check AUX side");
+        const responseData = { success: "successfully sending order", orderData: decoded };
         // Gửi phản hồi
         res.json(responseData);
       } catch (error) {
@@ -47,6 +47,10 @@ function route(app) {
         next(error);
       }
   });
+
+  app.get("/getPayment", (req, res) => {
+    res.render("payment");
+});
 
 
   // Hai middlewares này phải để cuối để check lỗi

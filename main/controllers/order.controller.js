@@ -37,6 +37,7 @@ class orderController {
       const accessToken = jwt.sign(
         {
           order: newOrder,
+          totalPrice: req.body.totalAmount,
         },
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }
@@ -65,7 +66,7 @@ class orderController {
       console.log("end check cart user");
   
       // Chuyển hướng người dùng đến trang đơn hàng đang chờ xử lý (hoặc xử lý khác)
-      // res.redirect(`/account/my-order-pending/${req.user.id}`);
+      res.redirect(`https://localhost:1234/getPayment`);
     } catch (error) {
       next(error);
     }

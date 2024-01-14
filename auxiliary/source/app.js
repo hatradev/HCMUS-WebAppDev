@@ -3,6 +3,7 @@ const hbs = require("express-handlebars");
 const path = require("path");
 const methodOverride = require("method-override");
 const connectLiveReload = require("connect-livereload");
+const cookieParser = require('cookie-parser');
 const bodyParser = require("body-parser");
 const route = require("../routes/index.route");
 const cors = require("cors");
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 app.use(cors());
+app.use(cookieParser());
 
 // Template engines handlebars
 app.engine(
