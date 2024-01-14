@@ -7,10 +7,12 @@ function route(app) {
     let user = await account.find({});
     if (user) {
       console.log(user);
+
+      res.render("index");
     } else {
       console.log("fail");
     }
-    res.render("home");
+    // res.render("home");
   });
 
   app.post("/signup", async (req, res, next) => {
