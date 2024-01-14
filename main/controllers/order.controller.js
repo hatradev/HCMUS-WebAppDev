@@ -2,6 +2,11 @@ const { request } = require("express");
 const Order = require("../models/order.model");
 const Product = require("../models/product.model");
 const Account = require("../models/account.model");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+require("dotenv").config();
+
+
 
 class orderController {
 
@@ -10,9 +15,6 @@ class orderController {
       const accBuyer = await Account.findOne({ _id: req.cookies.user._id })
         .populate("cart.id_product");
   
-      // console.log("check cart user");
-      // console.log(accBuyer.cart);
-      // console.log("end check cart user");
   
       // Tạo một mảng chi tiết đơn hàng từ giỏ hàng
       const orderDetails = accBuyer.cart.map(cartItem => ({
@@ -32,12 +34,35 @@ class orderController {
         // message: req.body.message, // Lấy từ form đầu vào
       });
   
+      const accessToken = jwt.sign(
+        {
+          order: newOrder,
+        },
+        process.env.JWT_ACCESS_KEY,
+        { expiresIn: "10m" }
+      );
+      const rs = await fetch(
+        `https://localhost:${process.env.AUX_PORT}/payment`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: accessToken }),
+        }
+      );
+      const response = await rs.json();
+
+      console.log("RESPONSE: ", response);
       // Lưu đơn hàng mới
       const savedOrder = await newOrder.save();
   
       // Xóa giỏ hàng sau khi tạo đơn hàng
       accBuyer.cart = [];
       await accBuyer.save();
+      console.log("check cart user");
+      // console.log(accBuyer.cart);
+      console.log("end check cart user");
   
       // Chuyển hướng người dùng đến trang đơn hàng đang chờ xử lý (hoặc xử lý khác)
       // res.redirect(`/account/my-order-pending/${req.user.id}`);
