@@ -23,6 +23,10 @@ class orderController {
       // Tạo một đơn đặt hàng mới với tất cả các mặt hàng trong giỏ
       const newOrder = new Order({
         idaccount: accBuyer._id,
+        name: accBuyer.lastname,
+        phone: accBuyer.phone,
+        email: accBuyer.email,
+        address: accBuyer.address,
         detail: orderDetails,
         status: "paying",
         // message: req.body.message, // Lấy từ form đầu vào
