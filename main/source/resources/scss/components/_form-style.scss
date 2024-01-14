@@ -52,7 +52,13 @@ select option {
 
 /* profile */
 .profileCard a:hover {
-    color: #fa9ead;
+    color: #8a4762;
+    font-weight: bold;
+}
+
+.hover-a{
+    color: #8a4762;
+    font-weight: bold;
 }
 
 form input,
@@ -78,6 +84,7 @@ form select {
 }
 
 // detail order
+.cancel_btn,
 .payment_btn {
     display: inline-block;
     outline: none;
@@ -95,12 +102,27 @@ form select {
     font-weight: 600;
     text-align: center;
     padding: 14px 14px 18px;
-    color: #fd93a4;
-    box-shadow: inset 0 0 0 2px #ffb0bd;
     background-color: transparent;
     height: 40px;  
 }
-.payment_btn:hover {
+.cancel_btn{
+    color: #8f545d;
+    box-shadow: inset 0 0 0 2px #8f545d;
+}
+.payment_btn{
     color: #f7788d;
     box-shadow: inset 0 0 0 2px #f7788d;
+}
+.payment_btn:hover {
+    color: #eb5870;
+    box-shadow: inset 0 0 0 2px #eb5870;
+}
+.cancel_btn:hover{
+    color: #5f1b25;
+    box-shadow: inset 0 0 0 2px #5f1b25;
+}
+.order-dropdown > a{
+    font-size: 13px; 
+    background-color: #ffb0bd; 
+    color: #8a4762;
 }

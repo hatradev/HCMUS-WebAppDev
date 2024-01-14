@@ -14,7 +14,7 @@
                     <div class="offset-2 col-10">
                         <p><a href="/profile">Thông tin tài khoản</a></p>
                         <p><a href="/profile/changepassword">Đổi mật khẩu</a></p>
-                        <p><a href="/order/index" style="color: #FFB0BD">Lịch sử đơn hàng</a></p>
+                        <p><a href="/order/index" class="hover-a">Lịch sử đơn hàng</a></p>
                         <p><a href="#">Đăng xuất</a></p>
                     </div>
                 </div>
@@ -64,10 +64,15 @@
                         </table>
                     </div>
                     <div class="row">
-                        {{#if (eq obj.status "paying")}}
+                        {{#if (or obj.status "paying" "pending")}}
                         <div class="col-md-7 col-ms-2 mt-3 border-top d-flex justify-content-center align-items-center">
-                            <a href="/payment" class="btn payment_btn">
+                            {{#if (eq obj.status "paying")}}
+                            <a href="/payment" class="btn payment_btn me-3">
                                 <span class="button__text"> Tiếp tục thanh toán</span>
+                            </a>
+                            {{/if}}
+                            <a href="#" class="btn cancel_btn">
+                                <span class="button__text"> Hủy đơn</span>
                             </a>
                         </div>
                         <div class="col-md-5 col-ms-10 mt-3 border-top">

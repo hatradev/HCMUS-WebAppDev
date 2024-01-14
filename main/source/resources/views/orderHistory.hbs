@@ -14,7 +14,7 @@
           <div class="offset-2 col-10">
             <p><a href="/profile">Thông tin tài khoản</a></p>
             <p><a href="/profile/changepassword">Đổi mật khẩu</a></p>
-            <p><a href="/order/index" style="color: #FFB0BD">Lịch sử đơn hàng</a></p>
+            <p><a href="/order/index" class="hover-a">Lịch sử đơn hàng</a></p>
             <p><a href="/user/logout">Đăng xuất</a></p>
           </div>
         </div>
@@ -28,9 +28,9 @@
               <h1>Lịch sử đơn hàng</h1>
             </div>
             <div class="col-md-3 text-center">
-              <div class="dropdown">
+              <div class="dropdown order-dropdown">
                 <a class="btn dropdown-toggle border" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false" style="font-size: 13px; background-color: #ffb0bd; color: #8a4762">
+                  aria-expanded="false" >
                   {{toOrderFilter filter}}
                 </a>
                 <ul class="dropdown-menu" style="font-size: 14px;">
