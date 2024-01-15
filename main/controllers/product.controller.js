@@ -34,46 +34,6 @@ class productController {
     }
   };
 
-  showAllProduct = async (req, res, next) => {
-    try {
-      const page = parseInt(req.query.page) || 1;
-      const limit = parseInt(req.query.limit) || defaultLimit;
-      const skip = (page - 1) * limit;
-
-      // Fetch total number of products
-      const totalProducts = await Product.countDocuments();
-
-      const products = await Product.find().skip(skip).limit(limit).lean();
-
-      // Calculate total pages
-      const totalPages = Math.ceil(totalProducts / limit);
-
-      const pageNumbers = [];
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push({
-          number: i,
-          isCurrent: i === page,
-        });
-      }
-
-      const paginationData = {
-        pages: pageNumbers,
-        hasPreviousPage: page > 1,
-        previousPage: page - 1,
-        hasNextPage: page < totalPages,
-        nextPage: page + 1,
-      };
-
-      res.json({
-        products,
-        pagination: paginationData,
-      });
-    } catch (err) {
-      console.error(err);
-      next(err);
-    }
-  };
-
   showSpecificProduct = async (req, res, next) => {
     try {
       const { productId } = req.params;
@@ -183,9 +143,50 @@ class productController {
     return Array.from(allCategoryIds);
   };
 
-  filterProducts = async (req, res) => {
+  // showAllProduct = async (req, res, next) => {
+  //   try {
+  //     const page = parseInt(req.query.page) || 1;
+  //     const limit = parseInt(req.query.limit) || defaultLimit;
+  //     const skip = (page - 1) * limit;
+
+  //     // Fetch total number of products
+  //     const totalProducts = await Product.countDocuments();
+
+  //     const products = await Product.find().skip(skip).limit(limit).lean();
+
+  //     // Calculate total pages
+  //     const totalPages = Math.ceil(totalProducts / limit);
+
+  //     const pageNumbers = [];
+  //     for (let i = 1; i <= totalPages; i++) {
+  //       pageNumbers.push({
+  //         number: i,
+  //         isCurrent: i === page,
+  //       });
+  //     }
+
+  //     const paginationData = {
+  //       pages: pageNumbers,
+  //       hasPreviousPage: page > 1,
+  //       previousPage: page - 1,
+  //       hasNextPage: page < totalPages,
+  //       nextPage: page + 1,
+  //     };
+
+  //     res.json({
+  //       products,
+  //       pagination: paginationData,
+  //     });
+  //   } catch (err) {
+  //     console.error(err);
+  //     next(err);
+  //   }
+  // };
+
+  APIProducts = async (req, res) => {
     try {
       const {
+        keyword,
         category,
         minPrice,
         maxPrice,
@@ -195,15 +196,16 @@ class productController {
 
       let query = {};
 
+      if (keyword) {
+        query.name = { $regex: keyword, $options: "i" }; // Case-insensitive search
+      }
       if (category) {
         const allCategoryIds = await this.getAllDescendantCategoryIds(category);
         query.category = { $in: allCategoryIds };
       }
-
       if (minPrice) {
         query.price = { ...query.price, $gte: parseFloat(minPrice) };
       }
-
       if (maxPrice) {
         query.price = { ...query.price, $lte: parseFloat(maxPrice) };
       }
@@ -244,49 +246,49 @@ class productController {
     }
   };
 
-  searchProducts = async (req, res) => {
-    try {
-      const { keyword, page = 1, limit = defaultLimit } = req.query;
-      const skip = (page - 1) * limit;
+  // searchProducts = async (req, res) => {
+  //   try {
+  //     const { keyword, page = 1, limit = defaultLimit } = req.query;
+  //     const skip = (page - 1) * limit;
 
-      const searchQuery = {
-        name: { $regex: keyword, $options: "i" }, // Case-insensitive search
-      };
+  //     const searchQuery = {
+  //       name: { $regex: keyword, $options: "i" }, // Case-insensitive search
+  //     };
 
-      const totalProducts = await Product.countDocuments(searchQuery);
-      const totalPages = Math.ceil(totalProducts / limit);
+  //     const totalProducts = await Product.countDocuments(searchQuery);
+  //     const totalPages = Math.ceil(totalProducts / limit);
 
-      const products = await Product.find(searchQuery)
-        .skip(skip)
-        .limit(limit)
-        .lean();
+  //     const products = await Product.find(searchQuery)
+  //       .skip(skip)
+  //       .limit(limit)
+  //       .lean();
 
-      // Create page numbers array
-      const pageNumbers = [];
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push({
-          number: i,
-          isCurrent: i === parseInt(page),
-        });
-      }
+  //     // Create page numbers array
+  //     const pageNumbers = [];
+  //     for (let i = 1; i <= totalPages; i++) {
+  //       pageNumbers.push({
+  //         number: i,
+  //         isCurrent: i === parseInt(page),
+  //       });
+  //     }
 
-      const paginationData = {
-        pages: pageNumbers,
-        hasPreviousPage: page > 1,
-        previousPage: page - 1,
-        hasNextPage: page < totalPages,
-        nextPage: page + 1,
-      };
+  //     const paginationData = {
+  //       pages: pageNumbers,
+  //       hasPreviousPage: page > 1,
+  //       previousPage: page - 1,
+  //       hasNextPage: page < totalPages,
+  //       nextPage: page + 1,
+  //     };
 
-      res.json({
-        products,
-        pagination: paginationData,
-      });
-    } catch (error) {
-      console.error("Error:", error);
-      res.status(500).send("Server error");
-    }
-  };
+  //     res.json({
+  //       products,
+  //       pagination: paginationData,
+  //     });
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     res.status(500).send("Server error");
+  //   }
+  // };
 
   deleteFromCart = async (req, res, next) => {
     try {

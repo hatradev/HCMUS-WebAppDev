@@ -2,9 +2,21 @@ import fetchProducts from './fetchProducts.js';
 
 function updatePagination(paginationData) {
     const paginationContainer = document.querySelector('.pagination');
-    if (!paginationContainer || !paginationData.pages || paginationData.pages.length === 0) {
-        return; // Exit if no container or no pages
+
+    if (!paginationContainer) {
+      return; // Exit if no container is found
     }
+
+    if (!paginationData.pages || paginationData.pages.length === 0) {
+        paginationContainer.style.display = 'none'; // Hide the container if no pages
+        return;
+    } else {
+        paginationContainer.style.display = ''; // Remove 'display: none' to show the container
+    }
+
+    // if (!paginationContainer || !paginationData.pages || paginationData.pages.length === 0) {
+    //     return; // Exit if no container or no pages
+    // }
 
     // Clear existing pagination links
     paginationContainer.innerHTML = '';
