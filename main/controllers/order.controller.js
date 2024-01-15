@@ -71,7 +71,7 @@ class orderController {
 
       // console.log("RESPONSE: ", responseData);
       // Lưu đơn hàng mới
-      // const savedOrder = await newOrder.save();
+      const savedOrder = await newOrder.save();
   
       // Xóa giỏ hàng sau khi tạo đơn hàng
       // accBuyer.cart = [];

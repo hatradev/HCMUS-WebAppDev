@@ -19,7 +19,7 @@ function route(app) {
       console.log("check query");
       console.log(req.query.idaccount);
       console.log("end check query");
-        res.render("authenticationPage", {accountID: req.query.idaccount, totalPrice: req.query.total});  // Giả sử 'paymentPage' là tên template
+        res.render("authenticationPage", {accountID: req.query.idaccount, totalPrice: req.query.total, idOrder: req.query.idorder});  // Giả sử 'paymentPage' là tên template
     } catch (error) {
         res.status(500).send("Lỗi xử lý trang");
     }
@@ -43,6 +43,7 @@ function route(app) {
       const total = req.body.total; // Lấy tổng tiền từ form
       const password = req.body.password; // Lấy mật khẩu từ form
       const idAcc = req.body.accountID; // Lấy mật khẩu từ form
+      const idOrder = req.body.orderID; // Lấy mật khẩu từ form
       const user = await account.findById(idAcc);
       console.log("check balance");
       console.log(user);
@@ -52,6 +53,7 @@ function route(app) {
           pw: password,
           idAccount: idAcc,
           totalPrice: total,
+          idorder: idOrder,
         },
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }
@@ -74,7 +76,19 @@ function route(app) {
       if(response.validPw && user.balance >= total) {
         user.balance = user.balance - total;
         await user.save();
-        res.redirect(`http://localhost:${process.env.MAIN_PORT}`);
+        const r = await fetch(
+          `http://localhost:${process.env.MAIN_PORT}/user/paymentSuccess`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ token: accessToken }),
+          }
+        );
+        const response2 = await r.json();
+        // res.redirect(`http://localhost:${process.env.MAIN_PORT}`);
+        res.json(response2);
       }
       else {
         res.redirect(`http://localhost:${process.env.MAIN_PORT}/my-cart`);

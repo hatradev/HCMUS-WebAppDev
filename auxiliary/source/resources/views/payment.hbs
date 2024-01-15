@@ -36,6 +36,18 @@
         </div>
         <div class="form-group">
           <input
+            id="orderID"
+            name="orderID"
+            type="hidden"
+            class="form-control input-sm validate[required,custom[phone]]"
+            value="{{order._id}}"
+            placeholder="Điện thoại *"
+            fdprocessedid="a8l56b"
+            style="font-size: 1.5rem;"
+          />
+        </div>
+        <div class="form-group">
+          <input
             id="customerMobile"
             name="customerMobile"
             type="text"
@@ -177,9 +189,10 @@
     var payButton = document.getElementById('payButton');
     var totalPrice = '{{totalPrice}}';
     var accountId = '{{order.idaccount}}';
+    var orderId = '{{order._id}}';
 
     payButton.addEventListener('click', function() {
-      window.location.href = '/payment/authenticate?total=' + encodeURIComponent(totalPrice) + '&idaccount=' + encodeURIComponent(accountId);
+      window.location.href = '/payment/authenticate?total=' + encodeURIComponent(totalPrice) + '&idaccount=' + encodeURIComponent(accountId) + '&idorder=' + encodeURIComponent(orderId);
     });
   });
 </script>

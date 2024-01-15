@@ -1,6 +1,7 @@
 const User = require("../models/account.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const Order = require("../models/order.model");
 require("dotenv").config();
 
 class userController {
@@ -96,6 +97,34 @@ class userController {
       const validPassword = await bcrypt.compare(decoded.pw, user.password);
       const responseData = { success: "successfully sending order", validPw: validPassword};
       
+      res.json(responseData);
+    } catch (error) {
+      // Xử lý lỗi JWT hoặc lỗi khác
+      next(error);
+    }
+  };
+  paymentSuccess = async (req, res, next) => {
+    try {
+      // Giải mã JWT
+      const token = req.body.token;
+      if (!token) {
+        return res.status(400).json({ error: "No token provided" });
+      }
+
+      const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
+      const order = await Order.findById(decoded.idorder);
+      const user = await User.findById(decoded.idAccount);
+      order.status = "successful";
+      await order.save();
+      // Xóa giỏ hàng sau khi tạo đơn hàng
+      user.cart = [];
+      await user.save();
+      // const validPassword = await bcrypt.compare(decoded.pw, user.password);
+      const responseData = { success: "successfully sending order", order: decoded};
+      console.log("check order MAIN");
+      console.log(order);
+      console.log("end check order MAIN");
+
       res.json(responseData);
     } catch (error) {
       // Xử lý lỗi JWT hoặc lỗi khác
