@@ -42,23 +42,40 @@ class orderController {
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }
       );
+
+      // await fetch(
+      //   `https://localhost:${process.env.AUX_PORT}/payment`,
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ token: accessToken }),
+      //   }
+      // );
+      // if (!accessToken) {
+      //   return res.status(500).json({ error: "Failed to create access token" });
+      // }
+      const tokenString = JSON.stringify({ token: accessToken });
       const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
-      console.log("Response URL:", responseUrl);
-      const response = await fetch(responseUrl);
-      const responseData = await response.json();
+      // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?data=${tokenString}`;
+      // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
+      // console.log("Response URL:", responseUrl);
+      // const response = await fetch(responseUrl);
+      // const responseData = await response.json();
       // const response = await rs.json();
 
-      console.log("RESPONSE: ", responseData);
+      // console.log("RESPONSE: ", responseData);
       // Lưu đơn hàng mới
-      const savedOrder = await newOrder.save();
+      // const savedOrder = await newOrder.save();
   
       // Xóa giỏ hàng sau khi tạo đơn hàng
-      accBuyer.cart = [];
-      await accBuyer.save();
-      console.log("check cart user");
-      // console.log(accBuyer.cart);
-      console.log("end check cart user");
-      // return res.redirect(responseUrl)
+      // accBuyer.cart = [];
+      // await accBuyer.save();
+      // console.log("check cart user");
+      // // console.log(accBuyer.cart);
+      // console.log("end check cart user");
+      return res.redirect(responseUrl);
     } catch (error) {
       next(error);
     }

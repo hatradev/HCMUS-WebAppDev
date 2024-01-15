@@ -3,6 +3,7 @@
     id="formCheckOut"
     class="formCheckOut formAcount validate"
     method="post"
+    action="/order/CreatAndSendToken"
   >
     <div class="row">
       <div class="col-checkout col-left col-xl-4 col-lg-6 col-12">
@@ -287,18 +288,9 @@
         </div>
         <div id="mss-confirm"></div>
 
-        <div
-          class="d-block d-flex justify-content-end"
-          style="margin-top: 1.5rem;"
-        >
-          <a href="https://localhost:1234/getPayment">
-            <div
-              {{!-- id="js-btn-submit" --}}
-              id="payButton"
-              class="btn btn-pink d-flex justify-content-center align-items-center"
-              style="height:5rem; width:15rem; font-size: 2rem;"
-            >Thanh toán</div>
-          </a>
+        <div class="d-block d-flex justify-content-end" style="margin-top: 1.5rem;">
+          <button class="btn btn-pink d-flex justify-content-center align-items-center"
+            style="height:5rem; width:15rem; font-size: 2rem;" type="submit">Thanh toán</button>
         </div>
       </div>
     </div>
@@ -309,41 +301,4 @@
 </div>
 
 <script src="/js/payment.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const payButton = document.getElementById('payButton');
 
-    payButton.addEventListener('click', function() {
-        const userId = 'USER_ID'; // Replace with actual user ID
-        const totalPriceElement = document.getElementById('showTotalMoney');
-        let totalPrice = totalPriceElement.innerText;
-        totalPrice = totalPrice.replace(/\D/g,''); // Remove non-numeric characters
-
-        const noteElement = document.getElementById('description');
-        const note = noteElement.value; // Get the value of the note textarea
-
-        fetch('/order/CreatAndSendToken', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                totalAmount: totalPrice, 
-                userId: userId,
-                note: note // Include the note in the data sent
-            }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            // Handle success (e.g., show a success message or redirect)
-            //res.redirect(`https://localhost:1234/getPayment`);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            // Handle errors (e.g., show an error message)
-        });
-    });
-});
-
-</script>

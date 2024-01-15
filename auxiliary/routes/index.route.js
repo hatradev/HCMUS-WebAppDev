@@ -45,48 +45,107 @@ function route(app) {
   });
 
 
-  // app.post("/payment", async (req, res, next) => {
-  //     try {
-  //       // Giải mã JWT
-  //       const token = req.body.token;
-  //       if (!token) {
-  //         return res.status(400).json({ error: "No token provided" });
-  //       }
-
-  //       const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
-  //       const responseData = { success: "successfully sending order", orderData: decoded };
-  //       // Gửi phản hồi
-  //       res.json(responseData);
-  //       res.redirect('https://localhost:1234/getPayment');
-  //     } catch (error) {
-  //       // Xử lý lỗi JWT hoặc lỗi khác
-  //       next(error);
-  //     }
-  // });
- 
-  app.get("/getPayment", async (req, res, next) => {
+  app.post("/payment", async (req, res, next) => {
       try {
         // Giải mã JWT
-        // const token = req.body.token;
-        const token = req.query.token;
+        const token = req.body.token;
         if (!token) {
-          return res.status(400).json({ error: "No token provided" });
+          return { error: "POST No token provided" };
+        }
+        else {
+          res.redirect(`/getPayment?token=${encodeURIComponent(token)}`);
+          // const redirectUrl = `https://localhost:1234/getPayment?token=${encodeURIComponent(token)}`;
+          // // res.redirect(redirectUrl);
+          // fetch(redirectUrl).then(response => {
+          //   if (!response.ok) {
+          //     throw new Error('Network response was not ok');
+          //   }
+          //   return response.json();
+          // })
+          // .then(data => {
+          //   console.log(data);
+          // })
+          // .catch(error => {
+          //   console.error('There has been a problem with your fetch operation:', error);
+          // });
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
-        const responseData = { success: "successfully sending order", orderData: decoded };
+        // const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
+        // const responseData = { success: "successfully sending order", orderData: decoded };
         // Gửi phản hồi
-        console.log("check AUX last");
-        console.log(decoded);
-        console.log("end check AUX last");
-        res.render("payment");
         // res.json(responseData);
         // res.redirect('https://localhost:1234/getPayment');
+        
       } catch (error) {
         // Xử lý lỗi JWT hoặc lỗi khác
         next(error);
       }
   });
+
+  app.get("/getPayment", async (req, res, next) => {
+    try {
+        // console.log("QUERY: ", req.query);
+        // console.log("BODY: ", req);
+        // res.send("error");
+        if (JSON.stringify(req.query) !== '{}') {
+          // console.log(req.isAuthenticated())
+          // Lấy token từ query string
+          console.log("Check received query data last: ", req.query);
+          const token = req.query.token;
+          console.log(token);
+          console.log("NOT TOKEN");
+          console.log(!token);
+
+          if (!token) {
+              console.log(1);
+              return res.status(400).json({ error: "No token provided" });
+          }
+
+          // Giải mã token
+          const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
+          console.log("check AUX last");
+          console.log(decoded);
+          console.log("end check AUX last");
+          
+          res.render("payment", {order: decoded.order});
+        } else {
+          res.send("BUG");
+        }
+    } catch (error) {
+        // Xử lý lỗi giải mã JWT hoặc lỗi khác
+        next(error);
+    } 
+});
+
+ 
+  // app.get("/getPayment", async (req, res, next) => {
+  //     try {
+  //       console.log("Received query data: ", req.query);
+  //       if (!req.query) {
+  //         return res.status(400).json({ error: "No data provided" });
+  //     }
+
+  //     // Phân tích dữ liệu JSON
+  //     const parsedData = JSON.parse(decodeURIComponent(req.query.data));
+  //     if (!parsedData.token) {
+  //         return res.status(400).json({ error: "Token not found in data" });
+  //     }
+
+  //     const decoded = jwt.verify(parsedData.token, process.env.JWT_ACCESS_KEY);
+
+  //       const responseData = { success: "successfully sending order", orderData: decoded };
+  //       // Gửi phản hồi
+  //       console.log("check AUX last");
+  //       console.log(decoded);
+  //       console.log("end check AUX last");
+  //       res.render("payment");
+  //       // res.json(responseData);
+  //       // res.redirect('https://localhost:1234/getPayment');
+  //     } catch (error) {
+  //       // Xử lý lỗi JWT hoặc lỗi khác
+  //       next(error);
+  //     }
+  // });
 
 
 
