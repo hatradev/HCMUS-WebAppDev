@@ -14,7 +14,11 @@ class orderController {
     try {
       const accBuyer = await Account.findOne({ _id: req.cookies.user._id })
         .populate("cart.id_product");
-  
+      
+      let totalAmount = 0;
+      accBuyer.cart.forEach(cartItem => {
+          totalAmount += cartItem.quantity * cartItem.id_product.price; // Giả sử mỗi item có 'price'
+      });
   
       // Tạo một mảng chi tiết đơn hàng từ giỏ hàng
       const orderDetails = accBuyer.cart.map(cartItem => ({
@@ -37,7 +41,7 @@ class orderController {
       const accessToken = jwt.sign(
         {
           order: newOrder,
-          totalPrice: req.body.totalAmount,
+          totalPrice: totalAmount,
         },
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }

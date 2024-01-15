@@ -107,7 +107,7 @@ function route(app) {
           console.log(decoded);
           console.log("end check AUX last");
           
-          res.render("payment", {order: decoded.order});
+          res.render("payment", {order: decoded.order, totalPrice: decoded.totalPrice});
         } else {
           res.send("BUG");
         }
