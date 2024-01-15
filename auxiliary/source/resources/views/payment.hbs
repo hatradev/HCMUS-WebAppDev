@@ -24,6 +24,18 @@
         </div>
         <div class="form-group">
           <input
+            id="customerID"
+            name="customerID"
+            type="hidden"
+            class="form-control input-sm validate[required,custom[phone]]"
+            value="{{order.idaccount}}"
+            placeholder="Điện thoại *"
+            fdprocessedid="a8l56b"
+            style="font-size: 1.5rem;"
+          />
+        </div>
+        <div class="form-group">
+          <input
             id="customerMobile"
             name="customerMobile"
             type="text"
@@ -104,18 +116,6 @@
           <table class="table table-checkout" border="0" cellspacing="10">
             <tfoot>
               <tr>
-                <td colspan="2"><strong>Tạm tính</strong></td>
-                <td>1.245.000 đ</td>
-              </tr>
-              <tr>
-                <td colspan="2">Phí vận chuyển</td>
-                <td id="shipFee" value="0">0 đ</td>
-              </tr>
-              <tr>
-                <td colspan="2"><strong>Mã giảm giá</strong></td>
-                <td id="txtCode" value="0">0 đ</td>
-              </tr>
-              <tr>
                 <td colspan="2"><strong>Tổng cộng</strong></td>
                 <td id="showTotalMoney" class="totalPrice" value="1245000">
                   {{totalPrice}}
@@ -172,41 +172,16 @@
   </div>
 </div>
 
-<script src="/js/payment.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const payButton = document.getElementById('payButton');
+    var payButton = document.getElementById('payButton');
+    var totalPrice = '{{totalPrice}}';
+    var accountId = '{{order.idaccount}}';
 
     payButton.addEventListener('click', function() {
-        const userId = 'USER_ID'; // Replace with actual user ID
-        const totalPriceElement = document.getElementById('showTotalMoney');
-        let totalPrice = totalPriceElement.innerText;
-        totalPrice = totalPrice.replace(/\D/g,''); // Remove non-numeric characters
-
-        const noteElement = document.getElementById('description');
-        const note = noteElement.value; // Get the value of the note textarea
-
-        fetch('/order/CreatAndSendToken', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                totalAmount: totalPrice, 
-                userId: userId,
-                note: note // Include the note in the data sent
-            }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            // Handle success (e.g., show a success message or redirect)
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            // Handle errors (e.g., show an error message)
-        });
+      window.location.href = '/payment/authenticate?total=' + encodeURIComponent(totalPrice) + '&idaccount=' + encodeURIComponent(accountId);
     });
-});
-
+  });
 </script>
+
+

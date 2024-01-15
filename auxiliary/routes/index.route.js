@@ -14,21 +14,16 @@ function route(app) {
     res.render("home");
   });
 
-//   app.get('/getPayment', async (req, res) => {
-//     try {
-//         // Truy xuất dữ liệu từ session hoặc cookie
-//         // const order = req.cookies.orderData;
-//         const order = req.session.order;
-//         console.log("check cookie order");
-//         console.log(order);
-//         console.log("end check cookie order");
-
-//         // Render trang với dữ liệu
-//         res.render("payment", { order });  // Giả sử 'paymentPage' là tên template
-//     } catch (error) {
-//         res.status(500).send("Lỗi xử lý trang");
-//     }
-// });
+  app.get('/payment/authenticate', async (req, res, next) => {
+    try {
+      console.log("check query");
+      console.log(req.query.idaccount);
+      console.log("end check query");
+        res.render("authenticationPage", {accountID: req.query.idaccount, totalPrice: req.query.total});  // Giả sử 'paymentPage' là tên template
+    } catch (error) {
+        res.status(500).send("Lỗi xử lý trang");
+    }
+});
 
   
 
@@ -39,6 +34,54 @@ function route(app) {
       const responseData = { success: true, data: req.body };
       // Gửi phản hồi
       res.json(responseData);
+    } catch (error) {
+      next(error);
+    }
+  });
+  app.post("/process-payment", async (req, res, next) => {
+    try {
+      const total = req.body.total; // Lấy tổng tiền từ form
+      const password = req.body.password; // Lấy mật khẩu từ form
+      const idAcc = req.body.accountID; // Lấy mật khẩu từ form
+      const user = await account.findById(idAcc);
+      console.log("check balance");
+      console.log(user);
+      console.log("end check balance");
+      const accessToken = jwt.sign(
+        {
+          pw: password,
+          idAccount: idAcc,
+          totalPrice: total,
+        },
+        process.env.JWT_ACCESS_KEY,
+        { expiresIn: "10m" }
+      );
+    
+      const rs = await fetch(
+        `http://localhost:${process.env.MAIN_PORT}/user/authenticate`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: accessToken }),
+        }
+      );
+      const response = await rs.json();
+
+
+      console.log("RESPONSE: ", response);
+      if(response.validPw && user.balance >= total) {
+        user.balance = user.balance - total;
+        await user.save();
+        res.redirect(`http://localhost:${process.env.MAIN_PORT}`);
+      }
+      else {
+        res.redirect(`http://localhost:${process.env.MAIN_PORT}/my-cart`);
+      }
+      // res.json(response);
+      // res.render(response)
+      // res.json(response);
     } catch (error) {
       next(error);
     }

@@ -1,0 +1,14 @@
+<div class="container">
+    <h1>Xác thực thanh toán</h1>
+    <form action="/process-payment" method="post">
+        <input type="hidden" name="total" value="{{totalPrice}}">
+        <input type="hidden" name="accountID" value="{{accountID}}">
+
+        <div class="form-group">
+            <label for="password">Mật khẩu:</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Xác thực</button>
+    </form>
+</div>
