@@ -24,6 +24,20 @@ function route(app) {
         res.status(500).send("Lỗi xử lý trang");
     }
 });
+  app.get('/order/invalidPW', async (req, res, next) => {
+    try {
+        res.render("invalidPW", {idOrder: req.query.id});  // Giả sử 'paymentPage' là tên template
+    } catch (error) {
+        res.status(500).send("Lỗi xử lý trang");
+    }
+});
+  app.get('/order/inValidBalance', async (req, res, next) => {
+    try {
+        res.render("invalidPW", {idOrder: req.query.id});  // Giả sử 'paymentPage' là tên template
+    } catch (error) {
+        res.status(500).send("Lỗi xử lý trang");
+    }
+});
 
   
 
@@ -89,9 +103,18 @@ function route(app) {
         const response2 = await r.json();
         // res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/index`);
         // res.json(response2);
+        res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/detail?id=${encodeURIComponent(idOrder)}`);
+      }
+      else if(!response.validPw){
+        res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/detail?id=${encodeURIComponent(idOrder)}&err=${encodeURIComponent("wrong-password")}`);
+      }
+      else {
+        // res.redirect(`/order/inValidBalance?id=${encodeURIComponent(idOrder)}`);
+        res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/detail?id=${encodeURIComponent(idOrder)}&err=${encodeURIComponent("not-enough-money")}`);
+
       }
 
-      res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/index`);
+      
       // res.json(response);
       // res.render(response)
       // res.json(response);

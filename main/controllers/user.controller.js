@@ -117,7 +117,7 @@ class userController {
       const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
       const order = await Order.findById(decoded.idorder);
       const user = await User.findById(decoded.idAccount);
-      order.status = "successful";
+      order.status = "pending";
       await order.save();
       // Xóa giỏ hàng sau khi tạo đơn hàng
       user.cart = [];

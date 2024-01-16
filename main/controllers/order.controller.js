@@ -213,6 +213,8 @@ class orderController {
   getOrderDetail = async (req, res, next) => {
     try {
       const orderId = req.query.id;
+      // const error = req.query.err;
+      let error = parseInt(req.body.err, 10);
       const order = await Order.findById(orderId);
       const obj = {
         _id: order._id,
@@ -240,6 +242,7 @@ class orderController {
         prds,
         lastname: req.cookies.user.lastname,
         firstname: req.cookies.user.firstname,
+        err: error,
       });
     } catch (err) {
       next(err);
