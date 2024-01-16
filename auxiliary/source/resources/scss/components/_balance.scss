@@ -1,3 +1,4 @@
+#rechargeForm input,
 #transactions input{
     font-size: 14px;
 }
@@ -32,6 +33,11 @@
     background-color: #fff;
     border-radius: 5px;
 }
+
+#transactionList li:hover{
+    background-color: #f5d6d6
+}
+
 #transactionList{
     max-height: 380px;
     padding: 10px;
@@ -51,6 +57,8 @@
 }
 
 #rechargeForm {
+    height: 150px; 
+    width: 250px;
     display: none;
     position: fixed;
     top: 50%;
@@ -75,3 +83,21 @@
     background-color: #344767;
     color: #fff;
 }
+
+//transaction detail
+#transactionDetail {
+    height: 400px; 
+    width: 500px;
+    font-size: 16px;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #344767;
+    color:#fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
