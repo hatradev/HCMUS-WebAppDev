@@ -55,14 +55,10 @@ class productController {
 
   APIRelatedProducts = async (req, res, next) => {
     try {
-      const {
-        productId,
-        page = 1,
-        limit = defaultLimit,
-      } = req.query;
+      const { productId, page = 1, limit = defaultLimit } = req.query;
 
       // console.log(page);
-  
+
       // console.log(productId);
 
       const objectId = new mongoose.Types.ObjectId(productId);
@@ -70,16 +66,16 @@ class productController {
       // console.log(product);
       const currentCategory = await Category.findById(product.category).lean();
       // console.log(currentCategory);
-  
+
       if (!product) {
         res.status(404).send("Product not found");
         return;
       }
-  
+
       let related = [];
       let totalProducts = 0;
       let query = {};
-  
+
       let skip = (page - 1) * limit;
       const calculateSkip = (skip, totalProducts, relatedLength) => {
         skip -= totalProducts - relatedLength;
@@ -87,7 +83,7 @@ class productController {
         // console.log(skip);
         return skip;
       };
-  
+
       // Find related products in the same category
       // console.log(product.category);
       // console.log(objectId);
@@ -96,14 +92,11 @@ class productController {
       query = {
         category: product.category,
         _id: { $ne: objectId },
-      }
-      related = await Product.find(query)
-        .skip(skip)
-        .limit(limit)
-        .lean();
+      };
+      related = await Product.find(query).skip(skip).limit(limit).lean();
       totalProducts += await Product.countDocuments(query);
       skip = calculateSkip(skip, totalProducts, related.length);
-  
+
       // If the limit is not reached, continue with child categories
       // console.log(skip - related.length);
       if (related.length < limit) {
@@ -113,12 +106,12 @@ class productController {
         }).lean();
 
         // console.log(childCategories);
-  
+
         for (const childCategory of childCategories) {
           query = {
             category: childCategory._id,
             _id: { $ne: objectId },
-          }
+          };
           const skipValue = skip;
           const limitValue = limit - related.length;
           const childProducts = await Product.find(query)
@@ -132,7 +125,7 @@ class productController {
           if (related.length >= limit) break;
         }
       }
-  
+
       // console.log(related.length);
       // console.log(totalProducts);
 
@@ -142,12 +135,12 @@ class productController {
           parentCategory: currentCategory.parentCategory,
           _id: { $ne: currentCategory._id },
         }).lean();
-      
+
         for (const siblingCategory of siblingCategories) {
           query = {
             category: siblingCategory._id,
             _id: { $ne: objectId },
-          }
+          };
           const skipValue = skip;
           const limitValue = limit - related.length;
 
@@ -173,7 +166,7 @@ class productController {
         query = {
           category: currentCategory.parentCategory,
           _id: { $ne: objectId },
-        }
+        };
         const skipValue = skip;
         const limitValue = limit - related.length;
         const ancestorProducts = await Product.find(query)
@@ -186,9 +179,9 @@ class productController {
       }
 
       // console.log(related.length);
-    
+
       const totalPages = Math.ceil(totalProducts / limit);
-  
+
       const pageNumbers = [];
       for (let i = 1; i <= totalPages; i++) {
         pageNumbers.push({
@@ -212,7 +205,7 @@ class productController {
       console.error(err);
       next(err);
     }
-  }  
+  };
 
   // APIRelatedProducts = async (req, res, next) => {
   //   try {
@@ -414,9 +407,9 @@ class productController {
 
       // Sorting logic
       let sortQuery = {};
-      if (sortOrder === 'low-to-high') {
+      if (sortOrder === "low-to-high") {
         sortQuery.price = 1; // Ascending order
-      } else if (sortOrder === 'high-to-low') {
+      } else if (sortOrder === "high-to-low") {
         sortQuery.price = -1; // Descending order
       }
 
