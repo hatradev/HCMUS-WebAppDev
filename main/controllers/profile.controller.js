@@ -8,13 +8,16 @@ class profileController {
     try {
       // console.log(req.cookies);
       const user = await User.findById(req.cookies.user._id) ;
+      console.log(user);
       res.render("profile", {
         lastname: user.lastname,
         firstname: user.firstname,
         phone: user.phone,
         email: user.email,
         address: user.address,
+        avatar: user.avatar || "",
       });
+      
     } catch (err) {
       next(err);
     }

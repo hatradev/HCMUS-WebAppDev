@@ -94,6 +94,7 @@ class authController {
           lastname: googleUser.given_name,
           firstname: googleUser.family_name,
           email: googleUser.email,
+          avatar: googleUser.picture,
         });
       }
     } catch (err) {
