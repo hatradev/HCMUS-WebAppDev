@@ -14,7 +14,7 @@ class profileController {
         phone: user.phone,
         email: user.email,
         address: user.address,
-        avatar: user.avatar || "",
+        avatar: user.avatar || "/img/logo/default.jpg",
       });
       
     } catch (err) {
