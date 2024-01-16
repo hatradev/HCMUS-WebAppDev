@@ -1,11 +1,11 @@
 const express = require("express");
 const productController = require("../controllers/product.controller");
-const userController = require('../controllers/user.controller');
+const userController = require("../controllers/user.controller");
 
 const router = express.Router();
 
-router.use(userController.checkRole('user'));
- 
+router.use(userController.checkRole("user"));
+
 router.get("/", productController.renderAllProduct);
 router.get("/:productId", productController.showSpecificProduct);
 
@@ -18,6 +18,5 @@ router.delete("/cart/:id", productController.deleteFromCart);
 // router.post('/update-cart-quantity/:id', productController.updateCartQuantity);
 router.post("/cart/update", productController.updateQuantityInCart);
 router.post("/cart/add", productController.addToCart);
-
 
 module.exports = router;
