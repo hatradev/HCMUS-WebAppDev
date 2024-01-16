@@ -19,7 +19,7 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   date: { type: Date, default: Date.now },
-  isOnline: Boolean,
+  reason: String,
 });
 
 const Order = mongoose.model("order", orderSchema);
