@@ -1,8 +1,6 @@
 import fetchProducts from './fetchProducts.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // console.log('DOM loaded. 🥳');
-
   const filterButton = document.getElementById('filter-btn');
   if (filterButton) {
       filterButton.addEventListener('click', applyFilters);
@@ -26,18 +24,4 @@ function applyFilters(event) {
     currentState.page = 1; // Reset the page number to 1
 
     fetchProducts();
-
-    // // Construct the URL for the API request
-    // const url = `/product/api/filter-products?category=${selectedCategory}&minPrice=${minPrice}&maxPrice=${maxPrice}`;
-
-    // fetch(url)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //       renderProducts(data.products);
-
-    //       updatePagination(data.total, data.page, data.totalPages);
-    //     })
-    //     .catch(error => {
-    //         console.error('Error fetching filtered products:', error);
-    //     });
 }

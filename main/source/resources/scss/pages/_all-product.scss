@@ -182,6 +182,9 @@
 
     .product-section {
       height: 100%;
+      margin-left: $font-size-primary;
+      padding: 0;
+
       .trend {
         margin-top: 0;
         margin-bottom: 0;
@@ -257,6 +260,32 @@
   /* Other styles as needed */
 }
 
-#filter-btn {
+#filter-btn, #dropdownMenuButton1 {
   background-color: $color-pink-primary;
 }
+
+#filter-btn, #dropdownMenuButton1, .dropdown-menu {
+  width: 60%; /* This will make the dropdown menu the same width as its parent .dropdown */
+}
+
+// .dropdown button.btn {
+//   font-size: 1.5rem; /* Increase font size */
+//   // padding: 10px 20px; /* Increase padding */
+// }
+
+.btn-js-add-cart {
+  padding: 0.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-item {
+  font-size: $font-size-secondary;
+}
+
+

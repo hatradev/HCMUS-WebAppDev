@@ -8,10 +8,12 @@ function route(app) {
     let user = await account.find({});
     if (user) {
       console.log(user);
+
+      res.render("index");
     } else {
       console.log("fail");
     }
-    res.render("home");
+    // res.render("home");
   });
 
   app.get('/payment/authenticate', async (req, res, next) => {

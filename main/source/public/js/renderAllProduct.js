@@ -19,6 +19,8 @@ import fetchProducts from './fetchProducts.js';
 
 // Call this function on page load and on pagination click events
 document.addEventListener('DOMContentLoaded', () => {
+    // console.log('renderAllProduct.js loaded');
+
     currentState.mode = 'normal';
     currentState.page = 1;
     fetchProducts(); // Load first page on initial load
