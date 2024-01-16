@@ -9,7 +9,7 @@
         <div class="row balance-header d-flex align-items-center rounded-4">
           <div class="col-md-6">
             <div id="balance" class="offset-md-1">
-              <p>Số Dư: <span class="ms-3 fs-2 fw-bold">$1,000.00</span></p>
+              <p>Số Dư: <span class="ms-3 fs-2 fw-bold">{{formatCurrency balance}}</span></p>
             </div>
           </div>
           <div class="col-md-6">
@@ -37,35 +37,32 @@
                     <button class="" onclick="filterTransactionsByDateRange()">Tìm</button>
                   </div>
                 </div>
-                <ul class="list-group mt-3 overflow-y-auto overflow-x-hidden" id="transactionList" >
-                  <li class="mb-3"> 
+                <ul class="list-group mt-3 overflow-y-auto overflow-x-hidden" id="transactionList">
+                  {{#each history }}
+                  <li class="mb-3">
                     <div class="row d-flex align-items-center">
-                      <div class="col-6">
-                        <p class="fw-bold"> abcefgh</p>
-                      <span class="small">27 March 2020, at 12:30 PM</span>
+                      <div class="col-9">
+                        <p class="fw-bold"> MGD: {{id}}</p>
+                        <span class="small">{{formatDate date}}</span>
                       </div>
-                      <div class="col-6">
-                        <span class="fw-bold text-success">+ 120.000đ</span>
+                      <div class="col-3 text-end">
+                        {{#if isIn}}
+                          <span class="fw-bold text-success">+ {{formatCurrency money}}</span>
+                        {{else}}
+                           <span class="fw-bold text-danger">- {{formatCurrency money}}</span>
+                        {{/if}}
+                        
                       </div>
                     </div>
                   </li>
-                  <li>
-                    <div class="row d-flex align-items-center">
-                      <div class="col-6">
-                        <p class="fw-bold"> abcefgh</p>
-                      <span class="small">27 March 2020, at 12:30 PM</span>
-                      </div>
-                      <div class="col-6">
-                        <span class="fw-bold text-danger">- 120.000đ</span>
-                      </div>
-                    </div>
-                  </li>
+                  {{/each}}
+
                 </ul>
               </div>
               {{!-- biểu đồ --}}
               <div class="col-md-6">
                 <div id="chart">
-                  <p class="fs-2 fw-bold mb-2">Biểu Đồ biến động số dư</p>
+                  <p class="fs-2 fw-bold mb-2">Biểu đồ biến động số dư</p>
                   <canvas id="lineChart"></canvas>
                 </div>
               </div>
@@ -78,14 +75,31 @@
 </div>
 
 <script>
-   updateChart();
-    function updateChart() {
+  updateChart();
+  function updateChart() {
     var ctx = document.getElementById('lineChart').getContext('2d');
-    var data = {
-      labels: ["Giao Dịch 1", "Giao Dịch 2"],
+
+    let labels = ["{{getCurrentDate}}"];
+    {{#each history}}
+      labels.push("{{dateOfOrder date}}");
+    {{/each}}
+
+    let dataS = [{{balance}}];
+    {{#each history}}
+      dataS.push("{{this.balance}}");
+    {{/each}}
+    console.log(dataS);
+
+    if (labels[0] === labels[1]){
+      labels = labels.shift();
+      dataS = dataS.shift();
+    }
+
+    const data = {  
+      labels: labels.reverse(),
       datasets: [{
         label: 'Số Dư',
-        data: [950.00, 1050.00],
+        data: dataS.reverse(),
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1

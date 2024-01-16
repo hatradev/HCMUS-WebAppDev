@@ -6,6 +6,7 @@ const historySchema = new mongoose.Schema({
   money: Number,
   balance: Number,
   description: String,
+  date: Date,
 });
 
 const History = mongoose.model("history", historySchema);

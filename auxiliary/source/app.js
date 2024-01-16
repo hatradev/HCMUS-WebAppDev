@@ -22,6 +22,7 @@ app.engine(
   "hbs",
   hbs.engine({
     extname: ".hbs",
+    helpers: require("../../main/helpers/handlebars"),
   })
 );
 
