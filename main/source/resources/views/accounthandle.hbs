@@ -3,6 +3,53 @@
     {{>sidebar}}
   </div>
   <div class="col-10 admin-content admin-account">
-
+    <div class="container mt-5">
+      <!-- Page Heading -->
+      <div class="mb-4 d-sm-flex align-items-center justify-content-between">
+          <h1 class="h1 mb-0 text-gray-800">Quản lý người dùng</h1>
+          <a href="#" class="d-none d-sm-inline-block btn btn-primary bg-primary shadow-sm" style="font-size: 1.75rem;" data-bs-toggle="modal" data-bs-target="#accountModal" data-bs-type="Create"><i class="fa-solid fa-circle-plus"></i> Tạo tài khoản mới</a>
+      </div>
+      <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card shadow mb-4 pointer" data-bs-toggle="modal" data-bs-target="#accountModal" data-bs-whatever="@mdo" data-bs-type="Update">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+                <h1 class="h3 m-0 font-weight-bold ptext-primary p-2">Tên Hoàng Anh Trà</h1>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="accountModalLabel">New message</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                <input type="text" class="form-control" id="recipient-name">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="form-control" id="message-text"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary bg-primary" id="modalsubmit">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+<script src="/js/admin-accountmodal.js"></script>
