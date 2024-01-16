@@ -11,4 +11,6 @@ router.post('/sendtoken', userController.sendToken);
 
 router.get("/logout", userController.Logout);
 
+router.get("/handle", userController.getHandle);
+
 module.exports = router;

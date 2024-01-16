@@ -229,6 +229,14 @@ class productController {
       res.status(500).send("Error filtering products");
     }
   };
+
+  getHandle = async (req, res, next) => {
+    try {
+      res.render("producthandle", { nshowHF: true });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 // Export an instance of the controller
