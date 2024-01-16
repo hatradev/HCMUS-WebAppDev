@@ -43,15 +43,7 @@
           </div>
         </div>
 
-        <div class="col-lg-12 col-md-12 col-sm-12" data-label="Nội dung sản phẩm">
-          <div class="blk-pview-content full clearfix">
-            <div class="blk-pview-title">Mô tả sản phẩm</div>
-            <div class="content full clearfix">
-              <!-- Product description -->
-              <p>{{product.description}}</p>
-            </div>
-          </div>
-        </div>
+        {{!-- old description place --}}
 
         <div class="blk-att" data-label="Màu sắc, size sản phẩm">
           <div class="r-at-r d-flex align-items-center">
@@ -104,6 +96,16 @@
       <!-- end blk-pview-info -->
 
       <div class="trend w-100 d-flex flex-column justify-content-center">
+
+        <div class="col-lg-12 col-md-12 col-sm-12 mt-5" data-label="Nội dung sản phẩm">
+          <div class="blk-pview-content full clearfix">
+            <div class="blk-pview-title">Mô tả sản phẩm</div>
+            <div class="content full clearfix">
+              <!-- Product description -->
+              <p>{{product.description}}</p>
+            </div>
+          </div>
+        </div>
 
         <div class="row justify-content-center">
           <div class="rectangle col"></div>

@@ -190,6 +190,7 @@ class productController {
         category,
         minPrice,
         maxPrice,
+        sortOrder,
         page = 1,
         limit = defaultLimit,
       } = req.query;
@@ -214,7 +215,18 @@ class productController {
       const totalProducts = await Product.countDocuments(query);
       const totalPages = Math.ceil(totalProducts / limit);
 
+      // Sorting logic
+      let sortQuery = {};
+      if (sortOrder === 'low-to-high') {
+        sortQuery.price = 1; // Ascending order
+      } else if (sortOrder === 'high-to-low') {
+        sortQuery.price = -1; // Descending order
+      }
+
+      // console.log(sortQuery);
+
       const filteredProducts = await Product.find(query)
+        .sort(sortQuery)
         .skip(skip)
         .limit(limit)
         .lean();

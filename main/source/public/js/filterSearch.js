@@ -27,6 +27,13 @@ function getProducts(event) {
     const minPrice = document.getElementById('price_form').getAttribute('data-size');
     const maxPrice = document.getElementById('price_to').getAttribute('data-size');
 
+    // Price sorting order
+    const dropdownButton = document.getElementById('dropdownMenuButton1');
+    // console.log(dropdownButton.textContent);
+    // dropdownButton.textContent = 'Thấp đến cao' || 'Cao đến thấp';
+    const priceSortingOrder = dropdownButton.textContent.includes('Thấp đến cao') ? 'low-to-high' : 'high-to-low';
+    // console.log(priceSortingOrder);
+
     // Retrieve search query
     const searchInput = document.querySelector('.search-input');
     const searchKeyword = searchInput ? searchInput.value : '';
@@ -35,7 +42,8 @@ function getProducts(event) {
     currentState.filterParams = {
         selectedCategory,
         minPrice,
-        maxPrice
+        maxPrice,
+        priceSortingOrder
     };
     currentState.searchQuery = searchKeyword;
     currentState.page = 1;

@@ -7,7 +7,7 @@ function updatePagination(paginationData) {
       return; // Exit if no container is found
     }
 
-    if (!paginationData.pages || paginationData.pages.length === 0) {
+    if (!paginationData.pages || paginationData.pages.length === 0 || paginationData.pages.length === 1) {
         paginationContainer.style.display = 'none'; // Hide the container if no pages
         return;
     } else {
