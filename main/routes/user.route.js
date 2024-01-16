@@ -8,6 +8,8 @@ router.get("/signup", userController.getSignUpP);
 router.post("/signup", userController.SignUp);
 router.post("/signin", userController.SignIn);
 router.post("/sendtoken", userController.sendTokenAndSaveUser);
+router.post("/authenticate", userController.authenticatePassword);
+router.post("/paymentSuccess", userController.paymentSuccess);
 
 router.get("/logout", userController.isLogin, userController.Logout);
 

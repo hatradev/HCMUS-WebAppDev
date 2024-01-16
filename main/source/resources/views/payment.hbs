@@ -3,6 +3,7 @@
     id="formCheckOut"
     class="formCheckOut formAcount validate"
     method="post"
+    action="/order/CreatAndSendToken"
   >
     <div class="row">
       <div class="col-checkout col-left col-xl-4 col-lg-6 col-12">
@@ -287,15 +288,9 @@
         </div>
         <div id="mss-confirm"></div>
 
-        <div
-          class="d-block d-flex justify-content-end"
-          style="margin-top: 1.5rem;"
-        >
-          <div
-            id="js-btn-submit"
-            class="btn btn-pink d-flex justify-content-center align-items-center"
-            style="height:5rem; width:15rem; font-size: 2rem;"
-          >Thanh toán</div>
+        <div class="d-block d-flex justify-content-end" style="margin-top: 1.5rem;">
+          <button class="btn btn-pink d-flex justify-content-center align-items-center"
+            style="height:5rem; width:15rem; font-size: 2rem;" type="submit">Thanh toán</button>
         </div>
       </div>
     </div>
@@ -306,3 +301,4 @@
 </div>
 
 <script src="/js/payment.js"></script>
+

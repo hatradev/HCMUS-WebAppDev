@@ -7,5 +7,8 @@ router.use(userController.checkRole('user'));
 
 router.get("/index", orderController.getOrderHistory);
 router.get("/detail", orderController.getOrderDetail);
+router.post("/CreatAndSendToken", orderController.CreateOrderForCartAndSendToken);
+router.post("/CreatAndSendTokenForBuyNow", orderController.CreateOrderForBuyNowAndSendToken);
+// router.post("/authenticate", orderController.authenticatePassword);
 
 module.exports = router;
