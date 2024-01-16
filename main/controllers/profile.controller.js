@@ -14,7 +14,7 @@ class profileController {
         phone: user.phone,
         email: user.email,
         address: user.address,
-        avatar: user.avatar || "/img/logo/default.jpg",
+        avatar: user.avatar,
       });
       
     } catch (err) {
@@ -24,7 +24,7 @@ class profileController {
   getChangePasswordP = async (req, res, next) => {
     try {
       const user = req.cookies.user;
-      res.render("changePw", {firstname: user.firstname, lastname: user.lastname});
+      res.render("changePw", {firstname: user.firstname, lastname: user.lastname, avatar: user.avatar});
     } catch (err) {
       next(err);
     }

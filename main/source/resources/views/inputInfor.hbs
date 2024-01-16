@@ -1,0 +1,79 @@
+<div class="d-flex justify-content-center mb-5">
+    <div class="card-group mt-5 mb-5">
+        <div class="card left-card border-0">
+            <div class="card-body m-3">
+                <h1 class="card-title fw-bold fs-3 text-center">Để thuận tiện cho việc mua hàng, vui lòng điền thêm các thông tin sau: </h1>
+                <form id="signupForm" action="/user/signup" method="post">
+                    <div class="mb-2">
+                        <label for="inputLastName" class="form-label">Họ</label>
+                        <input type="text" class="form-control mt-0" name="inputLastName" id="inputLastName" value="{{lastname}}" readonly>
+                        <small id="lNameErr" class="form-text text-danger"></small>
+                    </div>
+                    <div class="mb-2">
+                        <label for="inputFirstName" class="form-label mb-1">Tên</label>
+                        <input type="text" class="form-control mt-0" name="inputFirstName" id="inputFirstName" value="{{firstname}}" readonly>
+                        <small id="fNameErr" class="form-text text-danger"></small>
+                    </div>
+                    <div class="mb-2">
+                        <label for="inputEmail" class="form-label mb-1">Email</label>
+                        <input type="email" class="form-control mt-0" name="inputEmail" id="inputEmail" value="{{email}}" readonly>
+                        <small id="emailErr" class="form-text text-danger">{{emailMsg}}</small>
+                    </div>
+                    <div class="mb-2">
+                        <label for="inputPhoneNumber" class="form-label mb-1">Điện thoại</label>
+                        <input type="text" class="form-control mt-0" name="inputPhoneNumber" id="inputPhoneNumber" value="{{phone}}" required>
+                        <small id="phoneNumErr" class="form-text text-danger"></small>
+                    </div>
+                    <div class="mb-2">
+                        <label for="inputAddress" class="form-label mb-1">Điạ chỉ</label>
+                        <input type="text" class="form-control mt-0" name="inputAddress" id="inputAddress" value="{{address}}" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="inputPassword" class="form-label mb-1">Mật khẩu</label>
+                        <input type="password" class="form-control mt-0" name="inputPassword" id="inputPassword"
+                            required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="inputConfirmPassword" class="form-label mb-1">Nhập lại mật khẩu</label>
+                        <input type="password" class="form-control mt-0" name="inputConfirmPassword"
+                            id="inputConfirmPassword" required>
+                        <small id="confirmPwErr" class="form-text text-danger"></small>
+                    </div>
+                    <div class="d-grid gap-2 col-12 mt-4">
+                        <button class="btn btn-outline-dark fs-4" style="height: 4rem" type="submit">Tiếp tục</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="right-card card border-0">
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-8 offset-2">
+                        <img class="w-100"
+                            src="https://media.discordapp.net/attachments/1176168664987345008/1176953088456798208/loginanimi.png?ex=6570bdfb&is=655e48fb&hm=e4693ff912e14c7a1d637ed4e329351b67a4f04b6073ab6570bed2e593c74a19&=&format=webp&width=583&height=395"
+                            alt="">
+                    </div>
+                </div>
+                <div>Quay lại trang đăng nhập? </div>
+                <a class="btn btn-outline-dark mt-2 fs-4" href="/user/signin" role="button">Đăng nhập</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(() => {
+        $('#signupForm').submit(function (e) {
+            const regex = /\D/
+             $('#phoneNumErr').html(regex.test($('#inputPhoneNumber').val()) ? 'Số điện thoại không hợp lệ!' : '');
+            //check confirmPassword
+            $('#confirmPwErr').html(($('#inputPassword').val() != $('#inputConfirmPassword').val()) ? 'Nhập lại mật khẩu không chính xác' : '');
+
+            if ($('#confirmPwErr').html() == '' && $('#phoneNumErr').html() == '') {
+                $('#signupForm').submit();
+            }
+            else {
+                e.preventDefault();
+            }
+        });
+    })
+</script>

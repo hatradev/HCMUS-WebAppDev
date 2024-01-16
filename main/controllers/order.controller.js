@@ -6,8 +6,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
-
-
 class orderController {
 
   CreateOrderForCartAndSendToken = async (req, res, next) => {
@@ -214,6 +212,7 @@ class orderController {
       res.render("orderHistory", {
         firstname: user.firstname,
         lastname: user.lastname,
+        avatar: user.avatar,
         orders: arr,
         filter,
       });
@@ -257,6 +256,7 @@ class orderController {
         prds,
         lastname: req.cookies.user.lastname,
         firstname: req.cookies.user.firstname,
+        avatar: req.cookies.user.avatar,
         err: error,
       });
     } catch (err) {
