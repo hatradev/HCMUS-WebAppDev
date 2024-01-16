@@ -10,6 +10,8 @@ router.get("/", productController.renderAllProduct);
 router.get("/:productId", productController.showSpecificProduct);
 
 router.get("/api/products", productController.APIProducts);
+router.get("/api/related", productController.APIRelatedProducts);
+
 // router.get("/api/all-products", productController.showAllProduct);
 // router.get("/api/filter-products", productController.filterProducts);
 // router.get("/api/search-products", productController.searchProducts);

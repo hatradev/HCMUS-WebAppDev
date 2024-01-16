@@ -2,24 +2,24 @@ import fetchProducts from './fetchProducts.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // first load all-product page
-    getProducts();
+    initFetchProducts();
 
     const filterButton = document.getElementById('filter-btn');
     const searchForm = document.querySelector('.search-bar');
 
     if (filterButton) {
-        filterButton.addEventListener('click', getProducts);
+        filterButton.addEventListener('click', initFetchProducts);
     }
 
     if (searchForm) {
         searchForm.addEventListener('submit', (event) => {
             event.preventDefault(); // Prevent the default form submission
-            getProducts();
+            initFetchProducts();
         });
     }
 });
 
-function getProducts(event) {
+function initFetchProducts(event) {
     if (event) event.preventDefault(); // Prevent the default behavior if event is present
 
     // Retrieve filter parameters
@@ -39,6 +39,7 @@ function getProducts(event) {
     const searchKeyword = searchInput ? searchInput.value : '';
 
     // Update currentState with both search and filter parameters
+    currentState.mode = 'all-product';
     currentState.filterParams = {
         selectedCategory,
         minPrice,

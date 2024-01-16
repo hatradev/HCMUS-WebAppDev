@@ -33,7 +33,7 @@
       <div class="blk-pview-info col-lg-6 col-md-12 col-sm-12">
         <div class="blk-code">
           <div class="title">{{product.name}}</div>
-          <div class="code">Mã sản phẩm: {{product._id}}</div>
+          <div id="product-id" data-product-id="{{product._id}}" class="code">Mã sản phẩm: {{product._id}}</div>
         </div>
 
         <div class="blk-price">
@@ -113,13 +113,14 @@
           <div class="rectangle col"></div>
         </div>
 
-        <div class="row trend-row">
-          {{#each related}}
+        <div class='trend-row row'>
+          {{!-- {{#each related}}
         
               {{> productitem id=this._id image=this.image.[0] title=this.name price=this.price}}
 
-          {{/each}}
+          {{/each}} --}}
         </div>
+        {{> pagination}}
         
       </div>
 
@@ -129,3 +130,7 @@
 
 <script src="/js/handleCartSpecificProduct.js"></script>
 <script src="/js/highestImg.js"></script>
+
+<script src="/js/currentState.js"></script>
+<script type="module" src="/js/renderProducts.js"></script>
+<script type="module" src="/js/relatedProducts.js"></script>

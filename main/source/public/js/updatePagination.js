@@ -1,4 +1,5 @@
 import fetchProducts from './fetchProducts.js';
+import getRelatedProducts from './relatedProducts.js';
 
 function updatePagination(paginationData) {
     const paginationContainer = document.querySelector('.pagination');
@@ -52,7 +53,16 @@ function setupPaginationEventListeners() {
       event.preventDefault();
       if (!this.parentNode.classList.contains('disabled')) {
         currentState.page = this.dataset.page;
-        fetchProducts();
+
+        if (currentState.mode === 'all-product') {
+            fetchProducts();
+        }
+        else if (currentState.mode === 'related') {
+            getRelatedProducts();
+        }
+        else {
+          console.log('Unknown mode for fetchProducts');
+        }
       }
     });
   });

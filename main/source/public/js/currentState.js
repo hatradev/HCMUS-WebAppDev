@@ -1,5 +1,5 @@
 let currentState = {
-    mode: 'normal', // Can be 'filter', 'search', or 'normal'
+    mode: 'all-product',
     page: 1,
     filterParams: {
         selectedCategory: '', // Category for filtering

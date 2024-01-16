@@ -83,27 +83,10 @@
       </div>
     </div>
 
-    <!-- Column for displaying products -->
     <div class='col product-section blk-pro-cat'>
-      <!-- Container for trending products -->
       <section class='trend container'>
-        <div class='trend-row row'>
+        <div class='trend-row row'></div>
 
-          {{!-- <!-- Loop through products and display each one -->
-          {{#each products}}
-            {{> productitem id=this._id image=this.image.[0] title=this.name price=this.price}}
-          {{else}}
-          <!-- Display a message if no products are available -->
-          <div class="col-12">
-            <div class="announcement">
-              Không có sản phẩm phù hợp
-            </div>
-          </div>
-          {{/each}} --}}
-
-        </div>
-
-        <!-- Pagination -->
         {{> pagination}}
       </section>
     </div>
@@ -115,9 +98,11 @@
 <script src="/js/global-link.js"></script> --}}
 {{!-- <script src="/js/filterProducts.js"></script> --}}
 {{!-- <script type="module" src="/js/renderAllProduct.js"></script> --}}
-<script src="/js/currentState.js"></script>
-<script type="module" src="/js/renderProducts.js"></script>
 {{!-- <script type="module" src="/js/applyFilters.js"></script>
 <script type="module" src="/js/searchProducts.js"></script> --}}
-<script type="module" src="/js/filterSearch.js"></script>
+
+<script src="/js/currentState.js"></script>
+<script type="module" src="/js/initFetchProducts.js"></script>
 <script type="module" src="/js/dropDown.js"></script>
+
+{{!-- <script type="module" src="/js/renderProducts.js"></script> --}}
