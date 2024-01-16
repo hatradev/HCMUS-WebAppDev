@@ -14,7 +14,7 @@
           </div>
           <div class="col-md-6">
             <div id="deposit" class="offset-md-7">
-              <button id="addFundsBtn" class="rounded-2" onclick="addFunds()">Nạp Tiền</button>
+              <button id="addFundsBtn" class="rounded-2" onclick="openForm()">Nạp Tiền</button>
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@
                       </div>
                       <div class="col-5 text-end">
                         {{#if isIn}}
-                          <span class="fw-bold text-success">+ {{formatCurrency 100000000000}}</span>
+                          <span class="fw-bold text-success">+ {{formatCurrency money}}</span>
                         {{else}}
                            <span class="fw-bold text-danger">- {{formatCurrency money}}</span>
                         {{/if}}
@@ -72,6 +72,19 @@
       </div>
     </div>
   </div>
+</div>
+
+{{!-- form input money --}}
+<div id="overlay"></div>
+<div id="rechargeForm" class="hidden" style="height: 150px; width: 250px">
+  <form action="/balance/recharge" method="get">
+    <label for="amount">Nhập số tiền cần nạp:</label>
+    <input type="number" class="form-control" id="amount" name="amount" required>
+    <div class="row text-center mt-3">
+      <button type="submit" class="col-5 offset-1 rounded">Xác Nhận</button>
+      <button type="button" class="col-4 offset-1 rounded" onclick="closeForm()">Hủy</button>
+    </div>  
+  </form>
 </div>
 
 <script>
@@ -137,4 +150,15 @@
           window.location.href = `/balance?startDate=${startDate}&endDate=${endDate}`
       }
     }
+
+function openForm() {
+  $("#overlay").css("display", "block");
+  $("#rechargeForm").css("display", "block");
+}
+
+function closeForm() {
+  $("#overlay").css("display", "none");
+  $("#rechargeForm").css("display", "none");
+}
+
 </script>

@@ -7,7 +7,7 @@ class balanceControllers {
   getBalanceP = async (req, res, next) => {
     try {
       let {startDate, endDate} = req.query;
-      const acc = await Acc.findOne({ buyid: "65a5892a37d587e75cddc382" });
+      const acc = await Acc.findOne({ buyid: "659f8a8c0be458c494290c40" });
       let hist;
       if (startDate && endDate){   
         startDate = new Date(startDate);
@@ -37,6 +37,26 @@ class balanceControllers {
       next(err);
     }
   };
+  recharge = async (req, res, next) => {
+    const {amount} = req.query;
+    const acc = await Acc.findOne({ buyid: "659f8a8c0be458c494290c40" });
+    const newBalance = acc.balance + parseInt(amount);
+
+    //update balance
+    await Acc.updateOne({_id: acc._id}, {
+      $set: {balance: newBalance}
+    })
+    //insert history
+    const newHist = {
+      idaccount: acc._id,
+      isIn: true,
+      money: parseInt(amount),
+      balance: newBalance,
+      description: "recharge",
+    }
+    await Hist.create(newHist);
+    res.redirect('/balance');
+  }
 }
 
 module.exports = new balanceControllers();
