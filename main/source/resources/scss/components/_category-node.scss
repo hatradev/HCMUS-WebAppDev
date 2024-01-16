@@ -1,13 +1,13 @@
 .category-tree {
-  list-style-type: none; /* Removes default list styling */
-  padding-left: 0; /* Removes default padding */
+    list-style-type: none; /* Removes default list styling */
+    padding-left: 0; /* Removes default padding */
 }
 
 .category-tree li {
-  margin-bottom: 0.5em; /* Space between categories */
+    margin-bottom: 0.5em; /* Space between categories */
 }
 
 .child-categories {
-  padding-left: 1.5em; /* Indentation for child categories */
-  list-style-type: none; /* Optional: Removes default list styling for child categories */
+    padding-left: 1.5em; /* Indentation for child categories */
+    list-style-type: none; /* Optional: Removes default list styling for child categories */
 }

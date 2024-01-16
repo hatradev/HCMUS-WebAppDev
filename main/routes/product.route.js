@@ -6,21 +6,26 @@ const router = express.Router();
 
 router.use(userController.checkRole("user"));
 
+<<<<<<< Updated upstream
+router.get("/all", productController.showAllProduct);
+=======
 router.get("/", productController.renderAllProduct);
+>>>>>>> Stashed changes
 router.get("/:productId", productController.showSpecificProduct);
 
-router.get("/api/products", productController.APIProducts);
-router.get("/api/related", productController.APIRelatedProducts);
-
-// router.get("/api/all-products", productController.showAllProduct);
-// router.get("/api/filter-products", productController.filterProducts);
-// router.get("/api/search-products", productController.searchProducts);
+router.get("/api/all-products", productController.showAllProduct);
+router.get("/api/filter-products", productController.filterProducts);
+router.get("/api/search-products", productController.searchProducts);
 
 router.delete("/cart/:id", productController.deleteFromCart);
 // router.post('/cart/updateQuantity', productController.updateCartQuantity);
 // router.post('/update-cart-quantity/:id', productController.updateCartQuantity);
 router.post("/cart/update", productController.updateQuantityInCart);
 router.post("/cart/add", productController.addToCart);
+
+<<<<<<< Updated upstream
 router.get("/handle", productController.getHandle);
 
+=======
+>>>>>>> Stashed changes
 module.exports = router;

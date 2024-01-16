@@ -1,4 +1,10 @@
 .filter-groups {
+    .filter-title {
+        h3 {
+            // Styles for your title
+        }
+    }
+
     .widget_price_filter {
         // Styles for your price filter widget
 
@@ -12,10 +18,8 @@
                 position: absolute;
                 height: 100%;
                 background-color: $color-pink-secondary; // Color of the range between handles
-                // margin-left: 10px; // Adjust this value to shift the range to the right
-                // margin-right: 10px; // Adjust this value to reduce the range width from the right
-                margin-left: 0;
-                margin-right: 0;
+                margin-left: 10px; // Adjust this value to shift the range to the right
+                margin-right: 10px; // Adjust this value to reduce the range width from the right
             }
 
             .ui-slider-handle {

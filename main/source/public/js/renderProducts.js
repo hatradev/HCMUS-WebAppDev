@@ -1,5 +1,7 @@
 // Format currency function (client-side version)
 function formatCurrency(price) {
+  // Implement currency formatting logic as per your requirement
+  // For example, to format as a simple comma-separated value:
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " ₫";
 }
 

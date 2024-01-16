@@ -112,10 +112,8 @@
 .blk-code .title {
   font-size: 4rem;
   letter-spacing: 0;
-  // margin-bottom: 5px;
-  // line-height: 1.4;
-  margin: 0;
-  padding: $font-size-secondary 0;
+  margin-bottom: 5px;
+  line-height: 1.4;
 }
 
 .blk-code .code {
@@ -253,6 +251,9 @@
 
 .blk-price .product-price .old {
   font-size: 20px;
+}
+
+.blk-att {
 }
 
 .blk-att .r-at-r {
@@ -635,10 +636,4 @@
 
 .blk-pview-info {
   padding-left: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.blk-pview-info > * {
-  margin: 2rem 0;
 }

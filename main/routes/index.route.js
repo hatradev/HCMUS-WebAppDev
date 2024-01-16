@@ -4,7 +4,6 @@ const profileRouter = require("./profile.route");
 const orderRouter = require("./order.route");
 const productRouter = require("./product.route");
 const CustomErr = require("../helpers/custom-error");
-const authRoutes = require("./auth.route");
 
 function route(app) {
   // Định nghĩa các route theo tài nguyên
@@ -13,7 +12,6 @@ function route(app) {
   app.use("/profile", profileRouter);
   app.use("/order", orderRouter);
   app.use("/product", productRouter);
-  app.use("/auth", authRoutes);
 
   // Hai middlewares này phải để cuối để check lỗi
   app.use((req, res, next) => {

@@ -1,5 +1,26 @@
 <!-- Main container for all products, using Bootstrap classes for styling and layout -->
-<div class='all-product container mt-5 mb-5'>
+<div class='all-product container'>
+  <!-- Section for sorting products, styled with flexbox for alignment -->
+  <div class='sort-section d-flex justify-content-between align-items-center'>
+    <!-- Page title with custom inline styling -->
+    <h1 class='page-title' style="margin-left: -0.9rem; font-weight: 600;">
+      ALL PRODUCTS
+    </h1>
+    <!-- Dropdown menu for sorting products by priority -->
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+        aria-expanded="false">
+        Sort by priority
+      </button>
+      <!-- Dropdown items with links triggering sorting functions on click -->
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="#" onclick="linkSort('/product/all-product/sort?sort=price&order=1')">Low to
+            high price</a></li>
+        <li><a class="dropdown-item" href="#" onclick="linkSort('/product/all-product/sort?sort=price&order=-1')">High
+            to low price</a></li>
+      </ul>
+    </div>
+  </div>
 
   <!-- Row container for filters and products -->
   <div class='row filter-vs-product'>
@@ -24,20 +45,6 @@
           <span class='list-title'>Giá</span>
           <hr />
           {{> moji-filter-price}}
-
-          <div id="price-dropdown-container" class="dropdown d-flex justify-content-center">
-            <button class="btn btn-secondary dropdown-toggle btn-js-add-cart btn-pink mt-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Thấp đến cao
-            </button>
-            <!-- Dropdown items with links triggering sorting functions on click -->
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a id="price-low-high" class="dropdown-item" href="#">
-                Thấp đến cao</a></li>
-              <li><a id="price-high-low" class="dropdown-item" href="#">
-                Cao đến thấp</a></li>
-            </ul>
-          </div>
         </div>
 
         <!-- Category Selection -->
@@ -83,10 +90,28 @@
       </div>
     </div>
 
+    <!-- Column for displaying products -->
     <div class='col product-section blk-pro-cat'>
+      <!-- Container for trending products -->
       <section class='trend container'>
+        <div class='trend-row row'>
+
+          {{!-- <!-- Loop through products and display each one -->
+          {{#each products}}
+            {{> productitem id=this._id image=this.image.[0] title=this.name price=this.price}}
+          {{else}}
+          <!-- Display a message if no products are available -->
+          <div class="col-12">
+            <div class="announcement">
+              Không có sản phẩm phù hợp
+            </div>
+          </div>
+          {{/each}} --}}
+
+        </div>
+
+        <!-- Pagination -->
         {{> pagination}}
-        <div class='trend-row row'></div>
       </section>
     </div>
   </div>
@@ -96,12 +121,8 @@
 {{!-- <script src="/js/all-product.js"></script>
 <script src="/js/global-link.js"></script> --}}
 {{!-- <script src="/js/filterProducts.js"></script> --}}
-{{!-- <script type="module" src="/js/renderAllProduct.js"></script> --}}
-{{!-- <script type="module" src="/js/applyFilters.js"></script>
-<script type="module" src="/js/searchProducts.js"></script> --}}
-
+<script type="module" src="/js/renderAllProduct.js"></script>
 <script src="/js/currentState.js"></script>
-<script type="module" src="/js/initFetchProducts.js"></script>
-<script type="module" src="/js/dropDown.js"></script>
-
-{{!-- <script type="module" src="/js/renderProducts.js"></script> --}}
+<script type="module" src="/js/renderProducts.js"></script>
+<script type="module" src="/js/applyFilters.js"></script>
+<script type="module" src="/js/searchProducts.js"></script>

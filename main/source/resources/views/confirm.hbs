@@ -47,8 +47,7 @@
                     </div>
                 </div>
                 <div>Không đồng ý? </div>
-                <button class="btn btn-outline-dark mt-2 fs-4" role="button" onclick="backSignUp()"> Quay lại trang đăng
-                    ký</button>
+                <button class="btn btn-outline-dark mt-2 fs-4" role="button" onclick="backSignUp()"> Quay lại trang đăng ký</button>
             </div>
         </div>
     </div>
@@ -57,14 +56,11 @@
 
     function sendToken() {
         $.post("/user/sendtoken", {
-            lastname: "{{lastname}}", firstname: "{{firstname}}", email: "{{email}}", phone: "{{phone}}", address: "{{address}}", password: "{{password}}"
-        },
-            rs => {
-                console.log(rs);
-                window.location.href = '/'
-            });
+            lastname: "{{lastname}}", firstname: "{{firstname}}", email: "{{email}}", phone: "{{phone}}", address: "{{address}}", password: "{{password}}" }, rs => {
+            window.location.href = '/user/signin'
+        });
     }
-    function backSignUp() {
+    function backSignUp(){
         window.location.href = `/user/signup?lastname={{lastname}}&firstname={{firstname}}&email={{email}}&phone={{phone}}&address={{address}}`;
     }
 

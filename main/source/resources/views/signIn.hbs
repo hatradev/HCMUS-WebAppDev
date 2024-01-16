@@ -7,14 +7,12 @@
         <form id="signinForm" action="/user/signin" method="post">
           <div class="mb-2">
             <label for="inputEmail" class="form-label">Email</label>
-            <input type="email" class="form-control mt-0" name="inputEmail" id="inputEmail" value="{{inputEmail}}"
-              required>
+            <input type="email" class="form-control mt-0" name="inputEmail" id="inputEmail" value="{{inputEmail}}" required>
             <small id="emailErr" class="form-text text-danger">{{emailMsg}}</small>
           </div>
           <div class="mb-2">
             <label for="inputPassword" class="form-label mt-3">Mật khẩu</label>
-            <input type="password" class="form-control mt-0" name="inputPassword" id="inputPassword"
-              value="{{inputPassword}}" required>
+            <input type="password" class="form-control mt-0" name="inputPassword" id="inputPassword" value="{{inputPassword}}" required>
             <small id="pwErr" class="form-text text-danger">{{pwMsg}}</small>
           </div>
           <div class="d-grid gap-2 col-12 mt-4">
@@ -24,10 +22,12 @@
         </form>
         <hr class="my-4">
         <div class="social-media text-center">
-          <button class="btn btn-lg btn-block btn-primary " style="background-color: #dd4b39;" type="submit"
-            onclick="window.location.href='/auth/google'"><i class="fab fa-google"></i> </button>
-          <button class="btn btn-lg btn-block btn-primary ms-1" style="background-color: #3b5998;" type="submit"
-            onclick="window.location.href='/auth/facebook'"><i class="fab fa-facebook-f me-2"></i></button>
+          <button class="btn btn-lg btn-block btn-primary "
+            style="background-color: #dd4b39;" type="submit"><i
+              class="fab fa-google"></i> </button>
+          <button class="btn btn-lg btn-block btn-primary ms-1"
+            style="background-color: #3b5998;" type="submit"><i
+              class="fab fa-facebook-f me-2"></i></button>
         </div>
       </div>
     </div>
@@ -46,3 +46,49 @@
     </div>
   </div>
 </div>
+<script>
+  // Wait for the DOM to be ready
+  $(document).ready(function() {
+    
+    // Validate and handle the sign-in form submission
+   // function handleSignInFormSubmission() {
+    //  $('#signinForm').on('submit', function(event) {
+     //   event.preventDefault();
+        // Validate username
+       // const username = $('#inputUsername').val();
+        //const invalidCharsRegex = /[\/\\\[\];|=,+\*\?<>]/;
+        //const errorMessage = 'Tên đăng nhập không được chứa các kí tự: / \\ [ ] ; | = , + * ? < >';
+        
+       // $('#usernameErr').text(invalidCharsRegex.test(username) ? errorMessage : '');
+        // If the username is valid, proceed with form submission (uncomment to enable)
+        // if ($('#usernameErr').text() == '') {
+        //   $('#signinForm').submit();
+        // }
+   //   });
+    //}
+    // Function called when the user clicks on the Google sign-in button
+    function onSignIn(googleUser) {
+      console.log(1);
+      const profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+    // Function to initialize the Google Auth client
+    function initGoogleAuthClient() {
+      gapi.load('auth2', function() {
+        gapi.auth2.init({
+          client_id: '420554225529-v2gdq8nue9cq0up7jtsovdecin77cqim.apps.googleusercontent.com',
+          scope: 'profile email'
+        }).then(function() {
+          const GoogleAuth = gapi.auth2.getAuthInstance();
+          GoogleAuth.attachClickHandler('g-signin2', {}, onSignIn);
+        });
+      });
+    }
+    // Initialize functions
+    handleSignInFormSubmission();
+    window.onload = initGoogleAuthClient;
+  });
+</script>
