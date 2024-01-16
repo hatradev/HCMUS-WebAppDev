@@ -11,6 +11,9 @@ $(document).ready(function () {
   if (content.hasClass("admin-categories")) {
     item = 3;
   }
+  if (content.hasClass("admin-order")) {
+    item = 4;
+  }
   $(".nav-link").addClass(function (n) {
     if (n === item) {
       return "active";

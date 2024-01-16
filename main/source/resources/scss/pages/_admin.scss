@@ -4,6 +4,49 @@
 
 .admin-content {
   padding: 0 0;
+  .text-gray-300 {
+    color: #dddfeb !important;
+  }
+  .border-left-primary {
+    border-left: 0.5rem solid #4e73df !important;
+  }
+  .border-left-success {
+    border-left: 0.5rem solid #1cc88a !important;
+  }
+  .border-left-info {
+    border-left: 0.5rem solid #36b9cc !important;
+  }
+  .border-left-warning {
+    border-left: 0.5rem solid #f6c23e !important;
+  }
+  .shadow {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+  }
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #e3e6f0;
+    border-radius: 0.35rem;
+  }
+  .card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 2rem;
+  }
+  .text-gray-800 {
+    color: #5a5c69 !important;
+  }
+  .font-weight-bold {
+    font-weight: 700 !important;
+  }
+  .chartjs-render-monitor {
+    animation: chartjs-render-animation 1ms;
+  }
 }
 
 .admin-sidebar {
