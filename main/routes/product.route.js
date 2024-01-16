@@ -1,12 +1,17 @@
 const express = require("express");
 const productController = require("../controllers/product.controller");
-const userController = require('../controllers/user.controller');
+const userController = require("../controllers/user.controller");
 
 const router = express.Router();
 
-router.use(userController.checkRole('user'));
- 
-router.get("/", productController.renderAllProduct);
+router.use((req, res, next) => {
+  if (req.cookies && req.cookies.obj) {
+    return next();
+  }
+  res.redirect("/user/signin");
+});
+
+router.get("/all", productController.showAllProduct);
 router.get("/:productId", productController.showSpecificProduct);
 
 router.get("/api/all-products", productController.showAllProduct);
@@ -19,5 +24,6 @@ router.delete("/cart/:id", productController.deleteFromCart);
 router.post("/cart/update", productController.updateQuantityInCart);
 router.post("/cart/add", productController.addToCart);
 
+router.get("/api/filter-products", productController.filterProducts);
 
 module.exports = router;
