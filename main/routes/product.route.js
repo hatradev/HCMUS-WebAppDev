@@ -21,5 +21,6 @@ router.delete("/cart/:id", productController.deleteFromCart);
 // router.post('/update-cart-quantity/:id', productController.updateCartQuantity);
 router.post("/cart/update", productController.updateQuantityInCart);
 router.post("/cart/add", productController.addToCart);
+router.get("/handle", productController.getHandle);
 
 module.exports = router;

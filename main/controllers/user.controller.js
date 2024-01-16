@@ -223,6 +223,14 @@ class userController {
     res.clearCookie("user");
     res.redirect("/user/signin");
   };
+
+  getHandle = (req, res, next) => {
+    try {
+      res.render("accounthandle", { nshowHF: true });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 module.exports = new userController();
