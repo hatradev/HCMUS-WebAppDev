@@ -3,7 +3,7 @@ const Product = require("../models/product.model");
 const Category = require("../models/category.model");
 const Account = require("../models/account.model");
 
-const defaultLimit = 8;
+const defaultLimit = 12;
 
 class productController {
   getCategoryTree = async () => {
@@ -34,28 +34,161 @@ class productController {
     }
   };
 
-  showAllProduct = async (req, res, next) => {
+  showSpecificProduct = async (req, res, next) => {
     try {
-      const page = parseInt(req.query.page) || 1;
-      const limit = parseInt(req.query.limit) || defaultLimit;
-      const skip = (page - 1) * limit;
+      const { productId } = req.params;
+      const objectId = new mongoose.Types.ObjectId(productId);
+      const product = await Product.findById(objectId).lean();
+      // console.log(product);
 
-      // Fetch total number of products
-      const totalProducts = await Product.countDocuments();
+      if (!product) {
+        res.status(404).send("Product not found");
+        return;
+      }
 
-      const products = await Product.find().skip(skip).limit(limit).lean();
+      res.render("specific-product", { product });
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  };
 
-      // Calculate total pages
+  APIRelatedProducts = async (req, res, next) => {
+    try {
+      const { productId, page = 1, limit = defaultLimit } = req.query;
+
+      // console.log(page);
+
+      // console.log(productId);
+
+      const objectId = new mongoose.Types.ObjectId(productId);
+      const product = await Product.findById(objectId).lean();
+      // console.log(product);
+      const currentCategory = await Category.findById(product.category).lean();
+      // console.log(currentCategory);
+
+      if (!product) {
+        res.status(404).send("Product not found");
+        return;
+      }
+
+      let related = [];
+      let totalProducts = 0;
+      let query = {};
+
+      let skip = (page - 1) * limit;
+      const calculateSkip = (skip, totalProducts, relatedLength) => {
+        skip -= totalProducts - relatedLength;
+        if (skip < 0) skip = 0;
+        // console.log(skip);
+        return skip;
+      };
+
+      // Find related products in the same category
+      // console.log(product.category);
+      // console.log(objectId);
+      // console.log(skip);
+      // console.log(limit);
+      query = {
+        category: product.category,
+        _id: { $ne: objectId },
+      };
+      related = await Product.find(query).skip(skip).limit(limit).lean();
+      totalProducts += await Product.countDocuments(query);
+      skip = calculateSkip(skip, totalProducts, related.length);
+
+      // If the limit is not reached, continue with child categories
+      // console.log(skip - related.length);
+      if (related.length < limit) {
+        // Fetch child categories
+        const childCategories = await Category.find({
+          parentCategory: product.category,
+        }).lean();
+
+        // console.log(childCategories);
+
+        for (const childCategory of childCategories) {
+          query = {
+            category: childCategory._id,
+            _id: { $ne: objectId },
+          };
+          const skipValue = skip;
+          const limitValue = limit - related.length;
+          const childProducts = await Product.find(query)
+            .skip(skipValue) // Adjust skip based on already fetched products
+            .limit(limitValue)
+            .lean();
+          related = related.concat(childProducts);
+          totalProducts += await Product.countDocuments(query);
+          skip = calculateSkip(skip, totalProducts, related.length);
+
+          if (related.length >= limit) break;
+        }
+      }
+
+      // console.log(related.length);
+      // console.log(totalProducts);
+
+      // Check if more products are needed from sibling categories
+      if (related.length < limit && currentCategory.parentCategory) {
+        const siblingCategories = await Category.find({
+          parentCategory: currentCategory.parentCategory,
+          _id: { $ne: currentCategory._id },
+        }).lean();
+
+        for (const siblingCategory of siblingCategories) {
+          query = {
+            category: siblingCategory._id,
+            _id: { $ne: objectId },
+          };
+          const skipValue = skip;
+          const limitValue = limit - related.length;
+
+          // console.log(skipValue, limitValue);
+
+          const siblingProducts = await Product.find(query)
+            .skip(skipValue) // Adjust skip based on already fetched products
+            .limit(limitValue)
+            .lean();
+          related = related.concat(siblingProducts);
+          totalProducts += await Product.countDocuments(query);
+          skip = calculateSkip(skip, totalProducts, related.length);
+
+          if (related.length >= limit) break;
+        }
+      }
+
+      // console.log(related.length);
+      // console.log(totalProducts);
+
+      // Check if more products are needed from the ancestor category
+      if (related.length < limit && currentCategory.parentCategory) {
+        query = {
+          category: currentCategory.parentCategory,
+          _id: { $ne: objectId },
+        };
+        const skipValue = skip;
+        const limitValue = limit - related.length;
+        const ancestorProducts = await Product.find(query)
+          .skip(skipValue)
+          .limit(limitValue)
+          .lean();
+        related = related.concat(ancestorProducts);
+        totalProducts += await Product.countDocuments(query);
+        skip = calculateSkip(skip, totalProducts, related.length);
+      }
+
+      // console.log(related.length);
+
       const totalPages = Math.ceil(totalProducts / limit);
 
       const pageNumbers = [];
       for (let i = 1; i <= totalPages; i++) {
         pageNumbers.push({
           number: i,
-          isCurrent: i === page,
+          isCurrent: i === parseInt(page),
         });
       }
-
       const paginationData = {
         pages: pageNumbers,
         hasPreviousPage: page > 1,
@@ -65,7 +198,7 @@ class productController {
       };
 
       res.json({
-        products,
+        products: related,
         pagination: paginationData,
       });
     } catch (err) {
@@ -74,95 +207,112 @@ class productController {
     }
   };
 
-  showSpecificProduct = async (req, res, next) => {
-    try {
-      const { productId } = req.params;
-      const objectId = new mongoose.Types.ObjectId(productId);
-      const product = await Product.findById(objectId).lean();
+  // APIRelatedProducts = async (req, res, next) => {
+  //   try {
+  //     const {
+  //       page = 1,
+  //       limit = defaultLimit,
+  //     } = req.query;
 
-      if (!product) {
-        res.status(404).send("Product not found");
-        return;
-      }
+  //     const { productId } = req.params;
+  //     const objectId = new mongoose.Types.ObjectId(productId);
+  //     const product = await Product.findById(objectId).lean();
+  //     const currentCategory = await Category.findById(
+  //       product.category
+  //     ).lean();
 
-      let related = [];
-      const limit = 8;
+  //     if (!product) {
+  //       res.status(404).send("Product not found");
+  //       return;
+  //     }
 
-      // Find related products in the same category
-      related = await Product.find({
-        category: product.category,
-        _id: { $ne: objectId },
-      })
-        .limit(limit)
-        .lean();
+  //     let related = [];
 
-      // Fetch immediate child categories if necessary
-      if (related.length < limit) {
-        const childCategories = await Category.find({
-          parentCategory: product.category,
-        }).lean();
+  //     // Find related products in the same category
+  //     related = await Product.find({
+  //       category: product.category,
+  //       _id: { $ne: objectId },
+  //     })
+  //       .limit(limit)
+  //       .lean();
 
-        for (const childCategory of childCategories) {
-          const childProducts = await Product.find({
-            category: childCategory._id,
-            _id: { $ne: objectId },
-          })
-            .limit(limit - related.length)
-            .lean();
+  //     // Fetch child categories
+  //     const childCategories = await Category.find({
+  //       parentCategory: product.category,
+  //     }).lean();
 
-          related = related.concat(childProducts);
-          if (related.length >= limit) break;
-        }
-      }
+  //     for (const childCategory of childCategories) {
+  //       const childProducts = await Product.find({
+  //         category: childCategory._id,
+  //         _id: { $ne: objectId },
+  //       })
+  //         .limit(limit - related.length)
+  //         .lean();
 
-      // Fetch sibling categories if necessary
-      if (related.length < limit) {
-        const currentCategory = await Category.findById(
-          product.category
-        ).lean();
-        if (currentCategory.parentCategory) {
-          const siblingCategories = await Category.find({
-            parentCategory: currentCategory.parentCategory,
-            _id: { $ne: currentCategory._id },
-          }).lean();
+  //       related = related.concat(childProducts);
+  //       if (related.length >= limit) break;
+  //     }
 
-          for (const siblingCategory of siblingCategories) {
-            const siblingProducts = await Product.find({
-              category: siblingCategory._id,
-              _id: { $ne: objectId },
-            })
-              .limit(limit - related.length)
-              .lean();
+  //     // Fetch sibling categories if necessary
+  //     if (currentCategory.parentCategory) {
+  //       const siblingCategories = await Category.find({
+  //         parentCategory: currentCategory.parentCategory,
+  //         _id: { $ne: currentCategory._id },
+  //       }).lean();
 
-            related = related.concat(siblingProducts);
-            if (related.length >= limit) break;
-          }
-        }
-      }
+  //       for (const siblingCategory of siblingCategories) {
+  //         const siblingProducts = await Product.find({
+  //           category: siblingCategory._id,
+  //           _id: { $ne: objectId },
+  //         })
+  //           .limit(limit - related.length)
+  //           .lean();
 
-      // Fetch products from the immediate ancestor category if necessary
-      if (related.length < limit) {
-        const currentCategory = await Category.findById(
-          product.category
-        ).lean();
-        if (currentCategory && currentCategory.parentCategory) {
-          const ancestorProducts = await Product.find({
-            category: currentCategory.parentCategory,
-            _id: { $ne: objectId },
-          })
-            .limit(limit - related.length)
-            .lean();
+  //         related = related.concat(siblingProducts);
+  //         if (related.length >= limit) break;
+  //       }
+  //     }
 
-          related = related.concat(ancestorProducts);
-        }
-      }
+  //     // Fetch products from the immediate ancestor category if necessary
+  //     if (currentCategory && currentCategory.parentCategory) {
+  //       const ancestorProducts = await Product.find({
+  //         category: currentCategory.parentCategory,
+  //         _id: { $ne: objectId },
+  //       })
+  //         .limit(limit - related.length)
+  //         .lean();
 
-      res.render("specific-product", { product, related });
-    } catch (err) {
-      console.error(err);
-      next(err);
-    }
-  };
+  //       related = related.concat(ancestorProducts);
+  //     }
+
+  //     const skip = (page - 1) * limit;
+  //     const totalProducts = related.length;
+  //     const totalPages = Math.ceil(totalProducts / limit);
+
+  //     const pageNumbers = [];
+  //     for (let i = 1; i <= totalPages; i++) {
+  //       pageNumbers.push({
+  //         number: i,
+  //         isCurrent: i === parseInt(page),
+  //       });
+  //     }
+  //     const paginationData = {
+  //       pages: pageNumbers,
+  //       hasPreviousPage: page > 1,
+  //       previousPage: page - 1,
+  //       hasNextPage: page < totalPages,
+  //       nextPage: page + 1,
+  //     };
+
+  //     res.json({
+  //       products: related,
+  //       pagination: paginationData,
+  //     });
+  //   } catch (err) {
+  //     console.error(err);
+  //     next(err);
+  //   }
+  // }
 
   getAllDescendantCategoryIds = async (parentCategoryId) => {
     const categoriesToProcess = [parentCategoryId];
@@ -183,27 +333,70 @@ class productController {
     return Array.from(allCategoryIds);
   };
 
-  filterProducts = async (req, res) => {
+  // showAllProduct = async (req, res, next) => {
+  //   try {
+  //     const page = parseInt(req.query.page) || 1;
+  //     const limit = parseInt(req.query.limit) || defaultLimit;
+  //     const skip = (page - 1) * limit;
+
+  //     // Fetch total number of products
+  //     const totalProducts = await Product.countDocuments();
+
+  //     const products = await Product.find().skip(skip).limit(limit).lean();
+
+  //     // Calculate total pages
+  //     const totalPages = Math.ceil(totalProducts / limit);
+
+  //     const pageNumbers = [];
+  //     for (let i = 1; i <= totalPages; i++) {
+  //       pageNumbers.push({
+  //         number: i,
+  //         isCurrent: i === page,
+  //       });
+  //     }
+
+  //     const paginationData = {
+  //       pages: pageNumbers,
+  //       hasPreviousPage: page > 1,
+  //       previousPage: page - 1,
+  //       hasNextPage: page < totalPages,
+  //       nextPage: page + 1,
+  //     };
+
+  //     res.json({
+  //       products,
+  //       pagination: paginationData,
+  //     });
+  //   } catch (err) {
+  //     console.error(err);
+  //     next(err);
+  //   }
+  // };
+
+  APIProducts = async (req, res) => {
     try {
       const {
+        keyword,
         category,
         minPrice,
         maxPrice,
+        sortOrder,
         page = 1,
         limit = defaultLimit,
       } = req.query;
 
       let query = {};
 
+      if (keyword) {
+        query.name = { $regex: keyword, $options: "i" }; // Case-insensitive search
+      }
       if (category) {
         const allCategoryIds = await this.getAllDescendantCategoryIds(category);
         query.category = { $in: allCategoryIds };
       }
-
       if (minPrice) {
         query.price = { ...query.price, $gte: parseFloat(minPrice) };
       }
-
       if (maxPrice) {
         query.price = { ...query.price, $lte: parseFloat(maxPrice) };
       }
@@ -212,12 +405,22 @@ class productController {
       const totalProducts = await Product.countDocuments(query);
       const totalPages = Math.ceil(totalProducts / limit);
 
+      // Sorting logic
+      let sortQuery = {};
+      if (sortOrder === "low-to-high") {
+        sortQuery.price = 1; // Ascending order
+      } else if (sortOrder === "high-to-low") {
+        sortQuery.price = -1; // Descending order
+      }
+
+      // console.log(sortQuery);
+
       const filteredProducts = await Product.find(query)
+        .sort(sortQuery)
         .skip(skip)
         .limit(limit)
         .lean();
 
-      // Create page numbers array
       const pageNumbers = [];
       for (let i = 1; i <= totalPages; i++) {
         pageNumbers.push({
@@ -225,7 +428,6 @@ class productController {
           isCurrent: i === parseInt(page),
         });
       }
-
       const paginationData = {
         pages: pageNumbers,
         hasPreviousPage: page > 1,
@@ -244,49 +446,49 @@ class productController {
     }
   };
 
-  searchProducts = async (req, res) => {
-    try {
-      const { keyword, page = 1, limit = defaultLimit } = req.query;
-      const skip = (page - 1) * limit;
+  // searchProducts = async (req, res) => {
+  //   try {
+  //     const { keyword, page = 1, limit = defaultLimit } = req.query;
+  //     const skip = (page - 1) * limit;
 
-      const searchQuery = {
-        name: { $regex: keyword, $options: "i" }, // Case-insensitive search
-      };
+  //     const searchQuery = {
+  //       name: { $regex: keyword, $options: "i" }, // Case-insensitive search
+  //     };
 
-      const totalProducts = await Product.countDocuments(searchQuery);
-      const totalPages = Math.ceil(totalProducts / limit);
+  //     const totalProducts = await Product.countDocuments(searchQuery);
+  //     const totalPages = Math.ceil(totalProducts / limit);
 
-      const products = await Product.find(searchQuery)
-        .skip(skip)
-        .limit(limit)
-        .lean();
+  //     const products = await Product.find(searchQuery)
+  //       .skip(skip)
+  //       .limit(limit)
+  //       .lean();
 
-      // Create page numbers array
-      const pageNumbers = [];
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push({
-          number: i,
-          isCurrent: i === parseInt(page),
-        });
-      }
+  //     // Create page numbers array
+  //     const pageNumbers = [];
+  //     for (let i = 1; i <= totalPages; i++) {
+  //       pageNumbers.push({
+  //         number: i,
+  //         isCurrent: i === parseInt(page),
+  //       });
+  //     }
 
-      const paginationData = {
-        pages: pageNumbers,
-        hasPreviousPage: page > 1,
-        previousPage: page - 1,
-        hasNextPage: page < totalPages,
-        nextPage: page + 1,
-      };
+  //     const paginationData = {
+  //       pages: pageNumbers,
+  //       hasPreviousPage: page > 1,
+  //       previousPage: page - 1,
+  //       hasNextPage: page < totalPages,
+  //       nextPage: page + 1,
+  //     };
 
-      res.json({
-        products,
-        pagination: paginationData,
-      });
-    } catch (error) {
-      console.error("Error:", error);
-      res.status(500).send("Server error");
-    }
-  };
+  //     res.json({
+  //       products,
+  //       pagination: paginationData,
+  //     });
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     res.status(500).send("Server error");
+  //   }
+  // };
 
   deleteFromCart = async (req, res, next) => {
     try {

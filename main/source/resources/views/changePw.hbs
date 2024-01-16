@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="offset-2 col-10">
                         <p><a href="/profile">Thông tin tài khoản</a></p>
-                        <p><a href="/profile/changepassword" style="color: #FFB0BD">Đổi mật khẩu</a></p>
+                        <p><a href="/profile/changepassword" class="hover-a">Đổi mật khẩu</a></p>
                         <p><a href="/order/index">Lịch sử đơn hàng</a></p>
                         <p><a href="/user/logout">Đăng xuất</a></p>
                     </div>
@@ -61,8 +61,28 @@
         </div>
     </div>
 </div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3 fs-5">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Notification</strong>
+            <small>now</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            {{msg}}
+        </div>
+    </div>
+</div>
+
 <script>
     $(() => {
+        const toastTrigger = document.getElementById('liveToastBtn')
+        const toastLiveExample = document.getElementById('liveToast')
+        if (`{{msg}}`) {
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastBootstrap.show()
+        }
         $('form').submit(function (e) {
             //check confirmPassword
             $('#confirmNewPwErr').html(($('#inputNewPw').val() != $('#inputConfirmNewPw').val()) ? 'Xác nhận mật khẩu không đúng' : '');

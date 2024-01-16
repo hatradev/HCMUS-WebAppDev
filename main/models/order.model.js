@@ -19,7 +19,9 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   date: { type: Date, default: Date.now },
-  isOnline: Boolean,
+  reason: String, //"payment": Hủy do thanh toán không thành công, "shop": Hủy bởi shop, "buyer": Hủy bởi người mua
+  cancelledDate: Date,
+  paymentDate: Date,
 });
 
 const Order = mongoose.model("order", orderSchema);

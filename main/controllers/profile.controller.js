@@ -14,7 +14,9 @@ class profileController {
         phone: user.phone,
         email: user.email,
         address: user.address,
+        avatar: user.avatar || "/img/logo/default.jpg",
       });
+      
     } catch (err) {
       next(err);
     }
@@ -67,7 +69,7 @@ class profileController {
 
   changePassword = async (req, res, next) => {
     try {
-      const user = await User.findById(req.cookies.user._id) ;
+      let user = await User.findById(req.cookies.user._id) ;
       const { inputOldPw, inputNewPw } = req.body;
       const checkOldPw = await bcrypt.compare(
         inputOldPw,
@@ -84,8 +86,8 @@ class profileController {
           password: hashedPw
         }
       );
-      res.clearCookie("user");
-      res.redirect("/user/signin");
+      user = await User.findById(req.cookies.user._id);
+      res.render('changePw', {msg: 'Change password successfully!'});
       console.log("change password successfully");
     } catch (err) {
       next(err);

@@ -16,12 +16,12 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 // GOOGLE OAUTH
 // const session = require('express-session');
 // const passport = require('passport');
-const { google } = require("googleapis");
-const oauth2Client = new google.auth.OAuth2(
-  "420554225529-v2gdq8nue9cq0up7jtsovdecin77cqim.apps.googleusercontent.com",
-  "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",
-  "http://localhost:3000/auth/google/callback"
-);
+// const { google } = require("googleapis");
+// const oauth2Client = new google.auth.OAuth2(
+//   "420554225529-v2gdq8nue9cq0up7jtsovdecin77cqim.apps.googleusercontent.com",
+//   "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",
+//   "http://localhost:3000/auth/google/callback"
+// );
 // const authRoutes = require('../controllers/auth.controller')(oauth2Client);
 
 const liveReloadServer = livereload.createServer();

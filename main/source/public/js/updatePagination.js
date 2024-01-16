@@ -1,10 +1,23 @@
 import fetchProducts from './fetchProducts.js';
+import getRelatedProducts from './relatedProducts.js';
 
 function updatePagination(paginationData) {
     const paginationContainer = document.querySelector('.pagination');
-    if (!paginationContainer || !paginationData.pages || paginationData.pages.length === 0) {
-        return; // Exit if no container or no pages
+
+    if (!paginationContainer) {
+      return; // Exit if no container is found
     }
+
+    if (!paginationData.pages || paginationData.pages.length === 0 || paginationData.pages.length === 1) {
+        paginationContainer.style.display = 'none'; // Hide the container if no pages
+        return;
+    } else {
+        paginationContainer.style.display = ''; // Remove 'display: none' to show the container
+    }
+
+    // if (!paginationContainer || !paginationData.pages || paginationData.pages.length === 0) {
+    //     return; // Exit if no container or no pages
+    // }
 
     // Clear existing pagination links
     paginationContainer.innerHTML = '';
@@ -40,7 +53,16 @@ function setupPaginationEventListeners() {
       event.preventDefault();
       if (!this.parentNode.classList.contains('disabled')) {
         currentState.page = this.dataset.page;
-        fetchProducts();
+
+        if (currentState.mode === 'all-product') {
+            fetchProducts();
+        }
+        else if (currentState.mode === 'related') {
+            getRelatedProducts();
+        }
+        else {
+          console.log('Unknown mode for fetchProducts');
+        }
       }
     });
   });
