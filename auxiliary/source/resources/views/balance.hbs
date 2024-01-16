@@ -27,27 +27,27 @@
                 <div class="row d-flex align-items-center">
                   <div class="form-group col-5">
                     <label for="startDatePicker">Từ Ngày: </label>
-                    <input type="date" id="startDatePicker" class="form-control">
+                    <input type="date" id="startDate" class="form-control" value="{{dateOfInput startDate}}">
                   </div>
                   <div class="form-group col-5">
                     <label for="endDatePicker">Đến Ngày: </label>
-                    <input type="date" id="endDatePicker" class="form-control">
+                    <input type="date" id="endDate" class="form-control" value="{{dateOfInput endDate}}">
                   </div>
                   <div class="col-2 mt-4">
-                    <button class="" onclick="filterTransactionsByDateRange()">Tìm</button>
+                    <button class="rounded" onclick="filterTransactions()">Tìm</button>
                   </div>
                 </div>
                 <ul class="list-group mt-3 overflow-y-auto overflow-x-hidden" id="transactionList">
                   {{#each history }}
                   <li class="mb-3">
                     <div class="row d-flex align-items-center">
-                      <div class="col-9">
+                      <div class="col-7">
                         <p class="fw-bold"> MGD: {{id}}</p>
                         <span class="small">{{formatDate date}}</span>
                       </div>
-                      <div class="col-3 text-end">
+                      <div class="col-5 text-end">
                         {{#if isIn}}
-                          <span class="fw-bold text-success">+ {{formatCurrency money}}</span>
+                          <span class="fw-bold text-success">+ {{formatCurrency 100000000000}}</span>
                         {{else}}
                            <span class="fw-bold text-danger">- {{formatCurrency money}}</span>
                         {{/if}}
@@ -75,25 +75,23 @@
 </div>
 
 <script>
+  //chart
   updateChart();
   function updateChart() {
     var ctx = document.getElementById('lineChart').getContext('2d');
 
-    let labels = ["{{getCurrentDate}}"];
+    let labels = [];
     {{#each history}}
       labels.push("{{dateOfOrder date}}");
     {{/each}}
 
-    let dataS = [{{balance}}];
+    let dataS = [];
     {{#each history}}
       dataS.push("{{this.balance}}");
     {{/each}}
-    console.log(dataS);
 
-    if (labels[0] === labels[1]){
-      labels = labels.shift();
-      dataS = dataS.shift();
-    }
+    lables = labels.slice(0, 15);   
+    dataS = dataS.slice(0, 15); 
 
     const data = {  
       labels: labels.reverse(),
@@ -120,4 +118,23 @@
       options: options
     });
   }
+  //filter transactions
+   function filterTransactions(){
+      let startDate = $("#startDate").val();
+      let endDate = $("#endDate").val();
+       startDate = new Date(startDate);
+       endDate = new Date(endDate);
+      let currentDate = new Date();
+      if (isNaN(startDate) || isNaN(endDate)) {
+        alert("Ngày bắt đầu và ngày kết thúc không được để trống. Vui lòng nhập lại.");
+      } 
+      else if (startDate > endDate ){
+        alert("Ngày bắt đầu phải trước ngày kết thúc!");
+      }
+      else if (endDate > currentDate) {
+          alert("Ngày kết thúc không được sau ngày hiện tại!");
+      } else {
+          window.location.href = `/balance?startDate=${startDate}&endDate=${endDate}`
+      }
+    }
 </script>

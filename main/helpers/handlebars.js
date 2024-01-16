@@ -28,6 +28,15 @@ module.exports = {
     return `${day}/${month}/${year}`;
   },
 
+  dateOfInput: (str) => {
+    const dateField = new Date(str);
+    const originalDate = dateField;
+    const day = originalDate.getDate().toString().padStart(2, "0");
+    const month = (originalDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = originalDate.getFullYear();
+    return `${year}-${month}-${day}`;
+  },
+
   calculateTotalPrice: (price, quantity) => {
     return price * quantity;
   },
