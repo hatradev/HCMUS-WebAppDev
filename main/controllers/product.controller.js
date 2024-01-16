@@ -631,6 +631,14 @@ class productController {
       next(error);
     }
   };
+
+  getCateHandle = async (req, res, next) => {
+    try {
+      res.render("categoryhandle", { nshowHF: true });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 // Export an instance of the controller

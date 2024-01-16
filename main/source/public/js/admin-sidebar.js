@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $(".nav-link").removeClass("active");
+  // $(".nav-link").removeClass("active");
   var content = $(".admin-content");
   var item = 0;
   if (content.hasClass("admin-account")) {
