@@ -8,7 +8,6 @@ class profileController {
     try {
       // console.log(req.cookies);
       const user = await User.findById(req.cookies.user._id) ;
-      console.log(user);
       res.render("profile", {
         lastname: user.lastname,
         firstname: user.firstname,
