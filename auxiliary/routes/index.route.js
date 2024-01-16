@@ -87,12 +87,11 @@ function route(app) {
           }
         );
         const response2 = await r.json();
-        res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/index`);
+        // res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/index`);
         // res.json(response2);
       }
-      else {
-        res.redirect(`http://localhost:${process.env.MAIN_PORT}/my-cart`);
-      }
+
+      res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/index`);
       // res.json(response);
       // res.render(response)
       // res.json(response);

@@ -96,7 +96,10 @@ class userController {
       const user = await User.findById(decoded.idAccount);
       const validPassword = await bcrypt.compare(decoded.pw, user.password);
       const responseData = { success: "successfully sending order", validPw: validPassword};
-      
+      // Xóa giỏ hàng sau khi tạo đơn hàng
+      user.cart = [];
+      await user.save();
+
       res.json(responseData);
     } catch (error) {
       // Xử lý lỗi JWT hoặc lỗi khác
