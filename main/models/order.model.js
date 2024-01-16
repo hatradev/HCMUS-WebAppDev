@@ -15,11 +15,11 @@ const orderSchema = new mongoose.Schema({
   ],
   status: {
     type: String,
-    enum: ["cancelled", "paying", "pending", "successful"],
+    enum: ["canceled", "pending", "successful"],
     required: true,
   },
   date: { type: Date, default: Date.now },
-  reason: String,
+  isOnline: Boolean,
 });
 
 const Order = mongoose.model("order", orderSchema);
