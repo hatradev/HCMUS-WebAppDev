@@ -1,0 +1,109 @@
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      {{!-- sider --}}
+    </div>
+    {{!-- balance --}}
+    <div class="col-10">
+      <div class="container-fluid mt-4 balance-container">
+        <div class="row balance-header d-flex align-items-center rounded-4">
+          <div class="col-md-6">
+            <div id="balance" class="offset-md-1">
+              <p>Số Dư: <span class="ms-3 fs-2 fw-bold">$1,000.00</span></p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div id="deposit" class="offset-md-7">
+              <button id="addFundsBtn" class="rounded-2" onclick="addFunds()">Nạp Tiền</button>
+            </div>
+          </div>
+        </div>
+        {{!-- transaction and chart --}}
+        <div class="row mt-4" class="col-md-6">
+          <div id="transactions">
+            <div class="row">
+              <div class="col-md-6">
+                <p class="fs-2 fw-bold mb-2">Lịch sử Giao Dịch</p>
+                <div class="row d-flex align-items-center">
+                  <div class="form-group col-5">
+                    <label for="startDatePicker">Từ Ngày: </label>
+                    <input type="date" id="startDatePicker" class="form-control">
+                  </div>
+                  <div class="form-group col-5">
+                    <label for="endDatePicker">Đến Ngày: </label>
+                    <input type="date" id="endDatePicker" class="form-control">
+                  </div>
+                  <div class="col-2 mt-4">
+                    <button class="" onclick="filterTransactionsByDateRange()">Tìm</button>
+                  </div>
+                </div>
+                <ul class="list-group mt-3 overflow-y-auto overflow-x-hidden" id="transactionList" >
+                  <li class="mb-3"> 
+                    <div class="row d-flex align-items-center">
+                      <div class="col-6">
+                        <p class="fw-bold"> abcefgh</p>
+                      <span class="small">27 March 2020, at 12:30 PM</span>
+                      </div>
+                      <div class="col-6">
+                        <span class="fw-bold text-success">+ 120.000đ</span>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row d-flex align-items-center">
+                      <div class="col-6">
+                        <p class="fw-bold"> abcefgh</p>
+                      <span class="small">27 March 2020, at 12:30 PM</span>
+                      </div>
+                      <div class="col-6">
+                        <span class="fw-bold text-danger">- 120.000đ</span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              {{!-- biểu đồ --}}
+              <div class="col-md-6">
+                <div id="chart">
+                  <p class="fs-2 fw-bold mb-2">Biểu Đồ biến động số dư</p>
+                  <canvas id="lineChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+   updateChart();
+    function updateChart() {
+    var ctx = document.getElementById('lineChart').getContext('2d');
+    var data = {
+      labels: ["Giao Dịch 1", "Giao Dịch 2"],
+      datasets: [{
+        label: 'Số Dư',
+        data: [950.00, 1050.00],
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    };
+
+    var options = {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    };
+
+    var lineChart = new Chart(ctx, {
+      type: 'line',
+      data: data,
+      options: options
+    });
+  }
+</script>

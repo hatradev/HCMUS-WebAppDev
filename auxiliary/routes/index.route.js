@@ -1,5 +1,6 @@
 const account = require("../models/account.model");
 const CustomErr = require("../helpers/custom-error");
+const balanceControllers = require("../controllers/balance.controller");
 
 function route(app) {
   // Định nghĩa các route theo tài nguyên
@@ -22,6 +23,8 @@ function route(app) {
       next(error);
     }
   });
+
+  app.get('/balance', balanceControllers.getBalanceP);
 
   // Hai middlewares này phải để cuối để check lỗi
   app.use((req, res, next) => {
