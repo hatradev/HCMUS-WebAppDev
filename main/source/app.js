@@ -33,7 +33,14 @@ liveReloadServer.server.once("connection", () => {
   }, 100);
 });
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: "POST",
+  allowedHeaders: "Content-Type",
+};
+
 app.use(cookieParser());
+app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(connectLiveReload());
 app.use(express.json());
