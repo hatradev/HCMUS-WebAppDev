@@ -77,10 +77,9 @@ class userController {
     }
   };
 
-  
-
   authenticatePassword = async (req, res, next) => {
     try {
+      console.log("1");
       // Giải mã JWT
       const token = req.body.token;
       if (!token) {
@@ -95,7 +94,10 @@ class userController {
       // // Tìm tài khoản người dùng
       const user = await User.findById(decoded.idAccount);
       const validPassword = await bcrypt.compare(decoded.pw, user.password);
-      const responseData = { success: "successfully sending order", validPw: validPassword};
+      const responseData = {
+        success: "successfully sending order",
+        validPw: validPassword,
+      };
       // Xóa giỏ hàng sau khi tạo đơn hàng
       user.cart = [];
       await user.save();
@@ -123,7 +125,10 @@ class userController {
       user.cart = [];
       await user.save();
       // const validPassword = await bcrypt.compare(decoded.pw, user.password);
-      const responseData = { success: "successfully sending order", order: decoded};
+      const responseData = {
+        success: "successfully sending order",
+        order: decoded,
+      };
       console.log("check order MAIN");
       console.log(order);
       console.log("end check order MAIN");
