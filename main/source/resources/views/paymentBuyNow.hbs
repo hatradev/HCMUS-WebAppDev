@@ -2,8 +2,16 @@
   <form
     id="formCheckOut"
     class="formCheckOut formAcount validate"
+    action="/order/CreatAndSendTokenForBuyNow"
     method="post"
   >
+
+    <input type="hidden" name="total" value="{{calculateTotalPrice
+                            product.price
+                            quantity
+                          }}">
+    <input type="hidden" name="productID" value="{{product._id}}">
+    <input type="hidden" name="quantity" value="{{quantity}}">
     <div class="row">
       <div class="col-checkout col-left col-xl-4 col-lg-6 col-12">
         <h2 class="col-title"><span
@@ -286,15 +294,9 @@
         </div>
         <div id="mss-confirm"></div>
 
-        <div
-          class="d-block d-flex justify-content-end"
-          style="margin-top: 1.5rem;"
-        >
-          <div
-            id="js-btn-submit"
-            class="btn btn-pink d-flex justify-content-center align-items-center"
-            style="height:5rem; width:15rem; font-size: 2rem;"
-          >Thanh toán</div>
+        <div class="d-block d-flex justify-content-end" style="margin-top: 1.5rem;">
+          <button class="btn btn-pink d-flex justify-content-center align-items-center"
+            style="height:5rem; width:15rem; font-size: 2rem;" type="submit">Thanh toán</button>
         </div>
       </div>
     </div>

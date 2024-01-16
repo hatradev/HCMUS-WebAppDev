@@ -84,6 +84,63 @@ class orderController {
       next(error);
     }
   };
+  CreateOrderForBuyNowAndSendToken = async (req, res, next) => {
+    try {
+      const accBuyer = await Account.findOne({ _id: req.cookies.user._id })
+      
+      // let totalAmount = req.body.total;
+      let totalAmount = parseInt(req.body.total, 10);
+      let id = req.body.productID; // ID của sản phẩm
+      let quantityDATA = parseInt(req.body.quantity, 10); // Số lượng sản phẩm
+
+      console.log("check body buynow");
+      console.log(req.body);
+      console.log("end check body buynow");
+  
+      // Tạo một mảng chi tiết đơn hàng từ giỏ hàng
+      // const orderDetails = accBuyer.cart.map(cartItem => ({
+      //   idProduct: cartItem.id_product._id,
+      //   quantity: cartItem.quantity,
+      // }));
+
+      const orderDetails = [{
+        idProduct: id,
+        quantity: quantityDATA,
+      }];
+
+  
+      // Tạo một đơn đặt hàng mới với tất cả các mặt hàng trong giỏ
+      const newOrder = new Order({
+        idaccount: accBuyer._id,
+        name: accBuyer.lastname,
+        phone: accBuyer.phone,
+        email: accBuyer.email,
+        address: accBuyer.address,
+        detail: orderDetails,
+        status: "paying",
+        // message: req.body.message, // Lấy từ form đầu vào
+      });
+  
+      const accessToken = jwt.sign(
+        {
+          order: newOrder,
+          totalPrice: totalAmount,
+        },
+        process.env.JWT_ACCESS_KEY,
+        { expiresIn: "10m" }
+      );
+
+      const tokenString = JSON.stringify({ token: accessToken });
+      const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
+
+      // Lưu đơn hàng mới
+      const savedOrder = await newOrder.save();
+
+      return res.redirect(responseUrl);
+    } catch (error) {
+      next(error);
+    }
+  };
 
   // authenticatePassword = async (req, res, next) => {
   //   try {
