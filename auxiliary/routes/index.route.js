@@ -87,8 +87,8 @@ function route(app) {
           }
         );
         const response2 = await r.json();
-        // res.redirect(`http://localhost:${process.env.MAIN_PORT}`);
-        res.json(response2);
+        res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/index`);
+        // res.json(response2);
       }
       else {
         res.redirect(`http://localhost:${process.env.MAIN_PORT}/my-cart`);
