@@ -14,7 +14,7 @@
                     <div class="offset-2 col-10">
                         <p><a href="/profile">Thông tin tài khoản</a></p>
                         <p><a href="/profile/changepassword">Đổi mật khẩu</a></p>
-                        <p><a href="/order/index" style="color: #FFB0BD">Lịch sử đơn hàng</a></p>
+                        <p><a href="/order/index" class="hover-a">Lịch sử đơn hàng</a></p>
                         <p><a href="#">Đăng xuất</a></p>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-9 col-ms-12 ps-4 pe-4">
             <div class="card">
-                <div class="card-body ps-5 pt-5">
+                <div class="card-body ps-5 pt-5" style="min-height: 33rem;">
                     <div class="row">
                         <h1 class="col-6">Đơn hàng: <span>{{obj._id}}</span></h1>
                         <h5 class="col-2 offset-4 mb-3 text-end"><a href="/order/index"><i
@@ -46,8 +46,8 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-3">
-                                                <img src="{{image}}"
-                                                    class="img-fluid rounded-3 w-100" alt="Shopping item">
+                                                <img src="{{image}}" class="img-fluid rounded-3 w-100"
+                                                    alt="Shopping item">
                                             </div>
                                             <div class="col-9 d-flex align-items-center">
                                                 <h5>{{name}}</h5>
@@ -62,14 +62,29 @@
                             </tr>
                             {{/each}}
                         </table>
-                        <div class="row">
+                    </div>
+                    <div class="row">
+                        {{#if (or obj.status "paying" "pending")}}
+                        <div class="col-md-7 col-ms-2 mt-3 border-top d-flex justify-content-center align-items-center">
+                            {{#if (eq obj.status "paying")}}
+                            <a href="/payment" class="btn payment_btn me-3">
+                                <span class="button__text"> Tiếp tục thanh toán</span>
+                            </a>
+                            {{/if}}
+                            <a href="#" class="btn cancel_btn">
+                                <span class="button__text"> Hủy đơn</span>
+                            </a>
+                        </div>
+                        <div class="col-md-5 col-ms-10 mt-3 border-top">
+                            {{else}}
                             <div class="col-md-5 offset-md-7 col-ms-10 offset-ms-2 mt-3 border-top">
+                                {{/if}}
                                 <div class="row">
                                     <div class="col-6">
                                         <p class="fw-bold">Tổng đơn: </p>
                                     </div>
                                     <div class="col-6">
-                                        <span>{{formatCurrency obj.total}}</span>
+                                        <span class="fw-bold">{{formatCurrency obj.total}}</span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -85,9 +100,45 @@
                                         <p>Trạng thái: </p>
                                     </div>
                                     <div class="col-6">
-                                        <span>{{obj.status}}</span>
+                                        {{#if (eq obj.status "cancelled")}}
+                                        <span class="text-danger">{{toStatus obj.status}}</span>
+                                        {{/if}}
+                                        {{#if (or obj.status "paying" "pending")}}
+                                        <span class="text-primary">{{toStatus obj.status}}</span>
+                                        {{/if}}
+                                        {{#if (eq obj.status "successful")}}
+                                        <span class="text-success">{{toStatus obj.status}}</span>
+                                        {{/if}}
                                     </div>
                                 </div>
+                                {{#if (eq obj.status "cancelled")}}
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>Lý do hủy: </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <span>{{toReason obj.reason}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>Thời gian hủy: </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <span>{{formatDate obj.cancelledDate}}</span>
+                                    </div>
+                                </div>
+                                {{/if}}
+                                {{#if (eq obj.status "successful")}}
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>Thời gian thanh toán: </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <span>{{formatDate obj.paymentDate}}</span>
+                                    </div>
+                                </div>
+                                {{/if}}
                                 <div class="row">
                                     <div class="col-6">
                                         <p>Ghi chú đơn hàng: </p>
@@ -98,9 +149,9 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

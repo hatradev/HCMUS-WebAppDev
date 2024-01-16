@@ -4,11 +4,11 @@
 #updaterForm input,
 .profileForm input,
 .confirm input,
-select option{
+select option {
     font-size: 14px;
 }
 
-.card-group{
+.card-group {
     width: 55vw;
     min-height: 560px;
     background-color: #FFB0BD;
@@ -16,49 +16,119 @@ select option{
     box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.1);
 }
 
-.card-title{
+.card-title {
     color: $color-dark;
 }
 
-.left-card button{
+.left-card button {
     background-color: #FFB0BD;
     color: #000;
     border: none;
 }
-.left-card button:hover{
+
+.left-card button:hover {
     background-color: #f77f95;
     color: #fff;
     border: none;
 }
-.right-card img{
+
+.right-card img {
     max-width: 25rem;
     margin-top: 10rem
 }
-.right-card{
+
+.right-card {
     background-color: #FFB0BD;
     color: #000;
 }
-.social-media button{
-    border-radius: 50%; 
-    width: 40px; 
+
+.social-media button {
+    border-radius: 50%;
+    width: 40px;
     height: 40px;
     color: #fff;
 }
 
 
 /* profile */
-.profileCard a:hover{
-    color: #FFB0BD;
+.profileCard a:hover {
+    color: #8a4762;
+    font-weight: bold;
 }
-form input, form select{
-  height: 4rem;
-  margin-top: 1.5rem;
+
+.hover-a{
+    color: #8a4762;
+    font-weight: bold;
 }
-.updateButton{
+
+form input,
+form select {
+    height: 4rem;
+    margin-top: 1.5rem;
+}
+
+.updateButton {
     background-color: #FFB0BD;
     color: #000;
 }
-.updateButton:hover{
+
+.updateButton:hover {
     background-color: #f77f95;
+    color: #000;
+}
+
+.toast-container #liveToast {
+    font-size: 14px;
+    width: 40rem;
+    height: 7rem
+}
+
+#avatar-img{
+    width: 150px;
+    height: 140px;
+    border-radius: 50%;
+}
+
+// detail order
+.cancel_btn,
+.payment_btn {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    border-radius: 500px;
+    transition-property: background-color, border-color, color, box-shadow, filter;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    letter-spacing: 2x;
+    min-width: 100px;
+    text-transform: uppercase;
+    white-space: normal;
+    font-weight: 600;
+    text-align: center;
+    padding: 14px 14px 18px;
+    background-color: transparent;
+    height: 40px;  
+}
+.cancel_btn{
+    color: #8f545d;
+    box-shadow: inset 0 0 0 2px #8f545d;
+}
+.payment_btn{
+    color: #f7788d;
+    box-shadow: inset 0 0 0 2px #f7788d;
+}
+.payment_btn:hover {
+    color: #eb5870;
+    box-shadow: inset 0 0 0 2px #eb5870;
+}
+.cancel_btn:hover{
+    color: #5f1b25;
+    box-shadow: inset 0 0 0 2px #5f1b25;
+}
+.order-dropdown > a{
+    font-size: 13px; 
+    background-color: #fff; 
     color: #000;
 }
