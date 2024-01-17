@@ -3,7 +3,7 @@ const Product = require("../models/product.model");
 const Category = require("../models/category.model");
 const Account = require("../models/account.model");
 
-const defaultLimit = 12;
+const defaultLimit = 8;
 
 class productController {
   getCategoryTree = async () => {
