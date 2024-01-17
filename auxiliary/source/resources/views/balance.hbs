@@ -1,22 +1,18 @@
-<div class="container">
+<div class="container m-0">
   <div class="row">
-    <div class="col-2">
-      {{!-- sider --}}
-    </div>
-    {{!-- balance --}}
-    <div class="col-10">
-      <div class="container-fluid mt-4 balance-container">
-        <div class="row balance-header d-flex align-items-center rounded-4">
-          <div class="col-md-6">
-            <div id="balance" class="offset-md-1">
-              <p>Số Dư: <span class="ms-3 fs-4 fw-bold">{{formatCurrency balance}}</span></p>
+    <div>
+      <div class="container-fluid mt-4 balance-container w-100">
+        <div class="balance-header d-flex align-items-center justify-content-between rounded-4 ps-6 pe-6">
+          {{!-- <div class="col-md-6"> --}}
+            <div id="balance">
+              <div>Số Dư: <span class="ms-3 fs-4 fw-bold">{{formatCurrency balance}}</span></div>
             </div>
-          </div>
-          <div class="col-md-6">
-            <div id="deposit" class="offset-md-8">
+          {{!-- </div> --}}
+          {{!-- <div class="col-md-6"> --}}
+            <div id="deposit">
               <button id="addFundsBtn" class="rounded-2" onclick="openForm()">Nạp Tiền</button>
             </div>
-          </div>
+          {{!-- </div> --}}
         </div>
         {{!-- transaction and chart --}}
         <div class="row mt-4" class="col-md-6">
