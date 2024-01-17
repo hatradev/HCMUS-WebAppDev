@@ -10,17 +10,34 @@ const {
   mutipleMongooseToObject,
   mongooseToObject,
 } = require("../utils/mongoose");
+const Category = require("../models/category.model");
 
 class siteController {
   // [GET] /
   getHome = async (req, res, next) => {
     try {
-      let user = undefined;
-      if (req.cookies && req.cookies.user) {
-        user = req.cookies.user;
-      }
-      // console.log(user);
-      res.render("home", {});
+      // Lấy 8 sản phẩm mới nhất
+      let latestProducts = await Product.find().sort({ _id: -1 }).limit(8);
+
+      latestProducts = latestProducts.map((product) => {
+        product.pid = product._id;
+        product.title = product.name;
+        product.p = product.price;
+        product.img = product.image[0];
+        return product;
+      });
+
+      // Lấy 4 sản phẩm đầu tiên
+      let firstProducts = await Product.find().limit(4);
+
+      firstProducts = firstProducts.map((product) => {
+        product.pid = product._id;
+        product.title = product.name;
+        product.p = product.price;
+        product.img = product.image[0];
+        return product;
+      });
+      res.render("home", { latestProducts, firstProducts });
     } catch (err) {
       next(err);
     }

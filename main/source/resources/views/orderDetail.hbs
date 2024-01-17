@@ -70,14 +70,30 @@
                     <div class="row">
                         {{#if (or obj.status "paying" "pending")}}
                         <div class="col-md-7 col-ms-2 mt-3 border-top d-flex justify-content-center align-items-center">
-                            {{#if (eq obj.status "paying")}}
-                            <a href="/payment" class="btn payment_btn me-3">
+                            {{!-- {{#if (eq obj.status "paying")}}
+                            <a href="/continuePayment?orderId={{obj._id}}" class="btn payment_btn me-3">
                                 <span class="button__text"> Tiếp tục thanh toán</span>
                             </a>
+                            {{/if}} --}}
+                            {{#if (eq obj.status "paying")}}
+                            <form action="/order/continuePayment" method="POST">
+                                <input type="hidden" name="orderId" value="{{obj._id}}">
+                                <button type="submit" class="btn payment_btn me-3">
+                                    <span class="button__text"> Tiếp tục thanh toán</span>
+                                </button>
+                            </form>
                             {{/if}}
-                            <a href="#" class="btn cancel_btn">
+
+                            <form action="/order/cancelOrder" method="POST">
+                                <input type="hidden" name="orderId" value="{{obj._id}}">
+                                <input type="hidden" name="totalPrice" value="{{obj.total}}">
+                                <button type="submit" class="btn cancel_btn">
+                                    <span class="button__text"> Hủy đơn</span>
+                                </button>
+                            </form>
+                            {{!-- <a href="#" class="btn cancel_btn">
                                 <span class="button__text"> Hủy đơn</span>
-                            </a>
+                            </a> --}}
                         </div>
                         <div class="col-md-5 col-ms-10 mt-3 border-top">
                             {{else}}

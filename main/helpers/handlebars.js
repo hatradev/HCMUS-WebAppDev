@@ -71,6 +71,12 @@ module.exports = {
     return objectId;
   },
   increaseIndex: (page, limit, index) => (page - 1) * limit + index + 1,
+  inc: (value) => {
+    // console.log(value);
+    const res = parseInt(value, 10) + 1
+    // console.log(res);
+    return res;
+  },
   eq: (v1, v2) => {
     return v1 == v2;
   },

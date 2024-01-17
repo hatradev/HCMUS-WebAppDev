@@ -1,5 +1,6 @@
 const User = require("../models/account.model");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Order = require("../models/order.model");
 const nodemailer = require('nodemailer');
@@ -154,6 +155,7 @@ class userController {
 
   authenticatePassword = async (req, res, next) => {
     try {
+      console.log("1");
       // Giải mã JWT
       const token = req.body.token;
       if (!token) {
@@ -255,7 +257,6 @@ class userController {
         httpOnly: true,
         secure: false,
         path: "/",
-        sameSite: "strict",
       });
       res.redirect("/");
     } catch (err) {
@@ -297,10 +298,46 @@ class userController {
     res.clearCookie("user");
     res.redirect("/user/signin");
   };
-  verify = async (req, res, next) => {
+
+  getHandle = async (req, res, next) => {
     try {
-    } catch (err) {
-      next(err);
+      // Tìm tất cả người dùng
+      const allUsers = await User.find();
+
+      // Tạo mảng chứa thông tin của mỗi người dùng
+      const usersInfo = await Promise.all(
+        allUsers.map(async (user) => {
+          // Tìm số đơn hàng của người dùng
+          const totalOrders = await Order.countDocuments({
+            idaccount: user._id,
+          });
+
+          // Tìm số đơn hàng thành công của người dùng
+          const successfulOrders = await Order.countDocuments({
+            idaccount: user._id,
+            status: "successful",
+          });
+
+          // Tính tỉ lệ đặt đơn hàng thành công
+          const successOrderRate =
+            totalOrders > 0
+              ? Math.round((successfulOrders / totalOrders) * 100)
+              : 0;
+
+          // Loại bỏ trường cart khỏi thông tin người dùng
+          const { cart, password, __v, ...userInfo } = user.toObject();
+          // Trả về thông tin của người dùng kèm theo số đơn hàng và số tiền đã chi
+          return {
+            user: userInfo,
+            totalOrders,
+            successOrderRate,
+          };
+        })
+      );
+      // console.log(usersInfo);
+      res.render("accounthandle", { nshowHF: true, usersInfo });
+    } catch (error) {
+      next(error);
     }
   };
 }

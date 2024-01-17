@@ -53,3 +53,5 @@ function initFetchProducts(event) {
 
     fetchProducts(); // This function should now consider both filter and search parameters
 }
+
+export default initFetchProducts;

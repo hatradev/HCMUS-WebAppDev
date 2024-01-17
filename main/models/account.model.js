@@ -9,7 +9,6 @@ const accountSchema = new mongoose.Schema({
   password: String,
   avatar: String,
   address: String,
-  phone: String,
   payid: String,
   cart: [
     {

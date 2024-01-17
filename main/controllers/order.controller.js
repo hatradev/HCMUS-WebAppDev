@@ -7,23 +7,23 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 class orderController {
-
   CreateOrderForCartAndSendToken = async (req, res, next) => {
     try {
-      const accBuyer = await Account.findOne({ _id: req.cookies.user._id })
-        .populate("cart.id_product");
-      
+      const accBuyer = await Account.findOne({
+        _id: req.cookies.user._id,
+      }).populate("cart.id_product");
+
       let totalAmount = 0;
-      accBuyer.cart.forEach(cartItem => {
-          totalAmount += cartItem.quantity * cartItem.id_product.price; // Giả sử mỗi item có 'price'
+      accBuyer.cart.forEach((cartItem) => {
+        totalAmount += cartItem.quantity * cartItem.id_product.price; // Giả sử mỗi item có 'price'
       });
-  
+
       // Tạo một mảng chi tiết đơn hàng từ giỏ hàng
-      const orderDetails = accBuyer.cart.map(cartItem => ({
+      const orderDetails = accBuyer.cart.map((cartItem) => ({
         idProduct: cartItem.id_product._id,
         quantity: cartItem.quantity,
       }));
-  
+
       // Tạo một đơn đặt hàng mới với tất cả các mặt hàng trong giỏ
       const newOrder = new Order({
         idaccount: accBuyer._id,
@@ -35,10 +35,70 @@ class orderController {
         status: "paying",
         // message: req.body.message, // Lấy từ form đầu vào
       });
-  
+
       const accessToken = jwt.sign(
         {
           order: newOrder,
+          totalPrice: totalAmount,
+        },
+        process.env.JWT_ACCESS_KEY,
+        { expiresIn: "10m" }
+      );
+
+      // await fetch(
+      //   `https://localhost:${process.env.AUX_PORT}/payment`,
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ token: accessToken }),
+      //   }
+      // );
+      // if (!accessToken) {
+      //   return res.status(500).json({ error: "Failed to create access token" });
+      // }
+      const tokenString = JSON.stringify({ token: accessToken });
+      const responseUrl = `https://localhost:${
+        process.env.AUX_PORT
+      }/getPayment?token=${encodeURIComponent(accessToken)}`;
+      // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?data=${tokenString}`;
+      // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
+      // console.log("Response URL:", responseUrl);
+      // const response = await fetch(responseUrl);
+      // const responseData = await response.json();
+      // const response = await rs.json();
+
+      // console.log("RESPONSE: ", responseData);
+      // Lưu đơn hàng mới
+      const savedOrder = await newOrder.save();
+
+      // Xóa giỏ hàng sau khi tạo đơn hàng
+      // accBuyer.cart = [];
+      // await accBuyer.save();
+      // console.log("check cart user");
+      // // console.log(accBuyer.cart);
+      // console.log("end check cart user");
+      return res.redirect(responseUrl);
+    } catch (error) {
+      next(error);
+    }
+  };
+  ContinueToPay = async (req, res, next) => {
+    try {
+      const id = req.body.orderId;
+      // const order = await Order.findById(id)
+      const orderFound = await Order.findById(id)
+        .populate("detail.idProduct");
+
+      let totalAmount = 0;
+      orderFound.detail.forEach(cartItem => {
+          totalAmount += cartItem.quantity * cartItem.idProduct.price; // Giả sử mỗi item có 'price'
+      });
+  
+      const accessToken = jwt.sign(
+        {
+          order: orderFound,
           totalPrice: totalAmount,
         },
         process.env.JWT_ACCESS_KEY,
@@ -69,7 +129,7 @@ class orderController {
 
       // console.log("RESPONSE: ", responseData);
       // Lưu đơn hàng mới
-      const savedOrder = await newOrder.save();
+      // const savedOrder = await newOrder.save();
   
       // Xóa giỏ hàng sau khi tạo đơn hàng
       // accBuyer.cart = [];
@@ -82,10 +142,55 @@ class orderController {
       next(error);
     }
   };
+  cancelOrder = async (req, res, next) => {
+    try {
+      const id = req.body.orderId;
+      const total = req.body.totalPrice;
+      // const order = await Order.findById(id)
+      const orderFound = await Order.findById(id)
+        .populate("detail.idProduct");
+
+      let totalAmount = 0;
+      orderFound.detail.forEach(cartItem => {
+          totalAmount += cartItem.quantity * cartItem.idProduct.price; // Giả sử mỗi item có 'price'
+      });
+  
+      const accessToken = jwt.sign(
+        {
+          order: orderFound,
+          totalPrice: totalAmount,
+        },
+        process.env.JWT_ACCESS_KEY,
+        { expiresIn: "10m" }
+      );
+
+      // const tokenString = JSON.stringify({ token: accessToken });
+      // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
+      
+      const rs = await fetch(
+        `https://localhost:${process.env.AUX_PORT}/refund`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: accessToken }),
+        }
+      );
+      const response = await rs.json();
+
+      // console.log("RESPONSE: ", response);
+      await Order.deleteOne({ _id: id });
+
+      return res.redirect(`/order/index`);
+    } catch (error) {
+      next(error);
+    }
+  };
   CreateOrderForBuyNowAndSendToken = async (req, res, next) => {
     try {
-      const accBuyer = await Account.findOne({ _id: req.cookies.user._id })
-      
+      const accBuyer = await Account.findOne({ _id: req.cookies.user._id });
+
       // let totalAmount = req.body.total;
       let totalAmount = parseInt(req.body.total, 10);
       let id = req.body.productID; // ID của sản phẩm
@@ -94,19 +199,20 @@ class orderController {
       console.log("check body buynow");
       console.log(req.body);
       console.log("end check body buynow");
-  
+
       // Tạo một mảng chi tiết đơn hàng từ giỏ hàng
       // const orderDetails = accBuyer.cart.map(cartItem => ({
       //   idProduct: cartItem.id_product._id,
       //   quantity: cartItem.quantity,
       // }));
 
-      const orderDetails = [{
-        idProduct: id,
-        quantity: quantityDATA,
-      }];
+      const orderDetails = [
+        {
+          idProduct: id,
+          quantity: quantityDATA,
+        },
+      ];
 
-  
       // Tạo một đơn đặt hàng mới với tất cả các mặt hàng trong giỏ
       const newOrder = new Order({
         idaccount: accBuyer._id,
@@ -118,7 +224,7 @@ class orderController {
         status: "paying",
         // message: req.body.message, // Lấy từ form đầu vào
       });
-  
+
       const accessToken = jwt.sign(
         {
           order: newOrder,
@@ -129,7 +235,9 @@ class orderController {
       );
 
       const tokenString = JSON.stringify({ token: accessToken });
-      const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
+      const responseUrl = `https://localhost:${
+        process.env.AUX_PORT
+      }/getPayment?token=${encodeURIComponent(accessToken)}`;
 
       // Lưu đơn hàng mới
       const savedOrder = await newOrder.save();
@@ -172,7 +280,6 @@ class orderController {
   //     next(error);
   //   }
   // };
-  
 
   totalPrice = async (arr) => {
     let total = 0;
@@ -195,9 +302,11 @@ class orderController {
       else if (filter == "near")
         orders = await Order.find({ idaccount: user._id }).sort({ date: -1 });
       else if (filter != "")
-        orders = await Order.find({ idaccount: user._id, status: filter }).sort({ date: -1 });
-      else{
-        orders = await Order.find({ idaccount: user._id})
+        orders = await Order.find({ idaccount: user._id, status: filter }).sort(
+          { date: -1 }
+        );
+      else {
+        orders = await Order.find({ idaccount: user._id });
       }
       const arr = [];
       for (let i = 0; i < orders.length; i++) {
@@ -261,6 +370,14 @@ class orderController {
       });
     } catch (err) {
       next(err);
+    }
+  };
+
+  getHandle = async (req, res, next) => {
+    try {
+      res.render("orderhandle", { nshowHF: true });
+    } catch (error) {
+      next(error);
     }
   };
 }

@@ -1,17 +1,11 @@
 const express = require("express");
 const siteController = require("../controllers/site.controller");
 const userController = require("../controllers/user.controller");
-
+const productController = require("../controllers/product.controller");
 const router = express.Router();
 
 router.get(
   "/",
-  // (req, res, next) => {
-  //   if (req.cookies && req.cookies.obj) {
-  //     return next();
-  //   }
-  //   res.redirect("/user/signin");
-  // },
   siteController.getHome
 );
 router.get(

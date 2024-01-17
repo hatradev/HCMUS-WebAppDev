@@ -1,0 +1,73 @@
+<div class="row admin-page">
+  <div class="col-2 admin-sidebar shadow">
+    {{>sidebar}}
+  </div>
+  <div class="col-10 admin-content admin-account">
+    <div class="container mt-5">
+      <!-- Page Heading -->
+      <div class="mb-4">
+          <h1 class="h1 mb-0 text-gray-800">Quản lý người dùng</h1>
+      </div>
+      <div class="row">
+        
+        {{#each usersInfo}}
+        {{log user}}
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card shadow mb-4 pointer" data-bs-toggle="modal" data-bs-target="#accountModal" data-bs-fname="{{user.firstname}}" data-bs-lname="{{user.lastname}}" data-bs-email="{{user.email}}" data-bs-phone="{{user.phone}}" data-bs-adr="{{user.address}}">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3">
+                <h1 class="h3 m-0 font-weight-bold ptext-primary p-2">{{user.lastname}} {{user.firstname}}</h1>
+                <p class="ptext-primary-light p-2">{{user._id}}</p>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                {{totalOrders}}
+                {{successOrderRate}}
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="accountModalLabel">Cập nhật thông tin người dùng</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="firstname" class="col-form-label">Firstname:</label>
+                <input type="text" class="form-control" id="firstname" name="firstname">
+              </div>
+              <div class="mb-3">
+                <label for="lastname" class="col-form-label">Lastname:</label>
+                <input type="text" class="form-control" id="lastname" name="lastname">
+              </div>
+              <div class="mb-3">
+                <label for="email" class="col-form-label">Email:</label>
+                <input type="email" class="form-control" id="email" name="email">
+              </div>
+              <div class="mb-3">
+                <label for="phone" class="col-form-label">Phone:</label>
+                <input type="text" class="form-control" id="phone" name="phone">
+              </div>
+              <div class="mb-3">
+                <label for="address" class="col-form-label">Address:</label>
+                <input type="text" class="form-control" id="address" name="address">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng cửa sổ</button>
+            <button type="button" class="btn btn-danger">Xóa người dùng</button>
+            <button type="button" class="btn btn-primary bg-primary" id="modalsubmit">Cập nhật</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/admin-accountmodal.js"></script>
