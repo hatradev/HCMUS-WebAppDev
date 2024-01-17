@@ -6,11 +6,12 @@ const userController = require("../controllers/user.controller");
 
 function route(app) {
   // Định nghĩa các route theo tài nguyên
+  app.use("/balance", balanceRouter);
   app.get("/", async (req, res) => {
     let user = await account.find({});
     if (user) {
       // console.log(user);
-      res.render("index");
+      res.redirect('/balance');
     } else {
       console.log("fail");
     }
@@ -256,8 +257,6 @@ function route(app) {
   //       next(error);
   //     }
   // });
-
-  app.use("/balance", balanceRouter);
 
   // Hai middlewares này phải để cuối để check lỗi
   app.use((req, res, next) => {
