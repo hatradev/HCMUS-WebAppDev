@@ -1,7 +1,9 @@
 <div class="header-content top">
   <div class="container">
     <div class="row align-center" style="padding: 2.3rem 0;">
-      <div class="head-col-left col-lg-3 col-12 d-flex justify-content-center align-items-center">
+      <div
+        class="head-col-left col-lg-2 col-12 d-flex justify-content-start align-items-center"
+      >
         <div
           class="js-menu-svg d-inline-flex align-items-center justify-content-center d-lg-none"
         >
@@ -19,12 +21,15 @@
           />
         </a>
       </div>
-      <div class="head-col-center col-lg-6 d-flex align-items-center" style="padding: 0 4rem; margin: 0;">
+      <div
+        class="head-col-center col-lg-7 d-flex align-items-center"
+        style="padding: 0 8rem; margin: 0;"
+      >
         <form
           id="header-search-form"
           class="form-search w-100"
-          {{!-- action="/search" --}}
-          {{!-- method="get" --}}
+          {{! action="/search" }}
+          {{! method="get" }}
           style="height: 4rem;"
         >
           <div class="input-group" style="height: 100%;">
@@ -43,7 +48,7 @@
             </span>
           </div>
         </form>
-        {{!-- <div class="research d-lg-block">
+        {{! <div class="research d-lg-block">
           <p><a
               href="/search?q=Xmas"
               target="_blank"
@@ -92,7 +97,7 @@
             ><span>Mojipop</span></a><span> </span><a
               href="/search?q=iDOL"
             ><span>Idol</span></a></p>
-        </div> --}}
+        </div> }}
       </div>
       {{!-- {{#if isLoggedIn}}
       <ul class="header-user d-none d-md-block">
@@ -154,8 +159,8 @@
       </div>
     </div>
   </div>
-  
-  {{!-- <div class="clearfix"></div>
+
+  {{! <div class="clearfix"></div>
   <div class="fr-mobile container d-block d-lg-none">
     <form class="form-search xs" action="/search" method="get">
       <div class="input-group">
@@ -217,7 +222,7 @@
         ><span>Mojipop</span></a><span> </span><a href="/search?q=iDOL"><span
           >Idol</span></a></p>
     </div>
-  </div> --}}
+  </div> }}
 </div>
 
 <script src="/js/currentState.js"></script>
