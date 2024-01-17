@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const account = require("../models/account.model");
 const jwt = require("jsonwebtoken");
 // const bcrypt = require('bcrypt');
@@ -12,16 +13,18 @@ class userController {
         const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
         console.log(decoded);
         const newAccount = new account({
-          buyid: decoded._id,
+          buyid: decoded.user._id,
           balance: 1000000,
         });
 
         // Save the new account to the database
-        await newAccount.save();
+        const saved = await newAccount.save();
         responseData.success = true;
+        res.json({ ...responseData, ...saved });
+      } else {
+        // Gửi phản hồi
+        res.json(responseData);
       }
-      // Gửi phản hồi
-      res.json(responseData);
     } catch (error) {
       next(error);
     }

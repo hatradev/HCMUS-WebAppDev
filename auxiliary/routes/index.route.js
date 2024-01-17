@@ -54,6 +54,7 @@ function route(app) {
       const idAcc = req.body.accountID; // Lấy mật khẩu từ form
       const idOrder = req.body.orderID; // Lấy mật khẩu từ form
       // const user = await account.findById(idAcc);
+      console.log(idAcc);
       const user = await account.findOne({ buyid: idAcc });
       console.log("check balance");
       console.log(user);
@@ -70,7 +71,7 @@ function route(app) {
       );
 
       const rs = await fetch(
-        `http://localhost:${process.env.MAIN_PORT}/user/authenticate`,
+        `http://127.0.0.1:${process.env.MAIN_PORT}/user/authenticate`,
         {
           method: "POST",
           headers: {
@@ -86,7 +87,7 @@ function route(app) {
         user.balance = user.balance - total;
         await user.save();
         const r = await fetch(
-          `http://localhost:${process.env.MAIN_PORT}/user/paymentSuccess`,
+          `http://127.0.0.1:${process.env.MAIN_PORT}/user/paymentSuccess`,
           {
             method: "POST",
             headers: {
@@ -96,16 +97,16 @@ function route(app) {
           }
         );
         const response2 = await r.json();
-        // res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/index`);
+        // res.redirect(`http://127.0.0.1:${process.env.MAIN_PORT}/order/index`);
         // res.json(response2);
         res.redirect(
-          `http://localhost:${
+          `http://127.0.0.1:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(idOrder)}`
         );
       } else if (!response.validPw) {
         res.redirect(
-          `http://localhost:${
+          `http://127.0.0.1:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(
             idOrder
@@ -114,7 +115,7 @@ function route(app) {
       } else {
         // res.redirect(`/order/inValidBalance?id=${encodeURIComponent(idOrder)}`);
         res.redirect(
-          `http://localhost:${
+          `http://127.0.0.1:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(
             idOrder

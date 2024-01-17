@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const accountSchema = new mongoose.Schema(
   {
-    buyid: { type: mongoose.Schema.Types.ObjectId },
+    buyid: String,
     balance: Number,
   },
   {
