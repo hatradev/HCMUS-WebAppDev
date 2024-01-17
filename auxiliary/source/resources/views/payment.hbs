@@ -53,11 +53,12 @@ style="height: 100vh; width: 100vw;">
     var payButton =
       document.getElementById('payButton'); var totalPrice = '{{totalPrice}}'; var
         accountId = '{{order.idaccount}}'; var orderId = '{{order._id}}';
+        var idad = '{{idAd}}';
     payButton.addEventListener('click', function () {
       window.location.href =
         '/payment/authenticate?total=' + encodeURIComponent(totalPrice) +
         '&idaccount=' + encodeURIComponent(accountId) + '&idorder=' +
-        encodeURIComponent(orderId);
+        encodeURIComponent(orderId) + '&idadmin=' + encodeURIComponent(idad);
     });
   });
 </script>

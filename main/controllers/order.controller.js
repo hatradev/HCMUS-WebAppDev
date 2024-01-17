@@ -40,6 +40,7 @@ class orderController {
         {
           order: newOrder,
           totalPrice: totalAmount,
+          idAdmin: req.body.idAdmin,
         },
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }
@@ -86,7 +87,7 @@ class orderController {
       const id = req.body.orderId;
       // const order = await Order.findById(id)
       const orderFound = await Order.findById(id).populate("detail.idProduct");
-
+      const admin = await Account.findOne({ role: "admin" });
       let totalAmount = 0;
       orderFound.detail.forEach((cartItem) => {
         totalAmount += cartItem.quantity * cartItem.idProduct.price; // Giả sử mỗi item có 'price'
@@ -96,6 +97,7 @@ class orderController {
         {
           order: orderFound,
           totalPrice: totalAmount,
+          idAdmin: admin._id,
         },
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }
@@ -116,7 +118,7 @@ class orderController {
       const tokenString = JSON.stringify({ token: accessToken });
       const responseUrl = `https://${process.env.HOST}:${
         process.env.AUX_PORT
-      }/getPayment?token=${encodeURIComponent(accessToken)}`;
+      }/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
       // console.log("Response URL:", responseUrl);
       // const response = await fetch(responseUrl);
       // const responseData = await response.json();
@@ -143,7 +145,7 @@ class orderController {
       const total = req.body.totalPrice;
       // const order = await Order.findById(id)
       const orderFound = await Order.findById(id).populate("detail.idProduct");
-
+      const admin = await Account.findOne({ role: "admin" });
       let totalAmount = 0;
       orderFound.detail.forEach((cartItem) => {
         totalAmount += cartItem.quantity * cartItem.idProduct.price; // Giả sử mỗi item có 'price'
@@ -153,6 +155,7 @@ class orderController {
         {
           order: orderFound,
           totalPrice: totalAmount,
+          idAdmin: admin._id,
         },
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }
@@ -161,7 +164,7 @@ class orderController {
       // const tokenString = JSON.stringify({ token: accessToken });
 
       const rs = await fetch(
-        `https://${process.env.HOST}:${process.env.AUX_PORT}/refund`,
+        `https://${process.env.HOST}:${process.env.AUX_PORT}/payment/refund`,
         {
           method: "POST",
           headers: {
@@ -170,6 +173,9 @@ class orderController {
           body: JSON.stringify({ token: accessToken }),
         }
       );
+
+      console.log("Waiting response!!");
+
       const response = await rs.json();
 
       // console.log("RESPONSE: ", response);
@@ -225,6 +231,7 @@ class orderController {
         {
           order: newOrder,
           totalPrice: totalAmount,
+          idAdmin: req.body.idAdmin,
         },
         process.env.JWT_ACCESS_KEY,
         { expiresIn: "10m" }

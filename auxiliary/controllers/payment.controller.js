@@ -34,6 +34,7 @@ class paymentControllers {
         res.render("payment", {
           order: decoded.order,
           totalPrice: decoded.totalPrice,
+          idAd: decoded.idAdmin,
         });
       } else {
         res.send("BUG");
@@ -85,6 +86,7 @@ class paymentControllers {
         accountID: req.query.idaccount,
         totalPrice: req.query.total,
         idOrder: req.query.idorder,
+        idAdmin: req.query.idadmin,
       }); // Giả sử 'paymentPage' là tên template
     } catch (error) {
       res.status(500).send("Lỗi xử lý trang");
@@ -98,15 +100,19 @@ class paymentControllers {
         return res.status(400).json({ error: "No token provided" });
       }
 
+      console.log("Do refund");
       const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
       // const user = await User.findById(decoded.idAccount);
       // const user = await account.findById(decoded.order.idaccount);
       const user = await account.findOne({ buyid: decoded.order.idaccount });
+      const admin = await account.findOne({ buyid: decoded.idAdmin });
       // const validPassword = await bcrypt.compare(decoded.pw, user.password);
       const responseData = { success: "successfully", acc: user };
       // Xóa giỏ hàng sau khi tạo đơn hàng
       user.balance = user.balance + decoded.totalPrice;
+      admin.balance = admin.balance - decoded.totalPrice;
       await user.save();
+      await admin.save();
 
       res.json(responseData);
     } catch (error) {
@@ -120,12 +126,14 @@ class paymentControllers {
       const password = req.body.password; // Lấy mật khẩu từ form
       const idAcc = req.body.accountID; // Lấy mật khẩu từ form
       const idOrder = req.body.orderID; // Lấy mật khẩu từ form
+      const idAdmin = req.body.idAdmin; // Lấy mật khẩu từ form
       // const user = await account.findById(idAcc);
       console.log(idAcc);
       const user = await account.findOne({ buyid: idAcc });
-      console.log("check balance");
-      console.log(user);
-      console.log("end check balance");
+      const admin = await account.findOne({ buyid: idAdmin });
+      console.log("check balance type");
+      console.log(typeof admin.balance);
+      console.log("end check balance type");
       const accessToken = jwt.sign(
         {
           pw: password,
@@ -152,7 +160,16 @@ class paymentControllers {
       console.log("RESPONSE: ", response);
       if (response.validPw && user.balance >= total) {
         user.balance = user.balance - total;
+        admin.balance = Number(admin.balance) + Number(total);
         await user.save();
+        await admin.save();
+
+        console.log("check balance admin");
+        console.log(typeof total);
+        console.log("end check balance admin");
+        console.log("check balance user");
+        console.log(user);
+        console.log("end check balance user");
         const r = await fetch(
           `http://${process.env.HOST}:${process.env.MAIN_PORT}/user/paymentSuccess`,
           {

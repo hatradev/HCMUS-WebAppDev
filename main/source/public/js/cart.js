@@ -129,7 +129,7 @@ function calculateTotal() {
 
   document.querySelector(".total").innerHTML = `Tổng: ${formatPrice(
     total
-  )}<sub></sub>`;
+  )}<sub>đ</sub>`;
 }
 
 // Hàm formatPrice để định dạng số theo dạng tiền tệ
