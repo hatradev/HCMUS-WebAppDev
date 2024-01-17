@@ -1,6 +1,26 @@
 document.addEventListener('DOMContentLoaded', function () {
     const addToCartButton = document.getElementById('addToCart');
     const buyNowButton = document.getElementById('addPayNow');
+    // Select the increment and decrement buttons
+    var incrementButton = document.querySelector('.blk-qty-btn.plus');
+    var decrementButton = document.querySelector('.blk-qty-btn.minus');
+
+    // Select the quantity input field
+    var quantityInput = document.querySelector('.blk-qty-input');
+
+    // Add click event listener to the increment button
+    incrementButton.addEventListener('click', function() {
+        var currentQuantity = parseInt(quantityInput.value);
+        quantityInput.value = currentQuantity + 1;
+    });
+
+    // Add click event listener to the decrement button
+    decrementButton.addEventListener('click', function() {
+        var currentQuantity = parseInt(quantityInput.value);
+        if (currentQuantity > 1) { // Prevents quantity from going below 1
+            quantityInput.value = currentQuantity - 1;
+        }
+    });
     if (addToCartButton) {
         addToCartButton.addEventListener('click', function() {
             const productId = this.getAttribute('data-psid');
