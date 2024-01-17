@@ -8,6 +8,7 @@ accountModal.addEventListener("show.bs.modal", function (event) {
   var email = button.getAttribute("data-bs-email");
   var phone = button.getAttribute("data-bs-phone");
   var adr = button.getAttribute("data-bs-adr");
+  var id = button.getAttribute("data-bs-id");
 
   var fnameInput = accountModal.querySelector(".modal-body #firstname");
   fnameInput.value = fname;
@@ -23,4 +24,7 @@ accountModal.addEventListener("show.bs.modal", function (event) {
 
   var adrInput = accountModal.querySelector(".modal-body #address");
   adrInput.value = adr;
+
+  var idInput = accountModal.querySelector(".modal-body #id");
+  idInput.value = id;
 });

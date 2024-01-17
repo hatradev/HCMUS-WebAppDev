@@ -339,6 +339,39 @@ class userController {
       next(error);
     }
   };
+
+  updateUser = async (req, res, next) => {
+    try {
+      if (req.body) {
+        const { id, ...data } = req.body;
+        await User.findOneAndUpdate(
+          { _id: id },
+          { $set: data },
+          { new: true, useFindAndModify: false }
+        );
+      }
+      res.redirect("/user/handle");
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  deleteUser = async (req, res, next) => {
+    try {
+      if (req.body) {
+        const { id, ...data } = req.body;
+        const result = await User.deleteOne({ _id: id });
+        if (result.deletedCount === 1) {
+          console.log("Account deleted successfully.");
+        } else {
+          console.log("Account not found or already deleted.");
+        }
+      }
+      res.redirect("/user/handle");
+    } catch (err) {
+      next(err);
+    }
+  };
 }
 
 module.exports = new userController();
