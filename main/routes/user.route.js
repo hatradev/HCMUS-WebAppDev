@@ -13,5 +13,5 @@ router.post("/authenticate", userController.authenticatePassword);
 router.post("/paymentSuccess", userController.paymentSuccess);
 
 router.get("/logout", userController.isLogin, userController.Logout);
-
+router.get("/handle", userController.getHandle);
 module.exports = router;
