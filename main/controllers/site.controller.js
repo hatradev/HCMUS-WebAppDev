@@ -123,7 +123,80 @@ class siteController {
   };
   getDashboard = async (req, res, next) => {
     try {
-      res.render("dashboard", { nshowHF: true });
+      const today = new Date();
+      const utcToday = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+      const firstDayOfMonth = new Date(Date.UTC(today.getFullYear(), today.getMonth(), 1));
+      const firstDayOfYear = new Date(Date.UTC(today.getFullYear(), 0, 1));
+      
+      // console.log(utcToday.toISOString(), firstDayOfMonth.toISOString(), firstDayOfYear.toISOString());      
+    
+       // Log successful orders this month
+      // const successfulOrdersThisMonth = await Order.find({
+      //   status: 'successful', 
+      //   date: { $gte: firstDayOfMonth }
+      // });
+      // console.log('Successful Orders This Month:', successfulOrdersThisMonth[0].detail);
+
+      // Log successful orders this year
+      // const successfulOrdersThisYear = await Order.find({
+      //   status: 'successful', 
+      //   date: { $gte: firstDayOfYear }
+      // });
+      // console.log('Successful Orders This Year:', successfulOrdersThisYear);
+
+      // Calculate monthRevenue
+      const monthRevenue = await Order.aggregate([
+        { $match: { status: 'successful', date: { $gte: firstDayOfMonth } } },
+        { $unwind: '$detail' },
+        { $lookup: {
+            from: 'products', // the collection name in MongoDB for products
+            localField: 'detail.idProduct',
+            foreignField: '_id',
+            as: 'productDetails'
+          }
+        },
+        { $unwind: '$productDetails' },
+        { $group: {
+            _id: null,
+            total: { $sum: { $multiply: ['$productDetails.price', '$detail.quantity'] } }
+          }
+        }
+      ]);
+    
+      // Calculate yearRevenue
+      const yearRevenue = await Order.aggregate([
+        { $match: { status: 'successful', date: { $gte: firstDayOfYear } } },
+        { $unwind: '$detail' },
+        { $lookup: {
+            from: 'products', // The collection name in MongoDB for products
+            localField: 'detail.idProduct',
+            foreignField: '_id',
+            as: 'productDetails'
+          }
+        },
+        { $unwind: '$productDetails' },
+        { $group: {
+            _id: null,
+            total: { $sum: { $multiply: ['$productDetails.price', '$detail.quantity'] } }
+          }
+        }
+      ]);
+    
+      // Calculate successRate
+      const totalCount = await Order.countDocuments();
+      const successfulCount = await Order.countDocuments({ status: 'successful' });
+      const successRate = Math.ceil(successfulCount / totalCount * 100);
+    
+      // Calculate noPendingOrder
+      const noPendingOrder = await Order.countDocuments({ status: 'pending' });
+
+      res.render("dashboard", { 
+        nshowHF: true,
+        monthRevenue: monthRevenue[0]?.total || 0,
+        yearRevenue: yearRevenue[0]?.total || 0,
+        successRate,
+        noPendingOrder
+      });
     } catch (error) {
       next(error);
     }
