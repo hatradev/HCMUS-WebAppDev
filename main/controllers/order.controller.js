@@ -8,14 +8,43 @@ require("dotenv").config();
 
 class orderController {
   approveOrder = async (req, res, next) => {
-    console.log("approve order");
+    // console.log("approve order");
+    // console.log(req.params);
+    // console.log(req.body.orderId);
     try {
-      res.json({ success: "successfully sending order" });
-    }
-    catch (error) {
+      const orderId = req.body.orderId; // Assuming you get the order ID from the request
+      const order = await Order.findById(orderId).populate('detail.idProduct');
+
+      if (!order) {
+        return res.status(404).json({ error: "Order not found" });
+      }
+
+      // console.log(order.status);
+
+      if (order.status != "pending") {
+        res.redirect('/order/handle');
+        return;
+      }
+
+      // Update order status
+      order.status = "successful";
+
+      // Reduce product stock
+      for (const item of order.detail) {
+        const product = item.idProduct;
+        const quantityToReduce = item.quantity;
+
+        product.stock = Math.max(0, product.stock - quantityToReduce); // Ensures stock doesn't go below 0
+        await product.save();
+      }
+
+      await order.save();
+      res.redirect('/order/handle');
+      // res.json({ success: "Successfully updated order and reduced product stock" });
+    } catch (error) {
       next(error);
     }
-  }
+  };
 
   CreateOrderForCartAndSendToken = async (req, res, next) => {
     try {
@@ -69,9 +98,8 @@ class orderController {
       //   return res.status(500).json({ error: "Failed to create access token" });
       // }
       const tokenString = JSON.stringify({ token: accessToken });
-      const responseUrl = `https://${process.env.HOST}:${
-        process.env.AUX_PORT
-      }/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
+      const responseUrl = `https://${process.env.HOST}:${process.env.AUX_PORT
+        }/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
 
       // const response = await fetch(responseUrl);
       // const responseData = await response.json();
@@ -126,9 +154,8 @@ class orderController {
       //   return res.status(500).json({ error: "Failed to create access token" });
       // }
       const tokenString = JSON.stringify({ token: accessToken });
-      const responseUrl = `https://${process.env.HOST}:${
-        process.env.AUX_PORT
-      }/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
+      const responseUrl = `https://${process.env.HOST}:${process.env.AUX_PORT
+        }/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
       // console.log("Response URL:", responseUrl);
       // const response = await fetch(responseUrl);
       // const responseData = await response.json();
@@ -248,9 +275,8 @@ class orderController {
       );
 
       const tokenString = JSON.stringify({ token: accessToken });
-      const responseUrl = `https://${process.env.HOST}:${
-        process.env.AUX_PORT
-      }/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
+      const responseUrl = `https://${process.env.HOST}:${process.env.AUX_PORT
+        }/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
 
       // Lưu đơn hàng mới
       const savedOrder = await newOrder.save();

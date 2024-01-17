@@ -45,6 +45,8 @@
           </div>
           <div class="modal-body">
             <form id="updateOrder" action="/order/update-order" method="post">
+              <input type="hidden" name="orderId" id="hiddenOrderId">
+
               <div class="row">
                 <div class="col-5">
                   <span>Mã đơn hàng: </span>
@@ -119,10 +121,10 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng cửa sổ</button>
             <button type="submit" formaction="/product/delete-category" formmethod="post" class="btn btn-danger"
-             form="updateOrder">Hủy đơn
+              form="updateOrder">Hủy đơn
               hàng</button>
-            <button type="submit" formaction="/order/approve-order" formmethod="post"
-              class="btn btn-primary bg-primary" form="updateOrder">Duyệt đơn hàng</button>
+            <button type="submit" formaction="/order/approve-order" formmethod="post" class="btn btn-primary bg-primary"
+              form="updateOrder" onclick="setOrderId()">Duyệt đơn hàng</button>
           </div>
         </div>
       </div>
@@ -131,26 +133,8 @@
 </div>
 <script src="/js/admin-ordermodal.js"></script>
 <script>
-  $(document).ready(function () {
-    console.log('Document ready');
-    $("#modalsubmit").click(function (event) {
-      event.preventDefault(); // Prevent default form submission
-
-      var formData = $("#updateOrder").serialize(); // Serialize form data
-
-      $.ajax({
-        type: "POST",
-        url: "/order/approve-order",
-        data: formData,
-        success: function (response) {
-          console.log('Order approved:', response);
-          // Handle success (e.g., show a message, redirect, etc.)
-        },
-        error: function (xhr, status, error) {
-          console.error('Error approving order:', error);
-          // Handle error
-        }
-      });
-    });
-  });
+  function setOrderId() {
+    var orderId = document.getElementById('id').textContent; // Get the order ID from the span
+    document.getElementById('hiddenOrderId').value = orderId; // Set it to the hidden input
+  }
 </script>
