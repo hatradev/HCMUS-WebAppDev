@@ -23,7 +23,6 @@
 function selectCategory(categoryId, event) {
     if (event) {
         event.preventDefault(); // Prevent the default anchor behavior
-        event.currentTarget.classList.add('selected-category');
     }
 
     document.getElementById('selectedCategory').value = categoryId;
@@ -39,6 +38,9 @@ function selectCategory(categoryId, event) {
         if (selectedElement) {
             selectedElement.classList.add('selected-category');
         }
+    }
+    else {
+        event.currentTarget.classList.add('selected-category');
     }
 }
 
