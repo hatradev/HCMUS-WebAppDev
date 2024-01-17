@@ -51,7 +51,7 @@ class paymentControllers {
         return { error: "POST No token provided" };
       } else {
         res.redirect(`/getPayment?token=${encodeURIComponent(token)}`);
-        // const redirectUrl = `https://localhost:1234/getPayment?token=${encodeURIComponent(token)}`;
+
         // // res.redirect(redirectUrl);
         // fetch(redirectUrl).then(response => {
         //   if (!response.ok) {
@@ -71,7 +71,6 @@ class paymentControllers {
       // const responseData = { success: "successfully sending order", orderData: decoded };
       // Gửi phản hồi
       // res.json(responseData);
-      // res.redirect('https://localhost:1234/getPayment');
     } catch (error) {
       // Xử lý lỗi JWT hoặc lỗi khác
       next(error);
@@ -139,7 +138,7 @@ class paymentControllers {
       );
 
       const rs = await fetch(
-        `http://localhost:${process.env.MAIN_PORT}/user/authenticate`,
+        `http://${process.env.HOST}:${process.env.MAIN_PORT}/user/authenticate`,
         {
           method: "POST",
           headers: {
@@ -155,7 +154,7 @@ class paymentControllers {
         user.balance = user.balance - total;
         await user.save();
         const r = await fetch(
-          `http://localhost:${process.env.MAIN_PORT}/user/paymentSuccess`,
+          `http://${process.env.HOST}:${process.env.MAIN_PORT}/user/paymentSuccess`,
           {
             method: "POST",
             headers: {
@@ -165,16 +164,17 @@ class paymentControllers {
           }
         );
         const response2 = await r.json();
-        // res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/index`);
         // res.json(response2);
         res.redirect(
-          `http://localhost:${
+          `http://${process.env.HOST}:${
             process.env.MAIN_PORT
-          }/order/detail?id=${encodeURIComponent(idOrder)}&err=${encodeURIComponent("none-err")}`
+          }/order/detail?id=${encodeURIComponent(
+            idOrder
+          )}&err=${encodeURIComponent("none-err")}`
         );
       } else if (!response.validPw) {
         res.redirect(
-          `http://localhost:${
+          `http://${process.env.HOST}:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(
             idOrder
@@ -183,7 +183,7 @@ class paymentControllers {
       } else {
         // res.redirect(`/order/inValidBalance?id=${encodeURIComponent(idOrder)}`);
         res.redirect(
-          `http://localhost:${
+          `http://${process.env.HOST}:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(
             idOrder
@@ -197,7 +197,7 @@ class paymentControllers {
     } catch (error) {
       next(error);
     }
-  }
+  };
 }
 
 module.exports = new paymentControllers();

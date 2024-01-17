@@ -21,22 +21,22 @@ function route(app) {
   app.use("/payment", paymentRouter);
 
   // app.get("/payment/authenticate", async (req, res, next) => {
-    
+
   // });
- 
+
   app.post("/signup", userController.signUp);
   // app.post("/process-payment", async (req, res, next) => {
-    
+
   // });
 
   // app.post("/payment", async (req, res, next) => {
   // });
   // app.post("/refund", async (req, res, next) => {
-    
+
   // });
 
   // app.get("/getPayment", async (req, res, next) => {
-    
+
   // });
 
   // app.get("/getPayment", async (req, res, next) => {
@@ -61,7 +61,6 @@ function route(app) {
   //       console.log("end check AUX last");
   //       res.render("payment");
   //       // res.json(responseData);
-  //       // res.redirect('https://localhost:1234/getPayment');
   //     } catch (error) {
   //       // Xử lý lỗi JWT hoặc lỗi khác
   //       next(error);

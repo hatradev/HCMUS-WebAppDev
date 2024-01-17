@@ -46,7 +46,6 @@ class orderController {
       );
 
       // await fetch(
-      //   `https://localhost:${process.env.AUX_PORT}/payment`,
       //   {
       //     method: "POST",
       //     headers: {
@@ -62,9 +61,7 @@ class orderController {
       const responseUrl = `https://${process.env.HOST}:${
         process.env.AUX_PORT
       }/payment/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
-      // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?data=${tokenString}`;
-      // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
-      // console.log("Response URL:", responseUrl);
+
       // const response = await fetch(responseUrl);
       // const responseData = await response.json();
       // const response = await rs.json();
@@ -105,7 +102,6 @@ class orderController {
       );
 
       // await fetch(
-      //   `https://localhost:${process.env.AUX_PORT}/payment`,
       //   {
       //     method: "POST",
       //     headers: {
@@ -121,8 +117,6 @@ class orderController {
       const responseUrl = `https://${process.env.HOST}:${
         process.env.AUX_PORT
       }/getPayment?token=${encodeURIComponent(accessToken)}`;
-      // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?data=${tokenString}`;
-      // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
       // console.log("Response URL:", responseUrl);
       // const response = await fetch(responseUrl);
       // const responseData = await response.json();
@@ -165,7 +159,6 @@ class orderController {
       );
 
       // const tokenString = JSON.stringify({ token: accessToken });
-      // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
 
       const rs = await fetch(
         `https://${process.env.HOST}:${process.env.AUX_PORT}/refund`,
