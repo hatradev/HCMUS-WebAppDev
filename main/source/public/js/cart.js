@@ -1,4 +1,5 @@
-  document.addEventListener("DOMContentLoaded", function () {
+
+    document.addEventListener("DOMContentLoaded", function () {
   calculateTotal();
   const removeCartButtons = document.querySelectorAll(".remove-cart");
   const quantityButtons = document.querySelectorAll(".blk-qty-btn");
@@ -85,6 +86,14 @@ async function deleteProductFromCart(productId, buttonElement) {
 
       calculateTotal();
       // Cập nhật thông tin giỏ hàng nếu cần
+      // Thêm đoạn mã này để xóa nút "Thanh toán"
+      if (cartNumber === 0) {
+        // Tìm nút "Thanh toán" và xóa hoặc ẩn nó
+        const paymentButton = document.querySelector('.payment-btn');
+        if (paymentButton) {
+          paymentButton.remove(); // hoặc paymentButton.style.display = 'none'; để ẩn nút
+        }
+      }
     } else {
       // Kiểm tra nếu phản hồi không phải là JSON
       if (response.headers.get("content-type").includes("application/json")) {
@@ -129,7 +138,7 @@ function calculateTotal() {
 
   document.querySelector(".total").innerHTML = `Tổng: ${formatPrice(
     total
-  )}<sub>đ</sub>`;
+  )} đ`;
 }
 
 // Hàm formatPrice để định dạng số theo dạng tiền tệ

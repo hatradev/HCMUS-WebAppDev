@@ -109,10 +109,30 @@ class paymentControllers {
       // const validPassword = await bcrypt.compare(decoded.pw, user.password);
       const responseData = { success: "successfully", acc: user };
       // Xóa giỏ hàng sau khi tạo đơn hàng
-      user.balance = user.balance + decoded.totalPrice;
-      admin.balance = admin.balance - decoded.totalPrice;
+      user.balance = Number(user.balance) + Number(decoded.totalPrice);
+      admin.balance = Number(admin.balance) - Number(decoded.totalPrice);
       await user.save();
       await admin.save();
+
+      const newHistoryUser = new Hist({
+        idaccount: user.buyid,
+        isIn: true,
+        money: Number(decoded.totalPrice),
+        balance: user.balance,
+        description: "Receive",
+        // message: req.body.message, // Lấy từ form đầu vào
+      });
+      const newHistoryAdmin = new Hist({
+        idaccount: admin.buyid,
+        isIn: false,
+        money: Number(decoded.totalPrice),
+        balance: admin.balance,
+        description: "Refund",
+        // message: req.body.message, // Lấy từ form đầu vào
+      });
+
+      const savedHistoryUser = await newHistoryUser.save();
+      const savedHistoryAdmin = await newHistoryAdmin.save();
 
       res.json(responseData);
     } catch (error) {
@@ -131,6 +151,8 @@ class paymentControllers {
       console.log(idAcc);
       const user = await account.findOne({ buyid: idAcc });
       const admin = await account.findOne({ buyid: idAdmin });
+      // const historyUser = await Hist.findOne({ idaccount: idAcc });
+      // const historyAdmin = await Hist.findOne({ idaccount: idAdmin });
       console.log("check balance type");
       console.log(typeof admin.balance);
       console.log("end check balance type");
@@ -163,6 +185,26 @@ class paymentControllers {
         admin.balance = Number(admin.balance) + Number(total);
         await user.save();
         await admin.save();
+
+        const newHistoryUser = new Hist({
+          idaccount: user.buyid,
+          isIn: false,
+          money: Number(total),
+          balance: user.balance,
+          description: "Purchase",
+          // message: req.body.message, // Lấy từ form đầu vào
+        });
+        const newHistoryAdmin = new Hist({
+          idaccount: admin.buyid,
+          isIn: true,
+          money: Number(total),
+          balance: admin.balance,
+          description: "Sell",
+          // message: req.body.message, // Lấy từ form đầu vào
+        });
+
+        const savedHistoryUser = await newHistoryUser.save();
+        const savedHistoryAdmin = await newHistoryAdmin.save();
 
         console.log("check balance admin");
         console.log(typeof total);
