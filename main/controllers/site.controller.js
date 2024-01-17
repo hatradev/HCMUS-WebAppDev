@@ -194,12 +194,34 @@ class siteController {
       // Calculate noPendingOrder
       const noPendingOrder = await Order.countDocuments({ status: 'pending' });
 
+      // Calculate topSellingProducts
+      const topSellingProducts = await Order.aggregate([
+        { $match: { status: 'successful' } },
+        { $unwind: '$detail' },
+        { $group: { _id: '$detail.idProduct', totalQuantity: { $sum: '$detail.quantity' } } },
+        { $sort: { totalQuantity: -1 } },
+        { $limit: 4 },
+        {
+          $lookup: {
+            from: 'products', // Replace with your actual products collection name
+            localField: '_id',
+            foreignField: '_id',
+            as: 'productInfo'
+          }
+        },
+        { $unwind: '$productInfo' },
+        { $project: { productInfo: 1, totalQuantity: 1 } }
+      ]);
+
+      // console.log(topSellingProducts);
+
       res.render("dashboard", {
         nshowHF: true,
         monthRevenue: monthRevenue[0]?.total || 0,
         yearRevenue: yearRevenue[0]?.total || 0,
         successRate,
-        noPendingOrder
+        noPendingOrder,
+        topProducts: topSellingProducts
       });
     } catch (error) {
       next(error);
