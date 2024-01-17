@@ -57,9 +57,7 @@ class authController {
       //save the user to the database
       let user = await User.findOne({ email: googleUser.email });
       if (user) {
-        // console.log("user already exists in the database");
-
-        if (user.avatar == process.env.AVATAR) {
+        if (user.avatar == "/img/avatar/default.jpg") {
           await User.updateOne(
             { _id: user._id },
             { $set: { avatar: googleUser.picture } }

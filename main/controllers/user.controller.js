@@ -350,7 +350,7 @@ class userController {
           };
         })
       );
-      // console.log(usersInfo);
+      console.log(usersInfo);
       res.render("accounthandle", { nshowHF: true, usersInfo });
     } catch (error) {
       next(error);
