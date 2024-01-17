@@ -30,6 +30,8 @@
                     <input type="text" class="form-control mt-0" name="inputAddress" id="inputAddress"
                         value="{{address}}" disabled>
                 </div>
+                <input type="text" class="form-control mt-0" name="avatar" id="avatar"
+                        value="{{avatar}}" hidden>
                 <div class="d-grid gap-2 col-12 mt-4">
                     <button class="btn btn-outline-dark fs-4" style="height: 4rem" onclick="sendToken()">Xác
                         nhận</button>
@@ -53,10 +55,9 @@
     </div>
 </div>
 <script>
-
     function sendToken() {
         $.post("/user/sendtoken", {
-            lastname: "{{lastname}}", firstname: "{{firstname}}", email: "{{email}}", phone: "{{phone}}", address: "{{address}}", password: "{{password}}", avatar: "{{avatar}}",
+            lastname: "{{lastname}}", firstname: "{{firstname}}", email: "{{email}}", phone: "{{phone}}", address: "{{address}}", password: "{{password}}", avatar: $('#avatar').val(),
         },
             rs => {
                 console.log(rs);

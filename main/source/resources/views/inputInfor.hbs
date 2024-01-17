@@ -67,7 +67,9 @@
     $(() => {
         $('#signupForm').submit(function (e) {
             const regex = /\D/
-             $('#phoneNumErr').html(regex.test($('#inputPhoneNumber').val()) ? 'Số điện thoại không hợp lệ!' : '');
+            console.log(($('#inputPhoneNumber').val()).length);
+            
+             $('#phoneNumErr').html((regex.test($('#inputPhoneNumber').val()) || ($('#inputPhoneNumber').val()).length != 10) ? 'Số điện thoại không hợp lệ!' : '');
             //check confirmPassword
             $('#confirmPwErr').html(($('#inputPassword').val() != $('#inputConfirmPassword').val()) ? 'Nhập lại mật khẩu không chính xác' : '');
 
