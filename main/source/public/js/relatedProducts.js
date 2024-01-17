@@ -2,6 +2,8 @@ import renderProducts from './renderProducts.js';
 import updatePagination from './updatePagination.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // console.log('DOM loaded. Adding event listeners...');
+
     currentState.mode = 'related';
     currentState.page = 1;
     getRelatedProducts();
@@ -9,10 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function getRelatedProducts(event) {
     if (event) event.preventDefault();
-    // console.log('getRelatedProducts');
 
     var productElement = document.getElementById("product-id");
     // console.log(productElement);
+
+    if (!productElement) {
+        // console.log('No product id found');
+        return;
+    }
     const productId = productElement.getAttribute("data-product-id");
     // console.log(productId);
 

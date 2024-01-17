@@ -77,7 +77,7 @@ function route(app) {
       );
 
       const rs = await fetch(
-        `http://localhost:${process.env.MAIN_PORT}/user/authenticate`,
+        `http://127.0.0.1:${process.env.MAIN_PORT}/user/authenticate`,
         {
           method: "POST",
           headers: {

@@ -3,7 +3,7 @@ const Product = require("../models/product.model");
 const Category = require("../models/category.model");
 const Account = require("../models/account.model");
 
-const defaultLimit = 12;
+const defaultLimit = 8;
 
 class productController {
   getCategoryTree = async () => {
@@ -55,7 +55,9 @@ class productController {
 
   APIRelatedProducts = async (req, res, next) => {
     try {
-      const { productId, page = 1, limit = defaultLimit } = req.query;
+      const { productId } = req.query;
+      const page = parseInt(req.query.page, 10) || 1; // Default to 1 if not provided
+      const limit = parseInt(req.query.limit, 10) || defaultLimit; // Use a default limit if not provided
 
       // console.log(page);
 
@@ -196,6 +198,8 @@ class productController {
         hasNextPage: page < totalPages,
         nextPage: page + 1,
       };
+
+      // console.log(paginationData);
 
       res.json({
         products: related,
@@ -381,9 +385,10 @@ class productController {
         minPrice,
         maxPrice,
         sortOrder,
-        page = 1,
-        limit = defaultLimit,
       } = req.query;
+
+      const page = parseInt(req.query.page, 10) || 1; // Default to 1 if not provided
+      const limit = parseInt(req.query.limit, 10) || defaultLimit; // Use a default limit if not provided
 
       let query = {};
 
@@ -428,6 +433,7 @@ class productController {
           isCurrent: i === parseInt(page),
         });
       }
+
       const paginationData = {
         pages: pageNumbers,
         hasPreviousPage: page > 1,
@@ -435,6 +441,8 @@ class productController {
         hasNextPage: page < totalPages,
         nextPage: page + 1,
       };
+
+      // console.log(paginationData);
 
       res.json({
         products: filteredProducts,
