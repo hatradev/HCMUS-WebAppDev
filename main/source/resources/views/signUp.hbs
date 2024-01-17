@@ -7,27 +7,32 @@
                 <form id="signupForm" action="/user/signup" method="post">
                     <div class="mb-2">
                         <label for="inputLastName" class="form-label">Họ</label>
-                        <input type="text" class="form-control mt-0" name="inputLastName" id="inputLastName" value="{{lastname}}" required>
+                        <input type="text" class="form-control mt-0" name="inputLastName" id="inputLastName"
+                            value="{{lastname}}" required>
                         <small id="lNameErr" class="form-text text-danger"></small>
                     </div>
                     <div class="mb-2">
                         <label for="inputFirstName" class="form-label mb-1">Tên</label>
-                        <input type="text" class="form-control mt-0" name="inputFirstName" id="inputFirstName" value="{{firstname}}" required>
+                        <input type="text" class="form-control mt-0" name="inputFirstName" id="inputFirstName"
+                            value="{{firstname}}" required>
                         <small id="fNameErr" class="form-text text-danger"></small>
                     </div>
                     <div class="mb-2">
                         <label for="inputEmail" class="form-label mb-1">Email</label>
-                        <input type="email" class="form-control mt-0" name="inputEmail" id="inputEmail" value="{{email}}" required>
+                        <input type="email" class="form-control mt-0" name="inputEmail" id="inputEmail"
+                            value="{{email}}" required>
                         <small id="emailErr" class="form-text text-danger">{{emailMsg}}</small>
                     </div>
                     <div class="mb-2">
                         <label for="inputPhoneNumber" class="form-label mb-1">Điện thoại</label>
-                        <input type="text" class="form-control mt-0" name="inputPhoneNumber" id="inputPhoneNumber" value="{{phone}}" required>
+                        <input type="text" class="form-control mt-0" name="inputPhoneNumber" id="inputPhoneNumber"
+                            value="{{phone}}" required>
                         <small id="phoneNumErr" class="form-text text-danger"></small>
                     </div>
                     <div class="mb-2">
                         <label for="inputAddress" class="form-label mb-1">Điạ chỉ</label>
-                        <input type="text" class="form-control mt-0" name="inputAddress" id="inputAddress" value="{{address}}" required>
+                        <input type="text" class="form-control mt-0" name="inputAddress" id="inputAddress"
+                            value="{{address}}" required>
                     </div>
                     <div class="mb-2">
                         <label for="inputPassword" class="form-label mb-1">Mật khẩu</label>
@@ -67,25 +72,53 @@
 <script>
     $(() => {
         $('#signupForm').submit(function (e) {
-            //check name
+            e.preventDefault(); // Prevent form submission initially
+
+            // Check name
             let regex = /[^a-zA-ZÀ-ỹ\s]/;
             $('#fNameErr').html(regex.test($('#inputFirstName').val()) ? 'Tên chỉ bao gồm các chữ cái' : '');
             $('#lNameErr').html(regex.test($('#inputLastName').val()) ? 'Họ chỉ bao gồm các chữ cái' : '');
 
-             regex = /\D/
-            $('#phoneNumErr').html(regex.test($('#inputPhoneNumber').val())  ? 'Số điện thoại không chứa kí tự khác ngoài chữ số!' : '');
-            if($('#phoneNumErr').html() == ''){
+            // Check phone number
+            regex = /\D/;
+            $('#phoneNumErr').html(regex.test($('#inputPhoneNumber').val()) ? 'Số điện thoại không chứa kí tự khác ngoài chữ số!' : '');
+            if ($('#phoneNumErr').html() == '') {
                 $('#phoneNumErr').html((($('#inputPhoneNumber').val()).length < 7 || ($('#inputPhoneNumber').val()).length > 11) ? 'Số điện thoại có độ dài từ 7 đến 11 số!' : '');
             }
-            //check confirmPassword
+
+            // Check password strength
+            const password = $('#inputPassword').val();
+            const uppercaseRegex = /[A-Z]/;
+            const lowercaseRegex = /[a-z]/;
+            const numberRegex = /[0-9]/;
+            const specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
+            let passwordErrors = '';
+            if (!uppercaseRegex.test(password)) {
+                passwordErrors += 'Mật khẩu phải có ít nhất một chữ cái in hoa. ';
+            }
+            if (!lowercaseRegex.test(password)) {
+                passwordErrors += 'Mật khẩu phải có ít nhất một chữ cái thường. ';
+            }
+            if (!numberRegex.test(password)) {
+                passwordErrors += 'Mật khẩu phải có ít nhất một chữ số. ';
+            }
+            if (!specialCharRegex.test(password)) {
+                passwordErrors += 'Mật khẩu phải có ít nhất một ký tự đặc biệt. ';
+            }
+            if (password.length < 8) {
+                passwordErrors += 'Mật khẩu phải có độ dài ít nhất 8 ký tự. ';
+            }
+            $('#passwordErr').html(passwordErrors);
+
+            // Check confirmPassword
             $('#confirmPwErr').html(($('#inputPassword').val() != $('#inputConfirmPassword').val()) ? 'Nhập lại mật khẩu không chính xác' : '');
 
-            if ($('#fNameErr').html() == '' && $('#lNameErr').html() == '' && $('#confirmPwErr').html() == '' && $('#phoneNumErr').html() == '') {
-                $('#signupForm').submit();
-            }
-            else {
-                e.preventDefault();
+            // Submit form if all validations pass
+            if ($('#fNameErr').html() == '' && $('#lNameErr').html() == '' && $('#confirmPwErr').html() == '' && $('#phoneNumErr').html() == '' && $('#passwordErr').html() == '') {
+                this.submit(); // Use 'this.submit()' to avoid calling the jQuery submit handler again
             }
         });
     })
+
 </script>
