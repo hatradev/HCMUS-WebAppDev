@@ -9,8 +9,7 @@ function route(app) {
   app.get("/", async (req, res) => {
     let user = await account.find({});
     if (user) {
-      console.log("AUX:", user);
-
+      // console.log(user);
       res.render("index");
     } else {
       console.log("fail");

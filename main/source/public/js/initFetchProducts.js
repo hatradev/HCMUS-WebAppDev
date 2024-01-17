@@ -1,24 +1,5 @@
 import fetchProducts from './fetchProducts.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    // first load all-product page
-    initFetchProducts();
-
-    const filterButton = document.getElementById('filter-btn');
-    const searchForm = document.querySelector('.search-bar');
-
-    if (filterButton) {
-        filterButton.addEventListener('click', initFetchProducts);
-    }
-
-    if (searchForm) {
-        searchForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevent the default form submission
-            initFetchProducts();
-        });
-    }
-});
-
 function initFetchProducts(event) {
     if (event) event.preventDefault(); // Prevent the default behavior if event is present
 
