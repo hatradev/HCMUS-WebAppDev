@@ -5,6 +5,20 @@ const Account = require("../models/account.model");
 
 const defaultLimit = 8;
 
+buildFullName = async (category) => {
+  if (!category.parentCategory) {
+    return category.name;
+  } else {
+    const parentCategory = await Category.findById(category.parentCategory);
+    if (!parentCategory) {
+      return category.name;
+    } else {
+      const parentFullName = await buildFullName(parentCategory);
+      return `${parentFullName}/${category.name}`;
+    }
+  }
+};
+
 class productController {
   getCategoryTree = async () => {
     // Fetch categories from the database
@@ -25,8 +39,8 @@ class productController {
   renderAllProduct = async (req, res, next) => {
     try {
       // const categories = await this.getCategoryTree();
-      const searchTerm = req.query.keyword || '';
-      const category = req.query.category || '';
+      const searchTerm = req.query.keyword || "";
+      const category = req.query.category || "";
 
       res.render("all-product", {
         searchTerm: searchTerm,
@@ -236,13 +250,7 @@ class productController {
 
   APIProducts = async (req, res) => {
     try {
-      const {
-        keyword,
-        category,
-        minPrice,
-        maxPrice,
-        sortOrder,
-      } = req.query;
+      const { keyword, category, minPrice, maxPrice, sortOrder } = req.query;
 
       // console.log(keyword);
 
@@ -493,7 +501,23 @@ class productController {
 
   getHandle = async (req, res, next) => {
     try {
-      res.render("producthandle", { nshowHF: true });
+      // Tìm tất cả sản phẩm và populate thông tin của danh mục
+      const allProducts = await Product.find().populate("category", "name");
+
+      // Chuyển list image thành object
+      const products = allProducts.map((product) => {
+        const transformedImages = {};
+        product.image.forEach((img, index) => {
+          transformedImages[`i${index + 1}`] = img;
+        });
+
+        return {
+          ...product.toObject(),
+          image: transformedImages,
+        };
+      });
+      // console.log(products);
+      res.render("producthandle", { nshowHF: true, products });
     } catch (error) {
       next(error);
     }
@@ -501,7 +525,27 @@ class productController {
 
   getCateHandle = async (req, res, next) => {
     try {
-      res.render("categoryhandle", { nshowHF: true });
+      // Tìm tất cả danh mục
+      const allCategories = await Category.find();
+
+      // Xây dựng tên đầy đủ và lấy số lượng sản phẩm cho từng danh mục
+      const fullCategories = await Promise.all(
+        allCategories.map(async (category, index) => {
+          const fullName = await buildFullName(category);
+          const productCount = await Product.countDocuments({
+            category: category._id,
+          });
+          return {
+            ...category.toObject(),
+            fullName,
+            productCount,
+            idx: index + 1,
+          };
+        })
+      );
+      fullCategories.sort((a, b) => a.fullName.localeCompare(b.fullName));
+      console.log(fullCategories);
+      res.render("categoryhandle", { nshowHF: true, fullCategories });
     } catch (error) {
       next(error);
     }

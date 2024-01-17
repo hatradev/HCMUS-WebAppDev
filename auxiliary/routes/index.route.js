@@ -2,6 +2,7 @@ const account = require("../models/account.model");
 const CustomErr = require("../helpers/custom-error");
 const jwt = require("jsonwebtoken");
 const balanceRouter = require("../routes/balance.route");
+const userController = require("../controllers/user.controller");
 
 function route(app) {
   // Định nghĩa các route theo tài nguyên
@@ -9,7 +10,6 @@ function route(app) {
     let user = await account.find({});
     if (user) {
       // console.log(user);
-
       res.render("index");
     } else {
       console.log("fail");
@@ -46,22 +46,16 @@ function route(app) {
     }
   });
 
-  app.post("/signup", async (req, res, next) => {
-    try {
-      const responseData = { success: true, data: req.body };
-      // Gửi phản hồi
-      res.json(responseData);
-    } catch (error) {
-      next(error);
-    }
-  });
+  app.post("/signup", userController.signUp);
   app.post("/process-payment", async (req, res, next) => {
     try {
       const total = req.body.total; // Lấy tổng tiền từ form
       const password = req.body.password; // Lấy mật khẩu từ form
       const idAcc = req.body.accountID; // Lấy mật khẩu từ form
       const idOrder = req.body.orderID; // Lấy mật khẩu từ form
-      const user = await account.findById(idAcc);
+      // const user = await account.findById(idAcc);
+      console.log(idAcc);
+      const user = await account.findOne({ buyid: idAcc });
       console.log("check balance");
       console.log(user);
       console.log("end check balance");
@@ -181,7 +175,8 @@ function route(app) {
 
       const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
       // const user = await User.findById(decoded.idAccount);
-      const user = await account.findById(decoded.order.idaccount);
+      // const user = await account.findById(decoded.order.idaccount);
+      const user = await account.findOne({ buyid: decoded.order.idaccount });
       // const validPassword = await bcrypt.compare(decoded.pw, user.password);
       const responseData = { success: "successfully", acc: user };
       // Xóa giỏ hàng sau khi tạo đơn hàng

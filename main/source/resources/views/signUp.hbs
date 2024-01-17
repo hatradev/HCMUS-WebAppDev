@@ -68,9 +68,6 @@
             let regex = /[^a-zA-ZÀ-ỹ\s]/;
             $('#fNameErr').html(regex.test($('#inputFirstName').val()) ? 'Tên chỉ bao gồm các chữ cái' : '');
             $('#lNameErr').html(regex.test($('#inputLastName').val()) ? 'Họ chỉ bao gồm các chữ cái' : '');
-            //check username
-            //regex = /[\/\\\[\];|=,+\*\?<>]/;
-            //$('#usernameErr').html(regex.test($('#inputUsername').val()) ? 'Tên đăng nhập không chứa các kí tự: / \ [ ] ; | = , + * ? < >' : '');
 
              regex = /\D/
              $('#phoneNumErr').html(regex.test($('#inputPhoneNumber').val()) ? 'Số điện thoại không hợp lệ!' : '');

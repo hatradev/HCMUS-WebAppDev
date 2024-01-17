@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Order = require("../models/order.model");
+const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 class userController {
@@ -38,20 +39,80 @@ class userController {
     }
   };
 
-  getForgotPwP = async (req, res, next) => {
+  forgotPw = async (req, res, next) => {
     try {
       const email = req.query.email;
-      const user = User.findOne({ email: email });
+      const user = await User.findOne({ email: email });
       if (!user) {
-        res.redirect("/user/signup", {});
+        res.render("/user/signup", { msg: "Người dùng không tồn tại!" });
+      } else {
+        const characters =
+          "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        let code = "";
+        for (let i = 0; i < 6; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          code += characters.charAt(randomIndex);
+        }
+
+        // Thông tin tài khoản Gmail
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: "mozi.ecommerce@gmail.com",
+            pass: "fdgyulhrrwgfwxdf",
+          },
+        });
+
+        const mailOptions = {
+          from: "mozi.ecommerce@gmail.com",
+          to: user.email,
+          subject: "Verification Code for Password Reset",
+          html: `
+            <p>Dear ${user.lastname} ${user.firstname},</p>
+            <p>Your new password is: <strong>${code}</strong></p>
+            <p>Please use this password to login our website.</p>
+            <p>Thank you!</p>
+            `,
+        };
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+        });
+        res.render("forgotPw", { email: user.email, code: code });
       }
-      res.render("forgotPw", {});
     } catch (err) {
       next(err);
     }
   };
 
   //[POST]
+
+  resetPw = async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+      const salt = await bcrypt.genSalt(10);
+      const hashedPw = await bcrypt.hash(password, salt);
+      await User.updateOne(
+        { email: email },
+        {
+          password: hashedPw,
+        }
+      );
+      const user = await User.findOne({ email: email });
+      res.cookie("user", user, {
+        httpOnly: true,
+        secure: false,
+        path: "/",
+      });
+      res.send("success");
+    } catch (err) {
+      next(err);
+    }
+  };
+
   SignUp = async (req, res, next) => {
     try {
       const {

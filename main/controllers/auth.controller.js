@@ -15,19 +15,6 @@ const getGoogleUser = async ({ id_token, access_token }) => {
   const data = await rs.json();
   return data;
 };
-// const getFacebookUser = async ({ access_token }) => {
-//   const rs = await fetch(
-//     `https://graph.facebook.com/me?access_token=${access_token}&fields=id,name,email,picture`,
-//     {
-//       method: "GET",
-//       headers: {
-//         Authorization: `Bearer ${access_token}`,
-//       },
-//     }
-//   );
-//   const data = await rs.json();
-//   return data;
-// };
 
 const gg_scope = [
   "https://www.googleapis.com/auth/userinfo.email",
@@ -101,63 +88,5 @@ class authController {
       next(err);
     }
   };
-
-  //FACEBOOK
-  // fbAuth = (req, res) => {
-  //   const qs = new URLSearchParams({
-  //     client_id: process.env.FACEBOOK_CLIENT_ID,
-  //     redirect_uri: process.env.FACEBOOK_CALLBACK_URL,
-  //     scope: fb_scope.join(","),
-  //   }).toString();
-  //   res.redirect(`${process.env.URL_FB}?${qs}`);
-  // };
-
-  // fbCallback = async (req, res) => {
-  //   const { code } = req.query;
-  //   try {
-  //     console.log('code', code);
-  //     const accessTokenResponse = await fetch(`https://graph.facebook.com/v13.0/oauth/access_token?client_id=${process.env.FACEBOOK_CLIENT_ID}&client_secret=${process.env.FACEBOOK_CLIENT_SECRET}&code=${code}&redirect_uri=${process.env.FACEBOOK_CALLBACK_URL}`);
-  //     if (!accessTokenResponse.ok) {
-  //       throw new Error(`Access token request failed with status: ${accessTokenResponse.status}`);
-  //     }
-      
-  //     const { access_token } = await accessTokenResponse.json();
-  //     console.log('at', access_token)
-  
-  //     const facebookUser = await getFacebookUser({access_token });
-  //     console.log('user',facebookUser);
-  
-  //     //save the user to the database
-  //     let user = await User.findOne({ email: facebookUser.email });
-  //     if (user) {
-  //       if (!user.avatar) {
-  //         await User.updateOne(
-  //           { _id: user._id },
-  //           { $set: { avatar: facebookUser.picture.data.url } }
-  //         );
-  //         user = await User.findOne({ email: facebookUser.email });
-  //       }
-  //       res.cookie("user", user, {
-  //         httpOnly: true,
-  //         secure: false,
-  //         path: "/",
-  //         sameSite: "strict",
-  //       });
-  //       res.redirect("/");
-  //     }
-  //     else{
-  //       res.render("confirm", {
-  //         lastname: facebookUser.name.split(' ')[0],
-  //         firstname: (facebookUser.name.split(' ')).slice(1).join(' '),
-  //         email: facebookUser.email,
-  //       });
-  //     }
-  
-  //     res.redirect('/');
-  //   } catch (error) {
-  //     console.error('Error:', error.response.data.error);
-  //     res.redirect('/login');
-  //   }
-  // };
 }
 module.exports = new authController();
