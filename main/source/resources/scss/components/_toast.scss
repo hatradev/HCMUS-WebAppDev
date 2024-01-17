@@ -1,18 +1,31 @@
+#toast-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 9999;
+    width: 50vw;
+    max-width: 100%;
+    pointer-events: none;
+    transform: translate(-30%, -50%);
+}
+
 .toast {
-    /* Custom styles for individual toasts */
-    width: 50rem;
-    height: 8rem;
+    width: 30vw; /* Adjusted width */
+    height: 20vh; /* Adjusted height */
 }
 
-.toast .toast-header{
+.toast .toast-header {
     height: 30%;
-    font-size: 1.2rem;
+    font-size: 2rem;
+    padding: 0 2rem;
+    background-color: $color-pink-secondary; /* Make sure this color variable is defined */
 }
 
-.toast .toast-body{
-    height: 65%;
+.toast .toast-body {
+    height: 70%;
     font-size: 2rem;
     display: flex;
     justify-content: center;
+    align-items: center;
+    background-color: white;
 }
-
