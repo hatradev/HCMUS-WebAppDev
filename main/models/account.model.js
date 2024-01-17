@@ -8,7 +8,7 @@ const accountSchema = new mongoose.Schema({
   email: String,
   phone: String,
   password: String,
-  avatar: {type: String, default: process.env.AVATAR},
+  avatar: {type: String, default: "/img/avatar/default.png"},
   address: String,
   payid: String,
   cart: [
