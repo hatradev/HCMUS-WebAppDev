@@ -4,9 +4,7 @@
       <table class="table table-cart">
         <thead>
           <tr>
-            <th width="20%"><i
-                class="d-none fa fa-pink fa-1x5 fa-check-square"
-              ></i>
+            <th width="20%"><i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
               Sản phẩm</th>
             <th width="25%" class="text-center">Mô tả</th>
             <th width="15%" class="text-center d-none d-md-table-cell">Đơn giá</th>
@@ -17,124 +15,76 @@
         </thead>
         <tbody>
           {{#each accBuyer.cart}}
-            <tr class="cart-item" data-psid="{{this.id_product}}">
-              <td class="cart-img">
-                <div class="d-flex align-items-center">
-                  <i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
-                  <a
-                    href="/product/{{this.id_product._id}}"
-                    title="{{this.id_product.name}}"
-                  >
-                    <img
-                      data-sizes="auto"
-                      class="lazyautosizes ls-is-cached lazyloaded"
-                      src="{{accessArr this.id_product.image 0}}"
-                      data-src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_XgJjLAqGgu.jpeg"
-                      alt="Mũ len Red and white big knitting cục bông Xmas - Đỏ"
-                      sizes="105px"
-                    />
-                  </a>
-                </div>
-              </td>
-              <td class="text-center">
-                <a
-                  href="/mu-len-red-and-white-big-knitting-cuc-bong-xmas-do-p{{this.id_product}}.html"
-                  title="Mũ len Red and white big knitting cục bông Xmas - Đỏ"
-                >
-                  {{this.id_product.name}}
+          <tr class="cart-item" data-psid="{{this.id_product}}">
+            <td class="cart-img">
+              <div class="d-flex align-items-center">
+                <i class="d-none fa fa-pink fa-1x5 fa-check-square"></i>
+                <a href="/product/{{this.id_product._id}}" title="{{this.id_product.name}}">
+                  <img data-sizes="auto" class="lazyautosizes ls-is-cached lazyloaded"
+                    src="{{accessArr this.id_product.image 0}}"
+                    data-src="https://pos.nvncdn.com/cba2a3-7534/ps/20231214_XgJjLAqGgu.jpeg"
+                    alt="Mũ len Red and white big knitting cục bông Xmas - Đỏ" sizes="105px" />
                 </a>
-                <div class="d-block d-md-none">
-                  <p>
-                    <strong
-                      class="d-block product-price"
-                    >{{this.id_product.price}}</strong>
-                  </p>
-                  <p>
-                  </p>
-                  <div
-                    class="blk-qty d-flex justify-content-center align-items-center"
-                  >
-                    <div
-                      data-label="cart"
-                      class="blk-qty-btn minus d-flex justify-content-center align-items-center"
-                      data-id="{{this.id_product._id}}"
-                    >-
-                    </div>
-                    <input
-                      class="updateCart blk-qty-input d-flex justify-content-center align-items-center product-quantity"
-                      type="text"
-                      data-psid="{{this.id_product}}"
-                      max="22"
-                      min="1"
-                      value="1"
-                      style="margin-bottom: 0;"
-                    />
-                    <div
-                      data-label="cart"
-                      class="blk-qty-btn plus d-flex justify-content-center align-items-center"
-                      data-id="{{this.id_product._id}}"
-                    >+
-                    </div>
-                  </div>
-                  <p></p>
-                  <p>
-                    <strong>{{calculateTotalPrice
-                        this.id_product.price
-                        this.quantity
-                      }}</strong>
-                  </p>
-                  <a
-                    class="remove-cart"
-                    href="javascript:void(0)"
-                    data-psid="{{this.id_product}}"
-                  >Xóa</a>
-                </div>
-              </td>
-              <td class="text-center d-none d-md-table-cell">
-                <strong
-                  class="d-block product-price"
-                >{{formatPrice this.id_product.price}}</strong>
-              </td>
-              <td class="text-center d-none d-md-table-cell">
-                <div
-                  class="blk-qty d-flex justify-content-center align-items-center"
-                >
-                  <div
-                    data-label="cart"
-                    class="blk-qty-btn minus d-flex justify-content-center align-items-center"
-                    data-id="{{this.id_product._id}}"
-                  >-
+              </div>
+            </td>
+            <td class="text-center">
+              <a href="/mu-len-red-and-white-big-knitting-cuc-bong-xmas-do-p{{this.id_product}}.html"
+                title="Mũ len Red and white big knitting cục bông Xmas - Đỏ">
+                {{this.id_product.name}}
+              </a>
+              <div class="d-block d-md-none">
+                <p>
+                  <strong class="d-block product-price">{{this.id_product.price}}</strong>
+                </p>
+                <p>
+                </p>
+                <div class="blk-qty d-flex justify-content-center align-items-center">
+                  <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center"
+                    data-id="{{this.id_product._id}}">-
                   </div>
                   <input
                     class="updateCart blk-qty-input d-flex justify-content-center align-items-center product-quantity"
-                    type="text"
-                    data-psid="{{this.id_product}}"
-                    max="22"
-                    min="1"
-                    value="{{this.quantity}}"
-                  />
-                  <div
-                    data-label="cart"
-                    class="blk-qty-btn plus d-flex justify-content-center align-items-center"
-                    data-id="{{this.id_product._id}}"
-                  >+</div>
+                    type="text" data-psid="{{this.id_product}}" max="22" min="1" value="1" style="margin-bottom: 0;" />
+                  <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center"
+                    data-id="{{this.id_product._id}}">+
+                  </div>
                 </div>
-              </td>
-              <td class="text-center d-none d-md-table-cell">
-                <strong class="products-price">{{formatPrice (calculateTotalPrice
+                <p></p>
+                <p>
+                  <strong>{{calculateTotalPrice
                     this.id_product.price
-                    this.quantity)
-                  }}</strong>
-              </td>
-              <td class="text-center d-none d-md-table-cell">
-                <a
-                  class="remove-cart"
-                  href="javascript:void(0)"
-                  data-psid="{{this.id_product}}"
-                  data-id="{{this.id_product._id}}"
-                >Xóa</a>
-              </td>
-            </tr>
+                    this.quantity
+                    }}</strong>
+                </p>
+                <a class="remove-cart" href="javascript:void(0)" data-psid="{{this.id_product}}">Xóa</a>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong class="d-block product-price">{{formatPrice this.id_product.price}}</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <div class="blk-qty d-flex justify-content-center align-items-center">
+                <div data-label="cart" class="blk-qty-btn minus d-flex justify-content-center align-items-center"
+                  data-id="{{this.id_product._id}}">-
+                </div>
+                <input
+                  class="updateCart blk-qty-input d-flex justify-content-center align-items-center product-quantity"
+                  type="text" data-psid="{{this.id_product}}" max="22" min="1" value="{{this.quantity}}" />
+                <div data-label="cart" class="blk-qty-btn plus d-flex justify-content-center align-items-center"
+                  data-id="{{this.id_product._id}}">+</div>
+              </div>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <strong class="products-price">{{formatPrice (calculateTotalPrice
+                this.id_product.price
+                this.quantity)
+                }}</strong>
+            </td>
+            <td class="text-center d-none d-md-table-cell">
+              <a class="remove-cart" href="javascript:void(0)" data-psid="{{this.id_product}}"
+                data-id="{{this.id_product._id}}">Xóa</a>
+            </td>
+          </tr>
           {{/each}}
         </tbody>
       </table>
@@ -148,19 +98,15 @@
         <div class="total d-block">Tổng: 1.245.000<sub>đ</sub></div>
         <div class="clearfix"></div>
 
-        <a
-          class="btn btn-lg btn-pink btn-radius"
-          href="/product/all"
-          style="height: 4.5rem; width: 18rem; font-size: 2rem; text-align:center; border-radius: 50px;"
-        >Tiếp tục mua sắm</a>
-        <a
-          class="btn btn-lg btn-outline-pink btn-radius"
-          href="/payment"
-          style="height: 4.5rem; width: 13.5rem; font-size: 2rem; text-align:center"
-        >Thanh toán</a>
+        <a class="btn btn-lg btn-pink btn-radius" href="/product/all"
+          style="height: 4.5rem; width: 18rem; font-size: 2rem; text-align:center; border-radius: 50px;">Tiếp tục mua
+          sắm</a>
+        <a class="btn btn-lg btn-outline-pink btn-radius" href="/payment"
+          style="height: 4.5rem; width: 13.5rem; font-size: 2rem; text-align:center">Thanh toán</a>
       </div>
     </div>
   </div>
 </div>
+
 
 <script src="/js/cart.js"></script>
