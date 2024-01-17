@@ -160,3 +160,7 @@ form select {
         background-color: rgba(132, 128, 128, 0.259);
     }
 }
+#order-specific-prod:hover, #history-order-detail:hover {
+    cursor: pointer;
+    // background-color: #f77f95;
+}

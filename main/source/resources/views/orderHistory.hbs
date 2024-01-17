@@ -81,7 +81,7 @@
                 </tr>
               </thead>
               {{#each orders}}
-                <tr onclick="window.location.href='/order/detail?id={{_id}}'">
+                <tr id="history-order-detail" onclick="window.location.href='/order/detail?id={{_id}}'">
                   <td>{{_id}}</td>
                   <td>{{dateOfOrder date}}</td>
                   <td>{{formatCurrency total}}</td>
