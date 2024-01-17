@@ -61,7 +61,8 @@ function route(app) {
       const password = req.body.password; // Lấy mật khẩu từ form
       const idAcc = req.body.accountID; // Lấy mật khẩu từ form
       const idOrder = req.body.orderID; // Lấy mật khẩu từ form
-      const user = await account.findById(idAcc);
+      // const user = await account.findById(idAcc);
+      const user = await account.findOne({ buyid: idAcc });
       console.log("check balance");
       console.log(user);
       console.log("end check balance");
@@ -77,7 +78,7 @@ function route(app) {
       );
 
       const rs = await fetch(
-        `http://127.0.0.1:${process.env.MAIN_PORT}/user/authenticate`,
+        `http://localhost:${process.env.MAIN_PORT}/user/authenticate`,
         {
           method: "POST",
           headers: {
@@ -93,7 +94,7 @@ function route(app) {
         user.balance = user.balance - total;
         await user.save();
         const r = await fetch(
-          `http://127.0.0.1:${process.env.MAIN_PORT}/user/paymentSuccess`,
+          `http://localhost:${process.env.MAIN_PORT}/user/paymentSuccess`,
           {
             method: "POST",
             headers: {
@@ -103,16 +104,16 @@ function route(app) {
           }
         );
         const response2 = await r.json();
-        // res.redirect(`http://127.0.0.1:${process.env.MAIN_PORT}/order/index`);
+        // res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/index`);
         // res.json(response2);
         res.redirect(
-          `http://127.0.0.1:${
+          `http://localhost:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(idOrder)}`
         );
       } else if (!response.validPw) {
         res.redirect(
-          `http://127.0.0.1:${
+          `http://localhost:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(
             idOrder
@@ -121,7 +122,7 @@ function route(app) {
       } else {
         // res.redirect(`/order/inValidBalance?id=${encodeURIComponent(idOrder)}`);
         res.redirect(
-          `http://127.0.0.1:${
+          `http://localhost:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(
             idOrder
@@ -181,7 +182,8 @@ function route(app) {
 
       const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
       // const user = await User.findById(decoded.idAccount);
-      const user = await account.findById(decoded.order.idaccount);
+      // const user = await account.findById(decoded.order.idaccount);
+      const user = await account.findOne({ buyid: decoded.order.idaccount });
       // const validPassword = await bcrypt.compare(decoded.pw, user.password);
       const responseData = { success: "successfully", acc: user };
       // Xóa giỏ hàng sau khi tạo đơn hàng
