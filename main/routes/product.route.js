@@ -12,6 +12,8 @@ router.get("/:productId", productController.showSpecificProduct);
 router.get("/api/products", productController.APIProducts);
 router.get("/api/related", productController.APIRelatedProducts);
 
+router.post("/update-product", productController.updateProduct);
+
 router.use(userController.checkRole("user"));
 
 // router.get("/api/all-products", productController.showAllProduct);

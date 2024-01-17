@@ -569,6 +569,26 @@ class productController {
       next(error);
     }
   };
+
+  updateProduct = async (req, res, next) => {
+    // console.log(req.body);
+    try {
+      let { name, description, parentCategory } = req.body;
+      // Convert an empty string to null for parentCategory
+      parentCategory = parentCategory ? parentCategory : null;
+
+      const newCategory = new Category({
+        name,
+        description,
+        parentCategory
+      });
+      await newCategory.save();
+      // res.status(201).send('Danh mục được tạo thành công');
+      res.redirect("/product/categories");
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 // Export an instance of the controller
