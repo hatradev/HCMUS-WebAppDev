@@ -19,7 +19,7 @@
           </thead>
           <tbody>
             {{#each fullCategories}}
-            <tr class="pointer" data-bs-toggle="modal" data-bs-target="#categoryModal" data-bs-id="{{_id}}" data-bs-name="{{name}}" data-bs-description="{{description}}" data-bs-parentName="{{parentName}}">
+            <tr class="pointer" data-bs-toggle="modal" data-bs-target="#categoryModal" data-bs-id="{{_id}}" data-bs-name="{{name}}" data-bs-description="{{description}}" data-bs-parentName="{{parentCategory}}">
               <th scope="row">{{@index}}</th>
               <td>{{fullName}}</td>
               <td>{{productCount}}</td>
@@ -40,20 +40,20 @@
             <form id="updateCategory" action="/product/update-product" method="post">
               <div class="mb-3">
                 <label for="name" class="col-form-label">Tên danh mục:</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <input type="text" class="form-control" id="name" name="name" au>
               </div>
               <div class="mb-3">
                 <label for="parentname" class="col-form-label">Danh mục cha:</label>
                 <select class="form-select" id="parentname" name="parentCategory">
-                  <option value="null" selected>Danh mục gốc</option>
+                  <option value="" selected>Danh mục gốc</option>
                   {{#each fullCategories}}
-                    <option value="{{parentCategory}}">{{parentName}}</option>
+                    <option value="{{_id}}">{{fullName}}</option>
                   {{/each}}
                 </select>
               </div>
               <div class="mb-3">
                 <label for="description" class="col-form-label">Mô tả danh mục:</label>
-                <textarea class="form-control" id="description" name="description">
+                <textarea class="form-control" id="description" name="description"></textarea>
               </div>
               <div class="d-none">
                 <label for="id" class="col-form-label">ID:</label>

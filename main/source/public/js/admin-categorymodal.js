@@ -4,27 +4,29 @@ categoryModal.addEventListener("show.bs.modal", function (event) {
   var button = event.relatedTarget;
   // Extract info from data-bs-* attributes
   var name = button.getAttribute("data-bs-name");
-  console.log(name);
-  var lname = button.getAttribute("data-bs-lname");
-  var email = button.getAttribute("data-bs-email");
-  var phone = button.getAttribute("data-bs-phone");
-  var adr = button.getAttribute("data-bs-adr");
+  var description = button.getAttribute("data-bs-description");
+  var parentName = button.getAttribute("data-bs-parentName");
   var id = button.getAttribute("data-bs-id");
 
   var nameInput = categoryModal.querySelector(".modal-body #name");
   nameInput.value = name;
 
-  var lnameInput = categoryModal.querySelector(".modal-body #lastname");
-  lnameInput.value = lname;
+  var descriptionInput = categoryModal.querySelector(
+    ".modal-body #description"
+  );
+  descriptionInput.value = description;
 
-  var emailInput = categoryModal.querySelector(".modal-body #email");
-  emailInput.value = email;
-
-  var phoneInput = categoryModal.querySelector(".modal-body #phone");
-  phoneInput.value = phone;
-
-  var adrInput = categoryModal.querySelector(".modal-body #address");
-  adrInput.value = adr;
+  var parentNameInput = categoryModal.querySelector(".modal-body #parentname");
+  if (parentName) {
+    for (var child of parentNameInput.children) {
+      child.selected = false;
+      if (child.value === parentName) {
+        child.selected = true;
+      }
+    }
+  } else {
+    parentNameInput.children[0].selected = true;
+  }
 
   var idInput = categoryModal.querySelector(".modal-body #id");
   idInput.value = id;
