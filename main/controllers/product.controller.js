@@ -672,8 +672,41 @@ class productController {
       next(error);
     }
   };
+
+  deleteProduct = async (req, res, next) => {
+    try{
+      const {id} = req.body;
+      const prd = await Product.findOne({_id: id});
+      console.log(prd);
+      if (!prd) {
+        return res.status(404).send("Sản phẩm không tồn tại");
+      }
+      await Product.deleteOne({ _id: id });
+      res.redirect("/product/handle")
+    } catch(err){
+      next(err);
+    }
+  }
+
+  updateProduct = async (req, res, next) => {
+    try{
+      const {name, price, stock, category, description, id} = req.body;
+      const prd = await Product.findOne({_id: id});
+      if (!prd) {
+        return res.status(404).send("Sản phẩm không tồn tại");
+      }
+      await Product.updateOne(
+        { _id: id},
+        { $set: { name: name, price: price, stock: stock, category: category, description: description, id: id}}
+      );
+      res.redirect('/product/handle');
+    } catch(err){
+      next(err);
+    }
+  }
   
 }
+
 
 // Export an instance of the controller
 // Export an instance of the controller

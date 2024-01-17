@@ -16,6 +16,9 @@ router.post("/create-category", productController.createCategory);
 router.post("/update-category", productController.updateCategory);
 router.post("/delete-category", productController.deleteCategory);
 
+router.post("/delete-product", productController.deleteProduct);
+router.post("/update-product", productController.updateProduct);
+
 router.use(userController.checkRole("user"));
 
 // router.get("/api/all-products", productController.showAllProduct);
