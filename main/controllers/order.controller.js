@@ -381,7 +381,49 @@ class orderController {
 
   getHandle = async (req, res, next) => {
     try {
-      res.render("orderhandle", { nshowHF: true });
+      const ordersWithDetails = await Order.find().lean();;
+      // const ordersWithDetails = await Order.aggregate([
+      //   {
+      //     $lookup: {
+      //       from: 'products',
+      //       localField: 'detail.idProduct',
+      //       foreignField: '_id',
+      //       as: 'productDetails',
+      //     },
+      //   },
+      //   {
+      //     $unwind: '$productDetails',
+      //   },
+      //   {
+      //     $group: {
+      //       _id: '$_id',
+      //       idaccount: { $first: '$idaccount' },
+      //       name: { $first: '$name' },
+      //       phone: { $first: '$phone' },
+      //       email: { $first: '$email' },
+      //       address: { $first: '$address' },
+      //       status: { $first: '$status' },
+      //       date: { $first: '$date' },
+      //       detail: { $push: { name: '$productDetails.name', quantity: '$detail.quantity' } },
+      //     },
+      //   },
+      //   {
+      //     $project: {
+      //       _id: 1,
+      //       idaccount: 1,
+      //       name: 1,
+      //       phone: 1,
+      //       email: 1,
+      //       address: 1,
+      //       status: 1,
+      //       date: 1,
+      //       productDetails: 1,
+      //     },
+      //   },
+      // ]);
+      console.log(ordersWithDetails[0]);
+      // console.log(ordersWithDetails[0].productDetails);
+      res.render("orderhandle", { nshowHF: true, ordersWithDetails });
     } catch (error) {
       next(error);
     }

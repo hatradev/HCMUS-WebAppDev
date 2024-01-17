@@ -2,7 +2,116 @@
   <div class="col-2 admin-sidebar shadow">
     {{>sidebar}}
   </div>
-  <div class="col-10 admin-content admin-order">
+  <div class="col-10 admin-content admin-orders">
+    <div class="container mt-5">
+      <div class="mb-4 d-sm-flex align-items-center justify-content-between">
+        <h1 class="h1 mb-0 text-gray-800">Quản lý đơn hàng</h1>
+        {{!-- <a href="#" class="d-none d-sm-inline-block btn btn-primary bg-primary shadow-sm"
+          style="font-size: 1.75rem;" data-bs-toggle="modal" data-bs-target="#categoryModal"><i
+            class="fa-solid fa-circle-plus"></i> Thêm danh mục mới</a> --}}
+      </div>
+      <div class="card shadow mb-4 p-4">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Đơn hàng</th>
+              <th scope="col">Thời gian</th>
+              <th scope="col">Trạng thái </th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each ordersWithDetails}}
+            <tr class="pointer" data-bs-toggle="modal" data-bs-target="#orderModal" data-bs-id="{{_id}}"
+              data-bs-date="{{date}}" data-bs-buyer="{{name}}" data-bs-phone="{{phone}}" data-bs-address="{{address}}"
+              data-bs-status="{{status}}" data-bs-detail="{{detail}}">
+              <th scope="row">{{@index}}</th>
+              <td>{{_id}}</td>
+              <td>{{dateOfOrder date}}</td>
+              <td>{{status}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="categoryModalLabel">Quản lý đơn hàng</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="updateOrder" action="/order/update-order" method="post">
+              <div class="row">
+                <div class="col-5">
+                  <span>Mã đơn hàng: </span>
+                </div>
+                <div class="col-7">
+                  <span id="id"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5">
+                  <span>Ngày đặt: </span>
+                </div>
+                <div class="col-7">
+                  <span id="date"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5">
+                  <span>Người đặt: </span>
+                </div>
+                <div class="col-7">
+                  <span id="buyer"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5">
+                  <span>Số điện thoại: </span>
+                </div>
+                <div class="col-7">
+                  <span id="phoneNum"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5">
+                  <span>Địa chỉ: </span>
+                </div>
+                <div class="col-7">
+                  <span id="address"></span>
+                </div>
+              </div>
+              <div class="d-none">
+                <label for="address" class="col-form-label">Danh mục sản phẩm:</label>
+                <ul id="product-list">
+                  <li></li>
+                  <li></li>
+                </ul>
+              </div>
 
+              <div class="row">
+                <div class="col-5">
+                  <span>Trạng thái: </span>
+                </div>
+                <div class="col-7">
+                  <span id="status"></span>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng cửa sổ</button>
+            <button type="submit" formaction="/product/delete-category" formmethod="post" class="btn btn-danger"
+              form="updateCategory">Hủy đơn hàng</button>
+            <button type="submit" class="btn btn-primary bg-primary" id="modalsubmit" form="updateCategory">Duyệt đơn
+              hàng</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+<script src="/js/admin-ordermodal.js"></script>
