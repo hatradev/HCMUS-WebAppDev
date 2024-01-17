@@ -23,8 +23,8 @@
           <tbody>
             {{#each ordersWithDetails}}
             <tr class="pointer" data-bs-toggle="modal" data-bs-target="#orderModal" data-bs-id="{{_id}}"
-              data-bs-date="{{date}}" data-bs-buyer="{{name}}" data-bs-phone="{{phone}}" data-bs-address="{{address}}"
-              data-bs-status="{{status}}" data-bs-detail="{{detail}}">
+              data-bs-date="{{date}}" data-bs-buyer="{{name}}" data-bs-phone="{{phone}}" data-bs-address="{{address}}" data-bs-email="{{email}}"
+              data-bs-status="{{status}}" data-bs-detail="{{detail}}" data-bs-pname="{{on}}" data-bs-price="{{pr}}" data-bs-quantity="{{qt}}" data-bs-sum="{{sum}}" data-bs-total="{{totalPrice}}">
               <th scope="row">{{@index}}</th>
               <td>{{_id}}</td>
               <td>{{dateOfOrder date}}</td>
@@ -78,20 +78,20 @@
               </div>
               <div class="row">
                 <div class="col-5">
+                  <span>Email: </span>
+                </div>
+                <div class="col-7">
+                  <span id="email"></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5">
                   <span>Địa chỉ: </span>
                 </div>
                 <div class="col-7">
                   <span id="address"></span>
                 </div>
               </div>
-              <div class="d-none">
-                <label for="address" class="col-form-label">Danh mục sản phẩm:</label>
-                <ul id="product-list">
-                  <li></li>
-                  <li></li>
-                </ul>
-              </div>
-
               <div class="row">
                 <div class="col-5">
                   <span>Trạng thái: </span>
@@ -100,6 +100,19 @@
                   <span id="status"></span>
                 </div>
               </div>
+              <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Tên sản phẩm</th>
+              <th scope="col">Đơn giá</th>
+              <th scope="col">Số lượng</th>
+              <th scope="col">Tổng tiền</th>
+            </tr>
+          </thead>
+          <tbody id="ptable">
+          </tbody>
+        </table>
+        <div class="text-end" id="total"></div>
             </form>
           </div>
           <div class="modal-footer">

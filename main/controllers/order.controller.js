@@ -381,47 +381,112 @@ class orderController {
 
   getHandle = async (req, res, next) => {
     try {
-      const ordersWithDetails = await Order.find().lean();;
-      // const ordersWithDetails = await Order.aggregate([
-      //   {
-      //     $lookup: {
-      //       from: 'products',
-      //       localField: 'detail.idProduct',
-      //       foreignField: '_id',
-      //       as: 'productDetails',
-      //     },
-      //   },
-      //   {
-      //     $unwind: '$productDetails',
-      //   },
-      //   {
-      //     $group: {
-      //       _id: '$_id',
-      //       idaccount: { $first: '$idaccount' },
-      //       name: { $first: '$name' },
-      //       phone: { $first: '$phone' },
-      //       email: { $first: '$email' },
-      //       address: { $first: '$address' },
-      //       status: { $first: '$status' },
-      //       date: { $first: '$date' },
-      //       detail: { $push: { name: '$productDetails.name', quantity: '$detail.quantity' } },
-      //     },
-      //   },
-      //   {
-      //     $project: {
-      //       _id: 1,
-      //       idaccount: 1,
-      //       name: 1,
-      //       phone: 1,
-      //       email: 1,
-      //       address: 1,
-      //       status: 1,
-      //       date: 1,
-      //       productDetails: 1,
-      //     },
-      //   },
-      // ]);
-      console.log(ordersWithDetails[0]);
+      const ordersWithDetails = await Order.aggregate([
+        {
+          $lookup: {
+            from: "products",
+            localField: "detail.idProduct",
+            foreignField: "_id",
+            as: "productDetails",
+          },
+        },
+        {
+          $unwind: "$detail",
+        },
+        {
+          $unwind: "$productDetails",
+        },
+        {
+          $project: {
+            _id: 1,
+            idaccount: 1,
+            name: 1,
+            phone: 1,
+            email: 1,
+            address: 1,
+            message: 1,
+            status: 1,
+            date: 1,
+            reason: 1,
+            cancelledDate: 1,
+            paymentDate: 1,
+            productName: "$productDetails.name",
+            productPrice: "$productDetails.price",
+            quantity: "$detail.quantity",
+          },
+        },
+        {
+          $addFields: {
+            totalPrice: { $multiply: ["$productPrice", "$quantity"] },
+          },
+        },
+        {
+          $group: {
+            _id: "$_id",
+            idaccount: { $first: "$idaccount" },
+            name: { $first: "$name" },
+            phone: { $first: "$phone" },
+            email: { $first: "$email" },
+            address: { $first: "$address" },
+            message: { $first: "$message" },
+            status: { $first: "$status" },
+            date: { $first: "$date" },
+            reason: { $first: "$reason" },
+            cancelledDate: { $first: "$cancelledDate" },
+            paymentDate: { $first: "$paymentDate" },
+            productDetails: {
+              $push: {
+                name: "$productName",
+                price: "$productPrice",
+                quantity: "$quantity",
+              },
+            },
+            totalPrice: { $sum: "$totalPrice" },
+          },
+        },
+        {
+          $sort: { date: -1 },
+        },
+      ]);
+      ordersWithDetails.map(async (order) => {
+        if (order.status === "cancelled") {
+          order.status = "Đã bị hủy";
+        } else if (order.status === "pending") {
+          order.status = "Chờ xử lý";
+        } else if (order.status === "paying") {
+          order.status = "Chờ thanh toán";
+        } else {
+          order.status = "Thành công";
+        }
+        var name = "";
+        var price = "";
+        var quantity = "";
+        var sum = "";
+        for (var idx = 0; idx < order.productDetails.length; idx++) {
+          name +=
+            idx === 0
+              ? order.productDetails[idx].name
+              : ";;" + order.productDetails[idx].name;
+          price +=
+            idx === 0
+              ? order.productDetails[idx].price.toString()
+              : ";;" + order.productDetails[idx].price.toString();
+          quantity +=
+            idx === 0
+              ? order.productDetails[idx].quantity.toString()
+              : ";;" + order.productDetails[idx].quantity.toString();
+          var times =
+            order.productDetails[idx].price *
+            order.productDetails[idx].quantity;
+          sum += idx === 0 ? times.toString() : ";;" + times.toString();
+        }
+
+        order.on = name;
+        order.pr = price;
+        order.qt = quantity;
+        order.sum = sum;
+        return order;
+      });
       // console.log(ordersWithDetails[0].productDetails);
       res.render("orderhandle", { nshowHF: true, ordersWithDetails });
     } catch (error) {
