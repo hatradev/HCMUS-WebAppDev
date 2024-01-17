@@ -1,110 +1,109 @@
 #rechargeForm input,
-#transactions input{
-    font-size: 14px;
+#transactions input {
+  font-size: 14px;
 }
 .balance-header {
-    min-height: 5rem;
-    background-color: #344767;
-    color: #fff;
-    font-size: 16px;
-    border-radius: 0px;
-    box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.1);
+  min-height: 5rem;
+  background-color: #344767;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 0px;
+  box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.1);
 }
 
 #deposit button {
-    background-image: linear-gradient(195deg, #ec407a, #d81b60);
-    width: 5rem;
-    height: 2.5rem;
-    color: #fff;
+  background-image: linear-gradient(195deg, #ec407a, #d81b60);
+  width: 5rem;
+  height: 2.5rem;
+  color: #fff;
 }
-#transactions button{
-    background-image: linear-gradient(195deg, #ec407a, #d81b60);
-    color: #fff;
-    width: 3.75rem;
-    height: 27px;
-    font-size: 13px;
-    margin-top: 5px;
+#transactions button {
+  background-image: linear-gradient(195deg, #ec407a, #d81b60);
+  color: #fff;
+  width: 3.75rem;
+  height: 27px;
+  font-size: 13px;
+  margin-top: 5px;
 }
 
 #transactionList li {
-    padding: 13px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-    margin-bottom: 10px;
-    background-color: #fff;
-    border-radius: 5px;
+  padding: 13px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 5px;
 }
 
-#transactionList li:hover{
-    background-color: #f5d6d6
+#transactionList li:hover {
+  background-color: #f5d6d6;
 }
 
-#transactionList{
-    max-height: 380px;
-    padding: 10px;
-    background-color: #34476718;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
-    font-size: 14px;
+#transactionList {
+  max-height: 380px;
+  padding: 10px;
+  background-color: #34476718;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  font-size: 14px;
 }
 
 //recharge form
 #overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 #rechargeForm {
-    height: 150px; 
-    width: 250px;
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  height: 150px;
+  width: 250px;
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 #rechargeForm button[type="submit"] {
-    font-size: 13px;
-    background-image: linear-gradient(195deg, #ec407a, #d81b60);
-    height: 27px;
-    color: #fff;
+  font-size: 13px;
+  background-image: linear-gradient(195deg, #ec407a, #d81b60);
+  height: 27px;
+  color: #fff;
 }
 
-#rechargeForm button[type="button"]{
-    font-size: 14px;
-    background-color: #344767;
-    color: #fff;
+#rechargeForm button[type="button"] {
+  font-size: 14px;
+  background-color: #344767;
+  color: #fff;
 }
-#rechargeForm input{
-    height: 2rem
+#rechargeForm input {
+  height: 2rem;
 }
 
 //transaction detail
 #transactionDetail {
-    height: 400px; 
-    width: 500px;
-    font-size: 16px;
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #344767;
-    color:#fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  
+  height: 400px;
+  width: 500px;
+  font-size: 16px;
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #344767;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}

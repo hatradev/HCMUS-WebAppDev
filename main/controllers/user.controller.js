@@ -195,7 +195,6 @@ class userController {
         httpOnly: true,
         secure: false,
         path: "/",
-        sameSite: "strict",
       });
       res.redirect("/");
     } catch (err) {
