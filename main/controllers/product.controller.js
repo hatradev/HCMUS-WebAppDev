@@ -58,9 +58,13 @@ class productController {
       const searchTerm = req.query.keyword || "";
       const category = req.query.category || "";
 
+      const maxPriceProduct = await Product.findOne().sort({ price: -1 }).limit(1);
+      const maxPrice = maxPriceProduct ? maxPriceProduct.price : 0;
+
       res.render("all-product", {
         searchTerm: searchTerm,
         category: category,
+        maxPrice: maxPrice,
       });
     } catch (err) {
       console.error(err);
@@ -609,7 +613,7 @@ class productController {
       next(error);
     }
   }
-  
+
   deleteCategory = async (req, res, next) => {
     try {
       const { id } = req.body;

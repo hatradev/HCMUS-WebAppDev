@@ -11,6 +11,7 @@ html {
 body {
   font-family: $font-family-primary;
   @include font($font-size-primary, 400, $color-dark, 1.5);
+  // min-height: 100vh;
 }
 
 h1,
