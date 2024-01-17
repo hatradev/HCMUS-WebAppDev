@@ -3,6 +3,16 @@
         object-fit: cover;
     }
 }
+
+@media (max-width: 768px) {
+    #toast-container {
+        /* Adjust position for smaller screens */
+        bottom: 20px;
+        right: 20px;
+        top: auto;
+    }
+}
+
 @media (min-width: 1366px) {
     .col-20{
         -ms-flex: 0 0 20%;

@@ -10,7 +10,7 @@ function updateSubtotal() {
     const priceElement = item.querySelector(".products-price");
     const price =
       parseFloat(
-        priceElement.innerText.replace(/[^0-9.,]/g, "").replace(",", ".")
+        priceElement.innerText.replace(/\./g, "")
       ) || 0;
     subtotal += price;
   });

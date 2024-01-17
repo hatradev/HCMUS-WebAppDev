@@ -61,7 +61,7 @@ class orderController {
       const tokenString = JSON.stringify({ token: accessToken });
       const responseUrl = `https://${process.env.HOST}:${
         process.env.AUX_PORT
-      }/getPayment?token=${encodeURIComponent(accessToken)}`;
+      }/payment/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
       // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?data=${tokenString}`;
       // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
       // console.log("Response URL:", responseUrl);
@@ -240,7 +240,7 @@ class orderController {
       const tokenString = JSON.stringify({ token: accessToken });
       const responseUrl = `https://${process.env.HOST}:${
         process.env.AUX_PORT
-      }/getPayment?token=${encodeURIComponent(accessToken)}`;
+      }/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
 
       // Lưu đơn hàng mới
       const savedOrder = await newOrder.save();
@@ -336,8 +336,11 @@ class orderController {
   getOrderDetail = async (req, res, next) => {
     try {
       const orderId = req.query.id;
-      // const error = req.query.err;
-      let error = parseInt(req.body.err, 10);
+      let error = "none";
+      if (req.query.err) {
+        error = req.query.err;
+      }
+      // let error = parseInt(req.body.err, 10);
       const order = await Order.findById(orderId);
       const obj = {
         _id: order._id,

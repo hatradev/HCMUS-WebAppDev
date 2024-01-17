@@ -1,0 +1,18 @@
+.toast {
+    /* Custom styles for individual toasts */
+    width: 50rem;
+    height: 8rem;
+}
+
+.toast .toast-header{
+    height: 30%;
+    font-size: 1.2rem;
+}
+
+.toast .toast-body{
+    height: 65%;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+}
+

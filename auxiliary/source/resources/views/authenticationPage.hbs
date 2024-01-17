@@ -6,7 +6,7 @@
         <div class="card-title col-title fw-bold text-white m-0" style="font-size: 4rem;">Xác minh</div>
         <div class="text-body-secondary text-white">Vui lòng nhập mật khẩu để tiếp tục</div>
       </div>
-      <form id="signinForm" action="/process-payment" method="post">
+      <form id="signinForm" action="/payment/process-payment" method="post">
         <input type="hidden" name="total" value="{{totalPrice}}">
         <input type="hidden" name="accountID" value="{{accountID}}">
         <input type="hidden" name="orderID" value="{{idOrder}}">

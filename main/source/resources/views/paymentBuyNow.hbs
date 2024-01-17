@@ -160,15 +160,15 @@
                   </a>
                   <div class="clearfix">
                     Đơn giá:
-                    <strong>{{product.price}}</strong>
+                    <strong>{{formatPrice product.price}}</strong>
                     <div class="d-block"></div>
                   </div>
                 </td>
                 <td class="text-center">{{quantity}}</td>
                 <td class="text-center">
-                  <strong class="products-price">{{calculateTotalPrice
+                  <strong class="products-price">{{formatPrice (calculateTotalPrice
                       product.price
-                      quantity
+                      quantity)
                     }}</strong>
                 </td>
               </tr>
