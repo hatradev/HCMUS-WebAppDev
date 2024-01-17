@@ -2,13 +2,14 @@ const account = require("../models/account.model");
 const CustomErr = require("../helpers/custom-error");
 const jwt = require("jsonwebtoken");
 const balanceRouter = require("../routes/balance.route");
+const userController = require("../controllers/user.controller");
 
 function route(app) {
   // Định nghĩa các route theo tài nguyên
   app.get("/", async (req, res) => {
     let user = await account.find({});
     if (user) {
-      console.log(user);
+      console.log("AUX:", user);
 
       res.render("index");
     } else {
@@ -46,15 +47,7 @@ function route(app) {
     }
   });
 
-  app.post("/signup", async (req, res, next) => {
-    try {
-      const responseData = { success: true, data: req.body };
-      // Gửi phản hồi
-      res.json(responseData);
-    } catch (error) {
-      next(error);
-    }
-  });
+  app.post("/signup", userController.signUp);
   app.post("/process-payment", async (req, res, next) => {
     try {
       const total = req.body.total; // Lấy tổng tiền từ form
