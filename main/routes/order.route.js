@@ -7,7 +7,6 @@ const router = express.Router();
 router.get("/handle", orderController.getHandle);
 
 router.use(userController.checkRole("user"));
-
 router.get("/index", orderController.getOrderHistory);
 router.get("/detail", orderController.getOrderDetail);
 router.post(
