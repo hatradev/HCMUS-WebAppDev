@@ -84,6 +84,64 @@ class orderController {
       next(error);
     }
   };
+  ContinueToPay = async (req, res, next) => {
+    try {
+      const id = req.body.orderId;
+      // const order = await Order.findById(id)
+      const orderFound = await Order.findById(id)
+        .populate("detail.idProduct");
+
+      let totalAmount = 0;
+      orderFound.detail.forEach(cartItem => {
+          totalAmount += cartItem.quantity * cartItem.idProduct.price; // Giả sử mỗi item có 'price'
+      });
+  
+      const accessToken = jwt.sign(
+        {
+          order: orderFound,
+          totalPrice: totalAmount,
+        },
+        process.env.JWT_ACCESS_KEY,
+        { expiresIn: "10m" }
+      );
+
+      // await fetch(
+      //   `https://localhost:${process.env.AUX_PORT}/payment`,
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ token: accessToken }),
+      //   }
+      // );
+      // if (!accessToken) {
+      //   return res.status(500).json({ error: "Failed to create access token" });
+      // }
+      const tokenString = JSON.stringify({ token: accessToken });
+      const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
+      // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?data=${tokenString}`;
+      // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
+      // console.log("Response URL:", responseUrl);
+      // const response = await fetch(responseUrl);
+      // const responseData = await response.json();
+      // const response = await rs.json();
+
+      // console.log("RESPONSE: ", responseData);
+      // Lưu đơn hàng mới
+      // const savedOrder = await newOrder.save();
+  
+      // Xóa giỏ hàng sau khi tạo đơn hàng
+      // accBuyer.cart = [];
+      // await accBuyer.save();
+      // console.log("check cart user");
+      // // console.log(accBuyer.cart);
+      // console.log("end check cart user");
+      return res.redirect(responseUrl);
+    } catch (error) {
+      next(error);
+    }
+  };
   CreateOrderForBuyNowAndSendToken = async (req, res, next) => {
     try {
       const accBuyer = await Account.findOne({ _id: req.cookies.user._id })
