@@ -414,7 +414,7 @@ class orderController {
       //     },
       //   },
       // ]);
-      console.log(ordersWithDetails[0]);
+      // console.log(ordersWithDetails[0]);
       // console.log(ordersWithDetails[0].productDetails);
       res.render("orderhandle", { nshowHF: true, ordersWithDetails });
     } catch (error) {

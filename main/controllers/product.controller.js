@@ -58,9 +58,13 @@ class productController {
       const searchTerm = req.query.keyword || "";
       const category = req.query.category || "";
 
+      const maxPriceProduct = await Product.findOne().sort({ price: -1 }).limit(1);
+      const maxPrice = maxPriceProduct ? maxPriceProduct.price : 0;
+
       res.render("all-product", {
         searchTerm: searchTerm,
         category: category,
+        maxPrice: maxPrice,
       });
     } catch (err) {
       console.error(err);
@@ -518,22 +522,51 @@ class productController {
   getHandle = async (req, res, next) => {
     try {
       // Tìm tất cả sản phẩm và populate thông tin của danh mục
-      const allProducts = await Product.find().populate("category", "name");
+      const allProducts = await Product.find();
 
       // Chuyển list image thành object
       const products = allProducts.map((product) => {
         const transformedImages = {};
+        let imgs = "";
         product.image.forEach((img, index) => {
           transformedImages[`i${index + 1}`] = img;
+          if (index !== 0) {
+            imgs += `;${img}`;
+          } else {
+            imgs += img;
+          }
         });
 
         return {
           ...product.toObject(),
           image: transformedImages,
+          imgs,
         };
       });
-      // console.log(products);
-      res.render("producthandle", { nshowHF: true, products });
+
+      // Tìm tất cả danh mục
+      const allCategories = await Category.find();
+
+      // Xây dựng tên đầy đủ và lấy số lượng sản phẩm cho từng danh mục
+      const fullCategories = await Promise.all(
+        allCategories.map(async (category) => {
+          const parentCategory = await Category.findById(
+            category.parentCategory
+          );
+          const parentName = parentCategory
+            ? await buildFullName(parentCategory)
+            : "Danh mục gốc";
+          const fullName = `${parentName}/${category.name}`;
+          return {
+            ...category.toObject(),
+            fullName,
+          };
+        })
+      );
+      fullCategories.sort((a, b) => a.fullName.localeCompare(b.fullName));
+
+      console.log(products);
+      res.render("producthandle", { nshowHF: true, products, fullCategories });
     } catch (error) {
       next(error);
     }
@@ -564,12 +597,101 @@ class productController {
         })
       );
       fullCategories.sort((a, b) => a.fullName.localeCompare(b.fullName));
+
       res.render("categoryhandle", { nshowHF: true, fullCategories });
     } catch (error) {
       next(error);
     }
   };
+
+  createCategory = async (req, res, next) => {
+    // console.log(req.body);
+    try {
+      let { name, description, parentCategory } = req.body;
+      // Convert an empty string to null for parentCategory
+      parentCategory = parentCategory ? parentCategory : null;
+
+      const newCategory = new Category({
+        name,
+        description,
+        parentCategory
+      });
+      await newCategory.save();
+      // res.status(201).send('Danh mục được tạo thành công');
+      res.redirect("/product/categories");
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  updateCategory = async (req, res, next) => {
+    // console.log(req.body);
+    try {
+      let { name, description, parentCategory, id } = req.body;
+      parentCategory = parentCategory ? parentCategory : null;
+      // console.log(id);
+      const category = await Category.findById(id);
+      if (!category) {
+        return res.status(404).send("Danh mục không tồn tại");
+      }
+      category.name = name;
+      category.description = description;
+      category.parentCategory = parentCategory;
+      await category.save();
+      res.redirect("/product/categories");
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  deleteCategory = async (req, res, next) => {
+    try {
+      const { id } = req.body;
+  
+      // Check if the category exists
+      const category = await Category.findById(id);
+      if (!category) {
+        return res.status(404).send("Danh mục không tồn tại");
+      }
+  
+      // Save parent category ID for later use
+      const parentCategoryId = category.parentCategory;
+  
+      // Remove the category
+      await Category.findByIdAndRemove(id);
+  
+      // Find and update all child categories
+      const childCategories = await Category.find({ parentCategory: id });
+      for (const child of childCategories) {
+        child.parentCategory = parentCategoryId; // Set to parent of deleted category, or null if it had no parent
+        await child.save();
+      }
+  
+      res.redirect("/product/categories");
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  deleteProduct = async (req, res, next) => {
+    try{
+      const {id} = req.body;
+      console.log(id);
+      const prd = await Product.findOne({_id: id});
+      console.log(prd);
+      if (!prd) {
+        return res.status(404).send("Sản phẩm không tồn tại");
+      }
+      await Product.deleteOne({ _id: id });
+      console.log('đã xóa');
+      res.redirect("/product/handle")
+    } catch(err){
+      next(err);
+    }
+  }
+  
 }
+
 
 // Export an instance of the controller
 // Export an instance of the controller

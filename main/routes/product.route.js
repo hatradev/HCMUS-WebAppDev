@@ -12,6 +12,12 @@ router.get("/:productId", productController.showSpecificProduct);
 router.get("/api/products", productController.APIProducts);
 router.get("/api/related", productController.APIRelatedProducts);
 
+router.post("/create-category", productController.createCategory);
+router.post("/update-category", productController.updateCategory);
+router.post("/delete-category", productController.deleteCategory);
+
+router.post("/delete-product", productController.deleteProduct);
+
 router.use(userController.checkRole("user"));
 
 // router.get("/api/all-products", productController.showAllProduct);
