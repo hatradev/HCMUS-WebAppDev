@@ -57,19 +57,29 @@ class authController {
       //save the user to the database
       let user = await User.findOne({ email: googleUser.email });
       if (user) {
-        if (user.avatar == "/img/avatar/default.jpg") {
+        // console.log(user.avatar);
+        if (user.avatar == "/img/avatar/default.png") {
+          // console.log("update avatar");
           await User.updateOne(
             { _id: user._id },
             { $set: { avatar: googleUser.picture } }
           );
           user = await User.findOne({ email: googleUser.email });
         }
+
+        // console.log(req.cookies.user);
+        // res.clearCookie("user");
+        // console.log(req.cookies.user);
+
         res.cookie("user", user, {
           httpOnly: true,
           secure: false,
           path: "/",
-          sameSite: "strict",
+          // sameSite: "strict",
         });
+
+        // console.log(req.cookies.user);
+
         res.redirect("/");
       }
       else{
