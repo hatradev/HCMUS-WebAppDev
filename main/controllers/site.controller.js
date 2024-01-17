@@ -71,9 +71,11 @@ class siteController {
         path: "cart.id_product",
       });
 
+      const admin = await Account.findOne({ role: "admin" });
+
       res.locals.accBuyer = mongooseToObject(accBuyer);
 
-      res.render("payment");
+      res.render("payment", {idAd: admin._id});
       // res.render("paymentBuyNow");
     } catch (error) {
       next(error);
@@ -105,6 +107,7 @@ class siteController {
       const quantity = req.query.quantity;
       const accBuyer = await Account.findOne({ _id: idUser });
       const product = await Product.findOne({ _id: productId });
+      const admin = await Account.findOne({ role: "admin" });
 
       // console.log(idUser, productId, quantity, accBuyer, product);
 
@@ -112,7 +115,7 @@ class siteController {
       res.locals.product = mongooseToObject(product);
       res.locals.quantity = quantity;
 
-      res.render("paymentBuyNow");
+      res.render("paymentBuyNow", {idAd: admin._id});
     } catch (error) {
       next(error);
     }
