@@ -7,18 +7,21 @@ const userController = require("../controllers/user.controller");
 
 function route(app) {
   // Định nghĩa các route theo tài nguyên
-  app.use("/balance", balanceRouter);
+
   app.get("/", async (req, res) => {
+    console.log(req.cookies.user._id);
     let user = await account.find({});
     if (user) {
       // console.log(user);;
       // console.log("success");
-      res.redirect('/balance')
+      res.redirect("/balance");
     } else {
       console.log("fail");
     }
     // res.render("home");
   });
+
+  app.use("/balance", balanceRouter);
 
   app.use("/payment", paymentRouter);
 

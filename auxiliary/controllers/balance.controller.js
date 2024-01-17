@@ -5,20 +5,23 @@ const Hist = require("../models/history.model");
 class balanceControllers {
   // [GET] /
   getBalanceP = async (req, res, next) => {
-    console.log(req.cookies.user._id);
+    console.log("BALANCE: ", req.cookies.user._id);
     try {
-      let {startDate, endDate} = req.query;
+      let { startDate, endDate } = req.query;
 
       const acc = await Acc.findOne({ buyid: req.cookies.user._id });
+      console.log(acc);
       let hist;
-      if (startDate && endDate){   
+      if (startDate && endDate) {
         startDate = new Date(startDate);
-        endDate = new Date(endDate);  
+        endDate = new Date(endDate);
         endDate.setHours(23, 59, 59, 999);
-        hist = await Hist.find({ idaccount: acc._id, date: { $gte: startDate, $lte: endDate } }).sort({date: -1});
-      }
-      else{
-        hist = await Hist.find({ idaccount: acc._id }).sort({date: -1});
+        hist = await Hist.find({
+          idaccount: acc._id,
+          date: { $gte: startDate, $lte: endDate },
+        }).sort({ date: -1 });
+      } else {
+        hist = await Hist.find({ idaccount: acc._id }).sort({ date: -1 });
       }
       // console.log('acc', acc, 'hist', hist)
       let arr = hist.map((item) => ({
@@ -41,14 +44,17 @@ class balanceControllers {
     }
   };
   recharge = async (req, res, next) => {
-    const {amount} = req.query;
+    const { amount } = req.query;
     const acc = await Acc.findOne({ buyid: req.cookies.user._id });
     const newBalance = acc.balance + parseInt(amount);
 
     //update balance
-    await Acc.updateOne({_id: acc._id}, {
-      $set: {balance: newBalance}
-    })
+    await Acc.updateOne(
+      { _id: acc._id },
+      {
+        $set: { balance: newBalance },
+      }
+    );
     //insert history
     const newHist = {
       idaccount: acc._id,
@@ -56,10 +62,10 @@ class balanceControllers {
       money: parseInt(amount),
       balance: newBalance,
       description: "recharge",
-    }
+    };
     await Hist.create(newHist);
-    res.redirect('/balance');
-  }
+    res.redirect("/balance");
+  };
 }
 
 module.exports = new balanceControllers();
