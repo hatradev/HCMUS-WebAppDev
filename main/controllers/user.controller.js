@@ -224,6 +224,7 @@ class userController {
     }
   };
   sendTokenAndSaveUser = async (req, res, next) => {
+    // console.log("sendTokenAndSaveUser");
     try {
       const { lastname, firstname, email, phone, address, password, avatar } =
         req.body;
@@ -270,6 +271,9 @@ class userController {
         secure: false,
         path: "/",
       });
+
+      // console.log(req.cookies.user);
+
       res.redirect("/");
     } catch (err) {
       next(err);

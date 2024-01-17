@@ -73,6 +73,8 @@ app.use((req, res, next) => {
   // You need to implement your logic based on your authentication method.
   // For example, checking a JWT token or a session.
   if (req.cookies && req.cookies.user) {
+    // console.log("User is logged in");
+
     res.locals.isLoggedIn = true;
     res.locals._firstName = req.cookies.user.firstname;
     // res.locals._cartNumber = req.cookies.obj.user.cart.reduce(
@@ -80,12 +82,15 @@ app.use((req, res, next) => {
     //   0
     // );
   } else {
+    // console.log("User is not logged in");
+
     res.locals.isLoggedIn = false;
     res.locals._cartNumber = 0;
   }
 
   next();
 });
+
 app.use(async (req, res, next) => {
   if (req.cookies && req.cookies.user) {
     // Giả sử sử dụng req.isAuthenticated() để kiểm tra đăng nhập

@@ -57,6 +57,8 @@ class authController {
       //save the user to the database
       let user = await User.findOne({ email: googleUser.email });
       if (user) {
+        // console.log("user already exists in the database");
+
         if (user.avatar == process.env.AVATAR) {
           await User.updateOne(
             { _id: user._id },
@@ -64,12 +66,20 @@ class authController {
           );
           user = await User.findOne({ email: googleUser.email });
         }
+
+        // console.log(req.cookies.user);
+        // res.clearCookie("user");
+        // console.log(req.cookies.user);
+
         res.cookie("user", user, {
           httpOnly: true,
           secure: false,
           path: "/",
-          sameSite: "strict",
+          // sameSite: "strict",
         });
+
+        // console.log(req.cookies.user);
+
         res.redirect("/");
       }
       else{

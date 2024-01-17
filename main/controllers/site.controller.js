@@ -15,6 +15,7 @@ const Category = require("../models/category.model");
 class siteController {
   // [GET] /
   getHome = async (req, res, next) => {
+    // console.log(req.cookies.user);
     try {
       // Lấy 8 sản phẩm mới nhất
       let latestProducts = await Product.find().sort({ _id: -1 }).limit(8);
