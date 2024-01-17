@@ -51,6 +51,22 @@ select option {
 
 
 /* profile */
+
+.btn-file{
+    height: 4rem;
+    font-size: 14px;
+    margin-top: 12px;
+    background-color: #FFB0BD;
+    color: #000;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+.btn-file:hover{
+    background-color: #8a4762;
+    border: none;
+}
+
 .profileCard a:hover {
     color: #8a4762;
     font-weight: bold;
