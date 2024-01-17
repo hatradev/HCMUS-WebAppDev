@@ -115,7 +115,7 @@ class paymentControllers {
       await admin.save();
 
       const newHistoryUser = new Hist({
-        idaccount: user.buyid,
+        idaccount: user._id,
         isIn: true,
         money: Number(decoded.totalPrice),
         balance: user.balance,
@@ -123,7 +123,7 @@ class paymentControllers {
         // message: req.body.message, // Lấy từ form đầu vào
       });
       const newHistoryAdmin = new Hist({
-        idaccount: admin.buyid,
+        idaccount: admin._id,
         isIn: false,
         money: Number(decoded.totalPrice),
         balance: admin.balance,
@@ -187,7 +187,7 @@ class paymentControllers {
         await admin.save();
 
         const newHistoryUser = new Hist({
-          idaccount: user.buyid,
+          idaccount: user._id,
           isIn: false,
           money: Number(total),
           balance: user.balance,
@@ -195,7 +195,7 @@ class paymentControllers {
           // message: req.body.message, // Lấy từ form đầu vào
         });
         const newHistoryAdmin = new Hist({
-          idaccount: admin.buyid,
+          idaccount: admin._id,
           isIn: true,
           money: Number(total),
           balance: admin.balance,
