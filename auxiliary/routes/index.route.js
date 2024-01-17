@@ -77,7 +77,7 @@ function route(app) {
       );
 
       const rs = await fetch(
-        `http://localhost:${process.env.MAIN_PORT}/user/authenticate`,
+        `http://127.0.0.1:${process.env.MAIN_PORT}/user/authenticate`,
         {
           method: "POST",
           headers: {
@@ -93,7 +93,7 @@ function route(app) {
         user.balance = user.balance - total;
         await user.save();
         const r = await fetch(
-          `http://localhost:${process.env.MAIN_PORT}/user/paymentSuccess`,
+          `http://127.0.0.1:${process.env.MAIN_PORT}/user/paymentSuccess`,
           {
             method: "POST",
             headers: {
@@ -103,16 +103,16 @@ function route(app) {
           }
         );
         const response2 = await r.json();
-        // res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/index`);
+        // res.redirect(`http://127.0.0.1:${process.env.MAIN_PORT}/order/index`);
         // res.json(response2);
         res.redirect(
-          `http://localhost:${
+          `http://127.0.0.1:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(idOrder)}`
         );
       } else if (!response.validPw) {
         res.redirect(
-          `http://localhost:${
+          `http://127.0.0.1:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(
             idOrder
@@ -121,7 +121,7 @@ function route(app) {
       } else {
         // res.redirect(`/order/inValidBalance?id=${encodeURIComponent(idOrder)}`);
         res.redirect(
-          `http://localhost:${
+          `http://127.0.0.1:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(
             idOrder
@@ -183,7 +183,7 @@ function route(app) {
       // const user = await User.findById(decoded.idAccount);
       const user = await account.findById(decoded.order.idaccount);
       // const validPassword = await bcrypt.compare(decoded.pw, user.password);
-      const responseData = { success: "successfully", acc: user};
+      const responseData = { success: "successfully", acc: user };
       // Xóa giỏ hàng sau khi tạo đơn hàng
       user.balance = user.balance + decoded.totalPrice;
       await user.save();
@@ -194,9 +194,6 @@ function route(app) {
       next(error);
     }
   });
-
-
-  
 
   app.get("/getPayment", async (req, res, next) => {
     try {
