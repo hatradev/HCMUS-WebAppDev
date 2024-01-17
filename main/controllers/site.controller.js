@@ -125,8 +125,8 @@ class siteController {
     }
   };
   getAuthSystem = async (req, res, next) => {
-    res.redirect('https://localhost:1234/');
-  }
+    res.redirect(`https://${process.env.HOST}:${process.env.AUX_PORT}/`);
+  };
 }
 
 module.exports = new siteController();
