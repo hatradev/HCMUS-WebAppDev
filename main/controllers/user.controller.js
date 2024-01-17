@@ -41,8 +41,8 @@ class userController {
     try {
       const email = req.query.email;
       const user = User.findOne({ email: email });
-      if (!user){
-        res.redirect('/user/signup', {});
+      if (!user) {
+        res.redirect("/user/signup", {});
       }
       res.render("forgotPw", {});
     } catch (err) {
@@ -106,7 +106,10 @@ class userController {
       // // Tìm tài khoản người dùng
       const user = await User.findById(decoded.idAccount);
       const validPassword = await bcrypt.compare(decoded.pw, user.password);
-      const responseData = { success: "successfully sending order", validPw: validPassword};
+      const responseData = {
+        success: "successfully sending order",
+        validPw: validPassword,
+      };
       // Xóa giỏ hàng sau khi tạo đơn hàng
       user.cart = [];
       await user.save();
@@ -134,7 +137,10 @@ class userController {
       user.cart = [];
       await user.save();
       // const validPassword = await bcrypt.compare(decoded.pw, user.password);
-      const responseData = { success: "successfully sending order", order: decoded};
+      const responseData = {
+        success: "successfully sending order",
+        order: decoded,
+      };
       console.log("check order MAIN");
       console.log(order);
       console.log("end check order MAIN");
@@ -230,14 +236,11 @@ class userController {
     res.redirect("/user/signin");
   };
   verify = async (req, res, next) => {
-    try{
-
-    } catch (err){
+    try {
+    } catch (err) {
       next(err);
     }
-  }
+  };
 }
-
-
 
 module.exports = new userController();
