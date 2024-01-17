@@ -570,7 +570,7 @@ class productController {
     }
   };
 
-  updateProduct = async (req, res, next) => {
+  createCategory = async (req, res, next) => {
     // console.log(req.body);
     try {
       let { name, description, parentCategory } = req.body;
@@ -589,6 +589,56 @@ class productController {
       next(error);
     }
   }
+
+  updateCategory = async (req, res, next) => {
+    // console.log(req.body);
+    try {
+      let { name, description, parentCategory, id } = req.body;
+      parentCategory = parentCategory ? parentCategory : null;
+      // console.log(id);
+      const category = await Category.findById(id);
+      if (!category) {
+        return res.status(404).send("Danh mục không tồn tại");
+      }
+      category.name = name;
+      category.description = description;
+      category.parentCategory = parentCategory;
+      await category.save();
+      res.redirect("/product/categories");
+    } catch (error) {
+      next(error);
+    }
+  }
+  
+  deleteCategory = async (req, res, next) => {
+    try {
+      const { id } = req.body;
+  
+      // Check if the category exists
+      const category = await Category.findById(id);
+      if (!category) {
+        return res.status(404).send("Danh mục không tồn tại");
+      }
+  
+      // Save parent category ID for later use
+      const parentCategoryId = category.parentCategory;
+  
+      // Remove the category
+      await Category.findByIdAndRemove(id);
+  
+      // Find and update all child categories
+      const childCategories = await Category.find({ parentCategory: id });
+      for (const child of childCategories) {
+        child.parentCategory = parentCategoryId; // Set to parent of deleted category, or null if it had no parent
+        await child.save();
+      }
+  
+      res.redirect("/product/categories");
+    } catch (error) {
+      next(error);
+    }
+  };
+  
 }
 
 // Export an instance of the controller
