@@ -70,7 +70,7 @@ class profileController {
         httpOnly: true,
         secure: false,
         path: "/",
-        sameSite: "strict",
+        // sameSite: "strict",
       });
       res.redirect("/profile");
     } catch (err) {
