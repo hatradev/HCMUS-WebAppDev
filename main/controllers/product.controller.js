@@ -3,7 +3,7 @@ const Product = require("../models/product.model");
 const Category = require("../models/category.model");
 const Account = require("../models/account.model");
 
-const defaultLimit = 12;
+const defaultLimit = 8;
 
 class productController {
   getCategoryTree = async () => {
@@ -17,16 +17,20 @@ class productController {
         .map((cat) => ({ ...cat, children: buildTree(categories, cat._id) }));
     };
 
-    // Construct the hierarchical tree from categories
+    // console.log(buildTree(categories));
+
     return buildTree(categories);
   };
 
   renderAllProduct = async (req, res, next) => {
     try {
-      const categories = await this.getCategoryTree();
+      // const categories = await this.getCategoryTree();
+      const searchTerm = req.query.keyword || '';
+      const category = req.query.category || '';
 
       res.render("all-product", {
-        categories,
+        searchTerm: searchTerm,
+        category: category,
       });
     } catch (err) {
       console.error(err);
@@ -55,7 +59,9 @@ class productController {
 
   APIRelatedProducts = async (req, res, next) => {
     try {
-      const { productId, page = 1, limit = defaultLimit } = req.query;
+      const { productId } = req.query;
+      const page = parseInt(req.query.page, 10) || 1; // Default to 1 if not provided
+      const limit = parseInt(req.query.limit, 10) || defaultLimit; // Use a default limit if not provided
 
       // console.log(page);
 
@@ -197,6 +203,8 @@ class productController {
         nextPage: page + 1,
       };
 
+      // console.log(paginationData);
+
       res.json({
         products: related,
         pagination: paginationData,
@@ -206,113 +214,6 @@ class productController {
       next(err);
     }
   };
-
-  // APIRelatedProducts = async (req, res, next) => {
-  //   try {
-  //     const {
-  //       page = 1,
-  //       limit = defaultLimit,
-  //     } = req.query;
-
-  //     const { productId } = req.params;
-  //     const objectId = new mongoose.Types.ObjectId(productId);
-  //     const product = await Product.findById(objectId).lean();
-  //     const currentCategory = await Category.findById(
-  //       product.category
-  //     ).lean();
-
-  //     if (!product) {
-  //       res.status(404).send("Product not found");
-  //       return;
-  //     }
-
-  //     let related = [];
-
-  //     // Find related products in the same category
-  //     related = await Product.find({
-  //       category: product.category,
-  //       _id: { $ne: objectId },
-  //     })
-  //       .limit(limit)
-  //       .lean();
-
-  //     // Fetch child categories
-  //     const childCategories = await Category.find({
-  //       parentCategory: product.category,
-  //     }).lean();
-
-  //     for (const childCategory of childCategories) {
-  //       const childProducts = await Product.find({
-  //         category: childCategory._id,
-  //         _id: { $ne: objectId },
-  //       })
-  //         .limit(limit - related.length)
-  //         .lean();
-
-  //       related = related.concat(childProducts);
-  //       if (related.length >= limit) break;
-  //     }
-
-  //     // Fetch sibling categories if necessary
-  //     if (currentCategory.parentCategory) {
-  //       const siblingCategories = await Category.find({
-  //         parentCategory: currentCategory.parentCategory,
-  //         _id: { $ne: currentCategory._id },
-  //       }).lean();
-
-  //       for (const siblingCategory of siblingCategories) {
-  //         const siblingProducts = await Product.find({
-  //           category: siblingCategory._id,
-  //           _id: { $ne: objectId },
-  //         })
-  //           .limit(limit - related.length)
-  //           .lean();
-
-  //         related = related.concat(siblingProducts);
-  //         if (related.length >= limit) break;
-  //       }
-  //     }
-
-  //     // Fetch products from the immediate ancestor category if necessary
-  //     if (currentCategory && currentCategory.parentCategory) {
-  //       const ancestorProducts = await Product.find({
-  //         category: currentCategory.parentCategory,
-  //         _id: { $ne: objectId },
-  //       })
-  //         .limit(limit - related.length)
-  //         .lean();
-
-  //       related = related.concat(ancestorProducts);
-  //     }
-
-  //     const skip = (page - 1) * limit;
-  //     const totalProducts = related.length;
-  //     const totalPages = Math.ceil(totalProducts / limit);
-
-  //     const pageNumbers = [];
-  //     for (let i = 1; i <= totalPages; i++) {
-  //       pageNumbers.push({
-  //         number: i,
-  //         isCurrent: i === parseInt(page),
-  //       });
-  //     }
-  //     const paginationData = {
-  //       pages: pageNumbers,
-  //       hasPreviousPage: page > 1,
-  //       previousPage: page - 1,
-  //       hasNextPage: page < totalPages,
-  //       nextPage: page + 1,
-  //     };
-
-  //     res.json({
-  //       products: related,
-  //       pagination: paginationData,
-  //     });
-  //   } catch (err) {
-  //     console.error(err);
-  //     next(err);
-  //   }
-  // }
 
   getAllDescendantCategoryIds = async (parentCategoryId) => {
     const categoriesToProcess = [parentCategoryId];
@@ -333,46 +234,6 @@ class productController {
     return Array.from(allCategoryIds);
   };
 
-  // showAllProduct = async (req, res, next) => {
-  //   try {
-  //     const page = parseInt(req.query.page) || 1;
-  //     const limit = parseInt(req.query.limit) || defaultLimit;
-  //     const skip = (page - 1) * limit;
-
-  //     // Fetch total number of products
-  //     const totalProducts = await Product.countDocuments();
-
-  //     const products = await Product.find().skip(skip).limit(limit).lean();
-
-  //     // Calculate total pages
-  //     const totalPages = Math.ceil(totalProducts / limit);
-
-  //     const pageNumbers = [];
-  //     for (let i = 1; i <= totalPages; i++) {
-  //       pageNumbers.push({
-  //         number: i,
-  //         isCurrent: i === page,
-  //       });
-  //     }
-
-  //     const paginationData = {
-  //       pages: pageNumbers,
-  //       hasPreviousPage: page > 1,
-  //       previousPage: page - 1,
-  //       hasNextPage: page < totalPages,
-  //       nextPage: page + 1,
-  //     };
-
-  //     res.json({
-  //       products,
-  //       pagination: paginationData,
-  //     });
-  //   } catch (err) {
-  //     console.error(err);
-  //     next(err);
-  //   }
-  // };
-
   APIProducts = async (req, res) => {
     try {
       const {
@@ -381,9 +242,12 @@ class productController {
         minPrice,
         maxPrice,
         sortOrder,
-        page = 1,
-        limit = defaultLimit,
       } = req.query;
+
+      // console.log(keyword);
+
+      const page = parseInt(req.query.page, 10) || 1; // Default to 1 if not provided
+      const limit = parseInt(req.query.limit, 10) || defaultLimit; // Use a default limit if not provided
 
       let query = {};
 
@@ -428,6 +292,7 @@ class productController {
           isCurrent: i === parseInt(page),
         });
       }
+
       const paginationData = {
         pages: pageNumbers,
         hasPreviousPage: page > 1,
@@ -435,6 +300,8 @@ class productController {
         hasNextPage: page < totalPages,
         nextPage: page + 1,
       };
+
+      // console.log(paginationData);
 
       res.json({
         products: filteredProducts,

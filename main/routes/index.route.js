@@ -5,8 +5,15 @@ const orderRouter = require("./order.route");
 const productRouter = require("./product.route");
 const CustomErr = require("../helpers/custom-error");
 const authRoutes = require("./auth.route");
+const productController = require("../controllers/product.controller");
 
 function route(app) {
+  const categoryTreeMiddleware = async (req, res, next) => {
+    res.locals.categoryTree = await productController.getCategoryTree();
+    next();
+  };
+  app.use(categoryTreeMiddleware);
+
   // Định nghĩa các route theo tài nguyên
   app.use("/", siteRouter);
   app.use("/user", userRouter);

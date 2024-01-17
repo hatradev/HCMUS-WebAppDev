@@ -10,6 +10,7 @@ const {
   mutipleMongooseToObject,
   mongooseToObject,
 } = require("../utils/mongoose");
+const Category = require("../models/category.model");
 
 class siteController {
   // [GET] /
