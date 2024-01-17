@@ -7,6 +7,16 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 class orderController {
+  approveOrder = async (req, res, next) => {
+    console.log("approve order");
+    try {
+      res.json({ success: "successfully sending order" });
+    }
+    catch (error) {
+      next(error);
+    }
+  }
+
   CreateOrderForCartAndSendToken = async (req, res, next) => {
     try {
       const accBuyer = await Account.findOne({

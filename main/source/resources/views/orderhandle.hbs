@@ -23,8 +23,9 @@
           <tbody>
             {{#each ordersWithDetails}}
             <tr class="pointer" data-bs-toggle="modal" data-bs-target="#orderModal" data-bs-id="{{_id}}"
-              data-bs-date="{{date}}" data-bs-buyer="{{name}}" data-bs-phone="{{phone}}" data-bs-address="{{address}}" data-bs-email="{{email}}"
-              data-bs-status="{{status}}" data-bs-detail="{{detail}}" data-bs-pname="{{on}}" data-bs-price="{{pr}}" data-bs-quantity="{{qt}}" data-bs-sum="{{sum}}" data-bs-total="{{totalPrice}}">
+              data-bs-date="{{date}}" data-bs-buyer="{{name}}" data-bs-phone="{{phone}}" data-bs-address="{{address}}"
+              data-bs-email="{{email}}" data-bs-status="{{status}}" data-bs-detail="{{detail}}" data-bs-pname="{{on}}"
+              data-bs-price="{{pr}}" data-bs-quantity="{{qt}}" data-bs-sum="{{sum}}" data-bs-total="{{totalPrice}}">
               <th scope="row">{{@index}}</th>
               <td>{{_id}}</td>
               <td>{{dateOfOrder date}}</td>
@@ -101,28 +102,26 @@
                 </div>
               </div>
               <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Tên sản phẩm</th>
-              <th scope="col">Đơn giá</th>
-              <th scope="col">Số lượng</th>
-              <th scope="col">Tổng tiền</th>
-            </tr>
-          </thead>
-          <tbody id="ptable">
-          </tbody>
-        </table>
-        <div class="text-end" id="total"></div>
+                <thead>
+                  <tr>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Tổng tiền</th>
+                  </tr>
+                </thead>
+                <tbody id="ptable">
+                </tbody>
+              </table>
+              <div class="text-end" id="total"></div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng cửa sổ</button>
-            <button type="submit" formaction="/product/delete-category" formmethod="post" class="btn btn-danger"
-              form="updateCategory">Hủy đơn hàng</button>
-            <button type="submit" class="btn btn-primary bg-primary" id="modalsubmit" form="updateCategory"
-            action="/order/approve-order" method="post"
-            >Duyệt đơn
+            <button type="submit" formaction="/product/delete-category" formmethod="post" class="btn btn-danger">Hủy đơn
               hàng</button>
+            <button type="submit" formaction="/order/approve-order" formmethod="post"
+              class="btn btn-primary bg-primary" form="updateOrder">Duyệt đơn hàng</button>
           </div>
         </div>
       </div>
@@ -130,3 +129,27 @@
   </div>
 </div>
 <script src="/js/admin-ordermodal.js"></script>
+<script>
+  $(document).ready(function () {
+    console.log('Document ready');
+    $("#modalsubmit").click(function (event) {
+      event.preventDefault(); // Prevent default form submission
+
+      var formData = $("#updateOrder").serialize(); // Serialize form data
+
+      $.ajax({
+        type: "POST",
+        url: "/order/approve-order",
+        data: formData,
+        success: function (response) {
+          console.log('Order approved:', response);
+          // Handle success (e.g., show a message, redirect, etc.)
+        },
+        error: function (xhr, status, error) {
+          console.error('Error approving order:', error);
+          // Handle error
+        }
+      });
+    });
+  });
+</script>

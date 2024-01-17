@@ -20,5 +20,6 @@ router.post(
   orderController.CreateOrderForBuyNowAndSendToken
 );
 // router.post("/authenticate", orderController.authenticatePassword);
+router.post("/approve-order", orderController.approveOrder);
 
 module.exports = router;
