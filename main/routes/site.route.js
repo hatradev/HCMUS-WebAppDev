@@ -1,7 +1,7 @@
 const express = require("express");
 const siteController = require("../controllers/site.controller");
 const userController = require("../controllers/user.controller");
-
+const productController = require("../controllers/product.controller");
 const router = express.Router();
 
 router.get(

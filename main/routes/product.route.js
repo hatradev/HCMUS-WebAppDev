@@ -4,6 +4,9 @@ const userController = require("../controllers/user.controller");
 
 const router = express.Router();
 
+router.get("/handle", productController.getHandle);
+router.get("/categories", productController.getCateHandle);
+
 router.use(userController.checkRole("user"));
 
 router.get("/", productController.renderAllProduct);

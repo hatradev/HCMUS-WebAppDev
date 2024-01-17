@@ -3,7 +3,6 @@ const userRouter = require("./user.route");
 const profileRouter = require("./profile.route");
 const orderRouter = require("./order.route");
 const productRouter = require("./product.route");
-const adminRouter = require("./admin.route");
 const CustomErr = require("../helpers/custom-error");
 const authRoutes = require("./auth.route");
 const productController = require("../controllers/product.controller");

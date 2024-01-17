@@ -3,9 +3,13 @@
     <div class="col-md-3 col-sm-12 mb-3 ps-4 pe-4">
       <div class="card profileCard" style="min-height: 33rem;">
         <div class="row d-flex justify-content-center">
+          {{#if avatar}}
+          <img class="col-8 mt-3 mb-2 img-thumbnail" id="avatar-img" src={{avatar}} alt="avatar">
+          {{else}}
           <img class="col-8"
             src="https://cdn.discordapp.com/attachments/1176168664987345008/1186219554939080724/logo.png?ex=6592740c&is=657fff0c&hm=1231f35e6a5050bbf94b9506c079959ddbba6f079706b86202704bca00f5388f&"
             alt="">
+          {{/if}}
         </div>
         <div class="row text-center mb-3">
           <h2 style="color: #000">{{lastname}} {{firstname}}</h2>
@@ -30,10 +34,10 @@
             <div class="col-md-3 text-center">
               <div class="dropdown order-dropdown">
                 <a class="btn dropdown-toggle border" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false" >
+                  aria-expanded="false">
                   {{toOrderFilter filter}}
                 </a>
-                <ul class="dropdown-menu" style="font-size: 14px;">
+                <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="/order/index?filter=near">Thời gian gần nhất</a></li>
                   <li><a class="dropdown-item" href="/order/index?filter=far">Thời gian xa nhất</a></li>
                   <li><a class="dropdown-item" href="/order/index?filter=pending">Chờ xử lý</a></li>

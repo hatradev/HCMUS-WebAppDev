@@ -490,6 +490,22 @@ class productController {
         .json({ message: "An error occurred", error: err.message });
     }
   };
+
+  getHandle = async (req, res, next) => {
+    try {
+      res.render("producthandle", { nshowHF: true });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  getCateHandle = async (req, res, next) => {
+    try {
+      res.render("categoryhandle", { nshowHF: true });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 // Export an instance of the controller

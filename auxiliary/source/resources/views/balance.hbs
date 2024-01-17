@@ -9,11 +9,11 @@
         <div class="row balance-header d-flex align-items-center rounded-4">
           <div class="col-md-6">
             <div id="balance" class="offset-md-1">
-              <p>Số Dư: <span class="ms-3 fs-2 fw-bold">{{formatCurrency balance}}</span></p>
+              <p>Số Dư: <span class="ms-3 fs-4 fw-bold">{{formatCurrency balance}}</span></p>
             </div>
           </div>
           <div class="col-md-6">
-            <div id="deposit" class="offset-md-7">
+            <div id="deposit" class="offset-md-8">
               <button id="addFundsBtn" class="rounded-2" onclick="openForm()">Nạp Tiền</button>
             </div>
           </div>
@@ -23,7 +23,7 @@
           <div id="transactions">
             <div class="row">
               <div class="col-md-6">
-                <p class="fs-2 fw-bold mb-2">Lịch sử Giao Dịch</p>
+                <p class="fs-4 fw-bold mb-2">Lịch sử Giao Dịch</p>
                 <div class="row d-flex align-items-center">
                   <div class="form-group col-5">
                     <label for="startDatePicker">Từ Ngày: </label>
@@ -42,12 +42,12 @@
                   <li class="mb-3" onclick="showTransactionDetail('{{id}}', '{{formatDate date}}','{{isIn}}', '{{formatCurrency money}}', '{{description}}' )">
                     <div class="row d-flex align-items-center">
                       <div class="col-8">
-                        <p class="fw-bold"> MGD: {{id}}</p>
+                        <p class="fw-bold fs-6"> GD: {{id}}</p>
                         <span class="small">{{formatDate date}}</span>
                       </div>
                       <div class="col-4 text-end">
                         {{#if isIn}}
-                          <span class="fw-bold text-success">+ {{formatCurrency money}}</span>
+                          <span class="fw-bold fs-6 text-success">+ {{formatCurrency money}}</span>
                         {{else}}
                            <span class="fw-bold text-danger">- {{formatCurrency money}}</span>
                         {{/if}}       
@@ -61,7 +61,7 @@
               {{!-- biểu đồ --}}
               <div class="col-md-6">
                 <div id="chart">
-                  <p class="fs-2 fw-bold mb-2">Biểu đồ biến động số dư</p>
+                  <p class="fs-4 fw-bold mb-2">Biểu đồ biến động số dư</p>
                   <canvas id="lineChart"></canvas>
                 </div>
               </div>
@@ -78,9 +78,9 @@
 <div id="rechargeForm" class="hidden">
   <form action="/balance/recharge" method="get">
     <label for="amount">Nhập số tiền cần nạp:</label>
-    <input type="number" class="form-control" id="amount" name="amount" required>
-    <div class="row text-center mt-3">
-      <button type="submit" class="col-5 offset-1 rounded">Xác Nhận</button>
+    <input type="number" class="form-control border" id="amount" name="amount" required>
+    <div class="row d-flex justify-content-center mt-3">
+      <button type="submit" class="col-4 rounded">Xác Nhận</button>
       <button type="button" class="col-4 offset-1 rounded" onclick="closeForm()">Hủy</button>
     </div>  
   </form>
@@ -91,7 +91,7 @@
   <div class="detail">
     
   </div>   
-    <div class="row text-center mt-5">
+    <div class="row text-center mt-3">
       <button type="button" class="col-4 offset-4 rounded" onclick="closeDetail()">Đóng</button>
     </div>  
 </div>
@@ -186,44 +186,44 @@ function showTransactionDetail(id, date, isIn, money, description ){
   $("#transactionDetail").css("display", "block");
 
   $("#transactionDetail .detail").html(`
-    <span class="text-white fs-2 fw-bold d-flex justify-content-center mt-5">Thông tin chi tiết giao dịch</span> 
+    <span class="text-white fs-4 fw-bold d-flex justify-content-center mt-3">Thông tin chi tiết giao dịch</span> 
     <div class="row">
-      <div class="col-4 offset-2 mt-5">
+      <div class="col-4 offset-2 mt-4">
          <p>Mã Giao Dịch: </p>
       </div>
-      <div class="col-3 mt-5">
+      <div class="col-3 mt-4">
         ${id}
       </div>
     </div>
     <div class="row">
-      <div class="col-4 offset-2 mt-3">
+      <div class="col-4 offset-2">
          <p>Ngày Giao Dịch: </p>
       </div>
-      <div class="col-4 mt-3">
+      <div class="col-4">
         ${date.split(" ")[0]}
       </div>
     </div>
     <div class="row">
-      <div class="col-4 offset-2 mt-3">
+      <div class="col-4 offset-2">
          <p>Giờ Giao Dịch: </p>
       </div>
-      <div class="col-4 mt-3">
+      <div class="col-4">
         ${date.split(" ")[1]}
       </div>
     </div>
      <div class="row">
-      <div class="col-4 offset-2 mt-3">
+      <div class="col-4 offset-2">
          <p>Số Tiền: </p>
       </div>
-      <div class="col-3 mt-3">
+      <div class="col-3">
         ${money}
       </div>
     </div>
     <div class="row">
-      <div class="col-4 offset-2 mt-3">
+      <div class="col-4 offset-2">
          <p>Mô tả: </p>
       </div>
-      <div class="col-3 mt-3">
+      <div class="col-3">
         ${description}
       </div>
     </div>

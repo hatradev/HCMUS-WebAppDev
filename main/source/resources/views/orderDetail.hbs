@@ -3,9 +3,13 @@
         <div class="col-md-3 col-sm-12 mb-3 ps-4 pe-4">
             <div class="card profileCard" style="min-height: 33rem;">
                 <div class="row d-flex justify-content-center">
-                    <img class="col-8"
+                    {{#if avatar}}
+                    <img class="col-8 mt-3 mb-2 img-thumbnail" id="avatar-img" src={{avatar}} alt="avatar">
+                    {{else}}
+                     <img class="col-8"
                         src="https://cdn.discordapp.com/attachments/1176168664987345008/1186219554939080724/logo.png?ex=6592740c&is=657fff0c&hm=1231f35e6a5050bbf94b9506c079959ddbba6f079706b86202704bca00f5388f&"
                         alt="">
+                    {{/if}}
                 </div>
                 <div class="row text-center mb-3">
                     <h2 style="color: #000">{{lastname}} {{firstname}}</h2>
@@ -66,14 +70,30 @@
                     <div class="row">
                         {{#if (or obj.status "paying" "pending")}}
                         <div class="col-md-7 col-ms-2 mt-3 border-top d-flex justify-content-center align-items-center">
-                            {{#if (eq obj.status "paying")}}
-                            <a href="/payment" class="btn payment_btn me-3">
+                            {{!-- {{#if (eq obj.status "paying")}}
+                            <a href="/continuePayment?orderId={{obj._id}}" class="btn payment_btn me-3">
                                 <span class="button__text"> Tiếp tục thanh toán</span>
                             </a>
+                            {{/if}} --}}
+                            {{#if (eq obj.status "paying")}}
+                            <form action="/order/continuePayment" method="POST">
+                                <input type="hidden" name="orderId" value="{{obj._id}}">
+                                <button type="submit" class="btn payment_btn me-3">
+                                    <span class="button__text"> Tiếp tục thanh toán</span>
+                                </button>
+                            </form>
                             {{/if}}
-                            <a href="#" class="btn cancel_btn">
+
+                            <form action="/order/cancelOrder" method="POST">
+                                <input type="hidden" name="orderId" value="{{obj._id}}">
+                                <input type="hidden" name="totalPrice" value="{{obj.total}}">
+                                <button type="submit" class="btn cancel_btn">
+                                    <span class="button__text"> Hủy đơn</span>
+                                </button>
+                            </form>
+                            {{!-- <a href="#" class="btn cancel_btn">
                                 <span class="button__text"> Hủy đơn</span>
-                            </a>
+                            </a> --}}
                         </div>
                         <div class="col-md-5 col-ms-10 mt-3 border-top">
                             {{else}}

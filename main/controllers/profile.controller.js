@@ -1,6 +1,8 @@
 const User = require("../models/account.model");
 const userController = require("../controllers/user.controller");
 const bcrypt = require('bcrypt');
+const fs = require('fs');
+const { join } = require('path');
 
 class profileController {
   // [GET] /
@@ -14,7 +16,7 @@ class profileController {
         phone: user.phone,
         email: user.email,
         address: user.address,
-        avatar: user.avatar || "/img/logo/default.jpg",
+        avatar: user.avatar,
       });
       
     } catch (err) {
@@ -24,12 +26,12 @@ class profileController {
   getChangePasswordP = async (req, res, next) => {
     try {
       const user = req.cookies.user;
-      res.render("changePw", {firstname: user.firstname, lastname: user.lastname});
+      res.render("changePw", {firstname: user.firstname, lastname: user.lastname, avatar: user.avatar});
     } catch (err) {
       next(err);
     }
   };
-
+  
   //[POST]
   updateProfile = async (req, res, next) => {
     try {
@@ -40,6 +42,14 @@ class profileController {
         inputAddress,
         inputPhoneNumber,
       } = req.body;
+      const avatar = `/img/avatar/${req.file.filename}`;
+      const user = await User.findOne( { _id: req.cookies.user._id });
+      let dirPath = join(__dirname, `../source/public${user.avatar}` );
+      // console.log(dirPath);
+      fs.unlink(dirPath, function (err) {
+          if (err) console.log('delete file failed!');
+          else console.log('old photo deleted!');
+      });
       const updatedUser = await User.findOneAndUpdate(
         { _id: req.cookies.user._id },
         {
@@ -49,6 +59,7 @@ class profileController {
             email: inputEmail,
             address: inputAddress,
             phone: inputPhoneNumber,
+            avatar: avatar,
           },
         },
         { new: true } 
@@ -87,8 +98,7 @@ class profileController {
         }
       );
       user = await User.findById(req.cookies.user._id);
-      res.render('changePw', {msg: 'Change password successfully!'});
-      console.log("change password successfully");
+      res.render('changePw', {msg: 'Thay đổi mật khẩu thành công!'});
     } catch (err) {
       next(err);
     }

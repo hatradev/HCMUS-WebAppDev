@@ -1,5 +1,6 @@
 const User = require("../models/account.model");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Order = require("../models/order.model");
 require("dotenv").config();
@@ -32,6 +33,19 @@ class userController {
     try {
       const { lastname, firstname, email, phone, address } = req.query;
       res.render("signUp", { lastname, firstname, email, phone, address });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  getForgotPwP = async (req, res, next) => {
+    try {
+      const email = req.query.email;
+      const user = User.findOne({ email: email });
+      if (!user) {
+        res.redirect("/user/signup", {});
+      }
+      res.render("forgotPw", {});
     } catch (err) {
       next(err);
     }
@@ -77,10 +91,9 @@ class userController {
     }
   };
 
-  
-
   authenticatePassword = async (req, res, next) => {
     try {
+      console.log("1");
       // Giải mã JWT
       const token = req.body.token;
       if (!token) {
@@ -95,7 +108,10 @@ class userController {
       // // Tìm tài khoản người dùng
       const user = await User.findById(decoded.idAccount);
       const validPassword = await bcrypt.compare(decoded.pw, user.password);
-      const responseData = { success: "successfully sending order", validPw: validPassword};
+      const responseData = {
+        success: "successfully sending order",
+        validPw: validPassword,
+      };
       // Xóa giỏ hàng sau khi tạo đơn hàng
       user.cart = [];
       await user.save();
@@ -123,7 +139,10 @@ class userController {
       user.cart = [];
       await user.save();
       // const validPassword = await bcrypt.compare(decoded.pw, user.password);
-      const responseData = { success: "successfully sending order", order: decoded};
+      const responseData = {
+        success: "successfully sending order",
+        order: decoded,
+      };
       console.log("check order MAIN");
       console.log(order);
       console.log("end check order MAIN");
@@ -176,7 +195,6 @@ class userController {
         httpOnly: true,
         secure: false,
         path: "/",
-        sameSite: "strict",
       });
       res.redirect("/");
     } catch (err) {
@@ -217,6 +235,48 @@ class userController {
   Logout = (req, res) => {
     res.clearCookie("user");
     res.redirect("/user/signin");
+  };
+
+  getHandle = async (req, res, next) => {
+    try {
+      // Tìm tất cả người dùng
+      const allUsers = await User.find();
+
+      // Tạo mảng chứa thông tin của mỗi người dùng
+      const usersInfo = await Promise.all(
+        allUsers.map(async (user) => {
+          // Tìm số đơn hàng của người dùng
+          const totalOrders = await Order.countDocuments({
+            idaccount: user._id,
+          });
+
+          // Tìm số đơn hàng thành công của người dùng
+          const successfulOrders = await Order.countDocuments({
+            idaccount: user._id,
+            status: "successful",
+          });
+
+          // Tính tỉ lệ đặt đơn hàng thành công
+          const successOrderRate =
+            totalOrders > 0
+              ? Math.round((successfulOrders / totalOrders) * 100)
+              : 0;
+
+          // Loại bỏ trường cart khỏi thông tin người dùng
+          const { cart, password, __v, ...userInfo } = user.toObject();
+          // Trả về thông tin của người dùng kèm theo số đơn hàng và số tiền đã chi
+          return {
+            user: userInfo,
+            totalOrders,
+            successOrderRate,
+          };
+        })
+      );
+      // console.log(usersInfo);
+      res.render("accounthandle", { nshowHF: true, usersInfo });
+    } catch (error) {
+      next(error);
+    }
   };
 }
 

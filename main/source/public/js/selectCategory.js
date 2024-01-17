@@ -45,12 +45,14 @@ function selectCategory(categoryId, event) {
 }
 
 // Call selectCategory for the selected category on page load
-document.addEventListener('DOMContentLoaded', () => {
-    const categoryContainer = document.getElementById('categoryContainer');
-    const selectedCategoryId = categoryContainer.getAttribute('data-selected-category');
-    // console.log(selectedCategoryId);
-    
-    if (selectedCategoryId) {
-        selectCategory(selectedCategoryId);
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  const categoryContainer = document.getElementById("categoryContainer");
+  const selectedCategoryId = categoryContainer.getAttribute(
+    "data-selected-category"
+  );
+  // console.log(selectedCategoryId);
+
+  if (selectedCategoryId) {
+    selectCategory(selectedCategoryId);
+  }
 });
