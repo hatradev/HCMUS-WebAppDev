@@ -1,5 +1,4 @@
-{{!-- categoryNode.hbs --}}
-<li>
+{{!-- <li>
     <a href="#" onclick="selectCategory('{{this._id}}', event)">{{name}}</a>
     {{#if children}}
         <ul class="child-categories">
@@ -8,6 +7,15 @@
             {{/each}}
         </ul>
     {{/if}}
-</li>
+</li> --}}
 
-<script src="/js/selectCategory.js"></script>
+<li>
+  <a href="#" data-category-id="{{this._id}}" onclick="selectCategory('{{this._id}}', event)">{{name}}</a>
+  {{#if children}}
+    <ul class="child-categories">
+        {{#each children}}
+            {{> categoryNode this}}
+        {{/each}}
+    </ul>
+  {{/if}}
+</li>

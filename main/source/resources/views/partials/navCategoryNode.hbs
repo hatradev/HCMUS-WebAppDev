@@ -1,0 +1,68 @@
+{{!-- <li class="{{#if this.children}}has-dropdown{{else}}all{{/if}}">
+  <a href="/product?category={{this._id}}">{{this.name}}</a>
+  {{#if this.children}}
+    <ul class="level-{{inc @../level}}">
+      {{#each this.children}}
+        {{> categoryNode this level=(inc @../level)}}
+      {{/each}}
+    </ul>
+  {{/if}}
+</li> --}}
+
+{{!-- <li class="{{#if this.children}}has-dropdown{{else}}all{{/if}}">
+  <a href="/product?category={{this._id}}">{{this.name}}</a>
+  {{#if this.children}}
+    <ul class="level-{{inc level}}">
+      {{#each this.children}}
+        {{> categoryNode this level=(inc level)}}
+      {{/each}}
+    </ul>
+  {{/if}}
+</li> --}}
+
+{{!-- <li class="{{#if this.children}}has-dropdown{{else}}all{{/if}}">
+  <a href="/product?category={{this._id}}">{{this.name}}</a>
+  {{#if this.children}}
+    <ul class="level-{{inc level}}">
+      {{#each this.children}}
+        {{> categoryNode this level=(inc level)}}
+      {{/each}}
+    </ul>
+  {{/if}}
+</li> --}}
+
+{{!-- <li class="{{#if this.children}}has-dropdown{{else}}all{{/if}}">
+  <a href="/product?category={{this._id}}">{{this.name}}</a>
+  {{#if this.children}}
+    <ul class="level-{{inc level}}">
+      {{#each this.children}}
+        {{> categoryNode this level=(inc ../level)}}
+      {{/each}}
+    </ul>
+  {{/if}}
+</li> --}}
+
+<li class="{{#if this.children}}has-dropdown{{else}}all{{/if}}">
+    {{!-- <div>{{this._id}}.</div>
+    <div>{{this.children}}.</div> --}}
+  <a href="/product?category={{this._id}}">{{this.name}}</a>
+  {{#if this.children}}
+    <ul class="level-{{inc level}}">
+      {{#each this.children}}
+        {{> navCategoryNode this level=(inc ../level)}}
+      {{/each}}
+    </ul>
+  {{/if}}
+</li>
+
+{{!-- <li class="{{#if this.children}}has-dropdown{{else}}all{{/if}}">
+    <div>{{this._id}}.</div>
+    <a href="/product?category={{this._id}}">{{this.name}}</a>
+    {{#if this.children}}
+        <ul class="level-{{inc level}}">
+            {{#each this.children}}
+                {{> categoryNode this level=(inc ../level)}}
+            {{/each}}
+        </ul>
+    {{/if}}
+</li> --}}

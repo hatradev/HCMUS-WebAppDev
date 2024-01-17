@@ -17,18 +17,20 @@ class productController {
         .map((cat) => ({ ...cat, children: buildTree(categories, cat._id) }));
     };
 
-    // Construct the hierarchical tree from categories
+    // console.log(buildTree(categories));
+
     return buildTree(categories);
   };
 
   renderAllProduct = async (req, res, next) => {
     try {
-      const categories = await this.getCategoryTree();
+      // const categories = await this.getCategoryTree();
       const searchTerm = req.query.keyword || '';
+      const category = req.query.category || '';
 
       res.render("all-product", {
-        categories,
-        searchTerm: searchTerm
+        searchTerm: searchTerm,
+        category: category,
       });
     } catch (err) {
       console.error(err);

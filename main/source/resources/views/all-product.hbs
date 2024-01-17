@@ -45,14 +45,15 @@
             <span class='list-title'>Danh mục</span>
             <hr />
             <ul class="category-tree">
-                {{#each categories}}
+                {{#each categoryTree}}
                     {{> categoryNode this}}
                 {{/each}}
             </ul>
             <!-- Element to display the selected category name -->
-            <div id="selectedCategoryName" class="selected-category-name"></div>
+            {{!-- <div id="selectedCategoryName" class="selected-category-name"></div> --}}
         </div>
         <input type="hidden" id="selectedCategory" value="">
+        <div id="categoryContainer" data-selected-category="{{category}}"></div>
 
         <div class="filter-btn-container d-flex justify-content-center">
           <button id="filter-btn" class="btn-js-add-cart btn btn-pink mt-3">Lọc</button>
@@ -101,7 +102,7 @@
 <script type="module" src="/js/searchProducts.js"></script> --}}
 
 {{!-- <script src="/js/currentState.js"></script> --}}
+<script src="/js/selectCategory.js"></script>
 <script type="module" src="/js/initFetchProducts.js"></script>
 <script type="module" src="/js/dropDown.js"></script>
-
 {{!-- <script type="module" src="/js/renderProducts.js"></script> --}}
