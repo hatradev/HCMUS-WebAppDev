@@ -1,94 +1,26 @@
-footer {
-    background: #ffb0bd;
-    color: #fff;
+#footer{
+    width: 98vw;
+    height: 25rem;
+    background-color: #ffb0bd;
+    padding: 0.5rem;
 }
 
-footer ul {
-    padding-left: 20px;
-    margin: 0;
+#footer img{
+    width: 13rem;
 }
 
-footer a {
-    color: #fff;
+#footer .slogan{
+    font-size: 16px;
+    color: #8a4762;
 }
 
-.f-start {
-    padding: 30px 0;
+#footer p,
+#footer a{
+    font-size: 18px;
+    color: #8a4762;
 }
 
-.f-hotline {
-    font-size: 17px;
-}
-
-.f-hotline .item {
-    margin-bottom: 15px;
-}
-
-.f-hotline .item i {
-    font-size: 25px;
-}
-
-.f-hotline .item a {
-    color: #fff;
-    padding-left: 10px;
-}
-
-.f-hotline .item .full {
-    display: block;
-}
-
-.f-hotline .item .big {
-    font-size: 23px;
-    line-height: 1;
-}
-
-.f-title {
-    font-size: 17px;
-}
-
-.f-room-text {
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.f-lo-social {
-    position: relative;
-}
-
-.f-lo-social .f-logo {
-    display: block;
-}
-
-.f-lo-social .social {
-    margin-top: 5px;
-}
-
-.f-lo-social .social a {
-    padding: 0 3px;
-    margin-bottom: 5px;
-    display: inline-block;
-}
-
-.f-lo-social .social a img {
-    max-height: 24px;
-    transform: scale(1);
-    transition: all 300ms;
-}
-
-.f-lo-social .social a:hover img {
-    transform: scale(1.2);
-    transition: all 300ms;
-}
-
-.f-lo-social .f-title {
-    font-size: 14px;
-}
-
-.f-end {
-    padding: 15px 0;
-    border-top: 2px solid #fff;
-}
-
-.f-end p {
-    margin: 0;
+#footer .first-part i{
+    font-size: 3rem;
+    padding: 2rem 1rem 1rem 1rem;
 }
