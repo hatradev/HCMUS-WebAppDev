@@ -60,7 +60,7 @@ class orderController {
       const tokenString = JSON.stringify({ token: accessToken });
       const responseUrl = `https://${process.env.HOST}:${
         process.env.AUX_PORT
-      }/payment/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
+      }/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
 
       // const response = await fetch(responseUrl);
       // const responseData = await response.json();
