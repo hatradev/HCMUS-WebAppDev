@@ -3,5 +3,39 @@
     {{>sidebar}}
   </div>
   <div class="col-10 admin-content admin-product">
+    <div class="container mt-5">
+      <div class="mb-4 d-sm-flex align-items-center justify-content-between">
+          <h1 class="h1 mb-0 text-gray-800">Quản lý sản phẩm</h1>
+          <a href="#" class="d-none d-sm-inline-block btn btn-primary bg-primary shadow-sm" style="font-size: 1.75rem;" data-bs-toggle="modal" data-bs-target="#accountModal" data-bs-type="Create"><i class="fa-solid fa-circle-plus"></i> Thêm sản phẩm mới</a>
+      </div>
+      <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card shadow mb-4 pointer" data-bs-toggle="modal" data-bs-target="#accountModal">
+            <!-- Card Body -->
+            <div class="card-body">
+              <div class="product-item item{{id}} col-lg-3 col-xl-3">
+                <div class="image">
+                    <img
+                      data-sizes="auto"
+                      class="lazyautosizes ls-is-cached lazyloaded"
+                      src="{{image}}"
+                      data-src="{{image}}"
+                      alt="{{title}}"
+                    />
+                </div>
+                <h3 class="name">
+                  <a href="/product/{{id}}" title="{{title}}">
+                    {{title}}
+                  </a>
+                </h3>
+                <div class="product-price">
+                  <span class="price">{{formatCurrency price}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

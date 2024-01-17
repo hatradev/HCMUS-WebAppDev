@@ -3,17 +3,24 @@ accountModal.addEventListener("show.bs.modal", function (event) {
   // Button that triggered the modal
   var button = event.relatedTarget;
   // Extract info from data-bs-* attributes
-  var recipient = button.getAttribute("data-bs-whatever");
-  var targetAction = button.getAttribute("data-bs-type");
-  // If necessary, you could initiate an AJAX request here
-  // and then do the updating in a callback.
-  //
-  // Update the modal's content.
-  var modalTitle = accountModal.querySelector(".modal-title");
-  var modalBodyInput = accountModal.querySelector(".modal-body input");
-  var modalSubmitBtn = accountModal.querySelector("#modalsubmit");
+  var fname = button.getAttribute("data-bs-fname");
+  var lname = button.getAttribute("data-bs-lname");
+  var email = button.getAttribute("data-bs-email");
+  var phone = button.getAttribute("data-bs-phone");
+  var adr = button.getAttribute("data-bs-adr");
 
-  modalTitle.textContent = "New message to " + recipient;
-  modalBodyInput.value = recipient;
-  modalSubmitBtn.textContent = targetAction;
+  var fnameInput = accountModal.querySelector(".modal-body #firstname");
+  fnameInput.value = fname;
+
+  var lnameInput = accountModal.querySelector(".modal-body #lastname");
+  lnameInput.value = lname;
+
+  var emailInput = accountModal.querySelector(".modal-body #email");
+  emailInput.value = email;
+
+  var phoneInput = accountModal.querySelector(".modal-body #phone");
+  phoneInput.value = phone;
+
+  var adrInput = accountModal.querySelector(".modal-body #address");
+  adrInput.value = adr;
 });
