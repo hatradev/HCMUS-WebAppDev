@@ -7,7 +7,7 @@ const defaultLimit = 8;
 
 buildFullName = async (category) => {
   if (!category.parentCategory) {
-    return category.name;
+    return `Danh mục gốc/${category.name}`;
   } else {
     const parentCategory = await Category.findById(category.parentCategory);
     if (!parentCategory) {
@@ -17,6 +17,22 @@ buildFullName = async (category) => {
       return `${parentFullName}/${category.name}`;
     }
   }
+};
+
+calculateTotalProductCount = async (category) => {
+  const childCategories = await Category.find({ parentCategory: category._id });
+  const childCategoriesIds = childCategories.map(
+    (childCategory) => childCategory._id
+  );
+
+  const productCountInCategory = await Product.countDocuments({
+    category: category._id,
+  });
+  const productCountInChildCategories = await Product.countDocuments({
+    category: { $in: childCategoriesIds },
+  });
+
+  return productCountInCategory + productCountInChildCategories;
 };
 
 class productController {
@@ -530,21 +546,24 @@ class productController {
 
       // Xây dựng tên đầy đủ và lấy số lượng sản phẩm cho từng danh mục
       const fullCategories = await Promise.all(
-        allCategories.map(async (category, index) => {
-          const fullName = await buildFullName(category);
-          const productCount = await Product.countDocuments({
-            category: category._id,
-          });
+        allCategories.map(async (category) => {
+          const parentCategory = await Category.findById(
+            category.parentCategory
+          );
+          const parentName = parentCategory
+            ? await buildFullName(parentCategory)
+            : "Danh mục gốc";
+          const productCount = await calculateTotalProductCount(category);
+          const fullName = `${parentName}/${category.name}`;
           return {
             ...category.toObject(),
             fullName,
             productCount,
-            idx: index + 1,
+            parentName,
           };
         })
       );
       fullCategories.sort((a, b) => a.fullName.localeCompare(b.fullName));
-      console.log(fullCategories);
       res.render("categoryhandle", { nshowHF: true, fullCategories });
     } catch (error) {
       next(error);
