@@ -21,10 +21,6 @@ const gg_scope = [
   "https://www.googleapis.com/auth/userinfo.profile",
 ];
 
-// const fb_scope = [
-//   "email", "public_profile",
-// ]
-
 class authController {
   //GOOGLE
   ggAuth = (req, res) => {
@@ -61,7 +57,7 @@ class authController {
       //save the user to the database
       let user = await User.findOne({ email: googleUser.email });
       if (user) {
-        if (!user.avatar) {
+        if (user.avatar == process.env.AVATAR) {
           await User.updateOne(
             { _id: user._id },
             { $set: { avatar: googleUser.picture } }

@@ -32,8 +32,8 @@ class userController {
 
   getSignUpP = async (req, res, next) => {
     try {
-      const { lastname, firstname, email, phone, address } = req.query;
-      res.render("signUp", { lastname, firstname, email, phone, address });
+      const { lastname, firstname, email, phone, address, avatar } = req.query;
+      res.render("signUp", { lastname, firstname, email, phone, address, avatar });
     } catch (err) {
       next(err);
     }
@@ -122,6 +122,7 @@ class userController {
         inputPassword,
         inputPhoneNumber,
         inputAddress,
+        avatar
       } = req.body;
       const existingUser = await User.findOne({ email: inputEmail });
 
@@ -146,6 +147,7 @@ class userController {
         phone: inputPhoneNumber,
         address: inputAddress,
         password: hashedPw,
+        avatar: avatar,
       });
     } catch (err) {
       next(err);
@@ -216,7 +218,7 @@ class userController {
   };
   sendTokenAndSaveUser = async (req, res, next) => {
     try {
-      const { lastname, firstname, email, phone, address, password } = req.body;
+      const { lastname, firstname, email, phone, address, password, avatar } = req.body;
 
       //create accessToken
       const newUser = await new User({
@@ -226,6 +228,9 @@ class userController {
         phone,
         address: address,
       });
+      if (avatar){
+        newUser.avatar =  avatar
+      }
       // console.log('newUser:', newUser);
       const accessToken = jwt.sign(
         {

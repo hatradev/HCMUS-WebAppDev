@@ -8,7 +8,4 @@ const router = express.Router();
 router.get("/google/callback", authController.ggCallback);
 router.get("/google", authController.ggAuth);
 
-// router.get("/facebook/callback", authController.fbCallback);
-// router.get("/facebook", authController.fbAuth);
-
 module.exports = router;

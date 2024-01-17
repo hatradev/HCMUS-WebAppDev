@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const accountSchema = new mongoose.Schema({
   role: { type: String, enum: ["admin", "user"], required: true },
@@ -7,7 +8,7 @@ const accountSchema = new mongoose.Schema({
   email: String,
   phone: String,
   password: String,
-  avatar: String,
+  avatar: {type: String, default: process.env.AVATAR},
   address: String,
   payid: String,
   cart: [
