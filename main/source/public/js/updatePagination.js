@@ -2,52 +2,54 @@ import fetchProducts from './fetchProducts.js';
 import getRelatedProducts from './relatedProducts.js';
 
 function updatePagination(paginationData) {
-    const paginationContainer = document.querySelector('.pagination');
+  const paginationContainer = document.querySelector('.pagination');
 
-    if (!paginationContainer) {
-      return; // Exit if no container is found
-    }
+  if (!paginationContainer) {
+    return; // Exit if no container is found
+  }
 
-    if (!paginationData.pages || paginationData.pages.length === 0 || paginationData.pages.length === 1) {
-        paginationContainer.style.display = 'none'; // Hide the container if no pages
-        return;
-    } else {
-        paginationContainer.style.display = ''; // Remove 'display: none' to show the container
-    }
+  if (!paginationData.pages || paginationData.pages.length === 0 || paginationData.pages.length === 1) {
+      paginationContainer.style.display = 'none'; // Hide the container if no pages
+      return;
+  } else {
+      paginationContainer.style.display = ''; // Remove 'display: none' to show the container
+  }
 
-    // if (!paginationContainer || !paginationData.pages || paginationData.pages.length === 0) {
-    //     return; // Exit if no container or no pages
-    // }
+  // if (!paginationContainer || !paginationData.pages || paginationData.pages.length === 0) {
+  //     return; // Exit if no container or no pages
+  // }
 
-    // Clear existing pagination links
-    paginationContainer.innerHTML = '';
+  // Clear existing pagination links
+  paginationContainer.innerHTML = '';
 
-    // Add 'Previous' link
-    const prevItem = document.createElement('li');
-    prevItem.className = 'page-item' + (paginationData.hasPreviousPage ? '' : ' disabled');
-    prevItem.innerHTML = `<a class="page-link" href="#" data-page="${paginationData.previousPage}">Previous</a>`;
-    paginationContainer.appendChild(prevItem);
+  // Add 'Previous' link
+  const prevItem = document.createElement('li');
+  prevItem.className = 'page-item' + (paginationData.hasPreviousPage ? '' : ' disabled');
+  prevItem.innerHTML = `<a class="page-link" href="#" data-page="${paginationData.previousPage}">Previous</a>`;
+  paginationContainer.appendChild(prevItem);
 
-    // Add page number links
-    paginationData.pages.forEach(page => {
-        const pageItem = document.createElement('li');
-        pageItem.className = 'page-item' + (page.isCurrent ? ' active' : '');
-        pageItem.innerHTML = `<a class="page-link" href="#" data-page="${page.number}">${page.number}</a>`;
-        paginationContainer.appendChild(pageItem);
-    });
+  // Add page number links
+  paginationData.pages.forEach(page => {
+      const pageItem = document.createElement('li');
+      pageItem.className = 'page-item' + (page.isCurrent ? ' active' : '');
+      pageItem.innerHTML = `<a class="page-link" href="#" data-page="${page.number}">${page.number}</a>`;
+      paginationContainer.appendChild(pageItem);
+  });
 
-    // Add 'Next' link
-    const nextItem = document.createElement('li');
-    nextItem.className = 'page-item' + (paginationData.hasNextPage ? '' : ' disabled');
-    nextItem.innerHTML = `<a class="page-link" href="#" data-page="${paginationData.nextPage}">Next</a>`;
-    paginationContainer.appendChild(nextItem);
+  // Add 'Next' link
+  const nextItem = document.createElement('li');
+  nextItem.className = 'page-item' + (paginationData.hasNextPage ? '' : ' disabled');
+  nextItem.innerHTML = `<a class="page-link" href="#" data-page="${paginationData.nextPage}">Next</a>`;
+  paginationContainer.appendChild(nextItem);
 
-    // Re-setup event listeners for the new pagination links
-    setupPaginationEventListeners();
+  // Re-setup event listeners for the new pagination links
+  setupPaginationEventListeners();
 }
 
 // Assuming you have a function like this to handle pagination link clicks
 function setupPaginationEventListeners() {
+  // console.log('setupPaginationEventListeners');
+
   document.querySelectorAll('.pagination a.page-link').forEach(link => {
     link.addEventListener('click', function(event) {
       event.preventDefault();
@@ -55,10 +57,12 @@ function setupPaginationEventListeners() {
         currentState.page = this.dataset.page;
 
         if (currentState.mode === 'all-product') {
-            fetchProducts();
+          fetchProducts();
         }
         else if (currentState.mode === 'related') {
-            getRelatedProducts();
+          // console.log('currentState.mode === related');
+
+          getRelatedProducts();
         }
         else {
           console.log('Unknown mode for fetchProducts');
