@@ -65,9 +65,12 @@
 </div>
 <script>
     $(() => {
-        $('#signupForm').submit(function (e) {
-            const regex = /\D/
-             $('#phoneNumErr').html(regex.test($('#inputPhoneNumber').val()) ? 'Số điện thoại không hợp lệ!' : '');
+        $('#signupForm').submit(function (e) {           
+            regex = /\D/
+            $('#phoneNumErr').html(regex.test($('#inputPhoneNumber').val())  ? 'Số điện thoại không chứa kí tự khác ngoài chữ số!' : '');
+            if($('#phoneNumErr').html() == ''){
+                $('#phoneNumErr').html((($('#inputPhoneNumber').val()).length < 7 || ($('#inputPhoneNumber').val()).length > 11) ? 'Số điện thoại có độ dài từ 7 đến 11 số!' : '');
+            }
             //check confirmPassword
             $('#confirmPwErr').html(($('#inputPassword').val() != $('#inputConfirmPassword').val()) ? 'Nhập lại mật khẩu không chính xác' : '');
 

@@ -131,6 +131,7 @@ class userController {
         inputAddress,
         avatar,
       } = req.body;
+      // console.log(avatar)
       const existingUser = await User.findOne({ email: inputEmail });
 
       if (existingUser) {
@@ -163,7 +164,6 @@ class userController {
 
   authenticatePassword = async (req, res, next) => {
     try {
-      console.log("1");
       // Giải mã JWT
       const token = req.body.token;
       if (!token) {

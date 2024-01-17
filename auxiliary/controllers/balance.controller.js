@@ -7,11 +7,13 @@ class balanceControllers {
   getBalanceP = async (req, res, next) => {
     try {
       let {startDate, endDate} = req.query;
+
       const acc = await Acc.findOne({ buyid: req.cookies.user._id });
       let hist;
       if (startDate && endDate){   
         startDate = new Date(startDate);
         endDate = new Date(endDate);  
+        endDate.setHours(23, 59, 59, 999);
         hist = await Hist.find({ idaccount: acc._id, date: { $gte: startDate, $lte: endDate } }).sort({date: -1});
       }
       else{
