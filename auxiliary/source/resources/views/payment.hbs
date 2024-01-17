@@ -7,34 +7,39 @@ style="height: 100vh; width: 100vw;">
       Thông tin thanh toán
     </div>
     <div class="info-container mt-5 mb-5">
+      <div class="money-container d-flex flex-column align-items-center">
+        <label class="font-weight-bold m-0" style="color: #e91e63; font-size: 2.5rem;">Tổng cộng:</label>
+        <p id="showTotalMoney" class="totalPrice text-white" value="1245000" style="font-size: 3rem;">{{formatCurrency totalPrice}}</p>
+      </div>
+
       <div class="form-group">
         <label class="font-weight-bold">Họ tên:</label>
-        <p class="text-white" id="customerName" style="font-size: 1.5rem;">{{order.name}}</p>
+        <p class="text-white" id="customerName">{{order.name}}</p>
       </div>
 
       <div class="form-group">
         <label class="font-weight-bold">Customer ID:</label>
-        <p class="text-white" id="customerID" style="font-size: 1.5rem;">{{order.idaccount}}</p>
+        <p class="text-white" id="customerID">{{order.idaccount}}</p>
       </div>
 
       <div class="form-group">
         <label class="font-weight-bold">Order ID:</label>
-        <p class="text-white" id="orderID" style="font-size: 1.5rem;">{{order._id}}</p>
+        <p class="text-white" id="orderID">{{order._id}}</p>
       </div>
 
       <div class="form-group">
         <label class="font-weight-bold">Điện thoại:</label>
-        <p class="text-white" id="customerMobile" style="font-size: 1.5rem;">{{order.phone}}</p>
+        <p class="text-white" id="customerMobile">{{order.phone}}</p>
       </div>
 
       <div class="form-group">
         <label class="font-weight-bold">Email:</label>
-        <p class="text-white" id="customerEmail" style="font-size: 1.5rem;">{{order.email}}</p>
+        <p class="text-white" id="customerEmail">{{order.email}}</p>
       </div>
 
       <div class="form-group">
         <label class="font-weight-bold">Address:</label>
-        <p class="text-white" id="customerAddress" style="font-size: 1.5rem;">{{order.address}}</p>
+        <p class="text-white" id="customerAddress">{{order.address}}</p>
       </div>
     </div>
 

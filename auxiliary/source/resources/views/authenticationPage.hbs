@@ -1,45 +1,27 @@
-<div class="d-flex justify-content-center mb-5">
-  <div class="card-group mt-5 mb-5">
-    <div class="card left-card border-0">
-      <div class="card-body m-3 d-flex flex-column justify-content-center">
-        <h1 class="card-title fw-bold fs-1">Đăng Nhập</h1>
-        <p class="card-text mb-5"><small class="text-body-secondary">Vui lòng đăng nhập để tiếp tục</small></p>
-        <form id="signinForm" action="/process-payment" method="post">
-          <input type="hidden" name="total" value="{{totalPrice}}">
-          <input type="hidden" name="accountID" value="{{accountID}}">
-          <input type="hidden" name="orderID" value="{{idOrder}}">
-          <div class="mb-2">
-            <label for="inputPassword" class="form-label mt-3">Mật khẩu</label>
-            <input type="password" class="form-control mt-0" name="password" id="password" value="{{inputPassword}}" required>
-            <small id="pwErr" class="form-text text-danger">{{pwMsg}}</small>
-          </div>
-          <div class="d-grid gap-2 col-12 mt-4">
-            <button class="btn btn-outline-dark signUp-button fs-4 mt-3" style="height: 4rem;" type="submit">Verify</button>
-          </div>
-        </form>
-        <hr class="my-4">
-        <div class="social-media text-center">
-          <button class="btn btn-lg btn-block btn-primary "
-            style="background-color: #dd4b39;" type="submit"><i
-              class="fab fa-google"></i> </button>
-          <button class="btn btn-lg btn-block btn-primary ms-1"
-            style="background-color: #3b5998;" type="submit"><i
-              class="fab fa-facebook-f me-2"></i></button>
-        </div>
+<div class="d-flex justify-content-center mb-5 w-100">
+  <div class="card left-card border-0 bg-gradient-dark w-30">
+    <div class="p-7 d-flex flex-column justify-content-center"
+    style="font-family: "Signika", sans-serif;">
+      <div class="text-container d-flex flex-column align-items-center justify-content-center mb-5">
+        <div class="card-title col-title fw-bold text-white m-0" style="font-size: 4rem;">Xác minh</div>
+        <div class="text-body-secondary text-white">Vui lòng nhập mật khẩu để tiếp tục</div>
       </div>
-    </div>
-    <div class="right-card card border-0">
-      <div class="card-body text-center">
-        <div class="row">
-          <div class="col-8 offset-2">
-            <img class="w-100"
-              src="https://media.discordapp.net/attachments/1176168664987345008/1176953088456798208/loginanimi.png?ex=6570bdfb&is=655e48fb&hm=e4693ff912e14c7a1d637ed4e329351b67a4f04b6073ab6570bed2e593c74a19&=&format=webp&width=583&height=395"
-              alt="">
-          </div>
+      <form id="signinForm" action="/process-payment" method="post">
+        <input type="hidden" name="total" value="{{totalPrice}}">
+        <input type="hidden" name="accountID" value="{{accountID}}">
+        <input type="hidden" name="orderID" value="{{idOrder}}">
+        <div class="mb-2">
+          <label for="inputPassword" class="form-label mt-3" style="font-size: 1.5rem; color: #e91e63;">Mật khẩu:</label>
+          <input type="password" class="form-control mt-0 p-2" name="password" id="password" value="{{inputPassword}}"
+          style="background: white;"
+            required>
+          <small id="pwErr" class="form-text text-danger">{{pwMsg}}</small>
         </div>
-        <div class="mt-3">Chưa có tài khoản? </div>
-        <a class="btn btn-outline-dark mt-2 fs-4" href="/user/signup" role="button">Đăng Ký </a>
-      </div>
+        <div class="d-grid gap-2 col-12 mt-4">
+          <button class="btn btn-outline-dark bg-gradient-primary signUp-button fs-4 mt-3" style="height: 4rem;"
+            type="submit">Xác minh</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
