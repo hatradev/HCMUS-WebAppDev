@@ -21,9 +21,10 @@
       </div>
       <div class="head-col-center col-lg-6 d-none d-lg-block">
         <form
+          id="header-search-form"
           class="form-search"
-          action="/search"
-          method="get"
+          {{!-- action="/search" --}}
+          {{!-- method="get" --}}
           style="height: 4rem;"
         >
           <div class="input-group" style="height: 100%;">
@@ -111,17 +112,18 @@
           >
             <li>
               {{#if isLoggedIn}}
-              <a href="/profile" style="font-size: 2rem;">Hi, {{_firstName}}!</a>
+                <a href="/profile" style="font-size: 2rem;">Hi,
+                  {{_firstName}}!</a>
               {{else}}
-              <a href="/user/signin" style="font-size: 2rem;">Đăng nhập</a>
+                <a href="/user/signin" style="font-size: 2rem;">Đăng nhập</a>
               {{/if}}
             </li>
             <li><span style="font-size: 2rem;">|</span></li>
             <li>
               {{#if isLoggedIn}}
-              <a href="/user/logout" style="font-size: 2rem;">Đăng xuất</a>
+                <a href="/user/logout" style="font-size: 2rem;">Đăng xuất</a>
               {{else}}
-              <a href="/user/signup" style="font-size: 2rem;">Đăng ký</a>
+                <a href="/user/signup" style="font-size: 2rem;">Đăng ký</a>
               {{/if}}
             </li>
             <li class="d-flex align-items-center" style="font-size: 2rem;">
@@ -129,14 +131,17 @@
                 <i class="fa-regular fa-bag-shopping"></i>
               </a>
               {{!-- <span class='badge badge-warning' id='lblCartCount'>{{_cartNumber}}</span> --}}
-              {{!-- <span class='badge badge-warning' id='lblCartCount'>2</span> --}}
-              {{!-- <span class="count d-flex align-items-center justify-content-center">0</span> --}}
+              {{! <span class='badge badge-warning' id='lblCartCount'>2</span> }}
+              {{! <span class="count d-flex align-items-center justify-content-center">0</span> }}
               <div class="count-cart" title="Giỏ hàng">
                 <div class="count-cart-icon">
-                  <span class="count d-flex align-items-center justify-content-center" id='lblCartCount'>{{_cartNumber}}</span>
+                  <span
+                    class="count d-flex align-items-center justify-content-center"
+                    id="lblCartCount"
+                  >{{_cartNumber}}</span>
                 </div>
               </div>
-              </li>
+            </li>
           </ul>
 
           <a href="/user/signin" class="js-open-user d-md-none">
@@ -213,3 +218,6 @@
     </div>
   </div>
 </div>
+
+<script src="/js/currentState.js"></script>
+<script type="module" src="/js/headerContent.js"></script>

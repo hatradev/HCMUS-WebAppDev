@@ -24,9 +24,11 @@ class productController {
   renderAllProduct = async (req, res, next) => {
     try {
       const categories = await this.getCategoryTree();
+      const searchTerm = req.query.keyword || '';
 
       res.render("all-product", {
         categories,
+        searchTerm: searchTerm
       });
     } catch (err) {
       console.error(err);
@@ -386,6 +388,8 @@ class productController {
         maxPrice,
         sortOrder,
       } = req.query;
+
+      // console.log(keyword);
 
       const page = parseInt(req.query.page, 10) || 1; // Default to 1 if not provided
       const limit = parseInt(req.query.limit, 10) || defaultLimit; // Use a default limit if not provided
