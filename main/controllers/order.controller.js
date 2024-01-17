@@ -61,7 +61,7 @@ class orderController {
       const tokenString = JSON.stringify({ token: accessToken });
       const responseUrl = `https://localhost:${
         process.env.AUX_PORT
-      }/getPayment?token=${encodeURIComponent(accessToken)}`;
+      }/payment/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
       // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?data=${tokenString}`;
       // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
       // console.log("Response URL:", responseUrl);
@@ -119,7 +119,7 @@ class orderController {
       //   return res.status(500).json({ error: "Failed to create access token" });
       // }
       const tokenString = JSON.stringify({ token: accessToken });
-      const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
+      const responseUrl = `https://localhost:${process.env.AUX_PORT}/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
       // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?data=${tokenString}`;
       // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
       // console.log("Response URL:", responseUrl);
@@ -168,7 +168,7 @@ class orderController {
       // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
       
       const rs = await fetch(
-        `https://localhost:${process.env.AUX_PORT}/refund`,
+        `https://localhost:${process.env.AUX_PORT}/payment/refund`,
         {
           method: "POST",
           headers: {
@@ -240,7 +240,7 @@ class orderController {
       const tokenString = JSON.stringify({ token: accessToken });
       const responseUrl = `https://localhost:${
         process.env.AUX_PORT
-      }/getPayment?token=${encodeURIComponent(accessToken)}`;
+      }/payment/getPayment?token=${encodeURIComponent(accessToken)}`;
 
       // Lưu đơn hàng mới
       const savedOrder = await newOrder.save();
