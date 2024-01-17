@@ -180,7 +180,10 @@ class orderController {
       const response = await rs.json();
 
       // console.log("RESPONSE: ", response);
-      await Order.deleteOne({ _id: id });
+      // await Order.deleteOne({ _id: id });
+      // orderFound.status = "cancelled";
+      orderFound.status = "cancelled";
+      await orderFound.save();
 
       return res.redirect(`/order/index`);
     } catch (error) {
