@@ -64,7 +64,7 @@ class siteController {
       // console.log(req.session.passport);
       // const productId = req.params.id;
       let user = req.cookies.user;
-      console.log(user);
+      // console.log(user);
       // const idUser = "659f8a8c0be458c494290c40";
       const idUser = user._id.toString();
       const accBuyer = await Account.findOne({ _id: idUser }).populate({
@@ -74,6 +74,7 @@ class siteController {
       res.locals.accBuyer = mongooseToObject(accBuyer);
 
       res.render("payment");
+      // res.render("paymentBuyNow");
     } catch (error) {
       next(error);
     }

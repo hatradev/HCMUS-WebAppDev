@@ -10,7 +10,7 @@
             class="d-inline-flex align-items-center justify-content-center"
           >1</span>Thông tin người nhận
         </h2>
-        <div class="form-group">
+        {{!-- <div class="form-group">
           <input
             id="customerName"
             name="customerName"
@@ -81,14 +81,45 @@
             fdprocessedid="037no"
             style="font-size: 1.5rem;"
           />
+        </div> --}}
+
+        <div class="form-group">
+          <label>Họ tên:</label>
+          <p id="customerName" style="font-size: 1.5rem;">{{order.name}}</p>
         </div>
+
+        <div class="form-group">
+          <label>Customer ID:</label>
+          <p id="customerID" style="font-size: 1.5rem;">{{order.idaccount}}</p>
+        </div>
+
+        <div class="form-group">
+          <label>Order ID:</label>
+          <p id="orderID" style="font-size: 1.5rem;">{{order._id}}</p>
+        </div>
+
+        <div class="form-group">
+          <label>Điện thoại:</label>
+          <p id="customerMobile" style="font-size: 1.5rem;">{{order.phone}}</p>
+        </div>
+
+        <div class="form-group">
+          <label>Email:</label>
+          <p id="customerEmail" style="font-size: 1.5rem;">{{order.email}}</p>
+        </div>
+
+        <div class="form-group">
+          <label>Address:</label>
+          <p id="customerAddress" style="font-size: 1.5rem;">{{order.address}}</p>
+        </div>
+
       </div>
 
 
       <div class="col-checkout col-right col-xl-5 col-lg-12 col-12">
         <h2 class="col-title"><span
             class="d-inline-flex align-items-center justify-content-center"
-          >3</span>Thông tin đơn hàng</h2>
+          >2</span>Thông tin đơn hàng</h2>
         <div class="table-responsive scrollModal">
           <table class="table table-checkout" border="0" cellspacing="10">
             <thead>
