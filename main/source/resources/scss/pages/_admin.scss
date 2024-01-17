@@ -84,6 +84,34 @@
       font-size: 2rem;
       font-weight: 700;
     }
+    .scrollable-container {
+      width: 100%; /* Kích thước của container */
+      height: auto; /* Kích thước chiều cao của container */
+      overflow-x: auto; /* Hiển thị thanh cuộn khi nội dung vượt quá chiều rộng */
+      position: relative;
+    }
+    .preview-imgs {
+      display: flex;
+      gap: 10px;
+    }
+    .card-preview-img {
+      width: 250px; /* Kích thước của mỗi ảnh */
+      height: 200px;
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+      img {
+        width: 100%; /* Làm cho ảnh lấp đầy chiều rộng của container */
+        height: auto; /* Tự động tính toán chiều cao dựa trên tỷ lệ của ảnh */
+        object-fit: contain; /* Giữ nguyên tỷ lệ của ảnh */
+      }
+      .remove-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+      }
+    }
   }
 }
 

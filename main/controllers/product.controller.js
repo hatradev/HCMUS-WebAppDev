@@ -518,22 +518,51 @@ class productController {
   getHandle = async (req, res, next) => {
     try {
       // Tìm tất cả sản phẩm và populate thông tin của danh mục
-      const allProducts = await Product.find().populate("category", "name");
+      const allProducts = await Product.find();
 
       // Chuyển list image thành object
       const products = allProducts.map((product) => {
         const transformedImages = {};
+        let imgs = "";
         product.image.forEach((img, index) => {
           transformedImages[`i${index + 1}`] = img;
+          if (index !== 0) {
+            imgs += `;${img}`;
+          } else {
+            imgs += img;
+          }
         });
 
         return {
           ...product.toObject(),
           image: transformedImages,
+          imgs,
         };
       });
-      // console.log(products);
-      res.render("producthandle", { nshowHF: true, products });
+
+      // Tìm tất cả danh mục
+      const allCategories = await Category.find();
+
+      // Xây dựng tên đầy đủ và lấy số lượng sản phẩm cho từng danh mục
+      const fullCategories = await Promise.all(
+        allCategories.map(async (category) => {
+          const parentCategory = await Category.findById(
+            category.parentCategory
+          );
+          const parentName = parentCategory
+            ? await buildFullName(parentCategory)
+            : "Danh mục gốc";
+          const fullName = `${parentName}/${category.name}`;
+          return {
+            ...category.toObject(),
+            fullName,
+          };
+        })
+      );
+      fullCategories.sort((a, b) => a.fullName.localeCompare(b.fullName));
+
+      console.log(products);
+      res.render("producthandle", { nshowHF: true, products, fullCategories });
     } catch (error) {
       next(error);
     }
@@ -564,6 +593,7 @@ class productController {
         })
       );
       fullCategories.sort((a, b) => a.fullName.localeCompare(b.fullName));
+
       res.render("categoryhandle", { nshowHF: true, fullCategories });
     } catch (error) {
       next(error);

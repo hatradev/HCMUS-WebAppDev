@@ -6,12 +6,12 @@
     <div class="container mt-5">
       <div class="mb-4 d-sm-flex align-items-center justify-content-between">
           <h1 class="h1 mb-0 text-gray-800">Quản lý sản phẩm</h1>
-          <a href="#" class="d-none d-sm-inline-block btn btn-primary bg-primary shadow-sm" style="font-size: 1.75rem;" data-bs-toggle="modal" data-bs-target="#accountModal" data-bs-type="Create"><i class="fa-solid fa-circle-plus"></i> Thêm sản phẩm mới</a>
+          <a href="#" class="d-none d-sm-inline-block btn btn-primary bg-primary shadow-sm" style="font-size: 1.75rem;" data-bs-toggle="modal" data-bs-target="#productModal" data-bs-type="create"><i class="fa-solid fa-circle-plus"></i> Thêm sản phẩm mới</a>
       </div>
       <div class="row">
         {{#each products}}
         <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card shadow mb-4 pointer" data-bs-toggle="modal" data-bs-target="#accountModal">
+          <div class="card shadow mb-4 pointer" data-bs-toggle="modal" data-bs-target="#productModal" data-bs-id="{{_id}}" data-bs-name="{{name}}" data-bs-price="{{price}}" data-bs-description="{{description}}" data-bs-stock="{{stock}}" data-bs-category="{{category}}" data-bs-image={{imgs}}>
             <!-- Card Body -->
             <div class="card-body">
               <div class="product-item item{{_id}}">
@@ -40,5 +40,59 @@
         {{/each}}
       </div>
     </div>
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="productModalLabel">Cập nhật thông tin sản phẩm</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="updateProduct" action="/product/update-product" method="post">
+              <div class="mb-3">
+                <label for="name" class="col-form-label">Tên sản phẩm:</label>
+                <input type="text" class="form-control" id="name" name="name">
+              </div>
+              <div class="mb-3">
+                <label for="price" class="col-form-label">Đơn giá:</label>
+                <input type="text" class="form-control" id="price" name="price">
+              </div>
+              <div class="mb-3">
+                <label for="stock" class="col-form-label">Số lượng:</label>
+                <input type="text" class="form-control" id="stock" name="stock">
+              </div>
+              <div class="mb-3">
+                <label for="category" class="col-form-label">Danh mục:</label>
+                <select class="form-select" id="category" name="category">
+                  <option value="" selected>Danh mục gốc</option>
+                  {{#each fullCategories}}
+                    <option value="{{_id}}">{{fullName}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="description" class="col-form-label">Mô tả sản phẩm:</label>
+                <textarea class="form-control" id="description" name="description"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="image" class="form-label">Hình ảnh: </label>
+                <input type="file" class="form-control" id="image" name="image" onchange="readURL(this);" multiple>
+              </div>
+              <div class="scrollable-container"><div class="preview-imgs" id="preview-imgs"></div></div>
+              <div class="d-none">
+                <label for="id" class="col-form-label">ID:</label>
+                <input type="text" class="form-control" id="id" name="id">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng cửa sổ</button>
+            <button type="submit" formaction="/product/delete-product" formmethod="post" class="btn btn-danger" form="updateProduct" id="deleteBtn">Xóa sản phẩm</button>
+            <button type="submit" class="btn btn-primary bg-primary" id="modalsubmit" form="updateProduct">Cập nhật</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+<script src="/js/admin-productmodal.js"></script>
