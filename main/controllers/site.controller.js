@@ -76,7 +76,7 @@ class siteController {
 
       res.locals.accBuyer = mongooseToObject(accBuyer);
 
-      res.render("payment", {idAd: admin._id});
+      res.render("payment", { idAd: admin._id });
       // res.render("paymentBuyNow");
     } catch (error) {
       next(error);
@@ -116,18 +116,159 @@ class siteController {
       res.locals.product = mongooseToObject(product);
       res.locals.quantity = quantity;
 
-      res.render("paymentBuyNow", {idAd: admin._id});
+      res.render("paymentBuyNow", { idAd: admin._id });
     } catch (error) {
       next(error);
     }
   };
   getDashboard = async (req, res, next) => {
     try {
-      res.render("dashboard", { nshowHF: true });
+      const today = new Date();
+      // const utcToday = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+      const firstDayOfMonth = new Date(Date.UTC(today.getFullYear(), today.getMonth(), 1));
+      const firstDayOfYear = new Date(Date.UTC(today.getFullYear(), 0, 1));
+
+      // console.log(utcToday.toISOString(), firstDayOfMonth.toISOString(), firstDayOfYear.toISOString());      
+
+      // Log successful orders this month
+      // const successfulOrdersThisMonth = await Order.find({
+      //   status: 'successful', 
+      //   date: { $gte: firstDayOfMonth }
+      // });
+      // console.log('Successful Orders This Month:', successfulOrdersThisMonth[0].detail);
+
+      // Log successful orders this year
+      // const successfulOrdersThisYear = await Order.find({
+      //   status: 'successful', 
+      //   date: { $gte: firstDayOfYear }
+      // });
+      // console.log('Successful Orders This Year:', successfulOrdersThisYear);
+
+      // Calculate monthRevenue
+      const monthRevenue = await Order.aggregate([
+        { $match: { status: 'successful', date: { $gte: firstDayOfMonth } } },
+        { $unwind: '$detail' },
+        {
+          $lookup: {
+            from: 'products', // the collection name in MongoDB for products
+            localField: 'detail.idProduct',
+            foreignField: '_id',
+            as: 'productDetails'
+          }
+        },
+        { $unwind: '$productDetails' },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: { $multiply: ['$productDetails.price', '$detail.quantity'] } }
+          }
+        }
+      ]);
+
+      // Calculate yearRevenue
+      const yearRevenue = await Order.aggregate([
+        { $match: { status: 'successful', date: { $gte: firstDayOfYear } } },
+        { $unwind: '$detail' },
+        {
+          $lookup: {
+            from: 'products', // The collection name in MongoDB for products
+            localField: 'detail.idProduct',
+            foreignField: '_id',
+            as: 'productDetails'
+          }
+        },
+        { $unwind: '$productDetails' },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: { $multiply: ['$productDetails.price', '$detail.quantity'] } }
+          }
+        }
+      ]);
+
+      // Calculate successRate
+      const totalCount = await Order.countDocuments();
+      const successfulCount = await Order.countDocuments({ status: 'successful' });
+      const successRate = Math.ceil(successfulCount / totalCount * 100);
+
+      // Calculate noPendingOrder
+      const noPendingOrder = await Order.countDocuments({ status: 'pending' });
+
+      // Calculate topSellingProducts
+      const topSellingProducts = await Order.aggregate([
+        { $match: { status: 'successful' } },
+        { $unwind: '$detail' },
+        { $group: { _id: '$detail.idProduct', totalQuantity: { $sum: '$detail.quantity' } } },
+        { $sort: { totalQuantity: -1 } },
+        { $limit: 4 },
+        {
+          $lookup: {
+            from: 'products', // Replace with your actual products collection name
+            localField: '_id',
+            foreignField: '_id',
+            as: 'productInfo'
+          }
+        },
+        { $unwind: '$productInfo' },
+        { $project: { productInfo: 1, totalQuantity: 1 } }
+      ]);
+
+      // console.log(topSellingProducts);
+
+      res.render("dashboard", {
+        nshowHF: true,
+        monthRevenue: monthRevenue[0]?.total || 0,
+        yearRevenue: yearRevenue[0]?.total || 0,
+        successRate,
+        noPendingOrder,
+        topProducts: topSellingProducts
+      });
     } catch (error) {
       next(error);
     }
   };
+
+  getDailyRevenue = async (req, res) => {
+    const today = new Date();
+    let revenues = [];
+
+    for (let i = 13; i >= 0; i--) {
+      let day = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+      let nextDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i + 1);
+
+      let revenue = await Order.aggregate([
+        { $match: { status: 'successful', date: { $gte: day, $lt: nextDay } } },
+        { $unwind: '$detail' },
+        {
+          $lookup: {
+            from: 'products', // The collection name in MongoDB for products
+            localField: 'detail.idProduct',
+            foreignField: '_id',
+            as: 'productInfo'
+          }
+        },
+        { $unwind: '$productInfo' },
+        {
+          $group: {
+            _id: '$_id',
+            orderTotal: { $sum: { $multiply: ['$productInfo.price', '$detail.quantity'] } }
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: '$orderTotal' }
+          }
+        }
+      ]);
+
+      revenues.push(revenue[0]?.total || 0);
+    }
+
+    res.json({ revenues, startDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 13) });
+  };
+
+
   getAuthSystem = async (req, res, next) => {
     // console.log(`https://${process.env.HOST}:${process.env.AUX_PORT}/`);
     res.redirect(`https://${process.env.HOST}:${process.env.AUX_PORT}`);

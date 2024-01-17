@@ -1,124 +1,169 @@
 <div class="row admin-page">
-  <div class="col-2 admin-sidebar shadow">
-    {{>sidebar}}
-  </div>
-  <div class="col-10 admin-content admin-dashboard">
-    <div class="container mt-5">
-      <!-- Page Heading -->
-      <div class="mb-4 d-sm-flex align-items-center justify-content-between">
-          <h1 class="h1 mb-0 text-gray-800">Bảng điều khiển</h1>
-          <a href="#" class="d-none d-sm-inline-block btn btn-primary bg-primary shadow-sm" style="font-size: 1.75rem;"><i class="fa-solid fa-wallet"></i> Đến hệ thống thanh toán</a>
-      </div>
+    <div class="col-2 admin-sidebar shadow">
+        {{>sidebar}}
+    </div>
+    <div class="col-10 admin-content admin-dashboard">
+        <div class="container mt-5 p-0">
+            <!-- Page Heading -->
+            <div class="mb-4 d-sm-flex align-items-center justify-content-between">
+                <h1 class="h1 mb-0 text-gray-800">Bảng điều khiển</h1>
+                <a href="#" class="d-none d-sm-inline-block btn btn-primary bg-primary shadow-sm"
+                    style="font-size: 1.75rem;"><i class="fa-solid fa-wallet"></i> Đến hệ thống thanh toán</a>
+            </div>
 
-      <!-- Content Row -->
-      <div class="row">
-          <!-- Earnings (Monthly) Card Example -->
-          <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                  <div class="card-body">
-                      <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                              <div class="text-xs font-weight-bold ptext-primary text-uppercase mb-1">
-                                  Thu nhập tháng</div>
-                              <div class="h1 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                          </div>
-                          <div class="col-auto">
-                              <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+            <!-- Content Row -->
+            <div class="row">
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold ptext-primary text-uppercase mb-1">
+                                        Thu nhập tháng</div>
+                                    <div class="h1 mb-0 font-weight-bold text-gray-800">{{formatCurrency monthRevenue}}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-          <!-- Earnings (Monthly) Card Example -->
-          <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                  <div class="card-body">
-                      <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                              <div class="text-xs font-weight-bold ptext-primary-light text-uppercase mb-1">
-                                  Thu nhập năm</div>
-                              <div class="h1 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                          </div>
-                          <div class="col-auto">
-                              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold ptext-primary-light text-uppercase mb-1">
+                                        Thu nhập năm</div>
+                                    <div class="h1 mb-0 font-weight-bold text-gray-800">{{formatCurrency yearRevenue}}
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-          <!-- Earnings (Monthly) Card Example -->
-          <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-info shadow h-100 py-2">
-                  <div class="card-body">
-                      <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                              <div class="text-xs font-weight-bold ptext-secondary text-uppercase mb-1">Tỷ lệ đơn hoàn thành
-                              </div>
-                              <div class="row no-gutters align-items-center">
-                                  <div class="col-auto">
-                                      <div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                  </div>
-                                  <div class="col">
-                                      <div class="progress progress-sm mr-2">
-                                          <div class="progress-bar bg-secondary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col-auto">
-                              <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold ptext-secondary text-uppercase mb-1">Tỷ lệ đơn
+                                        hoàn thành
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h1 mb-0 mr-3 font-weight-bold text-gray-800">{{successRate}}%
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="progress progress-sm mr-2">
+                                                <div class="progress-bar bg-secondary" role="progressbar"
+                                                    style="width: {{successRate}}%" aria-valuenow="{{successRate}}"
+                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-          <!-- Pending Requests Card Example -->
-          <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                  <div class="card-body">
-                      <div class="row no-gutters align-items-center">
-                          <div class="col mr-2">
-                              <div class="text-xs font-weight-bold ptext-primary-light text-uppercase mb-1">
-                                  Số đơn đang chờ</div>
-                              <div class="h1 mb-0 font-weight-bold text-gray-800">18</div>
-                          </div>
-                          <div class="col-auto">
-                              <i class="fas fa-comments fa-2x text-gray-300"></i>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+                <!-- Pending Requests Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold ptext-primary-light text-uppercase mb-1">
+                                        Số đơn đang chờ</div>
+                                    <div class="h1 mb-0 font-weight-bold text-gray-800">{{noPendingOrder}}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <!-- Content Row -->
-      <div class="card shadow mb-4">
-        <!-- Card Header - Dropdown -->
-        <div class="card-header py-3">
-            <h1 class="h3 m-0 font-weight-bold ptext-primary p-2">Doanh thu 14 ngày gần nhất</h1>
-        </div>
-        <!-- Card Body -->
-        <div class="card-body">
-            <div class="chart-area"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                <canvas id="myAreaChart" width="977" height="400" style="display: block; height: 320px; width: 782px;" class="chartjs-render-monitor"></canvas>
+            <!-- Content Row -->
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h1 class="h3 m-0 font-weight-bold ptext-primary p-2">Doanh thu 14 ngày gần nhất</h1>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <div class="chartjs-size-monitor">
+                            <div class="chartjs-size-monitor-expand">
+                                <div class=""></div>
+                            </div>
+                            <div class="chartjs-size-monitor-shrink">
+                                <div class=""></div>
+                            </div>
+                        </div>
+                        <canvas id="myAreaChart" width="977" height="400"
+                            style="display: block; height: 320px; width: 782px;"
+                            class="chartjs-render-monitor"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h1 class="h3 m-0 font-weight-bold ptext-primary p-2">Sản phẩm được bán ra nhiều nhất</h1>
+                </div>
+                
+                <div class="card-body row">
+                    {{#each topProducts}}
+                    <div class="col-xl-3 col-md-6 d-flex justify-content-center align-items-center">
+                        <div class="card shadow" data-bs-toggle="modal" data-bs-target="#productModal"
+                            data-bs-id="{{productInfo._id}}" data-bs-name="{{productInfo.name}}"
+                            data-bs-price="{{productInfo.price}}" data-bs-description="{{productInfo.description}}"
+                            data-bs-stock="{{productInfo.stock}}" data-bs-category="{{productInfo.category}}"
+                            data-bs-image="{{productInfo.image}}">
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                <div class="product-item item{{productInfo._id}}">
+                                    <div class="text-center mb-4" style="font-weight: bold; font-size: 3rem;">Số lượng: {{totalQuantity}}</div>
+                                    <div class="image">
+                                        <!-- Assuming the first image in the array is to be displayed -->
+                                        <img onclick="window.location.href = '/product/{{ productInfo._id }}'" data-sizes="auto" class="lazyautosizes ls-is-cached lazyloaded pointer"
+                                            src="{{productInfo.image.[0]}}" alt="{{productInfo.name}}" />
+                                    </div>
+                                    <h3 class="name">
+                                        <a href="/product/{{productInfo._id}}" title="{{productInfo.name}}" class="pointer">
+                                            {{productInfo.name}}
+                                        </a>
+                                    </h3>
+                                    <div class="product-price">
+                                        <span class="price">{{formatCurrency productInfo.price}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
             </div>
         </div>
-      </div>
-      <div class="card shadow mb-4">
-          <!-- Card Header - Dropdown -->
-          <div class="card-header py-3">
-              <h1 class="h3 m-0 font-weight-bold ptext-primary p-2">Sản phẩm được bán ra nhiều nhất</h1>
-          </div>
-          <!-- Card Body -->
-          <div class="card-body">
-              
-          </div>
-      </div>
-  </div>
-  </div>
+    </div>
 </div>
 <script src="/js/Chart.min.js"></script>
 <script src="/js/chart-area.js"></script>
