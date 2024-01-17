@@ -11,9 +11,8 @@
       <div class="row">
         
         {{#each usersInfo}}
-        {{log user}}
         <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card shadow mb-4 pointer" data-bs-toggle="modal" data-bs-target="#accountModal" data-bs-fname="{{user.firstname}}" data-bs-lname="{{user.lastname}}" data-bs-email="{{user.email}}" data-bs-phone="{{user.phone}}" data-bs-adr="{{user.address}}">
+          <div class="card shadow mb-4 pointer" data-bs-toggle="modal" data-bs-target="#accountModal" data-bs-fname="{{user.firstname}}" data-bs-lname="{{user.lastname}}" data-bs-email="{{user.email}}" data-bs-phone="{{user.phone}}" data-bs-adr="{{user.address}}" data-bs-id="{{user._id}}">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3">
                 <h1 class="h3 m-0 font-weight-bold ptext-primary p-2">{{user.lastname}} {{user.firstname}}</h1>
@@ -37,7 +36,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="updateAccount" action="/user/update" method="post">
               <div class="mb-3">
                 <label for="firstname" class="col-form-label">Firstname:</label>
                 <input type="text" class="form-control" id="firstname" name="firstname">
@@ -58,12 +57,16 @@
                 <label for="address" class="col-form-label">Address:</label>
                 <input type="text" class="form-control" id="address" name="address">
               </div>
+              <div class="d-none">
+                <label for="id" class="col-form-label">ID:</label>
+                <input type="text" class="form-control" id="id" name="id">
+              </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng cửa sổ</button>
-            <button type="button" class="btn btn-danger">Xóa người dùng</button>
-            <button type="button" class="btn btn-primary bg-primary" id="modalsubmit">Cập nhật</button>
+            <button type="submit" formaction="/user/delete" formmethod="post" class="btn btn-danger" form="updateAccount">Xóa người dùng</button>
+            <button type="submit" class="btn btn-primary bg-primary" id="modalsubmit" form="updateAccount">Cập nhật</button>
           </div>
         </div>
       </div>

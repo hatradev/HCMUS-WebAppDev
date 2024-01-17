@@ -3,6 +3,31 @@
     {{>sidebar}}
   </div>
   <div class="col-10 admin-content admin-categories">
-
+    <div class="container mt-5">
+      <div class="mb-4 d-sm-flex align-items-center justify-content-between">
+          <h1 class="h1 mb-0 text-gray-800">Quản lý danh mục</h1>
+          <a href="#" class="d-none d-sm-inline-block btn btn-primary bg-primary shadow-sm" style="font-size: 1.75rem;" data-bs-toggle="modal" data-bs-target="#accountModal" data-bs-type="Create"><i class="fa-solid fa-circle-plus"></i> Thêm danh mục mới</a>
+      </div>
+      <div class="card shadow mb-4">
+        <table class="table table-striped table-hover p-5">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Category</th>
+              <th scope="col">No. Products</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each fullCategories}}
+            <tr>
+              <th scope="row">{{@index}}</th>
+              <td>{{fullName}}</td>
+              <td>{{productCount}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

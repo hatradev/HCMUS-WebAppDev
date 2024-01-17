@@ -1,200 +1,63 @@
-<div class="checkout-page container sty-none">
-  <form
-    id="formCheckOut"
-    class="formCheckOut formAcount validate"
-    method="post"
-  >
-    <div class="row">
-      <div class="col-checkout col-left col-xl-4 col-lg-6 col-12">
-        <h2 class="col-title"><span
-            class="d-inline-flex align-items-center justify-content-center"
-          >1</span>Thông tin người nhận
-        </h2>
-        <div class="form-group">
-          <input
-            id="customerName"
-            name="customerName"
-            type="text"
-            class="form-control input-sm validate[required]"
-            value="{{order.name}}"
-            placeholder="Họ tên *"
-            fdprocessedid="tnff65"
-            style="font-size: 1.5rem;"
-          />
-        </div>
-        <div class="form-group">
-          <input
-            id="customerID"
-            name="customerID"
-            type="hidden"
-            class="form-control input-sm validate[required,custom[phone]]"
-            value="{{order.idaccount}}"
-            placeholder="Điện thoại *"
-            fdprocessedid="a8l56b"
-            style="font-size: 1.5rem;"
-          />
-        </div>
-        <div class="form-group">
-          <input
-            id="orderID"
-            name="orderID"
-            type="hidden"
-            class="form-control input-sm validate[required,custom[phone]]"
-            value="{{order._id}}"
-            placeholder="Điện thoại *"
-            fdprocessedid="a8l56b"
-            style="font-size: 1.5rem;"
-          />
-        </div>
-        <div class="form-group">
-          <input
-            id="customerMobile"
-            name="customerMobile"
-            type="text"
-            class="form-control input-sm validate[required,custom[phone]]"
-            value="{{order.phone}}"
-            placeholder="Điện thoại *"
-            fdprocessedid="a8l56b"
-            style="font-size: 1.5rem;"
-          />
-        </div>
-        <div class="form-group">
-          <input
-            id="customerEmail"
-            name="customerEmail"
-            type="text"
-            class="form-control input-sm"
-            value="{{order.email}}"
-            placeholder="Email *"
-            fdprocessedid="037no"
-            style="font-size: 1.5rem;"
-          />
-        </div>
-        <div class="form-group">
-          <input
-            id="customerAddress"
-            name="customerAddress"
-            type="text"
-            class="form-control input-sm"
-            value="{{order.address}}"
-            placeholder="Address *"
-            fdprocessedid="037no"
-            style="font-size: 1.5rem;"
-          />
-        </div>
+<div class="checkout-page container sty-none d-flex align-items-center justify-content-center m-0"
+style="height: 100vh; width: 100vw;">
+  <form id="formCheckOut" {{!-- class="formCheckOut formAcount validate" --}}
+    class="validate d-flex flex-column justify-content-center align-items-center w-50 bg-gradient-dark pt-5 pb-5 m-0 border-radius-xl" method="post">
+    <div class="col-title font-weight-bold text-white"
+    style="font-size: 3rem;">
+      Thông tin thanh toán
+    </div>
+    <div class="info-container mt-5 mb-5">
+      <div class="money-container d-flex flex-column align-items-center">
+        <label class="font-weight-bold m-0" style="color: #e91e63; font-size: 2.5rem;">Tổng cộng:</label>
+        <p id="showTotalMoney" class="totalPrice text-white" value="1245000" style="font-size: 3rem;">{{formatCurrency totalPrice}}</p>
       </div>
 
+      <div class="form-group">
+        <label class="font-weight-bold">Họ tên:</label>
+        <p class="text-white" id="customerName">{{order.name}}</p>
+      </div>
 
-      <div class="col-checkout col-right col-xl-5 col-lg-12 col-12">
-        <h2 class="col-title"><span
-            class="d-inline-flex align-items-center justify-content-center"
-          >3</span>Thông tin đơn hàng</h2>
-        <div class="table-responsive scrollModal">
-          <table class="table table-checkout" border="0" cellspacing="10">
-            <thead>
-              <tr>
-                <th class="text-left" width="55%">Tên sản phẩm</th>
-                <th class="text-center" width="20%">Số lượng</th>
-                <th class="text-right" width="25%">Thành tiền</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each order.cart}}
-                <tr class="cartItem" data-psid="{{this.id_product._id}}">
-                  <td>
-                    <a
-                      href="/mu-len-red-and-white-big-knitting-cuc-bong-xmas-do-p37901040.html"
-                    >
-                      {{this.id_product.name}}
-                    </a>
-                    <div class="clearfix">
-                      Đơn giá:
-                      <strong>{{this.id_product.price}}</strong>
-                      <div class="d-block"></div>
-                    </div>
-                  </td>
-                  <td class="text-center">{{this.quantity}}</td>
-                  <td class="text-center">
-                    <strong class="products-price">{{calculateTotalPrice
-                        this.id_product.price
-                        this.quantity
-                      }}</strong>
-                  </td>
-                </tr>
-              {{/each}}
-            </tbody>
-          </table>
+      <div class="form-group">
+        <label class="font-weight-bold">Customer ID:</label>
+        <p class="text-white" id="customerID">{{order.idaccount}}</p>
+      </div>
 
-          <table class="table table-checkout" border="0" cellspacing="10">
-            <tfoot>
-              <tr>
-                <td colspan="2"><strong>Tổng cộng</strong></td>
-                <td id="showTotalMoney" class="totalPrice" value="1245000">
-                  {{totalPrice}}
-                </td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
+      <div class="form-group">
+        <label class="font-weight-bold">Order ID:</label>
+        <p class="text-white" id="orderID">{{order._id}}</p>
+      </div>
 
-        <!-- Sử dụng mã giảm giá -->
-        <div class="formCode form-group">
-          <strong class="d-block">Nhập mã ưu đãi</strong>
-          <div class="input-group">
-            <input
-              type="text"
-              id="coupon"
-              name="couponCode"
-              class="form-control"
-              placeholder="Mã giảm giá"
-              fdprocessedid="nnirxl"
-              style="font-size: 1.5rem;"
-            />
-            <div class="input-group-btn" style="padding-top: 1.4rem;">
-              <button
-                class="btn btn-pink"
-                id="getCoupon"
-                type="button"
-                fdprocessedid="ayh69"
-                style="height: 4rem;"
-              >
-                Áp dụng
-              </button>
-            </div>
-          </div>
-        </div>
-        <div id="mss-confirm"></div>
+      <div class="form-group">
+        <label class="font-weight-bold">Điện thoại:</label>
+        <p class="text-white" id="customerMobile">{{order.phone}}</p>
+      </div>
 
-        <div
-          class="d-block d-flex justify-content-end"
-          style="margin-top: 1.5rem;"
-        >
-          <div
-            {{!-- id="js-btn-submit" --}}
-            id="payButton"
-            class="btn btn-pink d-flex justify-content-center align-items-center"
-            style="height:5rem; width:15rem; font-size: 2rem;"
-          >Thanh toán</div>
-        </div>
+      <div class="form-group">
+        <label class="font-weight-bold">Email:</label>
+        <p class="text-white" id="customerEmail">{{order.email}}</p>
+      </div>
+
+      <div class="form-group">
+        <label class="font-weight-bold">Address:</label>
+        <p class="text-white" id="customerAddress">{{order.address}}</p>
       </div>
     </div>
-  </form>
 
-  <div class="row">
-  </div>
+    <div id="payButton" class="btn bg-gradient-primary d-flex justify-content-center align-items-center"
+      style="height:5rem; width:15rem; font-size: 1.5rem;">Thanh toán</div>
+  </form>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var payButton = document.getElementById('payButton');
-    var totalPrice = '{{totalPrice}}';
-    var accountId = '{{order.idaccount}}';
-    var orderId = '{{order._id}}';
-
-    payButton.addEventListener('click', function() {
-      window.location.href = '/payment/authenticate?total=' + encodeURIComponent(totalPrice) + '&idaccount=' + encodeURIComponent(accountId) + '&idorder=' + encodeURIComponent(orderId);
+  document.addEventListener('DOMContentLoaded', function () {
+    var payButton =
+      document.getElementById('payButton'); var totalPrice = '{{totalPrice}}'; var
+        accountId = '{{order.idaccount}}'; var orderId = '{{order._id}}';
+    payButton.addEventListener('click', function () {
+      window.location.href =
+        '/payment/authenticate?total=' + encodeURIComponent(totalPrice) +
+        '&idaccount=' + encodeURIComponent(accountId) + '&idorder=' +
+        encodeURIComponent(orderId);
     });
   });
 </script>
-
-

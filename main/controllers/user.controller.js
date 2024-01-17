@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Order = require("../models/order.model");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 class userController {
@@ -81,7 +81,7 @@ class userController {
             console.log("Email sent: " + info.response);
           }
         });
-        res.render("forgotPw", {email: user.email, code: code});
+        res.render("forgotPw", { email: user.email, code: code });
       }
     } catch (err) {
       next(err);
@@ -91,25 +91,24 @@ class userController {
   //[POST]
 
   resetPw = async (req, res, next) => {
-    try{      
-      const {email, password} = req.body;
+    try {
+      const { email, password } = req.body;
       const salt = await bcrypt.genSalt(10);
       const hashedPw = await bcrypt.hash(password, salt);
       await User.updateOne(
-        { email: email},
+        { email: email },
         {
-          password: hashedPw
+          password: hashedPw,
         }
       );
-      const user = await User.findOne({email: email});
+      const user = await User.findOne({ email: email });
       res.cookie("user", user, {
         httpOnly: true,
         secure: false,
         path: "/",
-        sameSite: "strict",
       });
       res.send("success");
-    } catch(err){
+    } catch (err) {
       next(err);
     }
   };
@@ -343,6 +342,39 @@ class userController {
       res.render("accounthandle", { nshowHF: true, usersInfo });
     } catch (error) {
       next(error);
+    }
+  };
+
+  updateUser = async (req, res, next) => {
+    try {
+      if (req.body) {
+        const { id, ...data } = req.body;
+        await User.findOneAndUpdate(
+          { _id: id },
+          { $set: data },
+          { new: true, useFindAndModify: false }
+        );
+      }
+      res.redirect("/user/handle");
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  deleteUser = async (req, res, next) => {
+    try {
+      if (req.body) {
+        const { id, ...data } = req.body;
+        const result = await User.deleteOne({ _id: id });
+        if (result.deletedCount === 1) {
+          console.log("Account deleted successfully.");
+        } else {
+          console.log("Account not found or already deleted.");
+        }
+      }
+      res.redirect("/user/handle");
+    } catch (err) {
+      next(err);
     }
   };
 }

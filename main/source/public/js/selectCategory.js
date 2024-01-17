@@ -21,28 +21,27 @@
 // }
 
 function selectCategory(categoryId, event) {
-  if (event) {
-    event.preventDefault(); // Prevent the default anchor behavior
-  }
-
-  document.getElementById("selectedCategory").value = categoryId;
-
-  // Remove the 'selected-category' class from all category links
-  document.querySelectorAll(".category-tree a").forEach((cat) => {
-    cat.classList.remove("selected-category");
-  });
-
-  // If event is not provided, find the corresponding element manually
-  if (!event) {
-    const selectedElement = document.querySelector(
-      `[data-category-id="${categoryId}"]`
-    );
-    if (selectedElement) {
-      selectedElement.classList.add("selected-category");
+    if (event) {
+        event.preventDefault(); // Prevent the default anchor behavior
     }
-  } else {
-    event.currentTarget.classList.add("selected-category");
-  }
+
+    document.getElementById('selectedCategory').value = categoryId;
+
+    // Remove the 'selected-category' class from all category links
+    document.querySelectorAll('.category-tree a').forEach(cat => {
+        cat.classList.remove('selected-category');
+    });
+
+    // If event is not provided, find the corresponding element manually
+    if (!event) {
+        const selectedElement = document.querySelector(`[data-category-id="${categoryId}"]`);
+        if (selectedElement) {
+            selectedElement.classList.add('selected-category');
+        }
+    }
+    else {
+        event.currentTarget.classList.add('selected-category');
+    }
 }
 
 // Call selectCategory for the selected category on page load

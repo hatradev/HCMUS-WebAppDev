@@ -9,32 +9,35 @@
           <a href="#" class="d-none d-sm-inline-block btn btn-primary bg-primary shadow-sm" style="font-size: 1.75rem;" data-bs-toggle="modal" data-bs-target="#accountModal" data-bs-type="Create"><i class="fa-solid fa-circle-plus"></i> Thêm sản phẩm mới</a>
       </div>
       <div class="row">
+        {{#each products}}
         <div class="col-xl-3 col-md-6 mb-4">
           <div class="card shadow mb-4 pointer" data-bs-toggle="modal" data-bs-target="#accountModal">
             <!-- Card Body -->
             <div class="card-body">
-              <div class="product-item item{{id}} col-lg-3 col-xl-3">
+              <div class="product-item item{{_id}}">
                 <div class="image">
                     <img
                       data-sizes="auto"
                       class="lazyautosizes ls-is-cached lazyloaded"
-                      src="{{image}}"
+                      src="{{image.i1}}"
                       data-src="{{image}}"
                       alt="{{title}}"
                     />
                 </div>
                 <h3 class="name">
-                  <a href="/product/{{id}}" title="{{title}}">
-                    {{title}}
+                  <a href="/product/{{_id}}" title="{{name}}">
+                    {{name}}
                   </a>
                 </h3>
                 <div class="product-price">
                   <span class="price">{{formatCurrency price}}</span>
                 </div>
               </div>
+              
             </div>
           </div>
         </div>
+        {{/each}}
       </div>
     </div>
   </div>
