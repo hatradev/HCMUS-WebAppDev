@@ -136,7 +136,7 @@ class userController {
 
       if (existingUser) {
         return res.render("signUp", {
-          emailMsg: "Email already exists",
+          emailMsg: "Email đã tồn tại",
           lastname: inputLastName,
           firstname: inputFirstName,
           email: inputEmail,
