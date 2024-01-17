@@ -30,4 +30,15 @@ categoryModal.addEventListener("show.bs.modal", function (event) {
 
   var idInput = categoryModal.querySelector(".modal-body #id");
   idInput.value = id;
+
+  var create = button.getAttribute("data-bs-do");
+  if (create === "create") {
+    categoryModal.querySelector(".modal-header .modal-title").textContent =
+      "Tạo danh mục mới";
+    categoryModal
+      .querySelector(".modal-footer #deleteBtn")
+      .classList.add("d-none");
+    categoryModal.querySelector(".modal-footer #modalsubmit").textContent =
+      "Tạo";
+  }
 });

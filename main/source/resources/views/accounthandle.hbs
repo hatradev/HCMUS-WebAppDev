@@ -14,13 +14,17 @@
           <div class="card shadow mb-4 pointer" data-bs-toggle="modal" data-bs-target="#accountModal" data-bs-fname="{{user.firstname}}" data-bs-lname="{{user.lastname}}" data-bs-email="{{user.email}}" data-bs-phone="{{user.phone}}" data-bs-adr="{{user.address}}" data-bs-id="{{user._id}}">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3">
+                <div class="row d-flex justify-content-center">
+                  <img class="col-8 mt-3 mb-2 img-thumbnail" id="avatar-img" src={{user.avatar}} alt="avatar">
+                </div>
                 <h1 class="h3 m-0 font-weight-bold ptext-primary p-2">{{user.lastname}} {{user.firstname}}</h1>
                 <p class="ptext-primary-light p-2">{{user._id}}</p>
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                {{totalOrders}}
-                {{successOrderRate}}
+                <p>Email: {{user.email}}</p>
+                <p>Tổng số đơn đã đặt: {{totalOrders}}</p>
+                <p>Tỷ lệ hoàn thành đơn hàng: {{successOrderRate}}%</p>
             </div>
           </div>
         </div>
