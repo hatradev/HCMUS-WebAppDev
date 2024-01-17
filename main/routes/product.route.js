@@ -7,13 +7,12 @@ const router = express.Router();
 router.get("/handle", productController.getHandle);
 router.get("/categories", productController.getCateHandle);
 
-router.use(userController.checkRole("user"));
-
 router.get("/", productController.renderAllProduct);
 router.get("/:productId", productController.showSpecificProduct);
-
 router.get("/api/products", productController.APIProducts);
 router.get("/api/related", productController.APIRelatedProducts);
+
+router.use(userController.checkRole("user"));
 
 // router.get("/api/all-products", productController.showAllProduct);
 // router.get("/api/filter-products", productController.filterProducts);
