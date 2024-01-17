@@ -336,8 +336,11 @@ class orderController {
   getOrderDetail = async (req, res, next) => {
     try {
       const orderId = req.query.id;
-      // const error = req.query.err;
-      let error = parseInt(req.body.err, 10);
+      let error = "none";
+      if(req.query.err){
+        error = req.query.err;
+      }
+      // let error = parseInt(req.body.err, 10);
       const order = await Order.findById(orderId);
       const obj = {
         _id: order._id,

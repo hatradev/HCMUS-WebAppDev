@@ -71,7 +71,7 @@ function route(app) {
       );
 
       const rs = await fetch(
-        `http://127.0.0.1:${process.env.MAIN_PORT}/user/authenticate`,
+        `http://localhost:${process.env.MAIN_PORT}/user/authenticate`,
         {
           method: "POST",
           headers: {
@@ -87,7 +87,7 @@ function route(app) {
         user.balance = user.balance - total;
         await user.save();
         const r = await fetch(
-          `http://127.0.0.1:${process.env.MAIN_PORT}/user/paymentSuccess`,
+          `http://localhost:${process.env.MAIN_PORT}/user/paymentSuccess`,
           {
             method: "POST",
             headers: {
@@ -97,16 +97,16 @@ function route(app) {
           }
         );
         const response2 = await r.json();
-        // res.redirect(`http://127.0.0.1:${process.env.MAIN_PORT}/order/index`);
+        // res.redirect(`http://localhost:${process.env.MAIN_PORT}/order/index`);
         // res.json(response2);
         res.redirect(
-          `http://127.0.0.1:${
+          `http://localhost:${
             process.env.MAIN_PORT
-          }/order/detail?id=${encodeURIComponent(idOrder)}`
+          }/order/detail?id=${encodeURIComponent(idOrder)}&err=${encodeURIComponent("none-err")}`
         );
       } else if (!response.validPw) {
         res.redirect(
-          `http://127.0.0.1:${
+          `http://localhost:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(
             idOrder
@@ -115,7 +115,7 @@ function route(app) {
       } else {
         // res.redirect(`/order/inValidBalance?id=${encodeURIComponent(idOrder)}`);
         res.redirect(
-          `http://127.0.0.1:${
+          `http://localhost:${
             process.env.MAIN_PORT
           }/order/detail?id=${encodeURIComponent(
             idOrder

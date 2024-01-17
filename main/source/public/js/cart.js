@@ -1,5 +1,4 @@
-
-document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", function () {
   calculateTotal();
   const removeCartButtons = document.querySelectorAll(".remove-cart");
   const quantityButtons = document.querySelectorAll(".blk-qty-btn");
@@ -24,11 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
         this.closest(".cart-item").querySelector(".product-price");
       const price =
         parseFloat(
-          priceElement.innerText.replace(/[^0-9.,]/g, "").replace(",", ".")
+          priceElement.innerText.replace(/\./g, "")
         ) || 0;
       const totalPriceElement =
         this.closest(".cart-item").querySelector(".products-price");
-      totalPriceElement.innerText = calculateTotalPrice(price, currentQuantity);
+      totalPriceElement.innerText = formatPrice (calculateTotalPrice(price, currentQuantity)) + " đ";
     });
   });
 
@@ -117,8 +116,7 @@ function calculateTotal() {
   cartItems.forEach((item) => {
     const priceText = item
       .querySelector(".products-price")
-      .innerText.replace(/[^0-9.,]/g, "")
-      .replace(",", ".");
+      .innerText.replace(/\./g, "");
     const quantityText = item.querySelector(".product-quantity").value; // hoặc innerText, tuỳ thuộc vào cấu trúc
 
     const price = parseFloat(priceText) || 0;
@@ -131,7 +129,7 @@ function calculateTotal() {
 
   document.querySelector(".total").innerHTML = `Tổng: ${formatPrice(
     total
-  )}<sub>đ</sub>`;
+  )}<sub></sub>`;
 }
 
 // Hàm formatPrice để định dạng số theo dạng tiền tệ

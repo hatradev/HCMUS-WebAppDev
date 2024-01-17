@@ -47,6 +47,11 @@ module.exports = {
     }).format(number);
   },
 
+  formatPrice(value) {
+    // Chuyển đổi giá trị thành chuỗi và sử dụng biểu thức chính quy để định dạng
+    return value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " đ";
+  },
+
   booleanToString: function (value) {
     return value ? "isEvaluated" : "not";
   },
