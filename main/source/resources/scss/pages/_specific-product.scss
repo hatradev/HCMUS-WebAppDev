@@ -357,6 +357,13 @@
   justify-content: center;
 }
 
+.dark-btn-hover:hover {
+  background-color: $color-pink-secondary !important;
+  color: $color-pink-primary !important;
+  font-weight: bold !important;
+  border-color: $color-pink-secondary !important;
+}
+
 .btn-js-add-cart#addToCart {
   margin-right: 1%;
 }
@@ -640,4 +647,9 @@
 }
 .blk-pview-info > * {
   margin: 2rem 0;
+}
+
+.my-nor-dark {
+  color: white;
+  font-weight: bold;
 }
