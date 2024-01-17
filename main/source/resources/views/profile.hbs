@@ -3,9 +3,13 @@
     <div class="col-md-3 col-sm-12 mb-3 ps-4 pe-4">
       <div class="card profileCard" style="min-height: 33rem;">
         <div class="row d-flex justify-content-center">
-          <img class="col-8 mt-3 mb-2 img-thumbnail" id="avatar-img"
-            src={{avatar}}
-            alt="avatar">
+          {{#if avatar}}
+          <img class="col-8 mt-3 mb-2 img-thumbnail" id="avatar-img" src={{avatar}} alt="avatar">
+          {{else}}
+          <img class="col-8"
+            src="https://cdn.discordapp.com/attachments/1176168664987345008/1186219554939080724/logo.png?ex=6592740c&is=657fff0c&hm=1231f35e6a5050bbf94b9506c079959ddbba6f079706b86202704bca00f5388f&"
+            alt="">
+          {{/if}}
         </div>
         <div class="row text-center mb-3">
           <h2 style="color: #000">{{lastname}} {{firstname}}</h2>
@@ -25,7 +29,7 @@
         <div class="card-body ps-5 pt-5">
           <h1>Hồ sơ của tôi</h1>
           <hr>
-          <form id="updateForm" action="/profile/update" method="post" method="post" class="text-end">
+          <form id="updateForm" action="/profile/update" method="post" method="post" class="text-end" enctype="multipart/form-data">
             <div class="row align-items-center">
               <label for="inputLName" class="col-form-label col-md-3 pe-5 mt-4">Họ (*)</label>
               <div class="col-md-9 col-lg-6">
@@ -36,14 +40,16 @@
             <div class="row align-items-center">
               <label for="inputFName" class="col-form-label col-md-3 pe-5 mt-4">Tên (*)</label>
               <div class="col-md-9 col-lg-6">
-                <input type="text" id="inputFName" name="inputFName" class="form-control" value="{{firstname}}" required>
+                <input type="text" id="inputFName" name="inputFName" class="form-control" value="{{firstname}}"
+                  required>
                 <small id="fNameErr" class="form-text text-danger"></small>
               </div>
             </div>
             <div class="row align-items-center">
               <label for="inputPhoneNumber" class="col-form-label col-md-3 pe-5 mt-4">Điện thoại (*)</label>
               <div class="col-md-9 col-lg-6">
-                <input type="text" id="inputPhoneNumber" name="inputPhoneNumber" class="form-control" value="{{phone}}" required>
+                <input type="text" id="inputPhoneNumber" name="inputPhoneNumber" class="form-control" value="{{phone}}"
+                  required>
                 <small id="phoneNumErr" class="form-text text-danger"></small>
               </div>
             </div>
@@ -56,7 +62,14 @@
             <div class="row align-items-center">
               <label for="inputAddress" class="col-form-label col-md-3 pe-5 mt-4">Địa chỉ chi tiết (*)</label>
               <div class="col-md-9 col-lg-6">
-                <input type="text" id="inputAddress" name="inputAddress" class="form-control" value="{{address}}" required>
+                <input type="text" id="inputAddress" name="inputAddress" class="form-control" value="{{address}}"
+                  required>
+              </div>
+            </div>
+            <div class="row align-items-center">
+              <label for="inputAddress" class="col-form-label col-md-3 pe-5 mt-4">Avatar </label>
+              <div class="col-md-9 col-lg-6">
+                <input type="file" id="inputImg" name="img" class="form-control">
               </div>
             </div>
             <div class="row align-items-center mt-3">
@@ -75,7 +88,8 @@
 <script src="https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js"></script>
 <script>
   $(() => {
-      $('form').submit(function (e) {
+     $("#inputImg").fileinput({ theme: 'fa5', showUpload: false, previewFileType: 'any' });
+    $('form').submit(function (e) {
       // check use
       let regex = /[^a-zA-ZÀ-ỹ\s]/;
       $('#lNameErr').html(regex.test($('#inputLName').val()) ? 'Không hợp lệ! Họ chỉ bao gồm các chữ cái' : '');
@@ -89,7 +103,7 @@
         $('form').submit();
       }
       else {
-          e.preventDefault();
+        e.preventDefault();
       }
     });
   });

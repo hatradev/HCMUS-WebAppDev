@@ -37,6 +37,19 @@ class userController {
     }
   };
 
+  getForgotPwP = async (req, res, next) => {
+    try {
+      const email = req.query.email;
+      const user = User.findOne({ email: email });
+      if (!user){
+        res.redirect('/user/signup', {});
+      }
+      res.render("forgotPw", {});
+    } catch (err) {
+      next(err);
+    }
+  };
+
   //[POST]
   SignUp = async (req, res, next) => {
     try {
@@ -76,8 +89,6 @@ class userController {
       next(err);
     }
   };
-
-  
 
   authenticatePassword = async (req, res, next) => {
     try {
@@ -218,6 +229,15 @@ class userController {
     res.clearCookie("user");
     res.redirect("/user/signin");
   };
+  verify = async (req, res, next) => {
+    try{
+
+    } catch (err){
+      next(err);
+    }
+  }
 }
+
+
 
 module.exports = new userController();

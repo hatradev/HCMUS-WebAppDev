@@ -90,7 +90,7 @@ class authController {
         res.redirect("/");
       }
       else{
-        res.render("confirm", {
+        res.render("inputInfor", {
           lastname: googleUser.given_name,
           firstname: googleUser.family_name,
           email: googleUser.email,
