@@ -1,15 +1,17 @@
 <main class="mains d-flex justify-content-center">
   <div class="container">
     <div class="row w-100">
-      
+
       <div id="productImageCarousel" class="carousel slide w-50" data-bs-ride="carousel">
         <!-- Dynamically create carousel indicators based on the number of images -->
         <div class="carousel-indicators">
           {{#each product.image}}
-          <button type="button" data-bs-target="#productImageCarousel" data-bs-slide-to="{{@index}}" class="{{#if @first}}active{{/if}}" aria-current="{{#if @first}}true{{/if}}" aria-label="Slide {{@index}}"></button>
+          <button type="button" data-bs-target="#productImageCarousel" data-bs-slide-to="{{@index}}"
+            class="{{#if @first}}active{{/if}}" aria-current="{{#if @first}}true{{/if}}"
+            aria-label="Slide {{@index}}"></button>
           {{/each}}
         </div>
-        
+
         <!-- Carousel items -->
         <div class="carousel-inner">
           {{#each product.image}}
@@ -18,7 +20,7 @@
           </div>
           {{/each}}
         </div>
-        
+
         <!-- Carousel controls -->
         <button class="carousel-control-prev" type="button" data-bs-target="#productImageCarousel" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -30,67 +32,44 @@
         </button>
       </div>
 
-      <div class="blk-pview-info col-lg-6 col-md-12 col-sm-12">
-        <div class="blk-code">
-          <div class="title">{{product.name}}</div>
-          <div id="product-id" data-product-id="{{product._id}}" class="code">Mã sản phẩm: {{product._id}}</div>
-        </div>
-
-        <div class="blk-price">
-          <div class="product-price">
-            <!-- Assuming price is in a number format -->
-            <span class="price">{{formatCurrency product.price}}</span>
+      <div class="blk-pview-info col-lg-6 col-md-12 col-sm-12" style="padding-left: 13rem;">
+        <div class="container">
+          <div class="blk-code">
+            <div class="title">{{product.name}}</div>
+            <div id="product-id" data-product-id="{{product._id}}" class="code">Mã sản phẩm: {{product._id}}</div>
           </div>
-        </div>
 
-        {{!-- old description place --}}
-
-        <div class="blk-att" data-label="Màu sắc, size sản phẩm">
-          <div class="r-at-r d-flex align-items-center">
-            <label class="pull-left">Số lượng</label>
-            <div class="pull-left">
-              <div
-                class="blk-qty d-flex justify-content-center align-items-center"
-              >
-                <div
-                  class="blk-qty-btn minus d-flex justify-content-center align-items-center"
-                >-</div>
-                <input
-                  class="blk-qty-input d-flex justify-content-center align-items-center product-quantity"
-                  type="text"
-                  id="quantity"
-                  max="50"
-                  min="1"
-                  value="1"
-                />
-                <div
-                  class="blk-qty-btn plus d-flex justify-content-center align-items-center"
-                >+</div>
-              </div>
+          <div class="blk-price">
+            <div class="product-price">
+              <!-- Assuming price is in a number format -->
+              <span class="price" style="font-size: 5rem;">{{formatCurrency product.price}}</span>
             </div>
           </div>
-          <div class="clearfix"></div>
 
-          <div
-            class="r-at-r d-sm-flex align-items-center clearfix"
-            data-label="btn"
-          >
-            <div
-              id="addToCart"
-              class="btn-js-add-cart btn btn-pink"
-              data-psid="{{product._id}}"
-              data-selid="37901385"
-              data-ck="1"
-            >Thêm vào giỏ hàng</div>
-            <div
-              id="addPayNow"
-              class="btn-js-add-cart btn btn-pink"
-              data-psid="{{product._id}}"
-              data-selid="37901385"
-              data-ck="1"
-            >Mua ngay</div>
+          {{!-- old description place --}}
+
+          <div class="blk-att" data-label="Màu sắc, size sản phẩm">
+            <div class="r-at-r d-flex align-items-center">
+              <label class="pull-left">Số lượng</label>
+              <div class="pull-left">
+                <div class="blk-qty d-flex justify-content-center align-items-center">
+                  <div class="blk-qty-btn minus d-flex justify-content-center align-items-center">-</div>
+                  <input class="blk-qty-input d-flex justify-content-center align-items-center product-quantity"
+                    type="text" id="quantity" max="50" min="1" value="1" />
+                  <div class="blk-qty-btn plus d-flex justify-content-center align-items-center">+</div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="r-at-r d-sm-flex align-items-center clearfix" data-label="btn">
+              <div id="addToCart" class="btn-js-add-cart btn btn-pink" data-psid="{{product._id}}" data-selid="37901385"
+                data-ck="1" style="font-size: 2.5rem; margin-right: 1rem;">Giỏ hàng</div>
+              <div id="addPayNow" class="btn-js-add-cart btn btn-pink" data-psid="{{product._id}}" data-selid="37901385"
+                data-ck="1" style="font-size: 2.5rem;">Mua ngay</div>
+            </div>
+            <div id="mss-alret"></div>
           </div>
-          <div id="mss-alret"></div>
         </div>
       </div>
       <!-- end blk-pview-info -->
@@ -118,10 +97,12 @@
 </main>
 
 <script src="/js/handleCartSpecificProduct.js"></script>
-{{!-- <script src="/js/cart.js"></script> --}}
+{{!--
+<script src="/js/cart.js"></script> --}}
 
 <script src="/js/highestImg.js"></script>
 
-{{!-- <script src="/js/currentState.js"></script> --}}
+{{!--
+<script src="/js/currentState.js"></script> --}}
 <script type="module" src="/js/renderProducts.js"></script>
 <script type="module" src="/js/relatedProducts.js"></script>
