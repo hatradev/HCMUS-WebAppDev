@@ -7,7 +7,7 @@ class balanceControllers {
   getBalanceP = async (req, res, next) => {
     try {
       let {startDate, endDate} = req.query;
-      const acc = await Acc.findOne({ buyid: "659f8a8c0be458c494290c40" });
+      const acc = await Acc.findOne({ buyid: req.cookies.user._id });
       let hist;
       if (startDate && endDate){   
         startDate = new Date(startDate);
@@ -39,7 +39,7 @@ class balanceControllers {
   };
   recharge = async (req, res, next) => {
     const {amount} = req.query;
-    const acc = await Acc.findOne({ buyid: "659f8a8c0be458c494290c40" });
+    const acc = await Acc.findOne({ buyid: req.cookies.user._id });
     const newBalance = acc.balance + parseInt(amount);
 
     //update balance

@@ -14,7 +14,7 @@ router.post("/signin", userController.SignIn);
 router.post("/sendtoken", userController.sendTokenAndSaveUser);
 router.post("/authenticate", userController.authenticatePassword);
 router.post("/paymentSuccess", userController.paymentSuccess);
-router.post("/resetPw", userController.resetPw);
+router.post("/resetPw", userController.isLogin, userController.resetPw);
 
 router.get("/logout", userController.isLogin, userController.Logout);
 router.get("/handle", userController.getHandle);

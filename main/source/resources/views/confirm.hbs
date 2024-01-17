@@ -56,7 +56,7 @@
 
     function sendToken() {
         $.post("/user/sendtoken", {
-            lastname: "{{lastname}}", firstname: "{{firstname}}", email: "{{email}}", phone: "{{phone}}", address: "{{address}}", password: "{{password}}"
+            lastname: "{{lastname}}", firstname: "{{firstname}}", email: "{{email}}", phone: "{{phone}}", address: "{{address}}", password: "{{password}}", avatar: "{{avatar}}",
         },
             rs => {
                 console.log(rs);

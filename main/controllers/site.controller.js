@@ -124,6 +124,9 @@ class siteController {
       next(error);
     }
   };
+  getAuthSystem = async (req, res, next) => {
+    res.redirect('https://localhost:1234/');
+  }
 }
 
 module.exports = new siteController();
