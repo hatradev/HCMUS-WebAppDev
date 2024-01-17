@@ -98,6 +98,13 @@ class profileController {
         }
       );
       user = await User.findById(req.cookies.user._id);
+      res.clearCookie("user");
+      res.cookie("user", user, {
+        httpOnly: true,
+        secure: false,
+        path: "/",
+        sameSite: "strict",
+      });
       res.render('changePw', {msg: 'Thay đổi mật khẩu thành công!'});
     } catch (err) {
       next(err);

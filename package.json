@@ -48,6 +48,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "node-mailjet": "^6.0.4",
+    "nodemailer": "^6.9.8",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "passport-strategy": "^1.0.0",

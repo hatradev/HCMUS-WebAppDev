@@ -22,6 +22,9 @@
               Nhập</button>
           </div>
         </form>
+        <div class="text-center mt-4">
+          <div class="text-decoration-underline" onclick="forgotPw()">Quên mật khẩu</div>
+        </div>
         <hr class="my-4">
         <div class="social-media text-center">
           <span>Hoặc </span>
@@ -47,3 +50,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  function forgotPw(){
+    const email = $('#inputEmail').val();
+    console.log('email: ', email);
+    if (email){
+      window.location.href = `http://localhost:3000/user/forgotPw?email=${email}`;
+    }
+  }
+</script>

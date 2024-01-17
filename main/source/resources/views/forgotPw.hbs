@@ -4,15 +4,16 @@
       <div class="card-body m-3">
         <h1 class="card-title fw-bold fs-1">Mật khẩu mới đã được gửi qua email</h1>
         <p class="card-text mb-5"><small class="text-body-secondary">Vui lòng nhập mật khẩu mới để tiếp tục</small></p>
-        <form id="signupForm" action="/user/signup" method="post">
+        <form id="resetPwForm" action="/user/resetPw" method="post">
           <div class="mb-2">
             <label for="inputEmail" class="form-label mb-1">Email</label>
-            <input type="email" class="form-control mt-0" name="inputEmail" id="inputEmail" value="{{email}}" disabled>
+            <input type="email" class="form-control mt-0" name="inputEmail" id="inputEmail" value="{{email}}" readonly>
             <small id="emailErr" class="form-text text-danger">{{emailMsg}}</small>
           </div>
           <div class="mb-2">
-            <label for="inputPassword" class="form-label mb-1">Mật khẩu</label>
+            <label for="inputPassword" class="form-label mb-1">Mật khẩu mới<i></i></label>
             <input type="password" class="form-control mt-0" name="inputPassword" id="inputPassword" required>
+            <small id="passwordErr" class="form-text text-danger"></small>
           </div>
           <div class="d-grid gap-2 col-12 mt-4">
             <button class="btn btn-outline-dark fs-4" style="height: 4rem" type="submit">Xác nhận</button>
@@ -38,49 +39,21 @@
 
 <script>
   $(() => {
-    function startCountdown(durationInSeconds) {
-      const countdownElement = $('#countdown');
-      let remainingTime = durationInSeconds;
 
-      function updateCountdown() {
-        const minutes = Math.floor(remainingTime / 60);
-        const seconds = remainingTime % 60;
-
-        const formattedTime = `00:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        countdownElement.text(formattedTime);
-
-        if (remainingTime <= 0) {
-          clearInterval(countdownInterval);
-        } else {
-          remainingTime--;
-        }
-      }
-
-      // Initial update
-      updateCountdown();
-      // Update every second
-      const countdownInterval = setInterval(updateCountdown, 1000);
-    }
-    startCountdown(180);
-    $('#inputCode').on('copy', function (e) {
+    $('#resetPwForm').submit(function (e) {
       e.preventDefault();
-    });
-
-    $('#changePassForm').submit(function (e) {
-
-      $('#PwErr').html(($('#inputPassword').val().length >= 8) ? '' : '<i>password must be at least 8 characters long</i>');
-      //check confirmPassword
-      $('#confirmPwErr').html(($('#inputNewPassword').val() != $('#inputConfirmPassword').val()) ? '<i>confirm password is incorrect</i>' : '');
-      // check confirmCode
-      if ($('#countdown').text() === '00:00:00') {
-        $('#confirmCode').html('This code is no longer in effect');
-      } else {
-        $('#confirmCode').html(($('#ConfirmationCode').val() != $('#inputViaCode').val()) ? '<i>code is incorrect</i>' : '');
-      }
-
-      if ($('#confirmPwErr').html() === '' && $('#confirmCode').html() === '') {
-        $('#changePassForm input[disabled]').removeAttr('disabled');
-        $('#changePassForm').submit();
+      console.log($('#inputPassword').val())
+      $('#passwordErr').html(($('#inputPassword').val() != `{{code}}`) ? '<i>Mật khẩu mới không đúng!</i>' : '');
+      if ($('#passwordErr').html() === '') {
+        const dt = {
+          email: $('#inputEmail').val(),
+          password: $('#inputPassword').val()
+        }
+         $.post('/user/resetPw', dt, (rs) => {
+          console.log(rs);
+          window.location.href = "/"
+        })
+       
       } else {
         e.preventDefault();
       }
