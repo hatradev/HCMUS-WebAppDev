@@ -28,5 +28,6 @@ router.get(
 );
 
 router.get("/dashboard", siteController.getDashboard);
+router.get("/dashboard/api/chart", siteController.getDailyRevenue);
 
 module.exports = router;

@@ -1,3 +1,39 @@
+async function fetchDailyRevenueData() {
+  try {
+    // Replace '/api/daily-revenue' with the actual endpoint where your data is served
+    const response = await fetch('/dashboard/api/chart');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data; // Should be an object like: { revenues: [100, 200, ...], startDate: '2021-01-01' }
+  } catch (error) {
+    console.error('There was a problem fetching the revenue data:', error);
+  }
+}
+
+// Function to update the chart with new data
+async function updateChart() {
+  const revenueData = await fetchDailyRevenueData();
+  const labels = [];
+  const data = revenueData.revenues;
+
+  // Generate labels for the past 14 days
+  let currentDate = new Date(revenueData.startDate);
+  for (let i = 0; i < 14; i++) {
+    labels.push(`${currentDate.getDate()}/${currentDate.getMonth() + 1}`);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  // Update chart
+  myLineChart.data.labels = labels;
+  myLineChart.data.datasets[0].data = data;
+  myLineChart.update();
+}
+
+// Call the function to update the chart
+updateChart();
+
 // Set new default font family and font color to mimic Bootstrap's default styling
 // (Chart.defaults.global.defaultFontFamily = "Comfortaa"),
 //   '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -33,18 +69,7 @@ var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: "line",
   data: {
-    labels: [
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
+    labels: [],
     datasets: [
       {
         label: "Doanh thu",
@@ -59,7 +84,7 @@ var myLineChart = new Chart(ctx, {
         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
         pointHitRadius: 10,
         pointBorderWidth: 2,
-        data: [0, 10000, 5000, 15000, 10000, 25000, 20000, 30000, 25000, 40000],
+        data: [],
       },
     ],
   },
