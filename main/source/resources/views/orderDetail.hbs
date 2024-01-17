@@ -80,9 +80,16 @@
                             </form>
                             {{/if}}
 
-                            <a href="#" class="btn cancel_btn">
+                            <form action="/order/cancelOrder" method="POST">
+                                <input type="hidden" name="orderId" value="{{obj._id}}">
+                                <input type="hidden" name="totalPrice" value="{{obj.total}}">
+                                <button type="submit" class="btn cancel_btn">
+                                    <span class="button__text"> Hủy đơn</span>
+                                </button>
+                            </form>
+                            {{!-- <a href="#" class="btn cancel_btn">
                                 <span class="button__text"> Hủy đơn</span>
-                            </a>
+                            </a> --}}
                         </div>
                         <div class="col-md-5 col-ms-10 mt-3 border-top">
                             {{else}}

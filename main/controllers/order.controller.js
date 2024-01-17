@@ -142,6 +142,51 @@ class orderController {
       next(error);
     }
   };
+  cancelOrder = async (req, res, next) => {
+    try {
+      const id = req.body.orderId;
+      const total = req.body.totalPrice;
+      // const order = await Order.findById(id)
+      const orderFound = await Order.findById(id)
+        .populate("detail.idProduct");
+
+      let totalAmount = 0;
+      orderFound.detail.forEach(cartItem => {
+          totalAmount += cartItem.quantity * cartItem.idProduct.price; // Giả sử mỗi item có 'price'
+      });
+  
+      const accessToken = jwt.sign(
+        {
+          order: orderFound,
+          totalPrice: totalAmount,
+        },
+        process.env.JWT_ACCESS_KEY,
+        { expiresIn: "10m" }
+      );
+
+      // const tokenString = JSON.stringify({ token: accessToken });
+      // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
+      
+      const rs = await fetch(
+        `https://localhost:${process.env.AUX_PORT}/refund`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: accessToken }),
+        }
+      );
+      const response = await rs.json();
+
+      // console.log("RESPONSE: ", response);
+      await Order.deleteOne({ _id: id });
+
+      return res.redirect(`/order/index`);
+    } catch (error) {
+      next(error);
+    }
+  };
   CreateOrderForBuyNowAndSendToken = async (req, res, next) => {
     try {
       const accBuyer = await Account.findOne({ _id: req.cookies.user._id })
