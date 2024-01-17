@@ -7,6 +7,7 @@ require("dotenv").config();
 
 database.connect();
 const port = process.env.AUX_PORT || 5001;
+const host = process.env.HOST || "127.0.0.1";
 
 const server = https.createServer(
   {
@@ -15,6 +16,6 @@ const server = https.createServer(
   },
   app
 );
-server.listen(port, () => {
+server.listen(port, host, () => {
   console.log(`Auxiliary server is running on port ${port} ...`);
 });

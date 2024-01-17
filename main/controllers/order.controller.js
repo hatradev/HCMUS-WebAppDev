@@ -59,7 +59,7 @@ class orderController {
       //   return res.status(500).json({ error: "Failed to create access token" });
       // }
       const tokenString = JSON.stringify({ token: accessToken });
-      const responseUrl = `https://localhost:${
+      const responseUrl = `https://${process.env.HOST}:${
         process.env.AUX_PORT
       }/getPayment?token=${encodeURIComponent(accessToken)}`;
       // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?data=${tokenString}`;
@@ -88,14 +88,13 @@ class orderController {
     try {
       const id = req.body.orderId;
       // const order = await Order.findById(id)
-      const orderFound = await Order.findById(id)
-        .populate("detail.idProduct");
+      const orderFound = await Order.findById(id).populate("detail.idProduct");
 
       let totalAmount = 0;
-      orderFound.detail.forEach(cartItem => {
-          totalAmount += cartItem.quantity * cartItem.idProduct.price; // Giả sử mỗi item có 'price'
+      orderFound.detail.forEach((cartItem) => {
+        totalAmount += cartItem.quantity * cartItem.idProduct.price; // Giả sử mỗi item có 'price'
       });
-  
+
       const accessToken = jwt.sign(
         {
           order: orderFound,
@@ -119,7 +118,9 @@ class orderController {
       //   return res.status(500).json({ error: "Failed to create access token" });
       // }
       const tokenString = JSON.stringify({ token: accessToken });
-      const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
+      const responseUrl = `https://${process.env.HOST}:${
+        process.env.AUX_PORT
+      }/getPayment?token=${encodeURIComponent(accessToken)}`;
       // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?data=${tokenString}`;
       // // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
       // console.log("Response URL:", responseUrl);
@@ -130,7 +131,7 @@ class orderController {
       // console.log("RESPONSE: ", responseData);
       // Lưu đơn hàng mới
       // const savedOrder = await newOrder.save();
-  
+
       // Xóa giỏ hàng sau khi tạo đơn hàng
       // accBuyer.cart = [];
       // await accBuyer.save();
@@ -147,14 +148,13 @@ class orderController {
       const id = req.body.orderId;
       const total = req.body.totalPrice;
       // const order = await Order.findById(id)
-      const orderFound = await Order.findById(id)
-        .populate("detail.idProduct");
+      const orderFound = await Order.findById(id).populate("detail.idProduct");
 
       let totalAmount = 0;
-      orderFound.detail.forEach(cartItem => {
-          totalAmount += cartItem.quantity * cartItem.idProduct.price; // Giả sử mỗi item có 'price'
+      orderFound.detail.forEach((cartItem) => {
+        totalAmount += cartItem.quantity * cartItem.idProduct.price; // Giả sử mỗi item có 'price'
       });
-  
+
       const accessToken = jwt.sign(
         {
           order: orderFound,
@@ -166,9 +166,9 @@ class orderController {
 
       // const tokenString = JSON.stringify({ token: accessToken });
       // const responseUrl = `https://localhost:${process.env.AUX_PORT}/getPayment?token=${encodeURIComponent(accessToken)}`;
-      
+
       const rs = await fetch(
-        `https://localhost:${process.env.AUX_PORT}/refund`,
+        `https://${process.env.HOST}:${process.env.AUX_PORT}/refund`,
         {
           method: "POST",
           headers: {
@@ -238,7 +238,7 @@ class orderController {
       );
 
       const tokenString = JSON.stringify({ token: accessToken });
-      const responseUrl = `https://localhost:${
+      const responseUrl = `https://${process.env.HOST}:${
         process.env.AUX_PORT
       }/getPayment?token=${encodeURIComponent(accessToken)}`;
 
