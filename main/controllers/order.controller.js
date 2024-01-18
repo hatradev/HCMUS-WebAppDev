@@ -53,27 +53,55 @@ class orderController {
       const orderId = req.body.orderId;
 
       // Fetch the order using its ID
-      const order = await Order.findById(orderId);
+      const orderFound = await Order.findById(orderId).populate("detail.idProduct");
+      const admin = await Account.findOne({ role: "admin" });
 
+      let totalAmount = 0;
+      orderFound.detail.forEach((cartItem) => {
+        totalAmount += cartItem.quantity * cartItem.idProduct.price; // Giả sử mỗi item có 'price'
+      });
       // Check if the order exists
-      if (!order) {
+      if (!orderFound) {
         return res.status(404).json({ error: "Order not found" });
       }
-      if (order.status == "successful") {
+      if (orderFound.status == "successful") {
         res.redirect('/order/handle');
         return;
       }
-      else if (order.status == "pending") {
-        console.log(order);
+      else if (orderFound.status == "pending") {
+        console.log(orderFound);
         // cộng tiền user bên aux, trừ tiền admin
-        return;
+        const accessToken = jwt.sign(
+        {
+          order: orderFound,
+          totalPrice: totalAmount,
+          idAdmin: admin._id,
+        },
+        process.env.JWT_ACCESS_KEY,
+        { expiresIn: "10m" }
+      );
+
+      const rs = await fetch(
+        `https://${process.env.HOST}:${process.env.AUX_PORT}/payment/refund`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: accessToken }),
+        }
+      );
+
+      console.log("Waiting deny!!");
+
+      const response = await rs.json();
       }
 
       // Update the order status to 'cancelled' or a similar status
-      order.status = "cancelled"; // Adjust the status value based on your schema
+      orderFound.status = "cancelled"; // Adjust the status value based on your schema
 
-      // Save the updated order
-      await order.save();
+      // Save the updated orderFound
+      await orderFound.save();
 
       // Send a success response
       // res.json({ success: "Order has been successfully cancelled" });
