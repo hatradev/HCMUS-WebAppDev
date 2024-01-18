@@ -5,7 +5,7 @@ const Hist = require("../models/history.model");
 class balanceControllers {
   // [GET] /
   getBalanceP = async (req, res, next) => {
-    console.log("BALANCE: ", req.cookies.user._id);
+    // console.log("BALANCE: ", req.cookies.user._id);
     try {
       let { startDate, endDate } = req.query;
 
