@@ -6,7 +6,7 @@ const upload = multer({ dest: "main/source/public/img/avatar" });
 
 const router = express.Router();
 
-router.use(userController.checkRole("user"));
+router.use(userController.isLogin);
 
 router.get("/", profileController.getProfile);
 router.get("/changepassword", profileController.getChangePasswordP);
