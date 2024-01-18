@@ -23,6 +23,7 @@ class balanceControllers {
       } else {
         hist = await Hist.find({ idaccount: acc._id }).sort({ date: -1 });
       }
+      console.log(hist);
       // console.log('acc', acc, 'hist', hist)
       let arr = hist.map((item) => ({
         id: item._id,

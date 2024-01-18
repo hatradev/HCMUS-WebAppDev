@@ -23,11 +23,11 @@ router.get(
 
 router.get(
   "/auth-system",
-  userController.checkRole("user"),
+  userController.isLogin,
   siteController.getAuthSystem
 );
 
-router.get("/dashboard", siteController.getDashboard);
-router.get("/dashboard/api/chart", siteController.getDailyRevenue);
+router.get("/dashboard", userController.checkRole("admin"), siteController.getDashboard);
+router.get("/dashboard/api/chart", userController.checkRole("admin"), siteController.getDailyRevenue);
 
 module.exports = router;
