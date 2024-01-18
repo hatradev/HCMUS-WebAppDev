@@ -100,8 +100,11 @@ class paymentControllers {
         return res.status(400).json({ error: "No token provided" });
       }
 
-      console.log("Do refund");
+      
       const decoded = jwt.verify(token, process.env.JWT_ACCESS_KEY);
+      console.log("Do refund");
+      console.log(decoded);
+      console.log("Do refund");
       // const user = await User.findById(decoded.idAccount);
       // const user = await account.findById(decoded.order.idaccount);
       const user = await account.findOne({ buyid: decoded.order.idaccount });
@@ -134,6 +137,9 @@ class paymentControllers {
       const savedHistoryUser = await newHistoryUser.save();
       const savedHistoryAdmin = await newHistoryAdmin.save();
 
+      console.log("Do refund abc");
+      console.log(admin);
+      console.log("Do refund abcde");
       res.json(responseData);
     } catch (error) {
       // Xử lý lỗi JWT hoặc lỗi khác
