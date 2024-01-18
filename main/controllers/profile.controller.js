@@ -45,8 +45,16 @@ class profileController {
         inputAddress,
         inputPhoneNumber,
       } = req.body;
-      const avatar = `/img/avatar/${req.file.filename}`;
+
       const user = await User.findOne({ _id: req.cookies.user._id });
+      let avatar;
+      if (req.file && req.file.filename){
+        avatar = `/img/avatar/${req.file.filename}`;
+      } 
+      else{
+        avatar = user.avatar;
+      }
+      
       let dirPath = join(__dirname, `../source/public${user.avatar}`);
       // console.log(dirPath);
       fs.unlink(dirPath, function (err) {
