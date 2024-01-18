@@ -165,6 +165,7 @@ class userController {
   authenticatePassword = async (req, res, next) => {
     try {
       // Giải mã JWT
+      console.log("AUTH:", req.body);
       const token = req.body.token;
       if (!token) {
         return res.status(400).json({ error: "No token provided" });
