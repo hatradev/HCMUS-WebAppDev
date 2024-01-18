@@ -1,7 +1,10 @@
 <div class="container mt-5 mb-5">
   <div class="row">
     <div class="col-md-3 col-sm-12 mb-3 ps-4 pe-4">
-      <div class="card profileCard d-flex flex-column justify-content-center" style="min-height: 33rem;">
+      <div
+        class="card profileCard d-flex flex-column justify-content-center"
+        style="min-height: 33rem;"
+      >
         <div class="row d-flex justify-content-center">
           <img
             class="col-8 mt-3 mb-2 img-thumbnail"
@@ -18,6 +21,9 @@
             <p><a href="/profile" class="hover-a">Thông tin tài khoản</a></p>
             <p><a href="/profile/changepassword">Đổi mật khẩu</a></p>
             <p><a href="/order/index">Lịch sử đơn hàng</a></p>
+            {{#if check}}
+              <p><a href="/dashboard">Đến quản trị hệ thống</a></p>
+            {{/if}}
             <p><a href="/auth-system">Đến hệ thống thanh toán</a></p>
             <p><a href="/user/logout">Đăng xuất</a></p>
           </div>

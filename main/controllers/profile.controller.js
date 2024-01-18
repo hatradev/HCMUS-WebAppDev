@@ -10,6 +10,10 @@ class profileController {
     try {
       // console.log(req.cookies);
       const user = await User.findById(req.cookies.user._id);
+      let check = false;
+      if (user.role === "admin") {
+        check = true;
+      }
       res.render("profile", {
         lastname: user.lastname,
         firstname: user.firstname,
@@ -17,6 +21,7 @@ class profileController {
         email: user.email,
         address: user.address,
         avatar: user.avatar,
+        check,
       });
     } catch (err) {
       next(err);
@@ -48,13 +53,12 @@ class profileController {
 
       const user = await User.findOne({ _id: req.cookies.user._id });
       let avatar;
-      if (req.file && req.file.filename){
+      if (req.file && req.file.filename) {
         avatar = `/img/avatar/${req.file.filename}`;
-      } 
-      else{
+      } else {
         avatar = user.avatar;
       }
-      
+
       let dirPath = join(__dirname, `../source/public${user.avatar}`);
       // console.log(dirPath);
       fs.unlink(dirPath, function (err) {
