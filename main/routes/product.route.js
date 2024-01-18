@@ -2,6 +2,9 @@ const express = require("express");
 const productController = require("../controllers/product.controller");
 const userController = require("../controllers/user.controller");
 
+const multer = require("multer");
+const upload = multer({ dest: "main/source/public/img/products" });
+
 const router = express.Router();
 
 router.get("/handle", productController.getHandle);
@@ -18,6 +21,11 @@ router.post("/delete-category", productController.deleteCategory);
 
 router.post("/delete-product", productController.deleteProduct);
 router.post("/update-product", productController.updateProduct);
+router.post(
+  "/create-product",
+  upload.array("image", 12),
+  productController.createProduct
+);
 
 router.use(userController.checkRole("user"));
 

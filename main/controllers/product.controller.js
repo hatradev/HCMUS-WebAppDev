@@ -58,7 +58,9 @@ class productController {
       const searchTerm = req.query.keyword || "";
       const category = req.query.category || "";
 
-      const maxPriceProduct = await Product.findOne().sort({ price: -1 }).limit(1);
+      const maxPriceProduct = await Product.findOne()
+        .sort({ price: -1 })
+        .limit(1);
       const maxPrice = maxPriceProduct ? maxPriceProduct.price : 0;
 
       res.render("all-product", {
@@ -565,7 +567,7 @@ class productController {
       );
       fullCategories.sort((a, b) => a.fullName.localeCompare(b.fullName));
 
-      console.log(products);
+      // console.log(products);
       res.render("producthandle", { nshowHF: true, products, fullCategories });
     } catch (error) {
       next(error);
@@ -614,7 +616,7 @@ class productController {
       const newCategory = new Category({
         name,
         description,
-        parentCategory
+        parentCategory,
       });
       await newCategory.save();
       // res.status(201).send('Danh mục được tạo thành công');
@@ -622,7 +624,7 @@ class productController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 
   updateCategory = async (req, res, next) => {
     // console.log(req.body);
@@ -642,31 +644,31 @@ class productController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 
   deleteCategory = async (req, res, next) => {
     try {
       const { id } = req.body;
-  
+
       // Check if the category exists
       const category = await Category.findById(id);
       if (!category) {
         return res.status(404).send("Danh mục không tồn tại");
       }
-  
+
       // Save parent category ID for later use
       const parentCategoryId = category.parentCategory;
-  
+
       // Remove the category
       await Category.findByIdAndRemove(id);
-  
+
       // Find and update all child categories
       const childCategories = await Category.find({ parentCategory: id });
       for (const child of childCategories) {
         child.parentCategory = parentCategoryId; // Set to parent of deleted category, or null if it had no parent
         await child.save();
       }
-  
+
       res.redirect("/product/categories");
     } catch (error) {
       next(error);
@@ -674,39 +676,77 @@ class productController {
   };
 
   deleteProduct = async (req, res, next) => {
-    try{
-      const {id} = req.body;
-      const prd = await Product.findOne({_id: id});
+    try {
+      const { id } = req.body;
+      const prd = await Product.findOne({ _id: id });
       console.log(prd);
       if (!prd) {
         return res.status(404).send("Sản phẩm không tồn tại");
       }
       await Product.deleteOne({ _id: id });
-      res.redirect("/product/handle")
-    } catch(err){
+      res.redirect("/product/handle");
+    } catch (err) {
       next(err);
     }
-  }
+  };
 
   updateProduct = async (req, res, next) => {
-    try{
-      const {name, price, stock, category, description, id} = req.body;
-      const prd = await Product.findOne({_id: id});
+    try {
+      console.log(req.body);
+      const { name, price, stock, category, description, id } = req.body;
+      const prd = await Product.findOne({ _id: id });
       if (!prd) {
         return res.status(404).send("Sản phẩm không tồn tại");
       }
       await Product.updateOne(
-        { _id: id},
-        { $set: { name: name, price: price, stock: stock, category: category, description: description, id: id}}
+        { _id: id },
+        {
+          $set: {
+            name: name,
+            price: price,
+            stock: stock,
+            category: category,
+            description: description,
+            id: id,
+          },
+        }
       );
-      res.redirect('/product/handle');
-    } catch(err){
+      res.redirect("/product/handle");
+    } catch (err) {
       next(err);
     }
-  }
-  
-}
+  };
 
+  createProduct = async (req, res, next) => {
+    try {
+      console.log(req.body);
+      const { name, price, stock, category, description, id } = req.body;
+      var avatar = [];
+      for (var file of req.files) {
+        avatar.push(`/img/products/${file.filename}`);
+      }
+      const newProduct = new Product({
+        name: name,
+        price: price,
+        description: description,
+        stock: stock,
+        category: category, // Replace with the actual ObjectId of a category
+        image: avatar,
+      });
+      newProduct
+        .save()
+        .then((savedProduct) => {
+          console.log("New product created:", savedProduct);
+        })
+        .catch((error) => {
+          console.error("Error creating product:", error.message);
+        });
+      res.redirect("/product/handle");
+    } catch (err) {
+      next(err);
+    }
+  };
+}
 
 // Export an instance of the controller
 // Export an instance of the controller
