@@ -23,7 +23,7 @@ function renderProducts(products) {
                   />
                 </a>
               </div>
-              <h3 class="name d-flex align-items-center justify-content-center text-center" style=height:8vh;>
+              <h3 class="name d-flex align-items-center justify-content-center text-center">
                 <a href="/product/${product._id}" title="${product.name}">
                   ${product.name}
                 </a>
