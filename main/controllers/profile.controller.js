@@ -107,7 +107,7 @@ class profileController {
         httpOnly: true,
         secure: false,
         path: "/",
-        sameSite: "strict",
+        // sameSite: "strict",
       });
       res.render("changePw", { msg: "Thay đổi mật khẩu thành công!" });
     } catch (err) {
