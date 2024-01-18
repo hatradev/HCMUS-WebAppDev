@@ -9,8 +9,8 @@ function renderProducts(products) {
 
     products.forEach(product => {
         const productHtml = `
-            <div class="product-item item${product._id} col-lg-3 col-xl-3 position-relative aesthetic-border" data-psid="${product._id}"
-            style="min-height: 36vh;">
+            <div class="product-item item${product._id} col-lg-3 position-relative aesthetic-border" data-psid="${product._id}"
+            style="min-height: 36vh; width: 23%;">
               <div class="image">
                 ${product.isnew ? '<span class="flag">New</span>' : ''}
                 <a href="/product/${product._id}" title="${product.name}">
