@@ -288,4 +288,13 @@
   font-size: $font-size-secondary;
 }
 
+.aesthetic-border {
+  border: 2px solid $color-pink-secondary; /* Solid blue border */
+  border-radius: 8px;        /* Rounded corners */
+  padding: 1.5rem;             /* Spacing inside the border */
+  // margin: 2.75rem;              /* Spacing outside the border */
+  margin: 1.25rem 2.75rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
 

@@ -9,7 +9,8 @@ function renderProducts(products) {
 
     products.forEach(product => {
         const productHtml = `
-            <div class="product-item item${product._id} col-lg-3 col-xl-3" data-psid="${product._id}">
+            <div class="product-item item${product._id} col-lg-3 col-xl-3 position-relative aesthetic-border" data-psid="${product._id}"
+            style="min-height: 36vh;">
               <div class="image">
                 ${product.isnew ? '<span class="flag">New</span>' : ''}
                 <a href="/product/${product._id}" title="${product.name}">
@@ -22,13 +23,13 @@ function renderProducts(products) {
                   />
                 </a>
               </div>
-              <h3 class="name">
+              <h3 class="name d-flex align-items-center justify-content-center text-center" style=height:8vh;>
                 <a href="/product/${product._id}" title="${product.name}">
                   ${product.name}
                 </a>
               </h3>
-              <div class="product-price">
-                <span class="price">${formatCurrency(product.price)}</span>
+              <div class="product-price d-flex justify-content-end">
+                <span class="price position-absolute bottom-0 mb-2">${formatCurrency(product.price)}</span>
               </div>
             </div>`;
         productsContainer.innerHTML += productHtml;

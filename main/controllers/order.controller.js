@@ -46,6 +46,44 @@ class orderController {
     }
   };
 
+  denyOrder = async (req, res, next) => {
+    // console.log("denyOrder");
+    try {
+      // Assuming the order ID is sent in the request body
+      const orderId = req.body.orderId;
+
+      // Fetch the order using its ID
+      const order = await Order.findById(orderId);
+
+      // Check if the order exists
+      if (!order) {
+        return res.status(404).json({ error: "Order not found" });
+      }
+      if (order.status == "successful") {
+        res.redirect('/order/handle');
+        return;
+      }
+      else if (order.status == "pending") {
+        console.log(order);
+        // cộng tiền user bên aux, trừ tiền admin
+        return;
+      }
+
+      // Update the order status to 'cancelled' or a similar status
+      order.status = "cancelled"; // Adjust the status value based on your schema
+
+      // Save the updated order
+      await order.save();
+
+      // Send a success response
+      // res.json({ success: "Order has been successfully cancelled" });
+      res.redirect("/order/handle");
+    } catch (error) {
+      // Handle any errors
+      next(error);
+    }
+  };
+
   CreateOrderForCartAndSendToken = async (req, res, next) => {
     try {
       const accBuyer = await Account.findOne({
@@ -120,6 +158,7 @@ class orderController {
       next(error);
     }
   };
+
   ContinueToPay = async (req, res, next) => {
     try {
       const id = req.body.orderId;
@@ -176,6 +215,7 @@ class orderController {
       next(error);
     }
   };
+
   cancelOrder = async (req, res, next) => {
     try {
       const id = req.body.orderId;
@@ -226,6 +266,7 @@ class orderController {
       next(error);
     }
   };
+
   CreateOrderForBuyNowAndSendToken = async (req, res, next) => {
     try {
       const accBuyer = await Account.findOne({ _id: req.cookies.user._id });

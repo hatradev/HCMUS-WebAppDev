@@ -21,5 +21,6 @@ router.post(
 );
 // router.post("/authenticate", orderController.authenticatePassword);
 router.post("/approve-order", orderController.approveOrder);
+router.post("/deny-order", orderController.denyOrder);
 
 module.exports = router;
