@@ -1,0 +1,62 @@
+// Set width, height and background-color
+@mixin box($width: false, $height: false, $bgc: false) {
+  @if $width {
+    width: $width;
+  }
+  @if $height {
+    height: $height;
+  }
+  @if $bgc {
+    background-color: $bgc;
+  }
+}
+
+// Set font-size, font-weight, color, line-height and letter-spacing
+@mixin font(
+  $size: false,
+  $weight: false,
+  $color: false,
+  $lh: false,
+  $ls: false
+) {
+  @if $size {
+    font-size: $size;
+  }
+  @if $color {
+    color: $color;
+  }
+  @if $weight {
+    font-weight: $weight;
+  }
+  @if $lh {
+    line-height: $lh;
+  }
+  @if $ls {
+    letter-spacing: $ls;
+  }
+}
+
+// Set absolute position
+@mixin abs-pos($top: false, $right: false, $bottom: false, $left: false) {
+  position: absolute;
+  @if $top {
+    top: $top;
+  }
+  @if $left {
+    left: $left;
+  }
+  @if $bottom {
+    bottom: $bottom;
+  }
+  @if $right {
+    right: $right;
+  }
+}
+
+// Truncate long strings
+@mixin truncate($truncation-boundary: 100%) {
+  max-width: $truncation-boundary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

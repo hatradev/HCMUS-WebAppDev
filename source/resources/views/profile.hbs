@@ -1,0 +1,214 @@
+<div class="container mt-5">
+  <div class="row">
+    <div
+      class="card col profileCard p-3 me-3"
+      style="width: 100%; height: 33rem;"
+    >
+      <div class="row d-flex justify-content-center">
+        <img
+          src="https://media.discordapp.net/attachments/1176168664987345008/1176953088456798208/loginanimi.png?ex=6570bdfb&is=655e48fb&hm=e4693ff912e14c7a1d637ed4e329351b67a4f04b6073ab6570bed2e593c74a19&=&format=webp&width=583&height=395"
+          alt=""
+          style="width: 25rem;"
+        />
+      </div>
+      <div class="row text-center mb-3">
+        <h3 style="color: #000">Full Name</h3>
+      </div>
+      <div class="row">
+        <p><a href="#" style="color: #627e64">Account information</a></p>
+        <p><a href="#">Change password</a></p>
+        <p><a href="/acc/orderHistory">Order history</a></p>
+        <p><a href="#">Favorite products</a></p>
+        <p><a href="#">Logout</a></p>
+      </div>
+    </div>
+    <div class="card profileForm ms-5 ps-5 col" style="width: 100%;">
+      <div class="card-body">
+        <h1 style="color: #86A789;">My profile</h1>
+        <hr />
+        <form id="updateForm" action="#" method="post">
+          <table class="ms-5 ps-5">
+            <tr>
+              <td>
+                <label for="inputName" class="col-form-label ms-3">Full name (*)</label>
+              </td>
+              <td style="width: 350px">
+                <input
+                  type="text"
+                  id="inputName"
+                  name="inputName"
+                  class="form-control ms-5"
+                  required
+                />
+                <small id="nameErr" class="form-text text-danger"></small>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 30%;">
+                <label for="inputDoB" class="col-form-label ms-3 mb-2">Day of
+                  birth (*)</label>
+              </td>
+              <td>
+                <input
+                  type="date"
+                  id="inputDoB"
+                  name="inputDoB"
+                  class="form-control ms-5 fs-5"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 30%;">
+                <label
+                  for="inputPhoneNumber"
+                  class="col-form-label ms-3 mb-2"
+                >Phone number (*)</label>
+              </td>
+              <td>
+                <input
+                  type="text"
+                  id="inputPhoneNumber"
+                  name="inputPhoneNumber"
+                  class="form-control ms-5"
+                  required
+                />
+                <small id="phoneNumErr" class="form-text text-danger"></small>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 30%;">
+                <label for="inputEmail" class="col-form-label ms-3 mb-2">Email
+                  (*)</label>
+              </td>
+              <td>
+                <input
+                  type="mail"
+                  id="inputEmail"
+                  name="inputEmail"
+                  class="form-control ms-5"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 30%;">
+                <label
+                  for="calc_shipping_provinces"
+                  class="form-label ms-3 mb-2"
+                >Province / City (*)</label>
+              </td>
+              <td>
+                <select
+                  name="calc_shipping_provinces"
+                  class="form-select ms-5 fs-5"
+                  required
+                >
+                  <option value="">Province / City</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 30%;">
+                <label
+                  for="calc_shipping_district"
+                  class="form-label ms-3 mb-2"
+                >District (*)</label>
+              </td>
+              <td>
+                <select
+                  name="calc_shipping_district"
+                  class="form-select ms-5 fs-5"
+                  required
+                >
+                  <option value="">District</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 30%;">
+                <label
+                  for="inputAddress"
+                  class="col-form-label ms-3 mb-2"
+                >Detailed address (*)</label>
+              </td>
+              <td>
+                <input
+                  type="text"
+                  id="inputAddress"
+                  name="inputAddress"
+                  class="form-control ms-5"
+                  required
+                />
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><button
+                  type="submit"
+                  class="btn updateButton fs-4 mt-3 ms-5"
+                  style="background-color: #86A789; color: #fff;"
+                >Update</button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script
+  src="https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js"
+></script>
+<script>
+  $(() => { if (address_2 = localStorage.getItem('address_2_saved')) {
+  $('select[name="calc_shipping_district"] option').each(function () { if
+  ($(this).text() == address_2) { $(this).attr('selected', '') } })
+  $('input.billing_address_2').attr('value', address_2) } if (district =
+  localStorage.getItem('district')) {
+  $('select[name="calc_shipping_district"]').html(district)
+  $('select[name="calc_shipping_district"]').on('change', function () { var
+  target = $(this).children('option:selected') target.attr('selected', '')
+  $('select[name="calc_shipping_district"]
+  option').not(target).removeAttr('selected') address_2 = target.text()
+  $('input.billing_address_2').attr('value', address_2) district =
+  $('select[name="calc_shipping_district"]').html()
+  localStorage.setItem('district', district)
+  localStorage.setItem('address_2_saved', address_2) }) }
+  $('select[name="calc_shipping_provinces"]').each(function () { var $this =
+  $(this), stc = '' c.forEach(function (i, e) { e += +1 stc += '<option value='
+  + e + '>' + i + '</option>' $this.html('<option value="">Province / City
+  </option>' + stc) if (address_1 = localStorage.getItem('address_1_saved')) {
+  $('select[name="calc_shipping_provinces"] option').each(function () { if
+  ($(this).text() == address_1) { $(this).attr('selected', '') } })
+  $('input.billing_address_1').attr('value', address_1) } $this.on('change',
+  function (i) { i = $this.children('option:selected').index() - 1 var str = '',
+  r = $this.val() if (r != '') { arr[i].forEach(function (el) { str += '<option
+  value="' + el + '">' + el + '</option>'
+  $('select[name="calc_shipping_district"]').html('<option
+  value="">District</option>' + str) }) var address_1 =
+  $this.children('option:selected').text() var district =
+  $('select[name="calc_shipping_district"]').html()
+  localStorage.setItem('address_1_saved', address_1)
+  localStorage.setItem('district', district)
+  $('select[name="calc_shipping_district"]').on('change', function () { var
+  target = $(this).children('option:selected') target.attr('selected', '')
+  $('select[name="calc_shipping_district"]
+  option').not(target).removeAttr('selected') var address_2 = target.text()
+  $('input.billing_address_2').attr('value', address_2) district =
+  $('select[name="calc_shipping_district"]').html()
+  localStorage.setItem('district', district)
+  localStorage.setItem('address_2_saved', address_2) }) } else {
+  $('select[name="calc_shipping_district"]').html('<option
+  value="">District</option>') district =
+  $('select[name="calc_shipping_district"]').html()
+  localStorage.setItem('district', district)
+  localStorage.removeItem('address_1_saved', address_1) } }) }) })
+  $('form').submit(function (e) { e.preventDefault(); // check use let regex =
+  /[^a-zA-ZÀ-ỹ\s]/; $('#nameErr').html(regex.test($('#inputName').val()) ? 'The
+  name consists of only letters' : ''); regex = /\D/
+  $('#phoneNumErr').html(regex.test($('#inputPhoneNumber').val()) ? 'The phone
+  number consists of only digits' : ''); if ($('#nameErr').html() == '' &&
+  $('#phoneNumErr').html() == ''){ //console.log('gui submit');
+  //$('form').submit(); } }); });
+</script>
