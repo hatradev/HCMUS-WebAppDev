@@ -7,7 +7,7 @@ require("dotenv").config();
 
 database.connect();
 const port = process.env.AUX_PORT || 5001;
-const host = process.env.HOST || "127.0.0.1";
+const host = process.env.HOST || "0.0.0.0";
 
 const server = https.createServer(
   {
